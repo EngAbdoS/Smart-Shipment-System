@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/app/app_preferances.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 
+import '../presentation/resources/theme_manager.dart';
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -28,7 +30,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
     // initialRoute: Routes.splashRoute,
-    // theme: getAppTheme(),
+    theme: getAppTheme(),
     );
   }
 }
