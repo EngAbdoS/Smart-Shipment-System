@@ -14,7 +14,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   final AppPreferences _appPreferences = instance<AppPreferences>();
 
   @override
@@ -30,9 +29,9 @@ class _MyAppState extends State<MyApp> {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-    // initialRoute: Routes.splashRoute,
-        routerConfig: AppRouter.router,
-    theme: getAppTheme(),
+      // initialRoute: Routes.splashRoute,
+      routerConfig: AppRouter.router,
+      theme: getAppTheme(),
     );
   }
 }

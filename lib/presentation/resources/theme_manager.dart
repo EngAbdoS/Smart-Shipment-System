@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/font_manager.dart';
@@ -7,9 +6,10 @@ import 'package:smart_shipment_system/presentation/resources/values_manager.dart
 
 ThemeData getAppTheme() {
   return ThemeData(
+    scaffoldBackgroundColor: ColorManager.offWhite,
     primaryColor: ColorManager.primary,
     //primaryColorLight: ColorManager.lightPrimary,
-   // primaryColorDark: ColorManager.darkPrimary,
+    // primaryColorDark: ColorManager.darkPrimary,
     disabledColor: ColorManager.gray,
     splashColor: ColorManager.offWhite,
     cardTheme: CardTheme(
@@ -39,15 +39,15 @@ ThemeData getAppTheme() {
           color: ColorManager.white,
           fontSize: FontSize.s17,
         ),
-       // primary: ColorManager.primary,
+        // primary: ColorManager.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSize.s12),
         ),
       ),
     ),
     textTheme: TextTheme(
-      headlineLarge: getSemiBoldStyle(
-          color: ColorManager.primary, fontSize: FontSize.s16),
+      headlineLarge:
+          getSemiBoldStyle(color: ColorManager.primary, fontSize: FontSize.s16),
       headlineMedium:
           getRegularStyle(color: ColorManager.darkGray, fontSize: FontSize.s14),
       titleLarge:
@@ -60,7 +60,8 @@ ThemeData getAppTheme() {
           getBoldStyle(color: ColorManager.primary, fontSize: FontSize.s14),
       bodyLarge: getRegularStyle(color: ColorManager.gray),
       bodySmall: getRegularStyle(color: ColorManager.gray),
-      bodyMedium: getRegularStyle(color: ColorManager.darkGray,fontSize: FontSize.s12),
+      bodyMedium:
+          getRegularStyle(color: ColorManager.darkGray, fontSize: FontSize.s12),
       displayLarge: getSemiBoldStyle(
           color: ColorManager.darkGray, fontSize: FontSize.s16),
     ),
