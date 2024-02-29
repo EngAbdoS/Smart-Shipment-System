@@ -12,7 +12,7 @@ class ColorManager
   static Color darkGreen =const Color(0xff78B159);
   static Color lightGreen =const Color(0xff2AD352);
   static Color error=const Color(0xffDB3A3C);
-
+static Color shadowColor=const Color(0xffBBB5B5);
 
 
 }

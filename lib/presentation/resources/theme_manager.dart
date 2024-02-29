@@ -1,0 +1,102 @@
+
+import 'package:flutter/material.dart';
+import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
+import 'package:smart_shipment_system/presentation/resources/font_manager.dart';
+import 'package:smart_shipment_system/presentation/resources/styles_manager.dart';
+import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
+
+ThemeData getAppTheme() {
+  return ThemeData(
+    primaryColor: ColorManager.primary,
+    //primaryColorLight: ColorManager.lightPrimary,
+   // primaryColorDark: ColorManager.darkPrimary,
+    disabledColor: ColorManager.gray,
+    splashColor: ColorManager.offWhite,
+    cardTheme: CardTheme(
+      color: ColorManager.white,
+      shadowColor: ColorManager.gray,
+      elevation: AppSize.s4,
+    ),
+    appBarTheme: AppBarTheme(
+      centerTitle: true,
+      color: ColorManager.primary,
+      elevation: AppSize.s4,
+      shadowColor: ColorManager.shadowColor,
+      titleTextStyle: getRegularStyle(
+        color: ColorManager.white,
+        fontSize: FontSize.s16,
+      ),
+    ),
+    buttonTheme: ButtonThemeData(
+      shape: const StadiumBorder(),
+      disabledColor: ColorManager.gray,
+      buttonColor: ColorManager.primary,
+      splashColor: ColorManager.offWhite,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        textStyle: getRegularStyle(
+          color: ColorManager.white,
+          fontSize: FontSize.s17,
+        ),
+       // primary: ColorManager.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSize.s12),
+        ),
+      ),
+    ),
+    textTheme: TextTheme(
+      headlineLarge: getSemiBoldStyle(
+          color: ColorManager.primary, fontSize: FontSize.s16),
+      headlineMedium:
+          getRegularStyle(color: ColorManager.darkGray, fontSize: FontSize.s14),
+      titleLarge:
+          getMediumStyle(color: ColorManager.lightGray, fontSize: AppSize.s14),
+      titleMedium:
+          getMediumStyle(color: ColorManager.primary, fontSize: FontSize.s16),
+      titleSmall:
+          getRegularStyle(color: ColorManager.white, fontSize: FontSize.s20),
+      labelSmall:
+          getBoldStyle(color: ColorManager.primary, fontSize: FontSize.s14),
+      bodyLarge: getRegularStyle(color: ColorManager.gray),
+      bodySmall: getRegularStyle(color: ColorManager.gray),
+      bodyMedium: getRegularStyle(color: ColorManager.darkGray,fontSize: FontSize.s12),
+      displayLarge: getSemiBoldStyle(
+          color: ColorManager.darkGray, fontSize: FontSize.s16),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      contentPadding: const EdgeInsets.all(AppPadding.p8),
+      hintStyle:
+          getRegularStyle(color: ColorManager.gray, fontSize: FontSize.s14),
+      labelStyle:
+          getMediumStyle(color: ColorManager.gray, fontSize: FontSize.s14),
+      errorStyle: getRegularStyle(color: ColorManager.error),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: ColorManager.gray, width: AppSize.s1_5),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(AppSize.s8),
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide:
+            BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(AppSize.s8),
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: ColorManager.error, width: AppSize.s1_5),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(AppSize.s8),
+        ),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide:
+            BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(AppSize.s8),
+        ),
+      ),
+    ),
+  );
+}
