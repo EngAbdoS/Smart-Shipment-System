@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/app/app_preferances.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
+import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 
 import '../presentation/resources/theme_manager.dart';
 
@@ -24,12 +25,13 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
     // initialRoute: Routes.splashRoute,
+        routerConfig: AppRouter.router,
     theme: getAppTheme(),
     );
   }
