@@ -4,11 +4,54 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../presentation/resources/language_manager.dart';
 
 const String PREFS_KEY_LANG = "PREFS_KEY_LANG";
+const String PREFS_KEY_ONBOARDING_SCREEN_VIEWED =
+    "PREFS_KEY_ONBOARDING_SCREEN_VIEWED";
+const String PREFS_KEY_IS_USER_LOGGED_IN = "PREFS_KEY_IS_USER_LOGGED_IN";
+const String PREFS_KEY_USER_ROLE = "PREFS_KEY_USER_ROLE";
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
 
   AppPreferences(this._sharedPreferences);
+
+  ///////////////////user role////////////////////////
+
+  setUserRole(String userRole) {
+    _sharedPreferences.setString(PREFS_KEY_USER_ROLE, userRole);
+  }
+
+  getUserRole() {
+    return _sharedPreferences.getString(PREFS_KEY_USER_ROLE);
+  }
+
+  removeUserRole() {
+    _sharedPreferences.remove(PREFS_KEY_USER_ROLE);
+  }
+
+///////////////////logged in////////////////////////
+
+  setLoggedIn() {
+    _sharedPreferences.setBool(PREFS_KEY_IS_USER_LOGGED_IN, true);
+  }
+
+  bool isLoggedIn() {
+    return _sharedPreferences.getBool(PREFS_KEY_IS_USER_LOGGED_IN) ?? false;
+  }
+
+  logout() {
+    _sharedPreferences.remove(PREFS_KEY_IS_USER_LOGGED_IN);
+  }
+
+///////////////////on boarding////////////////////////
+
+  setOnBoardingScreenViewed() {
+    _sharedPreferences.setBool(PREFS_KEY_ONBOARDING_SCREEN_VIEWED, true);
+  }
+
+  bool isOnBoardingScreenViewed() {
+    return _sharedPreferences.getBool(PREFS_KEY_ONBOARDING_SCREEN_VIEWED) ??
+        false;
+  }
 
 ///////////////////localization////////////////////////
 
