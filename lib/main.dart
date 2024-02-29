@@ -1,22 +1,18 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:smart_shipment_system/app/App.dart';
+import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'app/dependancy_injection.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
 
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home:Text(""),
-    );
-  }
+  await initAppModule();
+  runApp(EasyLocalization(
+      supportedLocales: const [ARABIC_LOCAL, ENGLISH_LOCAL],
+      path: ASSET_PATH_LOCALISATION,
+      child: Phoenix(child: const MyApp())));
 }
