@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
+import 'package:smart_shipment_system/presentation/splachScreen/splash_screen_view.dart';
 
 class Routes {
   static const String splashRoute = "/";
@@ -21,7 +22,26 @@ abstract class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           transitionDuration: const Duration(milliseconds: 300),
           key: state.pageKey,
-          child: Container(), // const SplashView(),
+          child: SplashScreenView(), // const SplashView(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              FadeTransition(opacity: animation, child: child),
+        ),
+      ),
+      GoRoute(
+        path: Routes.onBoardingViewRoute,
+        //builder: (context, state) => const SplashView(),
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
+          transitionDuration: const Duration(milliseconds: 300),
+          key: state.pageKey,
+          child: Container(
+            color: Colors.red,
+            child: const Center(
+              child: Text(
+                "ohhh",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ), // const SplashView(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               FadeTransition(opacity: animation, child: child),
         ),

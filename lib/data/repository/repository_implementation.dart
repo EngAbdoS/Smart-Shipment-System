@@ -19,7 +19,7 @@ class RepositoryImplementation implements Repository {
 //handle in local domain
 
     if (!_localDataSource.isOnBoardingViewed()) {
-      return const Right(Routes.splashRoute);
+      return const Right(Routes.onBoardingViewRoute);
     } else {
       if (_localDataSource.isUserLoggedIn()) {
         if (_localDataSource.getUserRole() == AppConstants.userRoleClient) {

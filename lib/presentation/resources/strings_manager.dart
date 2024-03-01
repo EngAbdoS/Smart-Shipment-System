@@ -1,5 +1,8 @@
 class AppStrings {
   static const noRouteFound = "noRouteFound";
+  static const tripleS="triple_s";
+  static const smartShipmentSystem="Smart_Shipment_System";
+
   static const onBoardingTitle1 = "on_boarding_title1";
   static const onBoardingTitle2 = "on_boarding_title2";
   static const onBoardingTitle3 = "on_boarding_title3";
