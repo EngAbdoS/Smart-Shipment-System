@@ -1,3 +1,4 @@
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:smart_shipment_system/app/app_preferances.dart';
+import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
@@ -19,6 +22,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class OnBoardingView extends StatelessWidget {
   OnBoardingView({super.key});
 
+  final AppPreferences _appPreferences = instance<AppPreferences>();
   static final List<String> onBoardingTitles = [
     AppStrings.onBoardingTitle1,
     AppStrings.onBoardingTitle2,
@@ -45,28 +49,29 @@ class OnBoardingView extends StatelessWidget {
       );
 
   _nextPage() {
-    print("next");
     if (onBoardingPageController.hasClients) {
       onBoardingPageController.nextPage(
           duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
     }
   }
 
+  _navigate(BuildContext context) {
+    _appPreferences.setOnBoardingScreenViewed();
+    GoRouter.of(context).pushReplacement(Routes.authViewRoute);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //floatingActionButton: floatingWidgets(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
-
           children: [
-            Align(
-                alignment: Alignment.topRight,
-                child: SkipButton()),
+            Align(alignment: Alignment.topRight, child: skipButton(context)),
             SizedBox(
               height: 715,
               child: PageView.builder(
@@ -82,32 +87,31 @@ class OnBoardingView extends StatelessWidget {
                 },
               ),
             ),
-            Align(
-                alignment: Alignment.topCenter,
-                child: dotsIndicatorWidget())
+            Align(alignment: Alignment.topCenter, child: dotsIndicatorWidget())
           ],
         ),
       ),
     );
   }
 
-  Widget floatingWidgets() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Align(
-          alignment: Alignment.topRight,
-          child: SkipButton(),
-        ),
-        const Spacer(),
-        Align(alignment: Alignment.bottomCenter, child: dotsIndicatorWidget()),
-      ],
-    );
-  }
+  // Widget floatingWidgets() {
+  //   return Column(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: [
+  //       const Align(
+  //         alignment: Alignment.topRight,
+  //         child: SkipButton(),
+  //       ),
+  //       const Spacer(),
+  //       Align(alignment: Alignment.bottomCenter, child: dotsIndicatorWidget()),
+  //     ],
+  //   );
+  // }
 
   Widget dotsIndicatorWidget() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: AppPadding.p20 * 4.5,top: AppPadding.p20*3.5),
+      padding: const EdgeInsets.only(
+          bottom: AppPadding.p20 * 4.5, top: AppPadding.p20 * 3.5),
       child: SmoothPageIndicator(
         controller: onBoardingPageController,
         count: onBoardingTitles.length,
@@ -130,16 +134,19 @@ class OnBoardingView extends StatelessWidget {
           padding: index == 0
               ? const EdgeInsets.only(left: AppPadding.p20)
               : index == 2
-                  ? const EdgeInsets.only(right: AppPadding.p20,top: AppPadding.p20*.5)
+                  ? const EdgeInsets.only(
+                      right: AppPadding.p20, top: AppPadding.p20 * .5)
                   : EdgeInsets.zero,
           child: Stack(
             children: [
               SvgPicture.asset(
-                 color: ColorManager.primary,
-
+                color: ColorManager.primary,
                 onBoardingBKs[index],
-
-                width: index == 0 ? width:index==2?width-20: width + 20,
+                width: index == 0
+                    ? width
+                    : index == 2
+                        ? width - 20
+                        : width + 20,
               ),
               Container(
                   padding: const EdgeInsets.only(right: AppPadding.p20),
@@ -158,8 +165,7 @@ class OnBoardingView extends StatelessWidget {
           height: AppSize.s14 * 2,
         ),
         Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: AppPadding.p20 * 2.5),
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20 * 2.5),
           child: Text(
             onBoardingDetails[index],
             style: Theme.of(context).textTheme.titleSmall,
@@ -169,8 +175,7 @@ class OnBoardingView extends StatelessWidget {
           height: AppSize.s14 * 2,
         ),
         Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: AppPadding.p20 * 2.5),
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20 * 2.5),
           child: index != 2
               ? CircularButton(
                   buttonAction: _nextPage,
@@ -182,8 +187,7 @@ class OnBoardingView extends StatelessWidget {
                   width: WidgetsValues.regularButtonWidthMedium,
                   height: WidgetsValues.regularButtonHeight,
                   child: RegularButton(
-                    buttonAction: () => GoRouter.of(context)
-                        .pushReplacement(Routes.authViewRoute),
+                    buttonAction: () => _navigate(context),
                     buttonWidget: Text(
                       AppStrings.startShipping,
                       style: Theme.of(context).textTheme.bodyLarge,
@@ -196,24 +200,36 @@ class OnBoardingView extends StatelessWidget {
       ],
     );
   }
-}
 
-class SkipButton extends StatelessWidget {
-  const SkipButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget skipButton(BuildContext context) {
     return Padding(
       padding:
           const EdgeInsets.only(right: AppPadding.p22, top: AppPadding.p22 * 3),
       child: TextButton(
-          onPressed: () =>
-              GoRouter.of(context).pushReplacement(Routes.authViewRoute),
+          onPressed: () => _navigate(context),
           child: Text(
             AppStrings.skip,
             style: Theme.of(context).textTheme.bodySmall,
           ).tr()),
     );
-    ;
   }
 }
+
+// class SkipButton extends StatelessWidget {
+//   const SkipButton({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding:
+//           const EdgeInsets.only(right: AppPadding.p22, top: AppPadding.p22 * 3),
+//       child: TextButton(
+//           onPressed: () =>_navigate(),
+//           child: Text(
+//             AppStrings.skip,
+//             style: Theme.of(context).textTheme.bodySmall,
+//           ).tr()),
+//     );
+//     ;
+//   }
+// }
