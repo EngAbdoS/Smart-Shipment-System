@@ -55,16 +55,20 @@ class OnBoardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: floatingWidgets(),
+      //floatingActionButton: floatingWidgets(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
+
           children: [
-            Container(
-              height: 1000,
+            Align(
+                alignment: Alignment.topRight,
+                child: SkipButton()),
+            SizedBox(
+              height: 715,
               child: PageView.builder(
                 // physics: NeverScrollableScrollPhysics()
                 allowImplicitScrolling: true,
@@ -78,6 +82,9 @@ class OnBoardingView extends StatelessWidget {
                 },
               ),
             ),
+            Align(
+                alignment: Alignment.topCenter,
+                child: dotsIndicatorWidget())
           ],
         ),
       ),
@@ -100,7 +107,7 @@ class OnBoardingView extends StatelessWidget {
 
   Widget dotsIndicatorWidget() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: AppPadding.p20 * 2.7),
+      padding: const EdgeInsets.only(bottom: AppPadding.p20 * 4.5,top: AppPadding.p20*3.5),
       child: SmoothPageIndicator(
         controller: onBoardingPageController,
         count: onBoardingTitles.length,
@@ -117,80 +124,76 @@ class OnBoardingView extends StatelessWidget {
   }
 
   Widget onBoardingWidget(BuildContext context, int index, double width) {
-    return Padding(
-      padding: const EdgeInsets.only(top: AppPadding.p20 * 3.5),
-      child: Column(
-        children: [
-          Container(
-            padding: index == 0
-                ? const EdgeInsets.only(left: AppPadding.p20)
-                : index == 2
-                    ? const EdgeInsets.only(right: AppPadding.p20)
-                    : EdgeInsets.zero,
-            child: Stack(
-              children: [
-                SvgPicture.asset(
-                  // color: ColorManager.primary,
+    return Column(
+      children: [
+        Container(
+          padding: index == 0
+              ? const EdgeInsets.only(left: AppPadding.p20)
+              : index == 2
+                  ? const EdgeInsets.only(right: AppPadding.p20,top: AppPadding.p20*.5)
+                  : EdgeInsets.zero,
+          child: Stack(
+            children: [
+              SvgPicture.asset(
+                 color: ColorManager.primary,
 
-                  onBoardingBKs[index],
-                  width: index != 1 ? width : width + 20,
-                ),
-                Container(
-                    padding: const EdgeInsets.only(right: AppPadding.p20),
-                    height: 280,
-                    width: 280,
-                    child: Lottie.asset(onBoardingPics[index],
-                        fit: BoxFit.cover, alignment: Alignment.topLeft))
-              ],
-            ),
+                onBoardingBKs[index],
+
+                width: index == 0 ? width:index==2?width-20: width + 20,
+              ),
+              Container(
+                  padding: const EdgeInsets.only(right: AppPadding.p20),
+                  height: 280,
+                  width: 280,
+                  child: Lottie.asset(onBoardingPics[index],
+                      fit: BoxFit.cover, alignment: Alignment.topLeft))
+            ],
           ),
-          Text(
-            onBoardingTitles[index],
-            style: Theme.of(context).textTheme.titleMedium,
+        ),
+        Text(
+          onBoardingTitles[index],
+          style: Theme.of(context).textTheme.titleMedium,
+        ).tr(),
+        const SizedBox(
+          height: AppSize.s14 * 2,
+        ),
+        Padding(
+          padding:
+              const EdgeInsets.symmetric(horizontal: AppPadding.p20 * 2.5),
+          child: Text(
+            onBoardingDetails[index],
+            style: Theme.of(context).textTheme.titleSmall,
           ).tr(),
-          const SizedBox(
-            height: AppSize.s14 * 2,
-          ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: AppPadding.p20 * 2.5),
-            child: Text(
-              onBoardingDetails[index],
-              style: Theme.of(context).textTheme.titleSmall,
-            ).tr(),
-          ),
-          const SizedBox(
-            height: AppSize.s14 * 2,
-          ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: AppPadding.p20 * 2.5),
-            child: index != 2
-                ? CircularButton(
-                    buttonAction: _nextPage,
-                    buttonWidget: SvgPicture.asset(
-                      IconAssets.arrowRight,
-                      color: ColorManager.black,
-                    ))
-                : SizedBox(
-                    width: WidgetsValues.regularButtonWidthMedium,
-                    height: WidgetsValues.regularButtonHeight,
-                    child: RegularButton(
-                      buttonAction: () => GoRouter.of(context)
-                          .pushReplacement(Routes.authViewRoute),
-                      buttonWidget: Text(
-                        AppStrings.startShipping,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ).tr(),
-                    ),
+        ),
+        const SizedBox(
+          height: AppSize.s14 * 2,
+        ),
+        Padding(
+          padding:
+              const EdgeInsets.symmetric(horizontal: AppPadding.p20 * 2.5),
+          child: index != 2
+              ? CircularButton(
+                  buttonAction: _nextPage,
+                  buttonWidget: SvgPicture.asset(
+                    IconAssets.arrowRight,
+                    color: ColorManager.black,
+                  ))
+              : SizedBox(
+                  width: WidgetsValues.regularButtonWidthMedium,
+                  height: WidgetsValues.regularButtonHeight,
+                  child: RegularButton(
+                    buttonAction: () => GoRouter.of(context)
+                        .pushReplacement(Routes.authViewRoute),
+                    buttonWidget: Text(
+                      AppStrings.startShipping,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ).tr(),
                   ),
-          ),
-          const SizedBox(
-            height: AppSize.s100 * 1.8,
-          ),
-          //button
-        ],
-      ),
+                ),
+        ),
+
+        //button
+      ],
     );
   }
 }
