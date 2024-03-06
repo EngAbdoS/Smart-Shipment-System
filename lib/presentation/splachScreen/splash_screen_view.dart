@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
@@ -22,20 +23,22 @@ class SplashScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     startTiming();
-    return AnimatedSplashScreen.withScreenFunction(
-      splashTransition: SplashTransition.scaleTransition,
-      pageTransitionType: PageTransitionType.bottomToTop,
-      splash: const SplashWidget(),
-      splashIconSize: 300,
-      duration: 50000,
-      backgroundColor: ColorManager.offWhite,
-      screenFunction: () async {
-        nextNavigation(context);
-        return Container(
-          color: Colors.black12,
-          child: const Text("a7a"),
-        );
-      },
+    return Scaffold(
+      body: AnimatedSplashScreen.withScreenFunction(
+        splashTransition: SplashTransition.scaleTransition,
+        pageTransitionType: PageTransitionType.bottomToTop,
+        splash: const SplashWidget(),
+        splashIconSize: 300,
+        duration: 50000,
+        backgroundColor: ColorManager.offWhite,
+        screenFunction: () async {
+          nextNavigation(context);
+          return Container(
+            color: Colors.black12,
+            child: const Text("a7a"),
+          );
+        },
+      ),
     );
   }
 
@@ -47,7 +50,7 @@ class SplashScreenView extends StatelessWidget {
                 () => GoRouter.of(context).pushReplacement(Routes.noRoute)),
         (route) => moreThanThereSeconds
             ? GoRouter.of(context).pushReplacement(route)
-            : Future.delayed(const Duration(seconds: 2),
+            : Future.delayed(const Duration(seconds: 2   ),
                 () => GoRouter.of(context).pushReplacement(route)));
   }
 
@@ -71,25 +74,38 @@ class SplashWidget extends StatelessWidget {
         Expanded(
           child: ClipRect(
             child: SvgPicture.asset(
-                height: AppSize.s100 * 3,
-                width: AppSize.s100 * 1.66,
+                height: AppSize.s100 * 6,
+              //  width: AppSize.s100 * 1.66,
                 SVGAssets.logoSVG),
           ),
         ),
         const SizedBox(
           height: AppSize.s20*1.5,
         ),
-        Text(
-          AppStrings.tripleS,
-          style: Theme.of(context).textTheme.headlineLarge,
-        ).tr(),
-        const SizedBox(
-          height: AppSize.s18,
+        Expanded(
+          child: ClipRect(
+            child:
+             Image.asset(ImageAssets.tripleS
+             ,width: AppSize.s100 * 1.66,
+             ),
+            // SvgPicture.asset(
+            //   excludeFromSemantics: true,
+            //     height: AppSize.s100 * 3,
+            //     width: AppSize.s100 * 1.66,
+            //     SVGAssets.tripleS),
+          ),
         ),
-        Text(
-          AppStrings.smartShipmentSystem,
-          style: Theme.of(context).textTheme.headlineLarge,
-        ).tr()
+        // Text(
+        //   AppStrings.tripleS,
+        //   style: Theme.of(context).textTheme.headlineLarge,
+        // ).tr(),
+        // const SizedBox(
+        //   height: AppSize.s18,
+        // ),
+        // Text(
+        //   AppStrings.smartShipmentSystem,
+        //   style: Theme.of(context).textTheme.headlineLarge,
+        // ).tr()
       ],
     );
   }

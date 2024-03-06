@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/font_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/styles_manager.dart';
@@ -8,6 +9,7 @@ ThemeData getAppTheme() {
   return ThemeData(
     scaffoldBackgroundColor: ColorManager.offWhite,
     primaryColor: ColorManager.primary,
+
     //primaryColorLight: ColorManager.lightPrimary,
     // primaryColorDark: ColorManager.darkPrimary,
     disabledColor: ColorManager.gray,
@@ -18,6 +20,12 @@ ThemeData getAppTheme() {
       elevation: AppSize.s4,
     ),
     appBarTheme: AppBarTheme(
+      systemOverlayStyle: const SystemUiOverlayStyle(
+         statusBarColor: Colors.transparent,
+        //statusBarBrightness: Brightness.light,
+     // systemStatusBarContrastEnforced: true,
+       //statusBarIconBrightness: Brightness.dark
+      ),
       centerTitle: true,
       color: ColorManager.primary,
       elevation: AppSize.s4,
@@ -53,13 +61,13 @@ ThemeData getAppTheme() {
       titleLarge:
           getMediumStyle(color: ColorManager.lightGray, fontSize: AppSize.s14),
       titleMedium:
-          getMediumStyle(color: ColorManager.primary, fontSize: FontSize.s16),
+          getSemiBoldStyle(color: ColorManager.black, fontSize: FontSize.s14),
       titleSmall:
-          getRegularStyle(color: ColorManager.white, fontSize: FontSize.s20),
+          getRegularStyle(color: ColorManager.black, fontSize: FontSize.s12),
       labelSmall:
           getBoldStyle(color: ColorManager.primary, fontSize: FontSize.s14),
-      bodyLarge: getRegularStyle(color: ColorManager.gray),
-      bodySmall: getRegularStyle(color: ColorManager.gray),
+      bodyLarge: getRegularStyle(color: ColorManager.black,fontSize: FontSize.s14),
+      bodySmall: getSemiBoldStyle(color: ColorManager.gray,fontSize: FontSize.s12),
       bodyMedium:
           getRegularStyle(color: ColorManager.darkGray, fontSize: FontSize.s12),
       displayLarge: getSemiBoldStyle(

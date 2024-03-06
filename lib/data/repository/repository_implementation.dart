@@ -29,7 +29,7 @@ class RepositoryImplementation implements Repository {
           return const Right(Routes.deliveryHomeRoute);
         }
       } else {
-        return const Right(Routes.loginViewRoute);
+        return const Right(Routes.authViewRoute);
       }
     }
     return const Right(Routes.noRoute);

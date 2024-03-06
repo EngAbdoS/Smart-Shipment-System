@@ -2,16 +2,15 @@ class AppStrings {
   static const noRouteFound = "noRouteFound";
   static const tripleS="triple_s";
   static const smartShipmentSystem="Smart_Shipment_System";
-
   static const onBoardingTitle1 = "on_boarding_title1";
   static const onBoardingTitle2 = "on_boarding_title2";
   static const onBoardingTitle3 = "on_boarding_title3";
-  static const onBoardingTitle4 = "on_boarding_title4";
-  static const onBoardingSubTitle1 = "on_boarding_desc1";
-  static const onBoardingSubTitle2 = "on_boarding_desc2";
-  static const onBoardingSubTitle3 = "on_boarding_desc3";
-  static const onBoardingSubTitle4 = "on_boarding_desc4";
+  static const onBoardingSubDesc1 = "on_boarding_desc1";
+  static const onBoardingSubDesc2 = "on_boarding_desc2";
+  static const onBoardingSubDesc3 = "on_boarding_desc3";
   static const skip = "skip";
+  static const startShipping = "start_shipping";
+
   static const username = "username_hint";
   static const password = "password_hint";
   static const usernameError = "username_error";

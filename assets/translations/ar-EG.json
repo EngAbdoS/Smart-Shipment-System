@@ -2,16 +2,15 @@
   "no_route_found": "لا توجد شاشه",
   "triple_s": "تريبل S",
   "Smart Shipment System": "نظام الشحن الزكي",
-
   "on_boarding_title1": "شاهد افضل كورس #١",
   "on_boarding_title2": "شاهد افضل كورس #٢",
   "on_boarding_title3": "شاهد افضل كورس #٣",
-  "on_boarding_title4": "شاهد افضل كورس #٤",
   "on_boarding_desc1": "تطبيق توت يكون تطبيق رائع باستخدام اساس منظم #١",
   "on_boarding_desc2": "تطبيق توت يكون تطبيق رائع باستخدام اساس منظم #٢",
   "on_boarding_desc3": "تطبيق توت يكون تطبيق رائع باستخدام اساس منظم #٣",
-  "on_boarding_desc4": "تطبيق توت يكون تطبيق رائع باستخدام اساس منظم #٤",
   "skip": "تخطي",
+  "start_shipping": "بدأ الشحن",
+
   "invalid_password": "يجب أن تتكون كلمة المرور من 8 أحرف مع حرف واحد كبير وحرف صغير وحرف رقمي واحد على الأقل",
   "username_hint": "اسم المستخدم",
   "password_hint": "كلمه السر",

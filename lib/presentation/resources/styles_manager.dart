@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/presentation/resources/font_manager.dart';
 
 TextStyle _getTextStyle(double fontSize, FontWeight fontWeight, Color color) {
+
   return TextStyle(
       fontWeight: fontWeight,
       fontSize: fontSize,

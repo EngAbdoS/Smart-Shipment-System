@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
+import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/splachScreen/splash_screen_view.dart';
 
@@ -10,6 +12,7 @@ class Routes {
   static const String clientHomeRoute = "/clientHome";
   static const String onBoardingViewRoute = "/onBoardingView";
   static const String loginViewRoute = "/loginView";
+  static const String authViewRoute = "/authView";
   static const String registerViewRoute = "/registerView";
 }
 
@@ -31,17 +34,34 @@ abstract class AppRouter {
         path: Routes.onBoardingViewRoute,
         //builder: (context, state) => const SplashView(),
         pageBuilder: (context, state) => CustomTransitionPage<void>(
+          transitionDuration: const Duration(milliseconds: 1000),
+          key: state.pageKey,
+          child: OnBoardingView(), // const SplashView(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              FadeTransition(opacity: animation, child: child),
+        ),
+      ),
+      GoRoute(
+        path: Routes.onBoardingViewRoute,
+        //builder: (context, state) => const SplashView(),
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
           transitionDuration: const Duration(milliseconds: 300),
           key: state.pageKey,
           child: Container(
             color: Colors.red,
-            child: const Center(
-              child: Text(
-                "ohhh",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
           ), // const SplashView(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              FadeTransition(opacity: animation, child: child),
+        ),
+      ),    GoRoute(
+        path: Routes.authViewRoute,
+        //builder: (context, state) => const SplashView(),
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
+          transitionDuration: const Duration(milliseconds: 300),
+          key: state.pageKey,
+          child: Container(
+            color: ColorManager.primary
+,child: Center(child: Text("الأوث يا غالي")),          ), // const SplashView(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               FadeTransition(opacity: animation, child: child),
         ),
