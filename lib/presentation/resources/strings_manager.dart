@@ -10,6 +10,9 @@ class AppStrings {
   static const onBoardingSubDesc3 = "on_boarding_desc3";
   static const skip = "skip";
   static const startShipping = "start_shipping";
+  static const whoAreYou = "Who_Are_You?";
+  static const client = "client";
+  static const delivery = "delivery";
 
   static const username = "username_hint";
   static const password = "password_hint";

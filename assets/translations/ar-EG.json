@@ -10,6 +10,9 @@
   "on_boarding_desc3": "تطبيق توت يكون تطبيق رائع باستخدام اساس منظم #٣",
   "skip": "تخطي",
   "start_shipping": "بدأ الشحن",
+  "Who_Are_You?": "Who Are You?",
+  "client": "Client",
+  "delivery": "Delivery",
 
   "invalid_password": "يجب أن تتكون كلمة المرور من 8 أحرف مع حرف واحد كبير وحرف صغير وحرف رقمي واحد على الأقل",
   "username_hint": "اسم المستخدم",

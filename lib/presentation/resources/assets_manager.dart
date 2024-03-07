@@ -7,7 +7,8 @@ class ImageAssets {
   // static const String splashLogo = "$IMAGE_PATH/splash_logo.png";
   static const String empty = "$IMAGE_PATH/empty.png";
   static const String tripleS = "$IMAGE_PATH/ts.png";
-
+  static const String delivery = "$IMAGE_PATH/delivery.png";
+  static const String client = "$IMAGE_PATH/client.png";
 
 }
 
@@ -22,6 +23,8 @@ class SVGAssets {
   static const String onBoardingBK2 = "$SVG_PATH/onB_bk_2.svg";
   static const String onBoardingBK3 = "$SVG_PATH/onB_bk_3.svg";
   static const String tripleS = "$SVG_PATH/ts.svg";
+  static const String delivery = "$SVG_PATH/delivery.svg";
+  static const String client = "$SVG_PATH/client.svg";
 
 
 }

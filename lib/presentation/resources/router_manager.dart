@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/authView/auth_view.dart';
 import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -59,9 +60,7 @@ abstract class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           transitionDuration: const Duration(milliseconds: 300),
           key: state.pageKey,
-          child: Container(
-            color: ColorManager.primary
-,child: Center(child: Text("الأوث يا غالي")),          ), // const SplashView(),
+          child: AuthenticationView(), // const SplashView(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               FadeTransition(opacity: animation, child: child),
         ),
