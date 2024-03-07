@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/authView/auth_view.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/clientAuth/client_auth_view.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/deliveryAuth/deliveryAuthView.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/authView/client_auth_view.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/authView/deliveryAuthView.dart';
 import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/splachScreen/splash_screen_view.dart';
@@ -34,7 +34,7 @@ abstract class AppRouter {
           transitionDuration: const Duration(
               milliseconds: AppConstants.transitionDurationMillySeconds),
           key: state.pageKey,
-          child: SplashScreenView(), // const SplashView(),
+          child: SplashScreenView(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               FadeTransition(opacity: animation, child: child),
         ),
@@ -44,7 +44,7 @@ abstract class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           transitionDuration: const Duration(milliseconds: 1000),
           key: state.pageKey,
-          child: OnBoardingView(), // const SplashView(),
+          child: OnBoardingView(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               FadeTransition(opacity: animation, child: child),
         ),
@@ -57,7 +57,7 @@ abstract class AppRouter {
           key: state.pageKey,
           child: Container(
             color: Colors.red,
-          ), // const SplashView(),
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               FadeTransition(opacity: animation, child: child),
         ),
@@ -68,7 +68,7 @@ abstract class AppRouter {
           transitionDuration: const Duration(
               milliseconds: AppConstants.transitionDurationMillySeconds),
           key: state.pageKey,
-          child: const AuthenticationView(), // const SplashView(),
+          child: const AuthenticationView(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               FadeTransition(opacity: animation, child: child),
         ),
@@ -79,7 +79,7 @@ abstract class AppRouter {
           transitionDuration: const Duration(
               milliseconds: AppConstants.transitionDurationMillySeconds),
           key: state.pageKey,
-          child: const DeliveryAuthView(), // const SplashView(),
+          child: const DeliveryAuthView(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               FadeTransition(opacity: animation, child: child),
         ),
@@ -90,7 +90,7 @@ abstract class AppRouter {
           transitionDuration: const Duration(
               milliseconds: AppConstants.transitionDurationMillySeconds),
           key: state.pageKey,
-          child: const ClientAuthView(), // const SplashView(),
+          child: const ClientAuthView(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               FadeTransition(opacity: animation, child: child),
         ),
@@ -108,7 +108,7 @@ abstract class AppRouter {
             body: const Center(
               child: Text(AppStrings.noRouteFound),
             ),
-          ), // const SplashView(),
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               FadeTransition(opacity: animation, child: child),
         ),
