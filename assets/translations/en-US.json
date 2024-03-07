@@ -13,6 +13,12 @@
   "Who_Are_You?": "Who Are You?",
 "client": "Client",
   "delivery": "Delivery",
+  "hello_delivery": "HELLO OUR DELIVARY !!",
+  "happy_delivery": "We are happy to be one of our family",
+  "sign_in": "Sign In",
+  "sign_up": "Sign Up",
+  "hello": "HELLO!!",
+  "ready_fast": "Are you ready for shipment your packaging fast ?",
 
   "invalid_password": "password is wrong",
   "username_hint": "UserName",

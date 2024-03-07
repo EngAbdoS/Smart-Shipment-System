@@ -13,6 +13,13 @@ class AppStrings {
   static const whoAreYou = "Who_Are_You?";
   static const client = "client";
   static const delivery = "delivery";
+  static const helloDelivery = "hello_delivery";
+  static const happyDelivery = "happy_delivery";
+   static const signIn ="sign_in";
+   static const signUn ="sign_up";
+   static const hello ="hello";
+   static const readyFast ="ready_fast";
+
 
   static const username = "username_hint";
   static const password = "password_hint";

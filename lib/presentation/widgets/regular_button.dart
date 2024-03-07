@@ -5,12 +5,13 @@ import 'package:smart_shipment_system/presentation/resources/values_manager.dart
 class RegularButton extends StatelessWidget {
   const RegularButton(
       {super.key,
-      this.buttonColor = ColorManager.primary,
+      this.buttonColor = ColorManager.primary,this.shadowColor=ColorManager.shadowColor,
       this.buttonWidth = 0,
       required this.buttonAction,
       required this.buttonWidget});
 
   final Color buttonColor;
+  final Color shadowColor;
   final int buttonWidth;
   final Widget buttonWidget;
   final GestureTapCallback buttonAction;
@@ -26,12 +27,12 @@ class RegularButton extends StatelessWidget {
             color: buttonColor,
             borderRadius:
                 BorderRadius.circular(WidgetsValues.regularButtonRadius),
-            boxShadow: const [
+            boxShadow:  [
               BoxShadow(
-                color: ColorManager.shadowColor,
+                color: shadowColor,
                 spreadRadius: 0,
                 blurRadius: 16,
-                offset: Offset(2, 8),
+                offset: const Offset(2, 8),
               )
             ]),
         child: buttonWidget,

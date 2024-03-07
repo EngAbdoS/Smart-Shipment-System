@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/authView/auth_view.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/clientAuth/client_auth_view.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/deliveryAuth/deliveryAuthView.dart';
 import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -14,7 +16,13 @@ class Routes {
   static const String onBoardingViewRoute = "/onBoardingView";
   static const String loginViewRoute = "/loginView";
   static const String authViewRoute = "/authView";
-  static const String registerViewRoute = "/registerView";
+  static const String deliveryAuthViewRoute = "/deliveryAuthView";
+  static const String deliveryRegistrationViewRoute = "/deliveryRegistrationView";
+  static const String deliveryLoginViewRoute = "/deliveryLoginView";
+  static const String clientAuthViewRoute = "/clientAuthView";
+  static const String clientRegistrationViewRoute = "/clientRegistrationView";
+  static const String clientLoginViewRoute = "/clientLoginView";
+
 }
 
 abstract class AppRouter {
@@ -22,7 +30,6 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: Routes.splashRoute,
-        //builder: (context, state) => const SplashView(),
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           transitionDuration: const Duration(milliseconds: 300),
           key: state.pageKey,
@@ -33,7 +40,6 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: Routes.onBoardingViewRoute,
-        //builder: (context, state) => const SplashView(),
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           transitionDuration: const Duration(milliseconds: 1000),
           key: state.pageKey,
@@ -44,7 +50,6 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: Routes.onBoardingViewRoute,
-        //builder: (context, state) => const SplashView(),
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           transitionDuration: const Duration(milliseconds: 300),
           key: state.pageKey,
@@ -56,7 +61,6 @@ abstract class AppRouter {
         ),
       ),    GoRoute(
         path: Routes.authViewRoute,
-        //builder: (context, state) => const SplashView(),
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           transitionDuration: const Duration(milliseconds: 300),
           key: state.pageKey,
@@ -65,6 +69,45 @@ abstract class AppRouter {
               FadeTransition(opacity: animation, child: child),
         ),
       ),
+
+      GoRoute(
+        path: Routes.deliveryAuthViewRoute,
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
+          transitionDuration: const Duration(milliseconds: 300),
+          key: state.pageKey,
+          child: DeliveryAuthView(), // const SplashView(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              FadeTransition(opacity: animation, child: child),
+        ),
+      ),
+
+      GoRoute(
+        path: Routes.clientAuthViewRoute,
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
+          transitionDuration: const Duration(milliseconds: 300),
+          key: state.pageKey,
+          child: ClientAuthView(), // const SplashView(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              FadeTransition(opacity: animation, child: child),
+        ),
+      ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       GoRoute(
         path: Routes.noRoute,
         //builder: (context, state) => const SplashView(),

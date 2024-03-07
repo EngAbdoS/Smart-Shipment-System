@@ -66,7 +66,7 @@ ThemeData getAppTheme() {
           getRegularStyle(color: ColorManager.black, fontSize: FontSize.s12),
       labelSmall:
           getBoldStyle(color: ColorManager.primary, fontSize: FontSize.s14),
-      bodyLarge: getRegularStyle(color: ColorManager.black,fontSize: FontSize.s14),
+      bodyLarge: getExtraBoldStyle(color: ColorManager.black,fontSize: FontSize.s14),
       bodySmall: getSemiBoldStyle(color: ColorManager.black,fontSize: FontSize.s12),
       bodyMedium:
           getRegularStyle(color: ColorManager.darkGray, fontSize: FontSize.s12),

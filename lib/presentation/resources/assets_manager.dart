@@ -9,6 +9,8 @@ class ImageAssets {
   static const String tripleS = "$IMAGE_PATH/ts.png";
   static const String delivery = "$IMAGE_PATH/delivery.png";
   static const String client = "$IMAGE_PATH/client.png";
+  static const String deliveryBike = "$IMAGE_PATH/delivery_bike.png";
+  static const String clientHappy = "$IMAGE_PATH/client_happy.png";
 
 }
 
@@ -25,6 +27,7 @@ class SVGAssets {
   static const String tripleS = "$SVG_PATH/ts.svg";
   static const String delivery = "$SVG_PATH/delivery.svg";
   static const String client = "$SVG_PATH/client.svg";
+  static const String authIll = "$SVG_PATH/auth_ill.svg";
 
 
 }

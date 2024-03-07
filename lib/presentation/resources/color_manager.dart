@@ -13,6 +13,7 @@ class ColorManager
   static const Color lightGreen =Color(0xff2AD352);
   static const Color error=Color(0xffDB3A3C);
   static const Color shadowColor=Color(0xffBBB5B5);
+  static const Color noColor=Color(0x00FFFFFF);
 
 
 }
