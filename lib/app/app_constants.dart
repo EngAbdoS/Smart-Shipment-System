@@ -7,5 +7,6 @@ class AppConstants
   static const int apiTimeOut=60000;
   static const String userRoleDelivery="USER_ROLE_DELIVERY";
   static const String userRoleClient="USER_ROLE_CLIENT";
+  static const int transitionDurationMillySeconds=300;
 
 }
