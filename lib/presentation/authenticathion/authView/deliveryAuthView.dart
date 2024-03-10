@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
+import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/regular_button.dart';
@@ -63,7 +65,7 @@ class DeliveryAuthView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   RegularButton(
-                    buttonAction: () {},
+                    buttonAction: () =>GoRouter.of(context).push(Routes.loginViewRoute),
                     buttonWidget: Text(
                       AppStrings.signIn,
                       style: Theme.of(context)

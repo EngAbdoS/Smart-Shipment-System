@@ -19,25 +19,27 @@ class AppStrings {
    static const signUn ="sign_up";
    static const hello ="hello";
    static const readyFast ="ready_fast";
-
-
+  static const welcomeLogin ="welcome_login";
+  static const doNotAcc ="doNotAcc";
   static const username = "username_hint";
   static const password = "password_hint";
   static const usernameError = "username_error";
   static const passwordError = "password_error";
+  static const String invalidEmail = "email_error";
   static const login = "login_button";
+  static const String emailHint = 'email_hint';
+  static const String passwordInvalid = "invalid_password";
+
+
   static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";
   static const loading = "loading";
   static const retryAgain = "retry_again";
   static const ok = "ok";
-  static const String emailHint = 'email_hint';
-  static const String invalidEmail = "email_error";
   static const String resetPassword = "reset_password";
   static const String success = "success";
   static const String userNameInvalid = "username_hint_message";
   static const String mobileNumberInvalid = "mobile_number_hint_message";
-  static const String passwordInvalid = "password_hint_message";
   static const String alreadyHaveAccount = "already_have_account";
   static const register = "register";
   static const mobileNumber = "mobile_number_hint";

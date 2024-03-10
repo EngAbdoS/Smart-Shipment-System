@@ -7,6 +7,7 @@ class ColorManager
   static const Color darkGray=Color(0xff8D8484);
   static const Color gray=Color(0xffA4A3A3);
   static const Color lightGray=Color(0xffD9D9D9);
+  static const Color inputField=Color(0xffCCBEBE);
   static const Color white=Color(0xffFFFFFF);
   static const Color offWhite=Color(0xffEEEDEB);
   static const Color darkGreen =Color(0xff78B159);

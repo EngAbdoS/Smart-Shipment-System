@@ -14,17 +14,17 @@ ThemeData getAppTheme() {
     // primaryColorDark: ColorManager.darkPrimary,
     disabledColor: ColorManager.gray,
     splashColor: ColorManager.offWhite,
-    cardTheme: CardTheme(
+    cardTheme: const CardTheme(
       color: ColorManager.white,
       shadowColor: ColorManager.gray,
       elevation: AppSize.s4,
     ),
     appBarTheme: AppBarTheme(
       systemOverlayStyle: const SystemUiOverlayStyle(
-         statusBarColor: Colors.transparent,
+        statusBarColor: Colors.transparent,
         //statusBarBrightness: Brightness.light,
-     // systemStatusBarContrastEnforced: true,
-       //statusBarIconBrightness: Brightness.dark
+        // systemStatusBarContrastEnforced: true,
+        //statusBarIconBrightness: Brightness.dark
       ),
       centerTitle: true,
       color: ColorManager.primary,
@@ -35,8 +35,8 @@ ThemeData getAppTheme() {
         fontSize: FontSize.s16,
       ),
     ),
-    buttonTheme: ButtonThemeData(
-      shape: const StadiumBorder(),
+    buttonTheme: const ButtonThemeData(
+      shape: StadiumBorder(),
       disabledColor: ColorManager.gray,
       buttonColor: ColorManager.primary,
       splashColor: ColorManager.offWhite,
@@ -66,43 +66,46 @@ ThemeData getAppTheme() {
           getRegularStyle(color: ColorManager.black, fontSize: FontSize.s12),
       labelSmall:
           getBoldStyle(color: ColorManager.primary, fontSize: FontSize.s14),
-      bodyLarge: getExtraBoldStyle(color: ColorManager.black,fontSize: FontSize.s14),
-      bodySmall: getSemiBoldStyle(color: ColorManager.black,fontSize: FontSize.s12),
+      bodyLarge:
+          getExtraBoldStyle(color: ColorManager.black, fontSize: FontSize.s14),
+      bodySmall:
+          getSemiBoldStyle(color: ColorManager.black, fontSize: FontSize.s12),
       bodyMedium:
-          getRegularStyle(color: ColorManager.darkGray, fontSize: FontSize.s12),
+          getMediumStyle(color: ColorManager.black, fontSize: FontSize.s14),
       displayLarge: getSemiBoldStyle(
           color: ColorManager.darkGray, fontSize: FontSize.s16),
     ),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(AppPadding.p8),
       hintStyle:
-          getRegularStyle(color: ColorManager.gray, fontSize: FontSize.s14),
+          getRegularStyle(color: ColorManager.inputField, fontSize: FontSize.s12),
       labelStyle:
-          getMediumStyle(color: ColorManager.gray, fontSize: FontSize.s14),
-      errorStyle: getRegularStyle(color: ColorManager.error),
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorManager.gray, width: AppSize.s1_5),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(AppSize.s8),
+          getMediumStyle(color: ColorManager.inputField, fontSize: FontSize.s12),
+      errorStyle: getRegularStyle(color: ColorManager.error,),
+      enabledBorder: const OutlineInputBorder(
+        borderSide:
+            BorderSide(color: ColorManager.inputField, width: AppSize.s1_5),
+        borderRadius: BorderRadius.all(
+          Radius.circular(AppSize.s24),
         ),
       ),
-      focusedBorder: OutlineInputBorder(
+      focusedBorder: const OutlineInputBorder(
         borderSide:
             BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
-        borderRadius: const BorderRadius.all(
+        borderRadius: BorderRadius.all(
           Radius.circular(AppSize.s8),
         ),
       ),
-      errorBorder: OutlineInputBorder(
+      errorBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: ColorManager.error, width: AppSize.s1_5),
-        borderRadius: const BorderRadius.all(
+        borderRadius: BorderRadius.all(
           Radius.circular(AppSize.s8),
         ),
       ),
-      focusedErrorBorder: OutlineInputBorder(
+      focusedErrorBorder: const OutlineInputBorder(
         borderSide:
             BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
-        borderRadius: const BorderRadius.all(
+        borderRadius: BorderRadius.all(
           Radius.circular(AppSize.s8),
         ),
       ),
