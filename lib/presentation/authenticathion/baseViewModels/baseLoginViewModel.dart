@@ -1,6 +1,5 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/app/functions.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseViewModel.dart';
 import 'dart:async';
 
 class BaseLoginViewModel
@@ -11,8 +10,7 @@ class BaseLoginViewModel
       BehaviorSubject<void>();
   final StreamController _isPasswordHiddenStreamController =
       BehaviorSubject<void>();
-  final StreamController inputStreamController =
-      BehaviorSubject<StateRendererType>();
+
 
   // StreamController isUserLoggedInSuccessfullyStreamController =
   // StreamController<bool>();

@@ -49,9 +49,8 @@ class LoginView extends StatelessWidget {
                             loginCubit.baseLoginViewModel.outputIsEmailValid,
                         builder: (context, snapshot) {
                           return TextFormField(
-                            onChanged: (email) => loginCubit
-                                .baseLoginViewModel
-                                .setEmail(email),
+                            onChanged: (email) =>
+                                loginCubit.baseLoginViewModel.setEmail(email),
                             keyboardType: TextInputType.emailAddress,
                             controller: _emailController,
                             decoration: InputDecoration(
@@ -81,24 +80,24 @@ class LoginView extends StatelessWidget {
                                 keyboardType: TextInputType.visiblePassword,
                                 controller: _passwordController,
                                 decoration: InputDecoration(
-                                  suffixIcon: IconButton(
-                                    onPressed: () {
-                                      loginCubit.baseLoginViewModel
-                                          .changePasswordState();
-                                    },
-                                    icon: Icon(
-                                      (hiddenState.data ?? true)
-                                          ? Icons.remove_red_eye_rounded
-                                          : Icons.remove_red_eye_outlined,
-                                      color: ColorManager.primary,
+                                    suffixIcon: IconButton(
+                                      onPressed: () {
+                                        loginCubit.baseLoginViewModel
+                                            .changePasswordState();
+                                      },
+                                      icon: Icon(
+                                        (hiddenState.data ?? true)
+                                            ? Icons.remove_red_eye_rounded
+                                            : Icons.remove_red_eye_outlined,
+                                        color: ColorManager.primary,
+                                      ),
                                     ),
-                                  ),
-                                  hintText: AppStrings.password.tr(),
-                                  labelText: AppStrings.password.tr(),
-                                  errorText: (snapshot.data ?? true)
-                                      ? null
-                                      : AppStrings.passwordInvalid.tr(),
-                                ),
+                                    hintText: AppStrings.password.tr(),
+                                    labelText: AppStrings.password.tr(),
+                                    errorText: (snapshot.data ?? true)
+                                        ? null
+                                        : AppStrings.passwordInvalid.tr(),
+                                    errorMaxLines: 2),
                               );
                             });
                       },
@@ -157,12 +156,9 @@ class LoginView extends StatelessWidget {
       } else if (state is LoginLoading) {
         testState(context);
         return Container();
-      }
-      else if(state is LoginSuccess)
-        {
-return Container();
-        }
-      else {
+      } else if (state is LoginSuccess) {
+        return Container();
+      } else {
         return const Text("a7a");
       }
     });

@@ -3,9 +3,6 @@ import 'package:loader_overlay/loader_overlay.dart';
 
  testState(BuildContext context)
 {
-
-
-
   context.loaderOverlay.show(widgetBuilder: (p) {
     return Stack(
       children: [
