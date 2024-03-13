@@ -21,5 +21,5 @@ bool isEgyptionNationalIdValid(String email) {
 }
 
 bool isEgyptionPhoneNumberValid(String email) {
-  return RegExp(r'(201)[0-9]{9}').hasMatch(email);
+  return RegExp(r'^01[0125][0-9]{8}$').hasMatch(email);
 }

@@ -6,6 +6,8 @@ import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/authView/auth_view.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/authView/client_auth_view.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/authView/deliveryAuthView.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/manager/clientRegistrationCubit.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/view/clientRegistrationView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/manager/loginCubit.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/view/loginView.dart';
 import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
@@ -23,10 +25,11 @@ class Routes {
   static const String deliveryAuthViewRoute = "/deliveryAuthView";
   static const String deliveryRegistrationViewRoute =
       "/deliveryRegistrationView";
- // static const String deliveryLoginViewRoute = "/deliveryLoginView";
+
+  // static const String deliveryLoginViewRoute = "/deliveryLoginView";
   static const String clientAuthViewRoute = "/clientAuthView";
   static const String clientRegistrationViewRoute = "/clientRegistrationView";
-  //static const String clientLoginViewRoute = "/clientLoginView";
+//static const String clientLoginViewRoute = "/clientLoginView";
 }
 
 abstract class AppRouter {
@@ -104,17 +107,36 @@ abstract class AppRouter {
         pageBuilder: (context, state) {
           initLoginModule();
           return CustomTransitionPage<void>(
-          transitionDuration: const Duration(
-              milliseconds: AppConstants.transitionDurationMillySeconds),
-          key: state.pageKey,
-          child:     BlocProvider(create: (context)=>LoginCubit()
-
-                ,  child:  LoginView(),
-              ),
-
-          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              FadeTransition(opacity: animation, child: child),
-        );},
+            transitionDuration: const Duration(
+                milliseconds: AppConstants.transitionDurationMillySeconds),
+            key: state.pageKey,
+            child: BlocProvider(
+              create: (context) => LoginCubit(),
+              child: LoginView(),
+            ),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    FadeTransition(opacity: animation, child: child),
+          );
+        },
+      ),
+      GoRoute(
+        path: Routes.clientRegistrationViewRoute,
+        pageBuilder: (context, state) {
+          initClientRegistrationModule();
+          return CustomTransitionPage<void>(
+            transitionDuration: const Duration(
+                milliseconds: AppConstants.transitionDurationMillySeconds),
+            key: state.pageKey,
+            child: BlocProvider(
+              create: (context) => ClientRegistrationCubit(),
+              child:  ClientRegistrationView(),
+            ),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    FadeTransition(opacity: animation, child: child),
+          );
+        },
       ),
       GoRoute(
         path: Routes.noRoute,

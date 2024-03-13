@@ -8,6 +8,7 @@ import 'package:smart_shipment_system/data/repository/repository_implementation.
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/domain/use_cases/splash_navigation_use_case.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseLoginViewModel.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseRegisterationViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/manager/loginCubit.dart';
 
 final instance = GetIt.instance;
@@ -35,12 +36,24 @@ initLoginModule() {
   //
   //
   // );
-  instance.registerLazySingleton<LoginCubit>(()=>LoginCubit());
-  instance.registerLazySingleton<BaseLoginViewModel>(() => BaseLoginViewModel());
+ // instance.registerLazySingleton<LoginCubit>(()=>LoginCubit());
+  if(!GetIt.I.isRegistered<BaseLoginViewModel>()){
+    instance.registerLazySingleton<BaseLoginViewModel>(() => BaseLoginViewModel());
+
+  }
 
  // }
 
 
 
 
+}
+
+
+initClientRegistrationModule()
+{
+  if(!GetIt.I.isRegistered<BaseRegistrationViewModel>()){
+    instance.registerLazySingleton<BaseRegistrationViewModel>(() => BaseRegistrationViewModel());
+
+  }
 }

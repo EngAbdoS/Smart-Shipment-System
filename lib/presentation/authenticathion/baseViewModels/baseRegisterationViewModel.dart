@@ -18,6 +18,9 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
       BehaviorSubject<String>();
   final StreamController _phoneNumberStreamController =
       BehaviorSubject<String>();
+  final StreamController _isConfirmPasswordHiddenStreamController =
+      BehaviorSubject<void>();
+
 ////////////////////////////////////////////////////////////////
 //BaseLoginViewModel have email & password & its validations
 ////////////////////////////////////////////////////////////////
@@ -25,13 +28,14 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
 //////////////////////////declarations//////////////////////////
 
   String? address;
-  DateTime birthDay = DateTime.utc(0, 0, 0);
+  DateTime? birthDate ;//= DateTime.utc(0, 0, 0);
   String? confirmPassword;
   String? firstName;
   String? lastName;
   bool? isGenderMan;
   String? nationalId;
   String? phoneNumber;
+  bool? _isConfirmHidden;
 
 //////////////////////////output//////////////////////////
 
@@ -40,8 +44,8 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
       .map((address) => _isAddressValid(address));
 
   @override
-  Stream<DateTime> get outputIsBirthDayValid => _birthDayStreamController.stream
-      .map((birthDay) => _isBirthDateValid(birthDay) ? birthDay : null);
+  Stream<bool> get outputIsBirthDayValid => _birthDayStreamController.stream
+      .map((birthDay) => _isBirthDateValid(birthDay));
 
   @override
   Stream<bool> get outputIsConfirmPasswordValid =>
@@ -53,7 +57,7 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
       .map((firstName) => _isFirstNameValid(firstName));
 
   @override
-  Stream<bool> get outputIsGenderValid => _genderManStreamController.stream
+  Stream<bool> get outputIsGenderManValid => _genderManStreamController.stream
       .map((isGenderMan) => _isGenderMan(isGenderMan));
 
   @override
@@ -68,6 +72,10 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
   Stream<bool> get outputIsPhoneNumberValid =>
       _phoneNumberStreamController.stream
           .map((phoneNumber) => _isPhoneNumberValid(phoneNumber));
+
+  @override
+  Stream<bool> get outputIsConfirmPasswordHidden =>
+      _isConfirmPasswordHiddenStreamController.stream.map((hidden) => hidden);
 
 //////////////////////////input//////////////////////////
 
@@ -95,6 +103,10 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
   @override
   Sink get inputPhoneNumber => _phoneNumberStreamController.sink;
 
+  @override
+  Sink get inputConfirmPasswordHideState =>
+      _isConfirmPasswordHiddenStreamController.sink;
+
 //////////////////////////functions//////////////////////////
 
   @override
@@ -104,31 +116,36 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
     inputValidation.add(null);
   }
 
-  @override
-  setBirthDay(int day) {
-    birthDay = birthDay.copyWith(day: day);
-    inputBirthDay.add(birthDay);
-    inputValidation.add(null);
-  }
-
-  @override
-  setBirthMonth(int month) {
-    birthDay = birthDay.copyWith(month: month);
-    inputBirthDay.add(birthDay);
-    inputValidation.add(null);
-  }
-
-  @override
-  setBirthYear(int year) {
-    birthDay = birthDay.copyWith(year: year);
-    inputBirthDay.add(birthDay);
-    inputValidation.add(null);
-  }
+  // @override
+  // setBirthDay(int day) {
+  //   birthDate = birthDate.copyWith(day: day);
+  //   inputBirthDay.add(birthDate);
+  //   inputValidation.add(null);
+  // }
+  //
+  // @override
+  // setBirthMonth(int month) {
+  //   birthDate = birthDate.copyWith(month: month);
+  //   inputBirthDay.add(birthDate);
+  //   inputValidation.add(null);
+  // }
+  //
+  // @override
+  // setBirthYear(int year) {
+  //   birthDate = birthDate.copyWith(year: year);
+  //   inputBirthDay.add(birthDate);
+  //   inputValidation.add(null);
+  // }
 
   @override
   setConfirmPassword(String confirmPassword) {
     inputConfirmPassword.add(confirmPassword);
     this.confirmPassword = confirmPassword;
+    inputValidation.add(null);
+  }
+
+  validateConfirmPassword() {
+    confirmPassword == null ? {} : setConfirmPassword(confirmPassword!);
     inputValidation.add(null);
   }
 
@@ -166,19 +183,34 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
     this.phoneNumber = phoneNumber;
     inputValidation.add(null);
   }
+  @override
+  setBirthDate(DateTime birthDate) {
+   inputBirthDay.add(birthDate);
+   this.birthDate=birthDate;
+   inputValidation.add(null);
+
+  }
+  changeConfirmPasswordState() {
+    if (_isConfirmHidden == true || _isConfirmHidden == null) {
+      _isConfirmHidden = false;
+      _isConfirmPasswordHiddenStreamController.add(false);
+    } else {
+      _isConfirmHidden = true;
+      _isConfirmPasswordHiddenStreamController.add(true);
+    }
+  }
 
   @override
   bool areAllInputsValid() {
     return super.areAllInputsValid() &&
-        _isBirthDateValid(birthDay) &&
+        _isBirthDateValid(birthDate??DateTime(0)) &&
         _isConfirmPasswordValid(confirmPassword ?? "") &&
         _isPhoneNumberValid(phoneNumber ?? "") &&
         _isNationalIdValid(nationalId ?? "") &&
         _isFirstNameValid(firstName ?? "") &&
         _isLastNameValid(lastName ?? "") &&
         _isAddressValid(address ?? "") &&
-        isGenderMan != null &&
-        _isBirthDateValid(birthDay);
+        isGenderMan != null ;
   }
 
   //////////////////////////validation functions//////////////////////////
@@ -215,8 +247,11 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
     _genderManStreamController.close();
     _nationalIdStreamController.close();
     _phoneNumberStreamController.close();
+    _isConfirmPasswordHiddenStreamController.close();
     super.dispose();
   }
+
+
 }
 
 abstract mixin class BaseRegistrationViewModelInputs {
@@ -236,6 +271,8 @@ abstract mixin class BaseRegistrationViewModelInputs {
 
   Sink get inputBirthDay;
 
+  Sink get inputConfirmPasswordHideState;
+
   setAddress(String address);
 
   setFirstName(String firstName);
@@ -248,11 +285,12 @@ abstract mixin class BaseRegistrationViewModelInputs {
 
   setNationalId(String nationalId);
 
-  setBirthDay(int day);
-
-  setBirthYear(int year);
-
-  setBirthMonth(int month);
+setBirthDate(DateTime birthDate);
+  // setBirthDay(int day);
+  //
+  // setBirthYear(int year);
+  //
+  // setBirthMonth(int month);
 
   setGender(bool isGenderMan);
 }
@@ -270,7 +308,9 @@ abstract mixin class BaseRegistrationViewModelOutputs {
 
   Stream<bool> get outputIsConfirmPasswordValid;
 
-  Stream<bool> get outputIsGenderValid;
+  Stream<bool> get outputIsGenderManValid;
 
-  Stream<DateTime> get outputIsBirthDayValid;
+  Stream<bool> get outputIsBirthDayValid;
+
+  Stream<bool> get outputIsConfirmPasswordHidden;
 }

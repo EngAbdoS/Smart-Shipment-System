@@ -80,7 +80,7 @@ class ClientAuthView extends StatelessWidget {
                     height: AppSize.s18,
                   ),
                   RegularButton(
-                    buttonAction: () {},
+                    buttonAction:() =>GoRouter.of(context).push(Routes.clientRegistrationViewRoute),
                     buttonWidget: Text(
                       AppStrings.signUn,
                       style: Theme.of(context)

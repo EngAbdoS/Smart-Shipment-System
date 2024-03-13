@@ -29,6 +29,27 @@ class AppStrings {
   static const login = "login_button";
   static const String emailHint = 'email_hint';
   static const String passwordInvalid = "invalid_password";
+static const   fName ="f_name";
+static const fNameHint   ="f_name_hint";
+static const  lName    ="l_name";
+static const  lNameHint  ="l_name_hint";
+static const  phoneNumberHint  ="phone_number_hint";
+static const   phoneNumber ="phone_number";
+static const  gender  ="gender";
+static const genderError  ="gender_error";
+static const address   ="address";
+static const  addressHint  ="address_hint";
+static const confirmPass    ="confirm_password";
+static const   createAcc ="create_acc";
+static const  haveAcc  ="have_acc";
+static const    male="male";
+static const  female  ="female";
+static const dateBirth   ="date_birth";
+static const dateBirthError    ="date_birth_error";
+static const  signGoogle  ="sign_google";
+  static const  confirmPassError  ="confirm_password_error";
+  static const  phoneNumberError  ="phone_number_error";
+
 
 
   static const forgetPassword = "forgot_password_text";
