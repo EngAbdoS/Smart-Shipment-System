@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:go_router/go_router.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/app/functions.dart';
+import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 
 class ForgotPasswordViewModel
     with ForgotPasswordViewModelInputs, ForgotPasswordViewModelOutputs {
@@ -13,7 +15,9 @@ class ForgotPasswordViewModel
   }
 
   @override
-  forgotPassword(dynamic context) async {}
+  forgotPassword(dynamic context) async {
+    GoRouter.of(context).push(Routes.changePasswordViewRoute);
+  }
 
   @override
   Sink get inputEmail => _emailStreamController.sink;

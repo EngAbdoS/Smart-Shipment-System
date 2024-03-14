@@ -9,6 +9,7 @@ import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/domain/use_cases/splash_navigation_use_case.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseLoginViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseRegisterationViewModel.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/changePassword/viewModel/changePasswordViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/viewModel/forgetPasswordViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/manager/loginCubit.dart';
 
@@ -66,3 +67,9 @@ initClientRegistrationModule()
       instance.registerLazySingleton<ForgotPasswordViewModel>(() => ForgotPasswordViewModel());
 
     }}
+initChangePasswordModule()
+{
+  if(!GetIt.I.isRegistered<ChangePasswordViewModel>()){
+    instance.registerLazySingleton<ChangePasswordViewModel>(() => ChangePasswordViewModel());
+
+  }}
