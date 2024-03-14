@@ -8,6 +8,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/authView/clie
 import 'package:smart_shipment_system/presentation/authenticathion/authView/deliveryAuthView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/manager/clientRegistrationCubit.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/view/clientRegistrationView.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/view/forgetPasswordView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/manager/loginCubit.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/view/loginView.dart';
 import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
@@ -29,6 +30,7 @@ class Routes {
   // static const String deliveryLoginViewRoute = "/deliveryLoginView";
   static const String clientAuthViewRoute = "/clientAuthView";
   static const String clientRegistrationViewRoute = "/clientRegistrationView";
+  static const String forgotPasswordViewRoute = "/forgotPasswordView";
 //static const String clientLoginViewRoute = "/clientLoginView";
 }
 
@@ -130,8 +132,23 @@ abstract class AppRouter {
             key: state.pageKey,
             child: BlocProvider(
               create: (context) => ClientRegistrationCubit(),
-              child:  ClientRegistrationView(),
+              child: ClientRegistrationView(),
             ),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    FadeTransition(opacity: animation, child: child),
+          );
+        },
+      ),
+      GoRoute(
+        path: Routes.forgotPasswordViewRoute,
+        pageBuilder: (context, state) {
+          initForgotPasswordModule();
+          return CustomTransitionPage<void>(
+            transitionDuration: const Duration(
+                milliseconds: AppConstants.transitionDurationMillySeconds),
+            key: state.pageKey,
+            child: ForgotPasswordView(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) =>
                     FadeTransition(opacity: animation, child: child),

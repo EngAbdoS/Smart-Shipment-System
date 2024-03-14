@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/manager/loginCubit.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/manager/loginCubitStates.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
+import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/auth_logo_widget.dart';
@@ -104,6 +106,33 @@ class LoginView extends StatelessWidget {
                       stream:
                           loginCubit.baseLoginViewModel.outputIsPasswordValid,
                     ),
+
+                    Align(alignment: Alignment.topLeft,
+                    child:Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppStrings.forgetPassword,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(color: ColorManager.black),
+                        ).tr(),
+                        TextButton(
+                          onPressed: () =>GoRouter.of(context).pushReplacement(Routes.forgotPasswordViewRoute),
+                          child: Text(
+                            AppStrings.reset,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                              color: ColorManager.black,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ).tr(),
+                        )
+                      ],
+                    ) ,),
                     const SizedBox(
                       height: AppSize.s28,
                     ),

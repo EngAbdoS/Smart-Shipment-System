@@ -42,11 +42,22 @@
   "confirm_password_error": "Password does not match",
   "create_acc": "Create an account",
   "have_acc": "Already have an account ?",
-"male": "Male",
+  "male": "Male",
   "female": "Female",
 "date_birth": "Date of Birth",
   "date_birth_error": "Enter your Date of Birth",
 "sign_google": "Sign up with Google",
+"verification": "Verification",
+"enter_code": "Please enter the 6 digits code sent",
+  "verify": "Verify",
+"verification_code_error": "Code not valid",
+"change_password": "Change password",
+  "password_different": "Your new password must be different from previously used password",
+"new_password": "New Password",
+          "save": "Save",
+   "forget_password": "Forget Your Password ?",
+  "email_associated": "Enter the email address associated with your account",
+  "reset": "Reset",
 
 
 

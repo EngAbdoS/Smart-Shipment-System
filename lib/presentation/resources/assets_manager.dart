@@ -11,7 +11,8 @@ class ImageAssets {
   static const String client = "$IMAGE_PATH/client.png";
   static const String deliveryBike = "$IMAGE_PATH/delivery_bike.png";
   static const String clientHappy = "$IMAGE_PATH/client_happy.png";
-
+  static const String changePassword = "$IMAGE_PATH/change_password.png";
+  static const String forgetPassword = "$IMAGE_PATH/forget_password.png";
 }
 
 class SVGAssets {
@@ -28,6 +29,8 @@ class SVGAssets {
   static const String delivery = "$SVG_PATH/delivery.svg";
   static const String client = "$SVG_PATH/client.svg";
   static const String authIll = "$SVG_PATH/auth_ill.svg";
+  static const String changePassword = "$SVG_PATH/change_password.svg";
+  static const String forgetPassword = "$SVG_PATH/forget_password.svg";
 
 
 }

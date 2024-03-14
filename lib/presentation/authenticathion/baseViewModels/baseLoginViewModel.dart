@@ -28,7 +28,7 @@ class BaseLoginViewModel
 
   @override
   Stream<bool> get outputIsEmailValid => _userEmailStreamController.stream
-      .map((userName) => _isEmailValid(userName));
+      .map((email) => _isEmailValid(email));
 
   @override
   Stream<bool> get outputAreAllDataValid =>

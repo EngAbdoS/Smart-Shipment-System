@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/manager/clientRegistrationCubit.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/manager/clientRegistrationCubitStates.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';

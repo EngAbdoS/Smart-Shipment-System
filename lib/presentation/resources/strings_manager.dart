@@ -1,7 +1,7 @@
 class AppStrings {
   static const noRouteFound = "noRouteFound";
-  static const tripleS="triple_s";
-  static const smartShipmentSystem="Smart_Shipment_System";
+  static const tripleS = "triple_s";
+  static const smartShipmentSystem = "Smart_Shipment_System";
   static const onBoardingTitle1 = "on_boarding_title1";
   static const onBoardingTitle2 = "on_boarding_title2";
   static const onBoardingTitle3 = "on_boarding_title3";
@@ -15,12 +15,12 @@ class AppStrings {
   static const delivery = "delivery";
   static const helloDelivery = "hello_delivery";
   static const happyDelivery = "happy_delivery";
-   static const signIn ="sign_in";
-   static const signUn ="sign_up";
-   static const hello ="hello";
-   static const readyFast ="ready_fast";
-  static const welcomeLogin ="welcome_login";
-  static const doNotAcc ="doNotAcc";
+  static const signIn = "sign_in";
+  static const signUn = "sign_up";
+  static const hello = "hello";
+  static const readyFast = "ready_fast";
+  static const welcomeLogin = "welcome_login";
+  static const doNotAcc = "doNotAcc";
   static const username = "username_hint";
   static const password = "password_hint";
   static const usernameError = "username_error";
@@ -29,30 +29,40 @@ class AppStrings {
   static const login = "login_button";
   static const String emailHint = 'email_hint';
   static const String passwordInvalid = "invalid_password";
-static const   fName ="f_name";
-static const fNameHint   ="f_name_hint";
-static const  lName    ="l_name";
-static const  lNameHint  ="l_name_hint";
-static const  phoneNumberHint  ="phone_number_hint";
-static const   phoneNumber ="phone_number";
-static const  gender  ="gender";
-static const genderError  ="gender_error";
-static const address   ="address";
-static const  addressHint  ="address_hint";
-static const confirmPass    ="confirm_password";
-static const   createAcc ="create_acc";
-static const  haveAcc  ="have_acc";
-static const    male="male";
-static const  female  ="female";
-static const dateBirth   ="date_birth";
-static const dateBirthError    ="date_birth_error";
-static const  signGoogle  ="sign_google";
-  static const  confirmPassError  ="confirm_password_error";
-  static const  phoneNumberError  ="phone_number_error";
+  static const fName = "f_name";
+  static const fNameHint = "f_name_hint";
+  static const lName = "l_name";
+  static const lNameHint = "l_name_hint";
+  static const phoneNumberHint = "phone_number_hint";
+  static const phoneNumber = "phone_number";
+  static const gender = "gender";
+  static const genderError = "gender_error";
+  static const address = "address";
+  static const addressHint = "address_hint";
+  static const confirmPass = "confirm_password";
+  static const createAcc = "create_acc";
+  static const haveAcc = "have_acc";
+  static const male = "male";
+  static const female = "female";
+  static const dateBirth = "date_birth";
+  static const dateBirthError = "date_birth_error";
+  static const signGoogle = "sign_google";
+  static const confirmPassError = "confirm_password_error";
+  static const phoneNumberError = "phone_number_error";
+  static const verification = "verification";
+  static const enterCode = "enter_code";
+  static const verify = "verify";
+  static const verificationCodeError = "verification_code_error";
+  static const changePassword = "change_password";
+  static const passwordDifferent = "password_different";
+  static const newPassword = "new_password";
+  static const save = "save";
+  static const forgetPassword = "forget_password";
+  static const emailAssociated = "email_associated";
+  static const reset = "reset";
 
 
-
-  static const forgetPassword = "forgot_password_text";
+  // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";
   static const loading = "loading";
   static const retryAgain = "retry_again";
@@ -92,10 +102,8 @@ static const  signGoogle  ="sign_google";
   static const String defaultError = "default_error";
   static const String cacheError = "cache_error";
   static const String noInternetError = "no_internet_error";
-  static const String verificationMessage=  "verification_message";
-  static const String sendVerification=  "send_verification";
-  static const String registerNewAccount=  "register_new_account";
-  static const String resetPasswordMessage=  "reset_password_message";
-
-
+  static const String verificationMessage = "verification_message";
+  static const String sendVerification = "send_verification";
+  static const String registerNewAccount = "register_new_account";
+  static const String resetPasswordMessage = "reset_password_message";
 }

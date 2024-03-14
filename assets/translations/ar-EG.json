@@ -47,7 +47,17 @@
   "sign_google": "Sign up with Google",
   "confirm_password_error": "Password does not match",
   "phone_number_error": "Enter valid Egyption phone number",
-
+  "verification": "Verification",
+  "enter_code": "Please enter the 6 digits code sent",
+  "verify": "Verify",
+  "verification_code_error": "Code not valid",
+  "change_password": "Change password",
+  "password_different": "Your new password must be different from previously used password",
+  "new_password": "New Password",
+  "save": "Save",
+  "forget_password": "Forget Your Password ?",
+  "email_associated": "Enter the email address associated with your account",
+  "reset": "Reset",
 
 
   "forgot_password_text": "نسيت كلمه السر",
