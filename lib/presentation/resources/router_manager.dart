@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
@@ -7,10 +6,8 @@ import 'package:smart_shipment_system/presentation/authenticathion/authView/auth
 import 'package:smart_shipment_system/presentation/authenticathion/authView/client_auth_view.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/authView/deliveryAuthView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/changePassword/view/changePasswordView.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/manager/clientRegistrationCubit.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/view/clientRegistrationView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/view/forgetPasswordView.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/login/manager/loginCubit.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/view/loginView.dart';
 import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -31,8 +28,6 @@ class Routes {
   static const String clientRegistrationViewRoute = "/clientRegistrationView";
   static const String forgotPasswordViewRoute = "/forgotPasswordView";
   static const String changePasswordViewRoute = "/changePasswordView";
-
-
 }
 
 abstract class AppRouter {
@@ -113,10 +108,7 @@ abstract class AppRouter {
             transitionDuration: const Duration(
                 milliseconds: AppConstants.transitionDurationMillySeconds),
             key: state.pageKey,
-            child: BlocProvider(
-              create: (context) => LoginCubit(),
-              child: LoginView(),
-            ),
+            child: LoginView(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) =>
                     FadeTransition(opacity: animation, child: child),
@@ -131,10 +123,12 @@ abstract class AppRouter {
             transitionDuration: const Duration(
                 milliseconds: AppConstants.transitionDurationMillySeconds),
             key: state.pageKey,
-            child: BlocProvider(
-              create: (context) => ClientRegistrationCubit(),
-              child: ClientRegistrationView(),
-            ),
+            child:
+            ClientRegistrationView(),
+            // BlocProvider(
+            //   create: (context) => ClientRegistrationCubit(),
+            //   child: ClientRegistrationView(),
+            // ),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) =>
                     FadeTransition(opacity: animation, child: child),
@@ -155,11 +149,11 @@ abstract class AppRouter {
                     FadeTransition(opacity: animation, child: child),
           );
         },
-      ),     GoRoute(
+      ),
+      GoRoute(
         path: Routes.changePasswordViewRoute,
         pageBuilder: (context, state) {
-          initChangePasswordModule
-            ();
+          initChangePasswordModule();
           return CustomTransitionPage<void>(
             transitionDuration: const Duration(
                 milliseconds: AppConstants.transitionDurationMillySeconds),
@@ -167,7 +161,7 @@ abstract class AppRouter {
             child: ChangePasswordView(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) =>
-                FadeTransition(opacity: animation, child: child),
+                    FadeTransition(opacity: animation, child: child),
           );
         },
       ),

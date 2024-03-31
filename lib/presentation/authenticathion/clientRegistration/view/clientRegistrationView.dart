@@ -2,21 +2,22 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/manager/clientRegistrationCubit.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/manager/clientRegistrationCubitStates.dart';
+import 'package:smart_shipment_system/app/dependancy_injection.dart';
+
+import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/viewModel/clientRegistrationViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/auth_logo_widget.dart';
 import 'package:smart_shipment_system/presentation/widgets/regular_button.dart';
-import 'package:smart_shipment_system/presentation/widgets/testState.dart';
 
 class ClientRegistrationView extends StatelessWidget {
   ClientRegistrationView({super.key});
 
+  final ClientRegistrationViewModel _viewModel =
+      instance<ClientRegistrationViewModel>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
@@ -31,92 +32,93 @@ class ClientRegistrationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ClientRegistrationCubit, ClientRegistrationCubitStates>(
-        builder: (context, state) {
-      final clientRegistrationCubit = context.read<ClientRegistrationCubit>();
-
-      if (state is ClientRegistrationInitial) {
-        return Scaffold(
-          body: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p18),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    authLogoWidget(),
-                    const SizedBox(
-                      height: AppSize.s18 * 2,
-                    ),
-                    nameWidget(clientRegistrationCubit),
-                    const SizedBox(
-                      height: AppSize.s28,
-                    ),
-                    phoneNumberWidget(clientRegistrationCubit),
-                    const SizedBox(
-                      height: AppSize.s28,
-                    ),
-                    addressWidget(clientRegistrationCubit),
-                    const SizedBox(
-                      height: AppSize.s28,
-                    ),
-                    emailWidget(clientRegistrationCubit),
-                    const SizedBox(
-                      height: AppSize.s28,
-                    ),
-                    passwordWidgets(clientRegistrationCubit),
-                    const SizedBox(
-                      height: AppSize.s28,
-                    ),
-                    dateOfBirthWidget(clientRegistrationCubit, context),
-                    const SizedBox(
-                      height: AppSize.s28,
-                    ),
-                    genderWidget(clientRegistrationCubit, context),
-                    const SizedBox(
-                      height: AppSize.s28,
-                    ),
-                    RegularButton(
-                      buttonAction: () =>
-                          clientRegistrationCubit.getLoading(context),
-                      buttonWidget: Text(
-                        AppStrings.createAcc,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ).tr(),
-                    ),
-                    const SizedBox(
-                      height: AppSize.s28,
-                    ),
-                    signInWidget(context),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
-      } else if (state is ClientRegistrationLoading) {
-        testState(context);
-        return Container();
-      } else if (state is ClientRegistrationSuccess) {
-        return Container();
-      } else {
-        return const Text("a7a");
-      }
-    });
+    return Scaffold(body: mainClientRegistrationWidget(context));
+    // return BlocBuilder<ClientRegistrationCubit, ClientRegistrationCubitStates>(
+    //     builder: (context, state) {
+    //   final clientRegistrationCubit = context.read<ClientRegistrationCubit>();
+    //
+    //   if (state is ClientRegistrationInitial) {
+    //     return Scaffold(
+    //       body: mainClientRegisterationWidget(clientRegistrationCubit, context),
+    //     );
+    //   } else if (state is ClientRegistrationLoading) {
+    //     testState(context);
+    //     return Container();
+    //   } else if (state is ClientRegistrationSuccess) {
+    //     return Container();
+    //   } else {
+    //     return const Text("a7a");
+    //   }
+    // });
   }
 
-  Widget addressWidget(ClientRegistrationCubit clientRegistrationCubit) {
+  SingleChildScrollView mainClientRegistrationWidget(BuildContext context) {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p18),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              authLogoWidget(),
+              const SizedBox(
+                height: AppSize.s18 * 2,
+              ),
+              nameWidget(),
+              const SizedBox(
+                height: AppSize.s28,
+              ),
+              phoneNumberWidget(),
+              const SizedBox(
+                height: AppSize.s28,
+              ),
+              addressWidget(),
+              const SizedBox(
+                height: AppSize.s28,
+              ),
+              emailWidget(),
+              const SizedBox(
+                height: AppSize.s28,
+              ),
+              passwordWidgets(),
+              const SizedBox(
+                height: AppSize.s28,
+              ),
+              dateOfBirthWidget(context),
+              const SizedBox(
+                height: AppSize.s28,
+              ),
+              genderWidget(context),
+              const SizedBox(
+                height: AppSize.s28,
+              ),
+              RegularButton(
+                buttonAction: () => _viewModel.getLoading(context),
+                buttonWidget: Text(
+                  AppStrings.createAcc,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ).tr(),
+              ),
+              const SizedBox(
+                height: AppSize.s28,
+              ),
+              signInWidget(context),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget addressWidget() {
     return StreamBuilder<bool>(
-        stream: clientRegistrationCubit
-            .baseRegistrationViewModel.outputIsAddressValid,
+        stream: _viewModel.outputIsAddressValid,
         builder: (context, snapshot) {
           return TextFormField(
-            onChanged: (address) => clientRegistrationCubit
-                .baseRegistrationViewModel
-                .setAddress(address),
+            onChanged: (address) => _viewModel.setAddress(address),
             keyboardType: TextInputType.streetAddress,
             controller: _addressController,
             decoration: InputDecoration(
@@ -130,15 +132,12 @@ class ClientRegistrationView extends StatelessWidget {
         });
   }
 
-  Widget emailWidget(ClientRegistrationCubit clientRegistrationCubit) {
+  Widget emailWidget() {
     return StreamBuilder<bool>(
-        stream: clientRegistrationCubit
-            .baseRegistrationViewModel.outputIsEmailValid,
+        stream: _viewModel.outputIsEmailValid,
         builder: (context, snapshot) {
           return TextFormField(
-            onChanged: (email) => clientRegistrationCubit
-                .baseRegistrationViewModel
-                .setEmail(email),
+            onChanged: (email) => _viewModel.setEmail(email),
             keyboardType: TextInputType.emailAddress,
             controller: _emailController,
             decoration: InputDecoration(
@@ -152,15 +151,12 @@ class ClientRegistrationView extends StatelessWidget {
         });
   }
 
-  Widget phoneNumberWidget(ClientRegistrationCubit clientRegistrationCubit) {
+  Widget phoneNumberWidget() {
     return StreamBuilder<bool>(
-        stream: clientRegistrationCubit
-            .baseRegistrationViewModel.outputIsPhoneNumberValid,
+        stream: _viewModel.outputIsPhoneNumberValid,
         builder: (context, snapshot) {
           return TextFormField(
-            onChanged: (phoneNumber) => clientRegistrationCubit
-                .baseRegistrationViewModel
-                .setPhoneNumber(phoneNumber),
+            onChanged: (phoneNumber) => _viewModel.setPhoneNumber(phoneNumber),
             keyboardType: TextInputType.phone,
             controller: _phoneNumberController,
             decoration: InputDecoration(
@@ -174,21 +170,18 @@ class ClientRegistrationView extends StatelessWidget {
         });
   }
 
-  Widget passwordWidgets(ClientRegistrationCubit clientRegistrationCubit) {
+  Widget passwordWidgets() {
     return Column(
       children: [
         StreamBuilder<bool>(
           builder: (context, snapshot) {
             return StreamBuilder<bool>(
-                stream: clientRegistrationCubit
-                    .baseRegistrationViewModel.outputIsPasswordHidden,
+                stream: _viewModel.outputIsPasswordHidden,
                 builder: (context, hiddenState) {
                   return TextFormField(
                     onChanged: (password) => {
-                      clientRegistrationCubit.baseRegistrationViewModel
-                          .setPassword(password),
-                      clientRegistrationCubit.baseRegistrationViewModel
-                          .validateConfirmPassword(),
+                      _viewModel.setPassword(password),
+                      _viewModel.validateConfirmPassword(),
                     },
                     obscureText: hiddenState.data ?? true,
                     keyboardType: TextInputType.visiblePassword,
@@ -196,8 +189,7 @@ class ClientRegistrationView extends StatelessWidget {
                     decoration: InputDecoration(
                         suffixIcon: IconButton(
                           onPressed: () {
-                            clientRegistrationCubit.baseRegistrationViewModel
-                                .changePasswordState();
+                            _viewModel.changePasswordState();
                           },
                           icon: Icon(
                             (hiddenState.data ?? true)
@@ -215,8 +207,7 @@ class ClientRegistrationView extends StatelessWidget {
                   );
                 });
           },
-          stream: clientRegistrationCubit
-              .baseRegistrationViewModel.outputIsPasswordValid,
+          stream: _viewModel.outputIsPasswordValid,
         ),
         const SizedBox(
           height: AppSize.s28,
@@ -224,21 +215,18 @@ class ClientRegistrationView extends StatelessWidget {
         StreamBuilder<bool>(
           builder: (context, snapshot) {
             return StreamBuilder<bool>(
-                stream: clientRegistrationCubit
-                    .baseRegistrationViewModel.outputIsConfirmPasswordHidden,
+                stream: _viewModel.outputIsConfirmPasswordHidden,
                 builder: (context, hiddenState) {
                   return TextFormField(
-                    onChanged: (confirmPassword) => clientRegistrationCubit
-                        .baseRegistrationViewModel
-                        .setConfirmPassword(confirmPassword),
+                    onChanged: (confirmPassword) =>
+                        _viewModel.setConfirmPassword(confirmPassword),
                     obscureText: hiddenState.data ?? true,
                     keyboardType: TextInputType.visiblePassword,
                     controller: _confirmPasswordController,
                     decoration: InputDecoration(
                         suffixIcon: IconButton(
                           onPressed: () {
-                            clientRegistrationCubit.baseRegistrationViewModel
-                                .changeConfirmPasswordState();
+                            _viewModel.changeConfirmPasswordState();
                           },
                           icon: Icon(
                             (hiddenState.data ?? true)
@@ -256,8 +244,7 @@ class ClientRegistrationView extends StatelessWidget {
                   );
                 });
           },
-          stream: clientRegistrationCubit
-              .baseRegistrationViewModel.outputIsConfirmPasswordValid,
+          stream: _viewModel.outputIsConfirmPasswordValid,
         ),
       ],
     );
@@ -292,18 +279,18 @@ class ClientRegistrationView extends StatelessWidget {
     );
   }
 
-  Widget nameWidget(ClientRegistrationCubit cubit) {
+  Widget nameWidget() {
     return Container(
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
             child: StreamBuilder<bool>(
-                stream: cubit.baseRegistrationViewModel.outputIsFirstNameValid,
+                stream: _viewModel.outputIsFirstNameValid,
                 builder: (context, snapshot) {
                   return TextFormField(
                     onChanged: (firstName) =>
-                        cubit.baseRegistrationViewModel.setFirstName(firstName),
+                        _viewModel.setFirstName(firstName),
                     keyboardType: TextInputType.name,
                     controller: _firstNameController,
                     decoration: InputDecoration(
@@ -322,11 +309,10 @@ class ClientRegistrationView extends StatelessWidget {
           ),
           Expanded(
             child: StreamBuilder<bool>(
-                stream: cubit.baseRegistrationViewModel.outputIsLastNameValid,
+                stream: _viewModel.outputIsLastNameValid,
                 builder: (context, snapshot) {
                   return TextFormField(
-                    onChanged: (lastName) =>
-                        cubit.baseRegistrationViewModel.setLastName(lastName),
+                    onChanged: (lastName) => _viewModel.setLastName(lastName),
                     keyboardType: TextInputType.name,
                     controller: _lastNameController,
                     decoration: InputDecoration(
@@ -345,11 +331,10 @@ class ClientRegistrationView extends StatelessWidget {
     );
   }
 
-  Widget dateOfBirthWidget(
-      ClientRegistrationCubit cubit, BuildContext context) {
+  Widget dateOfBirthWidget(BuildContext context) {
     DateTime? pickedDate;
     return StreamBuilder<bool>(
-        stream: cubit.baseRegistrationViewModel.outputIsBirthDayValid,
+        stream: _viewModel.outputIsBirthDayValid,
         builder: (context, snapshot) {
           return TextFormField(
             //  enabled: false,
@@ -363,8 +348,7 @@ class ClientRegistrationView extends StatelessWidget {
                   initialDate: DateTime.now(),
                   firstDate: DateTime(1950),
                   lastDate: DateTime(2100));
-              cubit.baseRegistrationViewModel
-                  .setBirthDate(pickedDate ?? DateTime(0));
+              _viewModel.setBirthDate(pickedDate ?? DateTime(0));
               _birthDateController.text =
                   "${pickedDate?.year ?? "0"}-${pickedDate?.month ?? "0"}-${pickedDate?.day ?? "0"}";
             },
@@ -381,15 +365,15 @@ class ClientRegistrationView extends StatelessWidget {
         });
   }
 
-  Widget genderWidget(ClientRegistrationCubit cubit, BuildContext context) {
+  Widget genderWidget(BuildContext context) {
     return StreamBuilder<bool>(
-        stream: cubit.baseRegistrationViewModel.outputIsGenderManValid,
+        stream: _viewModel.outputIsGenderManValid,
         builder: (context, snapshot) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               GestureDetector(
-                onTap: () => cubit.baseRegistrationViewModel.setGender(true),
+                onTap: () => _viewModel.setGender(true),
                 child: Container(
                   height: AppSize.s24,
                   width: AppSize.s24,
@@ -411,7 +395,7 @@ class ClientRegistrationView extends StatelessWidget {
                 width: AppSize.s18 * 2,
               ),
               GestureDetector(
-                onTap: () => cubit.baseRegistrationViewModel.setGender(false),
+                onTap: () => _viewModel.setGender(false),
                 child: Container(
                   height: AppSize.s24,
                   width: AppSize.s24,

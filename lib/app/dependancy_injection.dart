@@ -10,7 +10,9 @@ import 'package:smart_shipment_system/domain/use_cases/splash_navigation_use_cas
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseLoginViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseRegisterationViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/changePassword/viewModel/changePasswordViewModel.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/viewModel/clientRegistrationViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/viewModel/forgetPasswordViewModel.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/login/ViewModel/loginViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/manager/loginCubit.dart';
 
 final instance = GetIt.instance;
@@ -33,43 +35,40 @@ Future<void> initAppModule() async {
 
 initLoginModule() {
 //  if (!GetIt.I.isRegistered<LoginUseCase>()) {
-   // instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
+  // instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
   // BlocProvider(create: (context)=>LoginCubit()
   //
   //
   // );
- // instance.registerLazySingleton<LoginCubit>(()=>LoginCubit());
-  if(!GetIt.I.isRegistered<BaseLoginViewModel>()){
-    instance.registerLazySingleton<BaseLoginViewModel>(() => BaseLoginViewModel());
-
+  // instance.registerLazySingleton<LoginCubit>(()=>LoginCubit());
+  if (!GetIt.I.isRegistered<BaseLoginViewModel>()) {
+    instance
+        .registerLazySingleton<BaseLoginViewModel>(() => BaseLoginViewModel());
   }
+  instance.registerLazySingleton<LoginViewModel>(() => LoginViewModel());
 
- // }
-
-
-
-
+  // }
 }
 
-
-initClientRegistrationModule()
-{
-  if(!GetIt.I.isRegistered<BaseRegistrationViewModel>()){
-    instance.registerLazySingleton<BaseRegistrationViewModel>(() => BaseRegistrationViewModel());
-
+initClientRegistrationModule() {
+  if (!GetIt.I.isRegistered<BaseRegistrationViewModel>()) {
+    instance.registerLazySingleton<BaseRegistrationViewModel>(
+        () => BaseRegistrationViewModel());
   }
-
+  instance.registerLazySingleton<ClientRegistrationViewModel>(
+      () => ClientRegistrationViewModel());
 }
 
-  initForgotPasswordModule()
-  {
-    if(!GetIt.I.isRegistered<ForgotPasswordViewModel>()){
-      instance.registerLazySingleton<ForgotPasswordViewModel>(() => ForgotPasswordViewModel());
+initForgotPasswordModule() {
+  if (!GetIt.I.isRegistered<ForgotPasswordViewModel>()) {
+    instance.registerLazySingleton<ForgotPasswordViewModel>(
+        () => ForgotPasswordViewModel());
+  }
+}
 
-    }}
-initChangePasswordModule()
-{
-  if(!GetIt.I.isRegistered<ChangePasswordViewModel>()){
-    instance.registerLazySingleton<ChangePasswordViewModel>(() => ChangePasswordViewModel());
-
-  }}
+initChangePasswordModule() {
+  if (!GetIt.I.isRegistered<ChangePasswordViewModel>()) {
+    instance.registerLazySingleton<ChangePasswordViewModel>(
+        () => ChangePasswordViewModel());
+  }
+}
