@@ -166,7 +166,7 @@ ThemeData getArabicAppTheme() {
       titleTextStyle: getRegularStyle(
           color: ColorManager.white,
           fontSize: FontSize.s16,
-          fontFamily: FontConstants.fontFamilyArabic),
+          fontFamily: FontConstants.fontFamilyRubik),
     ),
     buttonTheme: const ButtonThemeData(
       shape: StadiumBorder(),
@@ -179,7 +179,7 @@ ThemeData getArabicAppTheme() {
         textStyle: getRegularStyle(
             color: ColorManager.white,
             fontSize: FontSize.s17,
-            fontFamily: FontConstants.fontFamilyArabic),
+            fontFamily: FontConstants.fontFamilyRubik),
         // primary: ColorManager.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSize.s12),
@@ -190,57 +190,57 @@ ThemeData getArabicAppTheme() {
       headlineLarge: getBoldStyle(
           color: ColorManager.black,
           fontSize: FontSize.s18,
-          fontFamily: FontConstants.fontFamilyArabic),
+          fontFamily: FontConstants.fontFamilyRubik),
       headlineMedium: getRegularStyle(
           color: ColorManager.darkGray,
           fontSize: FontSize.s14,
-          fontFamily: FontConstants.fontFamilyArabic),
+          fontFamily: FontConstants.fontFamilyRubik),
       titleLarge: getMediumStyle(
           color: ColorManager.lightGray,
           fontSize: AppSize.s14,
-          fontFamily: FontConstants.fontFamilyArabic),
+          fontFamily: FontConstants.fontFamilyRubik),
       titleMedium: getSemiBoldStyle(
           color: ColorManager.black,
           fontSize: FontSize.s14,
-          fontFamily: FontConstants.fontFamilyArabic),
+          fontFamily: FontConstants.fontFamilyRubik),
       titleSmall: getRegularStyle(
           color: ColorManager.black,
           fontSize: FontSize.s12,
-          fontFamily: FontConstants.fontFamilyArabic),
+          fontFamily: FontConstants.fontFamilyRubik),
       labelSmall: getBoldStyle(
           color: ColorManager.primary,
           fontSize: FontSize.s14,
-          fontFamily: FontConstants.fontFamilyArabic),
+          fontFamily: FontConstants.fontFamilyRubik),
       bodyLarge: getExtraBoldStyle(
           color: ColorManager.black,
           fontSize: FontSize.s14,
-          fontFamily: FontConstants.fontFamilyArabic),
+          fontFamily: FontConstants.fontFamilyRubik),
       bodySmall: getSemiBoldStyle(
           color: ColorManager.black,
           fontSize: FontSize.s12,
-          fontFamily: FontConstants.fontFamilyArabic),
+          fontFamily: FontConstants.fontFamilyRubik),
       bodyMedium: getMediumStyle(
           color: ColorManager.black,
           fontSize: FontSize.s14,
-          fontFamily: FontConstants.fontFamilyArabic),
+          fontFamily: FontConstants.fontFamilyRubik),
       displayLarge: getSemiBoldStyle(
           color: ColorManager.darkGray,
           fontSize: FontSize.s16,
-          fontFamily: FontConstants.fontFamilyArabic),
+          fontFamily: FontConstants.fontFamilyRubik),
     ),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(AppPadding.p8),
       hintStyle: getRegularStyle(
           color: ColorManager.inputField,
           fontSize: FontSize.s12,
-          fontFamily: FontConstants.fontFamilyArabic),
+          fontFamily: FontConstants.fontFamilyRubik),
       labelStyle: getMediumStyle(
           color: ColorManager.inputField,
           fontSize: FontSize.s12,
-          fontFamily: FontConstants.fontFamilyArabic),
+          fontFamily: FontConstants.fontFamilyRubik),
       errorStyle: getRegularStyle(
         color: ColorManager.error,
-        fontFamily: FontConstants.fontFamilyArabic,
+        fontFamily: FontConstants.fontFamilyRubik,
       ),
       enabledBorder: const OutlineInputBorder(
         borderSide:
