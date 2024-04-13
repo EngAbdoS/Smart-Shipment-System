@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:smart_shipment_system/app/app_preferances.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
+import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 
 import '../presentation/resources/theme_manager.dart';
@@ -25,6 +26,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    // context.locale==ARABIC_LOCAL?true:false;
+
     return GlobalLoaderOverlay(
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
@@ -33,7 +36,7 @@ class _MyAppState extends State<MyApp> {
         locale: context.locale,
         // initialRoute: Routes.splashRoute,
         routerConfig: AppRouter.router,
-        theme: getAppTheme(),
+        theme: context.locale==ARABIC_LOCAL?getArabicAppTheme():getAppTheme(),
       ),
     );
   }

@@ -13,7 +13,6 @@ import 'package:smart_shipment_system/presentation/authenticathion/changePasswor
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/viewModel/clientRegistrationViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/viewModel/forgetPasswordViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/ViewModel/loginViewModel.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/login/manager/loginCubit.dart';
 
 final instance = GetIt.instance;
 
