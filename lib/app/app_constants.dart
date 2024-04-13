@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class AppConstants
 {
  // static const String baseUrl="https://swidan.mocklab.io/";
@@ -9,5 +11,5 @@ class AppConstants
   static const String userRoleDelivery="USER_ROLE_DELIVERY";
   static const String userRoleClient="USER_ROLE_CLIENT";
   static const int transitionDurationMillySeconds=300;
-
+static const Size appDesignSize=Size(348, 926);
 }

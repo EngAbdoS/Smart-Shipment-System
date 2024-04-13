@@ -11,9 +11,14 @@ void main() async {
   await EasyLocalization.ensureInitialized();
 
   await initAppModule();
-  runApp(EasyLocalization(
-    startLocale: ARABIC_LOCAL,
+  runApp(
+    EasyLocalization(
+      startLocale: ARABIC_LOCAL,
       supportedLocales: const [ARABIC_LOCAL, ENGLISH_LOCAL],
       path: ASSET_PATH_LOCALISATION,
-      child: Phoenix(child: const MyApp())));
+      child: Phoenix(
+        child: const MyApp(),
+      ),
+    ),
+  );
 }

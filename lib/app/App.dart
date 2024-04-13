@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/app/app_preferances.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
@@ -26,17 +28,22 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // context.locale==ARABIC_LOCAL?true:false;
-
     return GlobalLoaderOverlay(
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        // initialRoute: Routes.splashRoute,
-        routerConfig: AppRouter.router,
-        theme: context.locale==ARABIC_LOCAL?getArabicAppTheme():getAppTheme(),
+      child: ScreenUtilInit(
+        designSize: AppConstants.appDesignSize,
+        minTextAdapt: true,
+        splitScreenMode: true,
+
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          routerConfig: AppRouter.router,
+          theme: context.locale == ARABIC_LOCAL
+              ? getArabicAppTheme()
+              : getAppTheme(),
+        ),
       ),
     );
   }

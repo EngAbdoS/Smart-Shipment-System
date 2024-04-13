@@ -43,8 +43,10 @@ initLoginModule() {
   if (!GetIt.I.isRegistered<BaseLoginViewModel>()) {
     instance
         .registerLazySingleton<BaseLoginViewModel>(() => BaseLoginViewModel());
+  } if (!GetIt.I.isRegistered<LoginViewModel>()) {
+    instance
+        .registerLazySingleton<LoginViewModel>(() => LoginViewModel());
   }
-  instance.registerLazySingleton<LoginViewModel>(() => LoginViewModel());
 
   // }
 }
