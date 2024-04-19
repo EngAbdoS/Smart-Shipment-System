@@ -170,7 +170,7 @@ class LoginView extends StatelessWidget {
                           .copyWith(color: ColorManager.black),
                     ).tr(),
                     TextButton(
-                      onPressed: () {},
+                      onPressed:()=>GoRouter.of(context).push(Routes.authViewRoute),
                       child: Text(
                         AppStrings.signUn,
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:smart_shipment_system/app/App.dart';
 import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
-
 import 'app/dependancy_injection.dart';
 
 void main() async {

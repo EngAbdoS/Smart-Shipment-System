@@ -54,19 +54,7 @@ abstract class AppRouter {
               FadeTransition(opacity: animation, child: child),
         ),
       ),
-      GoRoute(
-        path: Routes.onBoardingViewRoute,
-        pageBuilder: (context, state) => CustomTransitionPage<void>(
-          transitionDuration: const Duration(
-              milliseconds: AppConstants.transitionDurationMillySeconds),
-          key: state.pageKey,
-          child: Container(
-            color: Colors.red,
-          ),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              FadeTransition(opacity: animation, child: child),
-        ),
-      ),
+
       GoRoute(
         path: Routes.authViewRoute,
         pageBuilder: (context, state) => CustomTransitionPage<void>(
