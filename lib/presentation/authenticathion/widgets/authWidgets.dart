@@ -30,20 +30,35 @@ Widget nationalIdInputWidget(Stream<bool> outputIsNationalIdValid, Function setN
     TextEditingController nationalIdTextEditingController) {
   return StreamBuilder<bool>(
       stream: outputIsNationalIdValid,
-      //_viewModel.outputIsFirstNameValid,
       builder: (context, snapshot) {
         return TextFormField(
           onChanged: (NID) => setNationalID(NID),
-          //  _viewModel.setFirstName(firstName),
           keyboardType: TextInputType.number,
           controller: nationalIdTextEditingController,
-          //_firstNameController,
           decoration: InputDecoration(
-            // label: Text(AppStrings.username.tr()),
             hintText: AppStrings.nationalIdHint.tr(),
             labelText: AppStrings.nationalId.tr(),
             errorText:
             (snapshot.data ?? true) ? null : AppStrings.nationalIdError.tr(),
+          ),
+        );
+      });
+}
+
+Widget phoneNumberInputWidget(Stream<bool> outputIsPhoneNumberValid, Function setPhoneNumber,
+    TextEditingController phoneNumberTextEditingController) {
+  return StreamBuilder<bool>(
+      stream: outputIsPhoneNumberValid,
+      builder: (context, snapshot) {
+        return TextFormField(
+          onChanged: (phoneNumber) => setPhoneNumber(phoneNumber),
+          keyboardType: TextInputType.phone,
+          controller: phoneNumberTextEditingController,
+          decoration: InputDecoration(
+            hintText: AppStrings.phoneNumberHint.tr(),
+            labelText: AppStrings.phoneNumber.tr(),
+            errorText:
+            (snapshot.data ?? true) ? null : AppStrings.phoneNumberError.tr(),
           ),
         );
       });
