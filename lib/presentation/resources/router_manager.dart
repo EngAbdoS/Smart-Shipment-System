@@ -7,7 +7,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/authView/clie
 import 'package:smart_shipment_system/presentation/authenticathion/authView/deliveryAuthView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/changePassword/view/changePasswordView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/view/clientRegistrationView.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/view/deliveryRegistrationView.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/view/deliveryRegistrationView1.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/view/forgetPasswordView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/view/loginView.dart';
 import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
@@ -132,7 +132,7 @@ abstract class AppRouter {
                 milliseconds: AppConstants.transitionDurationMillySeconds),
             key: state.pageKey,
             child:
-             DeliveryRegistrationView(),
+             DeliveryRegistrationView1(),
             // BlocProvider(
             //   create: (context) => ClientRegistrationCubit(),
             //   child: ClientRegistrationView(),

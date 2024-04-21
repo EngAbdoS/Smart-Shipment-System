@@ -6,6 +6,10 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel{
 
 
 
+
+
+
+
   void getLoading(dynamic context) {
     testState(context);
     //emit(LoginLoading(asset: "asset"));
