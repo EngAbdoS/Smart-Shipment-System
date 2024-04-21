@@ -12,6 +12,9 @@
   "start_shipping": "Start Shipping",
   "Who_Are_You?": "Who Are You?",
 "client": "Client",
+  "name": "name",
+  "name_hint": "Enter full name",
+
   "delivery": "Delivery",
   "hello_delivery": "HELLO OUR DELIVARY !!",
   "happy_delivery": "We are happy to be one of our family",

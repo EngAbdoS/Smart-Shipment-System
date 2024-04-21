@@ -17,6 +17,8 @@ class AppStrings {
   static const happyDelivery = "happy_delivery";
   static const signIn = "sign_in";
   static const signUn = "sign_up";
+  static const name = "name";
+  static const nameHint = "name_hint";
   static const hello = "hello";
   static const readyFast = "ready_fast";
   static const welcomeLogin = "welcome_login";
