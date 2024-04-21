@@ -132,7 +132,7 @@ abstract class AppRouter {
                 milliseconds: AppConstants.transitionDurationMillySeconds),
             key: state.pageKey,
             child:
-            DeliveryRegistrationView(),
+             DeliveryRegistrationView(),
             // BlocProvider(
             //   create: (context) => ClientRegistrationCubit(),
             //   child: ClientRegistrationView(),
