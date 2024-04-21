@@ -11,6 +11,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/baseViewModel
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseRegisterationViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/changePassword/viewModel/changePasswordViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/viewModel/clientRegistrationViewModel.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/viewModel/deliveryRegisterationViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/viewModel/forgetPasswordViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/ViewModel/loginViewModel.dart';
 
@@ -43,21 +44,34 @@ initLoginModule() {
   if (!GetIt.I.isRegistered<BaseLoginViewModel>()) {
     instance
         .registerLazySingleton<BaseLoginViewModel>(() => BaseLoginViewModel());
-  } if (!GetIt.I.isRegistered<LoginViewModel>()) {
-    instance
-        .registerLazySingleton<LoginViewModel>(() => LoginViewModel());
+  }
+  if (!GetIt.I.isRegistered<LoginViewModel>()) {
+    instance.registerLazySingleton<LoginViewModel>(() => LoginViewModel());
   }
 
   // }
 }
 
 initClientRegistrationModule() {
-  if (!GetIt.I.isRegistered<BaseRegistrationViewModel>()) {
-    instance.registerLazySingleton<BaseRegistrationViewModel>(
-        () => BaseRegistrationViewModel());
+  // if (!GetIt.I.isRegistered<BaseRegistrationViewModel>()) {
+  //   instance.registerLazySingleton<BaseRegistrationViewModel>(
+  //       () => BaseRegistrationViewModel());
+  // }
+  if (!GetIt.I.isRegistered<ClientRegistrationViewModel>()) {
+    instance.registerLazySingleton<ClientRegistrationViewModel>(
+        () => ClientRegistrationViewModel());
   }
-  instance.registerLazySingleton<ClientRegistrationViewModel>(
-      () => ClientRegistrationViewModel());
+}
+
+initDeliveryRegistrationModule() {
+  // if (!GetIt.I.isRegistered<BaseRegistrationViewModel>()) {
+  //   instance.registerLazySingleton<BaseRegistrationViewModel>(
+  //           () => BaseRegistrationViewModel());
+  // }
+  if (!GetIt.I.isRegistered<DeliveryRegistrationViewModel>()) {
+    instance.registerLazySingleton<DeliveryRegistrationViewModel>(
+        () => DeliveryRegistrationViewModel());
+  }
 }
 
 initForgotPasswordModule() {

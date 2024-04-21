@@ -7,6 +7,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/authView/clie
 import 'package:smart_shipment_system/presentation/authenticathion/authView/deliveryAuthView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/changePassword/view/changePasswordView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/view/clientRegistrationView.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/view/deliveryRegistrationView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/view/forgetPasswordView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/view/loginView.dart';
 import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
@@ -120,6 +121,25 @@ abstract class AppRouter {
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) =>
                     FadeTransition(opacity: animation, child: child),
+          );
+        },
+      ),      GoRoute(
+        path: Routes.deliveryRegistrationViewRoute,
+        pageBuilder: (context, state) {
+          initDeliveryRegistrationModule();
+          return CustomTransitionPage<void>(
+            transitionDuration: const Duration(
+                milliseconds: AppConstants.transitionDurationMillySeconds),
+            key: state.pageKey,
+            child:
+            DeliveryRegistrationView(),
+            // BlocProvider(
+            //   create: (context) => ClientRegistrationCubit(),
+            //   child: ClientRegistrationView(),
+            // ),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                FadeTransition(opacity: animation, child: child),
           );
         },
       ),
