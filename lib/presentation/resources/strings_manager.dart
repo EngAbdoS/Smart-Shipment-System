@@ -18,6 +18,10 @@ class AppStrings {
   static const signIn = "sign_in";
   static const signUn = "sign_up";
   static const name = "name";
+  static const nationalId="nationalId";
+  static const nationalIdError="nationalId_error";
+  static const nationalIdHint="nationalId_hint";
+
   static const nameHint = "name_hint";
   static const hello = "hello";
   static const readyFast = "ready_fast";

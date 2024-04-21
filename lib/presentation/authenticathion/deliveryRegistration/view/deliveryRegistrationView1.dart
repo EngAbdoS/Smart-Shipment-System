@@ -14,12 +14,13 @@ class DeliveryRegistrationView1 extends StatelessWidget {
   DeliveryRegistrationView1({super.key});
   final DeliveryRegistrationViewModel _viewModel  =
   instance<DeliveryRegistrationViewModel>();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _nationalIdController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
   TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
-  // final TextEditingController _lastNameController = TextEditingController();
+  //
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _birthDateController = TextEditingController();
@@ -56,7 +57,11 @@ class DeliveryRegistrationView1 extends StatelessWidget {
               // ),
               const RegistrationSlider(pageIndex: 1),
 
-              nameInputWidget(_viewModel.outputIsFirstNameValid,_viewModel.setFirstName,_nameController)
+              nameInputWidget(_viewModel.outputIsFirstNameValid,_viewModel.setFirstName,_nameController),
+              SizedBox(height: 30.sp,),
+              nationalIdInputWidget(_viewModel.outputIsNationalIdValid,_viewModel.setNationalId,_nationalIdController),
+              SizedBox(height: 30.sp,),
+
             ],
           ),
         ),

@@ -26,3 +26,26 @@ Widget nameInputWidget(Stream<bool> outputIsFirstNameValid, Function setName,
         );
       });
 }
+Widget nationalIdInputWidget(Stream<bool> outputIsNationalIdValid, Function setNationalID,
+    TextEditingController nationalIdTextEditingController) {
+  return StreamBuilder<bool>(
+      stream: outputIsNationalIdValid,
+      //_viewModel.outputIsFirstNameValid,
+      builder: (context, snapshot) {
+        return TextFormField(
+          onChanged: (NID) => setNationalID(NID),
+          //  _viewModel.setFirstName(firstName),
+          keyboardType: TextInputType.number,
+          controller: nationalIdTextEditingController,
+          //_firstNameController,
+          decoration: InputDecoration(
+            // label: Text(AppStrings.username.tr()),
+            hintText: AppStrings.nationalIdHint.tr(),
+            labelText: AppStrings.nationalId.tr(),
+            errorText:
+            (snapshot.data ?? true) ? null : AppStrings.nationalIdError.tr(),
+          ),
+        );
+      });
+}
+

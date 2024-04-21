@@ -14,6 +14,10 @@
 "client": "Client",
   "name": "name",
   "name_hint": "Enter full name",
+  "nationalId": "National Id",
+  "nationalId_hint": "Enter your National Id",
+  "nationalId_error": "Enter valid National Id",
+
 
   "delivery": "Delivery",
   "hello_delivery": "HELLO OUR DELIVARY !!",
