@@ -37,16 +37,19 @@ class RegistrationSlider extends StatelessWidget {
   }
 
   Widget buildDivider(int stateIndex) => Expanded(
-    child: Divider(
-         height: 6.sp,thickness: 6,
-          color:
-              pageIndex >= stateIndex ? ColorManager.primary : ColorManager.gray,
+        child: Divider(
+          height: 6.sp,
+          thickness: 6,
+          color: pageIndex >= stateIndex
+              ? ColorManager.primary
+              : ColorManager.gray,
         ),
-  );
+      );
 
   Container pageNumber(BuildContext context, int stateIndex) {
     return Container(
-      height: 24,width: 24,
+      height: 24,
+      width: 24,
       decoration: BoxDecoration(
           color: pageIndex >= stateIndex
               ? ColorManager.primary

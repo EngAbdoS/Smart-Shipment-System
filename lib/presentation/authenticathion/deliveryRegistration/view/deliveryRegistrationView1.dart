@@ -12,17 +12,20 @@ import '../../../resources/values_manager.dart';
 
 class DeliveryRegistrationView1 extends StatelessWidget {
   DeliveryRegistrationView1({super.key});
-  final DeliveryRegistrationViewModel _viewModel  =
-  instance<DeliveryRegistrationViewModel>();
+
+  final DeliveryRegistrationViewModel _viewModel =
+      instance<DeliveryRegistrationViewModel>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _nationalIdController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-  TextEditingController();
+      TextEditingController();
+
   //
-  final TextEditingController _phoneNumberController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
   final TextEditingController _birthDateController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -57,13 +60,26 @@ class DeliveryRegistrationView1 extends StatelessWidget {
               // ),
               const RegistrationSlider(pageIndex: 1),
 
-              nameInputWidget(_viewModel.outputIsFirstNameValid,_viewModel.setFirstName,_nameController),
-              SizedBox(height: 30.sp,),
-              nationalIdInputWidget(_viewModel.outputIsNationalIdValid,_viewModel.setNationalId,_nationalIdController),
-              SizedBox(height: 30.sp,),
-              phoneNumberInputWidget(_viewModel.outputIsPhoneNumberValid,_viewModel.setPhoneNumber,_phoneNumberController),
-              SizedBox(height: 30.sp,),
-
+              nameInputWidget(_viewModel.outputIsFirstNameValid,
+                  _viewModel.setFirstName, _nameController),
+              SizedBox(
+                height: 30.sp,
+              ),
+              nationalIdInputWidget(_viewModel.outputIsNationalIdValid,
+                  _viewModel.setNationalId, _nationalIdController),
+              SizedBox(
+                height: 30.sp,
+              ),
+              phoneNumberInputWidget(_viewModel.outputIsPhoneNumberValid,
+                  _viewModel.setPhoneNumber, _phoneNumberController),
+              SizedBox(
+                height: 30.sp,
+              ),
+              addressInputWidget(_viewModel.outputIsAddressValid,
+                  _viewModel.setAddress, _addressController),
+              SizedBox(
+                height: 30.sp,
+              ),
             ],
           ),
         ),

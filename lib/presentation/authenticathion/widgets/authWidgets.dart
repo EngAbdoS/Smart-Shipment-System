@@ -63,4 +63,22 @@ Widget phoneNumberInputWidget(Stream<bool> outputIsPhoneNumberValid, Function se
         );
       });
 }
+Widget addressInputWidget(Stream<bool> outputAddressValid, Function setAddress,
+    TextEditingController addressTextEditingController) {
+  return StreamBuilder<bool>(
+      stream: outputAddressValid,
+      builder: (context, snapshot) {
+        return TextFormField(
+          onChanged: (address) => setAddress(address),
+          keyboardType: TextInputType.streetAddress,
+          controller: addressTextEditingController,
+          decoration: InputDecoration(
+            hintText: AppStrings.addressHint.tr(),
+            labelText: AppStrings.address.tr(),
+            errorText:
+            (snapshot.data ?? true) ? null : AppStrings.addressHint.tr(),
+          ),
+        );
+      });
+}
 
