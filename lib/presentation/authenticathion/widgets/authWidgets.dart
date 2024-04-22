@@ -63,10 +63,10 @@ Widget phoneNumberInputWidget(Stream<bool> outputIsPhoneNumberValid, Function se
         );
       });
 }
-Widget addressInputWidget(Stream<bool> outputAddressValid, Function setAddress,
+Widget addressInputWidget(Stream<bool> outputIsAddressValid, Function setAddress,
     TextEditingController addressTextEditingController) {
   return StreamBuilder<bool>(
-      stream: outputAddressValid,
+      stream: outputIsAddressValid,
       builder: (context, snapshot) {
         return TextFormField(
           onChanged: (address) => setAddress(address),
@@ -82,3 +82,37 @@ Widget addressInputWidget(Stream<bool> outputAddressValid, Function setAddress,
       });
 }
 
+Widget dateOfBirthInputWidget(BuildContext context,Stream<bool> outputIsDateOfBirthValid, Function setDateOfBirth,
+    TextEditingController dateOfBirthTextEditingController) {
+  DateTime? pickedDate;
+  return StreamBuilder<bool>(
+      stream: outputIsDateOfBirthValid,
+      builder: (context, snapshot) {
+        return TextFormField(
+          //  enabled: false,
+          readOnly: true,
+          onTap: () async {
+            pickedDate = await showDatePicker(
+                initialEntryMode: DatePickerEntryMode.calendarOnly,
+                // initialEntryMode=DatePickerEntryMode.input,
+                // barrierColor: ColorManager.primary,
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(1950),
+                lastDate: DateTime(2100));
+            setDateOfBirth(pickedDate ?? DateTime(0));
+            dateOfBirthTextEditingController.text =
+            "${pickedDate?.year ?? "0"}-${pickedDate?.month ?? "0"}-${pickedDate?.day ?? "0"}";
+          },
+
+          controller: dateOfBirthTextEditingController,
+          decoration: InputDecoration(
+            hintText: AppStrings.dateBirthError.tr(),
+            labelText: AppStrings.dateBirth.tr(),
+            errorText: (snapshot.data ?? true)
+                ? null
+                : AppStrings.dateBirthError.tr(),
+          ),
+        );
+      });
+}
