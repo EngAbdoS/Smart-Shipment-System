@@ -61,14 +61,12 @@ class DeliveryRegistrationView2 extends StatelessWidget {
               //   height: 6.sp,
               // ),
               const RegistrationSlider(pageIndex: 2),
-
-
-
-
-
+              emailInputWidget(_viewModel.outputIsEmailValid,_viewModel.setEmail,_emailController),
               SizedBox(
                 height: 15.sp,
               ),
+
+
 
              // signInWidget(context),
               SizedBox(
