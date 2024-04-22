@@ -63,31 +63,36 @@ class DeliveryRegistrationView1 extends StatelessWidget {
               nameInputWidget(_viewModel.outputIsFirstNameValid,
                   _viewModel.setFirstName, _nameController),
               SizedBox(
-                height: 30.sp,
+                height: 15.sp,
               ),
               nationalIdInputWidget(_viewModel.outputIsNationalIdValid,
                   _viewModel.setNationalId, _nationalIdController),
               SizedBox(
-                height: 30.sp,
+                height: 15.sp,
               ),
               phoneNumberInputWidget(_viewModel.outputIsPhoneNumberValid,
                   _viewModel.setPhoneNumber, _phoneNumberController),
               SizedBox(
-                height: 30.sp,
+                height: 15.sp,
               ),
               addressInputWidget(_viewModel.outputIsAddressValid,
                   _viewModel.setAddress, _addressController),
               SizedBox(
-                height: 30.sp,
+                height: 15.sp,
               ),
               dateOfBirthInputWidget(context, _viewModel.outputIsBirthDayValid,
                   _viewModel.setBirthDate, _birthDateController),
               SizedBox(
-                height: 30.sp,
+                height: 15.sp,
               ),
-              genderWidget(context,_viewModel.outputIsGenderManValid,_viewModel.setGender),
+              genderWidget(context, _viewModel.outputIsGenderManValid,
+                  _viewModel.setGender),
               SizedBox(
-                height: 30.sp,
+                height: 15.sp,
+              ),
+              signInWidget(context),
+              SizedBox(
+                height: 15.sp,
               ),
             ],
           ),

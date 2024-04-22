@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
+import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 
@@ -189,4 +191,32 @@ Widget genderWidget(
           ],
         );
       });
+}
+Widget signInWidget(BuildContext context) {
+  return Align(
+    alignment: Alignment.bottomCenter,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          AppStrings.haveAcc,
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(color: ColorManager.black),
+        ).tr(),
+        TextButton(
+          onPressed: () =>
+              GoRouter.of(context).pushReplacement(Routes.loginViewRoute),
+          child: Text(
+            AppStrings.signIn,
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+              color: ColorManager.black,
+              decoration: TextDecoration.underline,
+            ),
+          ).tr(),
+        )
+      ],
+    ),
+  );
 }
