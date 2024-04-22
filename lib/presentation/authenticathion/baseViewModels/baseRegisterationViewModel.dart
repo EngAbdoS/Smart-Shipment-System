@@ -41,20 +41,20 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
 
   @override
   Stream<bool> get outputIsAddressValid => _addressStreamController.stream
-      .map((address) => _isAddressValid(address));
+      .map((address) => isAddressValid(address));
 
   @override
   Stream<bool> get outputIsBirthDayValid => _birthDayStreamController.stream
-      .map((birthDay) => _isBirthDateValid(birthDay));
+      .map((birthDay) => isBirthDateValid(birthDay));
 
   @override
   Stream<bool> get outputIsConfirmPasswordValid =>
       _confirmPasswordStreamController.stream
-          .map((password) => _isConfirmPasswordValid(password));
+          .map((password) => isConfirmPasswordValid(password));
 
   @override
   Stream<bool> get outputIsFirstNameValid => _firstNameStreamController.stream
-      .map((firstName) => _isFirstNameValid(firstName));
+      .map((firstName) => isFirstNameValid(firstName));
 
   @override
   Stream<bool> get outputIsGenderManValid => _genderManStreamController.stream
@@ -62,16 +62,16 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
 
   @override
   Stream<bool> get outputIsLastNameValid => _lastNameStreamController.stream
-      .map((lastName) => _isLastNameValid(lastName));
+      .map((lastName) => isLastNameValid(lastName));
 
   @override
   Stream<bool> get outputIsNationalIdValid => _nationalIdStreamController.stream
-      .map((nationalId) => _isNationalIdValid(nationalId));
+      .map((nationalId) => isNationalIdValid(nationalId));
 
   @override
   Stream<bool> get outputIsPhoneNumberValid =>
       _phoneNumberStreamController.stream
-          .map((phoneNumber) => _isPhoneNumberValid(phoneNumber));
+          .map((phoneNumber) => isPhoneNumberValid(phoneNumber));
 
   @override
   Stream<bool> get outputIsConfirmPasswordHidden =>
@@ -203,34 +203,34 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
   @override
   bool areAllInputsValid() {
     return super.areAllInputsValid() &&
-        _isBirthDateValid(birthDate??DateTime(0)) &&
-        _isConfirmPasswordValid(confirmPassword ?? "") &&
-        _isPhoneNumberValid(phoneNumber ?? "") &&
-        _isNationalIdValid(nationalId ?? "") &&
-        _isFirstNameValid(firstName ?? "") &&
-        _isLastNameValid(lastName ?? "") &&
-        _isAddressValid(address ?? "") &&
+        isBirthDateValid(birthDate??DateTime(0)) &&
+        isConfirmPasswordValid(confirmPassword ?? "") &&
+        isPhoneNumberValid(phoneNumber ?? "") &&
+        isNationalIdValid(nationalId ?? "") &&
+        isFirstNameValid(firstName ?? "") &&
+        isLastNameValid(lastName ?? "") &&
+        isAddressValid(address ?? "") &&
         isGenderMan != null ;
   }
 
   //////////////////////////validation functions//////////////////////////
 
-  bool _isConfirmPasswordValid(String confirmPassword) =>
+  bool isConfirmPasswordValid(String confirmPassword) =>
       isPasswordValid(confirmPassword) && super.password == confirmPassword;
 
-  bool _isPhoneNumberValid(String phoneNumber) =>
+  bool isPhoneNumberValid(String phoneNumber) =>
       isEgyptionPhoneNumberValid(phoneNumber);
 
-  bool _isNationalIdValid(String nationalId) =>
+  bool isNationalIdValid(String nationalId) =>
       isEgyptionNationalIdValid(nationalId);
 
-  bool _isAddressValid(String address) => address.isNotEmpty;
+  bool isAddressValid(String address) => address.isNotEmpty;
 
-  bool _isFirstNameValid(String firstName) => firstName.isNotEmpty;
+  bool isFirstNameValid(String firstName) => firstName.isNotEmpty;
 
-  bool _isLastNameValid(String lastName) => lastName.isNotEmpty;
+  bool isLastNameValid(String lastName) => lastName.isNotEmpty;
 
-  bool _isBirthDateValid(DateTime birthDay) =>
+  bool isBirthDateValid(DateTime birthDay) =>
       birthDay.year != 0 && birthDay.month != 0 && birthDay.day != 0;
 
   bool _isGenderMan(bool isGenderMan) => isGenderMan == true;

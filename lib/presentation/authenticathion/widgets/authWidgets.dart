@@ -10,6 +10,7 @@ import 'package:smart_shipment_system/presentation/resources/router_manager.dart
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/cirular_button.dart';
+import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 
 Widget nameInputWidget(Stream<bool> outputIsFirstNameValid, Function setName,
     TextEditingController nameTextEditingController) {
@@ -228,7 +229,7 @@ Widget signInWidget(BuildContext context) {
 Widget nextRegistrationPage(
     BuildContext context, Function nextPage, int currentPageIndex) {
   return CircularButton(
-    buttonAction: () => nextPage(context, 1),
+    buttonAction: () => nextPage(context, currentPageIndex),
     buttonWidget: SvgPicture.asset(
       IconAssets.arrowRight,
       color: ColorManager.black,

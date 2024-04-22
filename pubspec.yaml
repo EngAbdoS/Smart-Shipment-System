@@ -25,6 +25,7 @@ dependencies:
   rxdart: ^0.27.7
   page_transition: ^2.1.0
   flutter_screenutil: ^5.9.0
+  fluttertoast: ^8.2.5
 dev_dependencies:
   flutter_test:
     sdk: flutter
