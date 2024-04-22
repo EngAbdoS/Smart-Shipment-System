@@ -85,6 +85,10 @@ class DeliveryRegistrationView1 extends StatelessWidget {
               SizedBox(
                 height: 30.sp,
               ),
+              genderWidget(context,_viewModel.outputIsGenderManValid,_viewModel.setGender),
+              SizedBox(
+                height: 30.sp,
+              ),
             ],
           ),
         ),

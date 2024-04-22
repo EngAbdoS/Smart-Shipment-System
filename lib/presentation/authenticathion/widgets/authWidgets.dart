@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
+import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 
 Widget nameInputWidget(Stream<bool> outputIsFirstNameValid, Function setName,
     TextEditingController nameTextEditingController) {
@@ -26,7 +28,10 @@ Widget nameInputWidget(Stream<bool> outputIsFirstNameValid, Function setName,
         );
       });
 }
-Widget nationalIdInputWidget(Stream<bool> outputIsNationalIdValid, Function setNationalID,
+
+Widget nationalIdInputWidget(
+    Stream<bool> outputIsNationalIdValid,
+    Function setNationalID,
     TextEditingController nationalIdTextEditingController) {
   return StreamBuilder<bool>(
       stream: outputIsNationalIdValid,
@@ -38,14 +43,17 @@ Widget nationalIdInputWidget(Stream<bool> outputIsNationalIdValid, Function setN
           decoration: InputDecoration(
             hintText: AppStrings.nationalIdHint.tr(),
             labelText: AppStrings.nationalId.tr(),
-            errorText:
-            (snapshot.data ?? true) ? null : AppStrings.nationalIdError.tr(),
+            errorText: (snapshot.data ?? true)
+                ? null
+                : AppStrings.nationalIdError.tr(),
           ),
         );
       });
 }
 
-Widget phoneNumberInputWidget(Stream<bool> outputIsPhoneNumberValid, Function setPhoneNumber,
+Widget phoneNumberInputWidget(
+    Stream<bool> outputIsPhoneNumberValid,
+    Function setPhoneNumber,
     TextEditingController phoneNumberTextEditingController) {
   return StreamBuilder<bool>(
       stream: outputIsPhoneNumberValid,
@@ -57,14 +65,16 @@ Widget phoneNumberInputWidget(Stream<bool> outputIsPhoneNumberValid, Function se
           decoration: InputDecoration(
             hintText: AppStrings.phoneNumberHint.tr(),
             labelText: AppStrings.phoneNumber.tr(),
-            errorText:
-            (snapshot.data ?? true) ? null : AppStrings.phoneNumberError.tr(),
+            errorText: (snapshot.data ?? true)
+                ? null
+                : AppStrings.phoneNumberError.tr(),
           ),
         );
       });
 }
-Widget addressInputWidget(Stream<bool> outputIsAddressValid, Function setAddress,
-    TextEditingController addressTextEditingController) {
+
+Widget addressInputWidget(Stream<bool> outputIsAddressValid,
+    Function setAddress, TextEditingController addressTextEditingController) {
   return StreamBuilder<bool>(
       stream: outputIsAddressValid,
       builder: (context, snapshot) {
@@ -76,13 +86,16 @@ Widget addressInputWidget(Stream<bool> outputIsAddressValid, Function setAddress
             hintText: AppStrings.addressHint.tr(),
             labelText: AppStrings.address.tr(),
             errorText:
-            (snapshot.data ?? true) ? null : AppStrings.addressHint.tr(),
+                (snapshot.data ?? true) ? null : AppStrings.addressHint.tr(),
           ),
         );
       });
 }
 
-Widget dateOfBirthInputWidget(BuildContext context,Stream<bool> outputIsDateOfBirthValid, Function setDateOfBirth,
+Widget dateOfBirthInputWidget(
+    BuildContext context,
+    Stream<bool> outputIsDateOfBirthValid,
+    Function setDateOfBirth,
     TextEditingController dateOfBirthTextEditingController) {
   DateTime? pickedDate;
   return StreamBuilder<bool>(
@@ -102,17 +115,78 @@ Widget dateOfBirthInputWidget(BuildContext context,Stream<bool> outputIsDateOfBi
                 lastDate: DateTime(2100));
             setDateOfBirth(pickedDate ?? DateTime(0));
             dateOfBirthTextEditingController.text =
-            "${pickedDate?.year ?? "0"}-${pickedDate?.month ?? "0"}-${pickedDate?.day ?? "0"}";
+                "${pickedDate?.year ?? "0"}-${pickedDate?.month ?? "0"}-${pickedDate?.day ?? "0"}";
           },
 
           controller: dateOfBirthTextEditingController,
           decoration: InputDecoration(
             hintText: AppStrings.dateBirthError.tr(),
             labelText: AppStrings.dateBirth.tr(),
-            errorText: (snapshot.data ?? true)
-                ? null
-                : AppStrings.dateBirthError.tr(),
+            errorText:
+                (snapshot.data ?? true) ? null : AppStrings.dateBirthError.tr(),
           ),
+        );
+      });
+}
+
+Widget genderWidget(
+    BuildContext context, Stream<bool> outputGenderValid, Function setGender) {
+  return StreamBuilder<bool>(
+      stream: outputGenderValid,
+      builder: (context, snapshot) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: () => setGender(true),
+              child: Container(
+                height: AppSize.s24,
+                width: AppSize.s24,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        color: (snapshot.data ?? false)
+                            ? ColorManager.primary
+                            : ColorManager.gray),
+                    shape: BoxShape.circle,
+                    color: (snapshot.data ?? false)
+                        ? ColorManager.primary
+                        : ColorManager.noColor),
+              ),
+            ),
+            const SizedBox(
+              width: AppSize.s8,
+            ),
+            Text(
+              AppStrings.male,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ).tr(),
+            const SizedBox(
+              width: AppSize.s18 * 2,
+            ),
+            GestureDetector(
+              onTap: () => setGender(false),
+              child: Container(
+                height: AppSize.s24,
+                width: AppSize.s24,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        color: (snapshot.data ?? false)
+                            ? ColorManager.gray
+                            : ColorManager.primary),
+                    shape: BoxShape.circle,
+                    color: (snapshot.data ?? true)
+                        ? ColorManager.noColor
+                        : ColorManager.primary),
+              ),
+            ),
+            const SizedBox(
+              width: AppSize.s8,
+            ),
+            Text(
+              AppStrings.female,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ).tr(),
+          ],
         );
       });
 }
