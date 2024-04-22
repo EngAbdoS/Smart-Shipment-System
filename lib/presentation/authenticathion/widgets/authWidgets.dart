@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
@@ -97,6 +98,7 @@ Widget addressInputWidget(Stream<bool> outputIsAddressValid,
         );
       });
 }
+
 Widget emailInputWidget(Stream<bool> outputIsEmailValid, Function setEmail,
     TextEditingController emailTextEditingController) {
   return StreamBuilder<bool>(
@@ -113,10 +115,101 @@ Widget emailInputWidget(Stream<bool> outputIsEmailValid, Function setEmail,
             hintText: AppStrings.emailHint.tr(),
             labelText: AppStrings.emailHint.tr(),
             errorText:
-            (snapshot.data ?? true) ? null : AppStrings.invalidEmail.tr(),
+                (snapshot.data ?? true) ? null : AppStrings.invalidEmail.tr(),
           ),
         );
       });
+}
+
+Widget passwordWidgets(
+    Stream<bool> outputIsPasswordValid,
+    Stream<bool> outputIsConfirmPasswordValid,
+    Stream<bool> outputIsPasswordHidden,
+    Stream<bool> outputIsConfirmPasswordHidden,
+    TextEditingController passwordTextEditing,
+    TextEditingController confirmPasswordTextEditing,
+    Function setPassword,
+    Function setConfirmPassword,
+    Function validateConfirmPassword,
+    Function changePasswordState,
+    Function changeConfirmPasswordState) {
+  return Column(
+    children: [
+      StreamBuilder<bool>(
+        builder: (context, snapshot) {
+          return StreamBuilder<bool>(
+              stream: outputIsPasswordHidden,
+              builder: (context, hiddenState) {
+                return TextFormField(
+                  onChanged: (password) => {
+                    setPassword(password),
+                    validateConfirmPassword(),
+                  },
+                  obscureText: hiddenState.data ?? true,
+                  keyboardType: TextInputType.visiblePassword,
+                  controller: passwordTextEditing,
+                  decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          changePasswordState();
+                        },
+                        icon: Icon(
+                          (hiddenState.data ?? true)
+                              ? Icons.remove_red_eye_rounded
+                              : Icons.remove_red_eye_outlined,
+                          color: ColorManager.primary,
+                        ),
+                      ),
+                      hintText: AppStrings.password.tr(),
+                      labelText: AppStrings.password.tr(),
+                      errorText: (snapshot.data ?? true)
+                          ? null
+                          : AppStrings.passwordInvalid.tr(),
+                      errorMaxLines: 2),
+                );
+              });
+        },
+        stream: outputIsPasswordValid,
+      ),
+       SizedBox(
+        height: 15.sp,
+      ),
+      StreamBuilder<bool>(
+        builder: (context, snapshot) {
+          return StreamBuilder<bool>(
+              stream: outputIsConfirmPasswordHidden,
+              builder: (context, hiddenState) {
+                return TextFormField(
+                  onChanged: (confirmPassword) =>
+                      setConfirmPassword(confirmPassword),
+                  obscureText: hiddenState.data ?? true,
+                  keyboardType: TextInputType.visiblePassword,
+                  controller: confirmPasswordTextEditing,
+                  decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          changeConfirmPasswordState();
+                        },
+                        icon: Icon(
+                          (hiddenState.data ?? true)
+                              ? Icons.remove_red_eye_rounded
+                              : Icons.remove_red_eye_outlined,
+                          color: ColorManager.primary,
+                        ),
+                      ),
+                      hintText: AppStrings.confirmPass.tr(),
+                      labelText: AppStrings.confirmPass.tr(),
+                      errorText: (snapshot.data ?? true)
+                          ? null
+                          : AppStrings.confirmPassError.tr(),
+                      errorMaxLines: 2),
+                );
+              });
+        },
+        stream: outputIsConfirmPasswordValid,
+      ),
+    ],
+  );
 }
 
 Widget dateOfBirthInputWidget(

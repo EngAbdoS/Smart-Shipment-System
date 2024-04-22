@@ -21,14 +21,12 @@ class DeliveryRegistrationView2 extends StatelessWidget {
   DeliveryRegistrationView2({super.key});
 
   final DeliveryRegistrationViewModel _viewModel =
-  instance<DeliveryRegistrationViewModel>();
+      instance<DeliveryRegistrationViewModel>();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-  TextEditingController();
-
-
+      TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -61,14 +59,24 @@ class DeliveryRegistrationView2 extends StatelessWidget {
               //   height: 6.sp,
               // ),
               const RegistrationSlider(pageIndex: 2),
-              emailInputWidget(_viewModel.outputIsEmailValid,_viewModel.setEmail,_emailController),
+              emailInputWidget(_viewModel.outputIsEmailValid,
+                  _viewModel.setEmail, _emailController),
               SizedBox(
                 height: 15.sp,
               ),
-
-
-
-             // signInWidget(context),
+              passwordWidgets(
+                  _viewModel.outputIsPasswordValid,
+                  _viewModel.outputIsConfirmPasswordValid,
+                  _viewModel.outputIsPasswordHidden,
+                  _viewModel.outputIsConfirmPasswordHidden,
+                  _passwordController,
+                  _confirmPasswordController,
+                  _viewModel.setPassword,
+                  _viewModel.setConfirmPassword,
+                  _viewModel.validateConfirmPassword,
+                  _viewModel.changePasswordState,
+                  _viewModel.changeConfirmPasswordState),
+              // signInWidget(context),
               SizedBox(
                 height: 15.sp,
               ),
