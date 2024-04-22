@@ -195,6 +195,7 @@ Widget genderWidget(
         );
       });
 }
+
 Widget signInWidget(BuildContext context) {
   return Align(
     alignment: Alignment.bottomCenter,
@@ -214,27 +215,23 @@ Widget signInWidget(BuildContext context) {
           child: Text(
             AppStrings.signIn,
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
-              color: ColorManager.black,
-              decoration: TextDecoration.underline,
-            ),
+                  color: ColorManager.black,
+                  decoration: TextDecoration.underline,
+                ),
           ).tr(),
         )
       ],
     ),
   );
 }
-Widget nextRegistrationPage(BuildContext context ,Function  nextPage,int currentPageIndex)
-{
-  return    CircularButton(
-      buttonAction: () => nextPage(context, 1),
-      buttonWidget: Transform.flip(
-        flipX: true,
-        child: SvgPicture.asset(
-          IconAssets.arrowRight,
-          color: ColorManager.black,
-        ),
-      ));
 
-
-
+Widget nextRegistrationPage(
+    BuildContext context, Function nextPage, int currentPageIndex) {
+  return CircularButton(
+    buttonAction: () => nextPage(context, 1),
+    buttonWidget: SvgPicture.asset(
+      IconAssets.arrowRight,
+      color: ColorManager.black,
+    ),
+  );
 }

@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
+import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 
 class CircularButton extends StatelessWidget {
@@ -16,7 +18,7 @@ class CircularButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:  buttonAction,
+      onTap: buttonAction,
       child: Container(
         alignment: Alignment.center,
         height: WidgetsValues.circularButtonSize,
@@ -37,7 +39,9 @@ class CircularButton extends StatelessWidget {
 
           shape: BoxShape.circle,
         ),
-        child: buttonWidget,
+        child: Transform.flip(
+            flipX: context.locale == ARABIC_LOCAL ? true : false,
+            child: buttonWidget),
       ),
     );
   }

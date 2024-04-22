@@ -98,7 +98,7 @@ class DeliveryRegistrationView1 extends StatelessWidget {
               SizedBox(
                 height: 15.sp,
               ),
-              nextRegistrationPage(context,_viewModel.nextPage,1),
+              nextRegistrationPage(context, _viewModel.nextPage, 1),
 
               SizedBox(
                 height: 15.sp,
