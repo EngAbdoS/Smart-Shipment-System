@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
+import 'package:smart_shipment_system/presentation/widgets/cirular_button.dart';
 
 Widget nameInputWidget(Stream<bool> outputIsFirstNameValid, Function setName,
     TextEditingController nameTextEditingController) {
@@ -219,4 +222,19 @@ Widget signInWidget(BuildContext context) {
       ],
     ),
   );
+}
+Widget nextRegistrationPage(BuildContext context ,Function  nextPage,int currentPageIndex)
+{
+  return    CircularButton(
+      buttonAction: () => nextPage(context, 1),
+      buttonWidget: Transform.flip(
+        flipX: true,
+        child: SvgPicture.asset(
+          IconAssets.arrowRight,
+          color: ColorManager.black,
+        ),
+      ));
+
+
+
 }

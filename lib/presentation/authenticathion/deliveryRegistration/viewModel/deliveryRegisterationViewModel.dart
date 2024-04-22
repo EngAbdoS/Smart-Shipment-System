@@ -6,7 +6,12 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel{
 
 
 
+void nextPage(dynamic context ,int currentPageIndex)
+{
+  print ("a7777");
 
+
+}
 
 
 
