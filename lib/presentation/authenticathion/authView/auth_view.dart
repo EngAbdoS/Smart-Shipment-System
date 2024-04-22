@@ -31,7 +31,7 @@ class AuthenticationView extends StatelessWidget {
             children: [
               roleButton(
                   ImageAssets.delivery,
-                  () => GoRouter.of(context).pushReplacement(Routes.deliveryRegistrationViewRoute),
+                  () => GoRouter.of(context).pushReplacement(Routes.deliveryRegistrationView1Route),
                       //GoRouter.of(context).push(Routes.deliveryAuthViewRoute),
                   context,
                   AppStrings.delivery),

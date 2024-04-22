@@ -19,7 +19,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
       case 1:
         {
           _pageOneValidation()
-              ? GoRouter.of(context).push(Routes.noRoute)
+              ? GoRouter.of(context).push(Routes.deliveryRegistrationView2Route)
               : testState(context);
         }
 

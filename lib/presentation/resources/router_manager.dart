@@ -7,7 +7,8 @@ import 'package:smart_shipment_system/presentation/authenticathion/authView/clie
 import 'package:smart_shipment_system/presentation/authenticathion/authView/deliveryAuthView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/changePassword/view/changePasswordView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/view/clientRegistrationView.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/view/deliveryRegistrationView1.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/views/deliveryRegistrationView1.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/views/deliveryRegistrationView2.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/view/forgetPasswordView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/view/loginView.dart';
 import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
@@ -23,8 +24,16 @@ class Routes {
   static const String loginViewRoute = "/loginView";
   static const String authViewRoute = "/authView";
   static const String deliveryAuthViewRoute = "/deliveryAuthView";
-  static const String deliveryRegistrationViewRoute =
-      "/deliveryRegistrationView";
+  static const String deliveryRegistrationView1Route =
+      "/deliveryRegistration1View";
+  static const String deliveryRegistrationView2Route =
+      "/deliveryRegistration2View";
+  static const String deliveryRegistrationView3Route =
+      "/deliveryRegistration3View";
+  static const String deliveryInteriorRegistrationViewRoute =
+      "/deliveryInteriorRegistrationView";
+  static const String deliveryExternalRegistrationViewRoute =
+      "/deliveryExternalRegistrationView";
   static const String clientAuthViewRoute = "/clientAuthView";
   static const String clientRegistrationViewRoute = "/clientRegistrationView";
   static const String forgotPasswordViewRoute = "/forgotPasswordView";
@@ -55,7 +64,6 @@ abstract class AppRouter {
               FadeTransition(opacity: animation, child: child),
         ),
       ),
-
       GoRoute(
         path: Routes.authViewRoute,
         pageBuilder: (context, state) => CustomTransitionPage<void>(
@@ -112,34 +120,120 @@ abstract class AppRouter {
             transitionDuration: const Duration(
                 milliseconds: AppConstants.transitionDurationMillySeconds),
             key: state.pageKey,
-            child:
-            ClientRegistrationView(),
-            // BlocProvider(
-            //   create: (context) => ClientRegistrationCubit(),
-            //   child: ClientRegistrationView(),
-            // ),
+            child: ClientRegistrationView(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) =>
                     FadeTransition(opacity: animation, child: child),
           );
         },
-      ),      GoRoute(
-        path: Routes.deliveryRegistrationViewRoute,
+      ),
+      GoRoute(
+        path: Routes.deliveryRegistrationView1Route,
         pageBuilder: (context, state) {
           initDeliveryRegistrationModule();
           return CustomTransitionPage<void>(
             transitionDuration: const Duration(
                 milliseconds: AppConstants.transitionDurationMillySeconds),
             key: state.pageKey,
-            child:
-             DeliveryRegistrationView1(),
-            // BlocProvider(
-            //   create: (context) => ClientRegistrationCubit(),
-            //   child: ClientRegistrationView(),
-            // ),
+            child: DeliveryRegistrationView1(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) =>
-                FadeTransition(opacity: animation, child: child),
+                    SlideTransition(
+                        position: animation.drive(
+                          Tween<Offset>(
+                            begin: const Offset(0.25, 0.25),
+                            end: Offset.zero,
+                          ).chain(CurveTween(curve: Curves.easeIn)),
+                        ),
+                        child: child),
+          );
+        },
+      ),
+      GoRoute(
+        path: Routes.deliveryRegistrationView2Route,
+        pageBuilder: (context, state) {
+          initDeliveryRegistrationModule();
+          return CustomTransitionPage<void>(
+            transitionDuration: const Duration(
+                milliseconds: AppConstants.transitionDurationMillySeconds),
+            key: state.pageKey,
+            child: DeliveryRegistrationView2(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    SlideTransition(
+                        position: animation.drive(
+                          Tween<Offset>(
+                            begin: const Offset(0.25, 0.25),
+                            end: Offset.zero,
+                          ).chain(CurveTween(curve: Curves.easeIn)),
+                        ),
+                        child: child),
+          );
+        },
+      ),
+      GoRoute(
+        path: Routes.deliveryRegistrationView3Route,
+        pageBuilder: (context, state) {
+          initDeliveryRegistrationModule();
+          return CustomTransitionPage<void>(
+            transitionDuration: const Duration(
+                milliseconds: AppConstants.transitionDurationMillySeconds),
+            key: state.pageKey,
+            child: DeliveryRegistrationView1(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    SlideTransition(
+                        position: animation.drive(
+                          Tween<Offset>(
+                            begin: const Offset(0.25, 0.25),
+                            end: Offset.zero,
+                          ).chain(CurveTween(curve: Curves.easeIn)),
+                        ),
+                        child: child),
+          );
+        },
+      ),
+      GoRoute(
+        path: Routes.deliveryInteriorRegistrationViewRoute,
+        pageBuilder: (context, state) {
+          initDeliveryRegistrationModule();
+          return CustomTransitionPage<void>(
+            transitionDuration: const Duration(
+                milliseconds: AppConstants.transitionDurationMillySeconds),
+            key: state.pageKey,
+            child: DeliveryRegistrationView1(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    SlideTransition(
+                        position: animation.drive(
+                          Tween<Offset>(
+                            begin: const Offset(0.25, 0.25),
+                            end: Offset.zero,
+                          ).chain(CurveTween(curve: Curves.easeIn)),
+                        ),
+                        child: child),
+          );
+        },
+      ),
+      GoRoute(
+        path: Routes.deliveryExternalRegistrationViewRoute,
+        pageBuilder: (context, state) {
+          initDeliveryRegistrationModule();
+          return CustomTransitionPage<void>(
+            transitionDuration: const Duration(
+                milliseconds: AppConstants.transitionDurationMillySeconds),
+            key: state.pageKey,
+            child: DeliveryRegistrationView1(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    SlideTransition(
+                        position: animation.drive(
+                          Tween<Offset>(
+                            begin: const Offset(0.25, 0.25),
+                            end: Offset.zero,
+                          ).chain(CurveTween(curve: Curves.easeIn)),
+                        ),
+                        child: child),
           );
         },
       ),
