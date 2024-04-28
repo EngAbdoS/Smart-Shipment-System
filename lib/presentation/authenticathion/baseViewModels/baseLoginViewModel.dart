@@ -24,11 +24,11 @@ class BaseLoginViewModel
 
   @override
   Stream<bool> get outputIsPasswordValid => _passwordStreamController.stream
-      .map((password) => _isPasswordValid(password));
+      .map((password) => isPasswordValid(password));
 
   @override
   Stream<bool> get outputIsEmailValid => _userEmailStreamController.stream
-      .map((email) => _isEmailValid(email));
+      .map((email) => isEmailValid(email));
 
   @override
   Stream<bool> get outputAreAllDataValid =>
@@ -84,18 +84,18 @@ class BaseLoginViewModel
 
   bool areAllInputsValid() {
 
-    return _isPasswordValid(password??"")&&_isEmailValid(email??"");
+    return isPasswordValid(password??"")&&isEmailValid(email??"");
 
     //return false;
     // return _isUserNameValid(loginObject.userName) &&
     // _isPasswordValid(loginObject.password);
   }
 
-  bool _isPasswordValid(String password) {
+  bool isPasswordValid(String password) {
     return isPasswordValid(password);
   }
 
-  bool _isEmailValid(String email) {
+  bool isEmailValid(String email) {
     return isEmailValid(email);
   }
 

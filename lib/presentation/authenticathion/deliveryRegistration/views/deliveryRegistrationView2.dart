@@ -80,6 +80,12 @@ class DeliveryRegistrationView2 extends StatelessWidget {
               SizedBox(
                 height: 15.sp,
               ),
+              deliveryConfirmationPicture(context ,_viewModel.outputDeliveryConfirmationPicture,_viewModel.outputIsDeliveryConfirmationPictureValid,_viewModel.setDeliveryConfirmationPicture)
+              ,
+
+              SizedBox(
+                height: 15.sp,
+              ),
               nextRegistrationPage(context, _viewModel.navigateToNextPage, 1),
 
               SizedBox(

@@ -22,7 +22,9 @@
   "nationalId": "الرقم القومي",
   "nationalId_hint": "ادخل رقمك القومي",
   "nationalId_error": "الرجاء ادخال رقم قومي صحيح",
+  "confirmation_picture": "صورة التحقق",
 
+  "confirmation_picture_hint": "الرجاء التقاط صورة موضح بها الوجه و البطاقة الشخصية من اجل التحقق من لهوية .",
 
   "hello": "مرحبا !!",
   "ready_fast": "هل أنت مستعد لشحن حزمتك بسرعة؟",

@@ -1,17 +1,17 @@
 import 'dart:async';
-
+import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/cirular_button.dart';
-import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 
 Widget nameInputWidget(Stream<bool> outputIsFirstNameValid, Function setName,
     TextEditingController nameTextEditingController) {
@@ -121,6 +121,86 @@ Widget emailInputWidget(Stream<bool> outputIsEmailValid, Function setEmail,
       });
 }
 
+Widget deliveryConfirmationPicture(
+  BuildContext contextt,
+  Stream<File> outputDeliveryConfirmationPicture,
+  Stream<bool> outputIsDeliveryConfirmationPictureValid,
+  Function setDeliveryConfirmationPicture,
+) {
+  final ImagePicker _imagePicker = ImagePicker();
+  return StreamBuilder<File>(
+      stream: outputDeliveryConfirmationPicture,
+      builder: (context, fileSnapshot) {
+        return StreamBuilder<bool>(
+            stream: outputIsDeliveryConfirmationPictureValid,
+            builder: (context, snapshot) {
+              return TextFormField(
+                //  enabled: false,
+                readOnly: true,
+                minLines: 3,
+                maxLines: 5,
+
+                onTap: () async {
+                  showModalBottomSheet(
+                      context: contextt,
+                      builder: (BuildContext context) {
+                        return SafeArea(
+                            child: Wrap(
+                          children: [
+                            ListTile(
+                              trailing: const Icon(Icons.arrow_forward),
+                              leading: const Icon(Icons.photo),
+                              title: const Text(AppStrings.photoGallery).tr(),
+                              onTap: () async {
+                                var image = await _imagePicker.pickImage(
+                                    source: ImageSource.gallery);
+                                setDeliveryConfirmationPicture(
+                                    File(image?.path ?? ""));
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            ListTile(
+                              trailing: const Icon(Icons.arrow_forward),
+                              leading: const Icon(Icons.camera_alt_outlined),
+                              title: const Text(AppStrings.photoCamera).tr(),
+                              onTap: () async {
+                                var image = await _imagePicker.pickImage(
+                                    source: ImageSource.camera);
+                                setDeliveryConfirmationPicture(
+                                    File(image?.path ?? ""));
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        ));
+                      });
+                },
+
+                // controller: dateOfBirthTextEditingController,
+                decoration: InputDecoration(
+                  hintText: (snapshot.data ?? true)
+                      ? fileSnapshot.data?.path
+                      : AppStrings.confirmationPictureHint.tr(),
+                  hintMaxLines: 1,
+                  labelText: AppStrings.confirmationPicture.tr(),
+                  errorText: (snapshot.data ?? true)
+                      ? null
+                      : AppStrings.confirmationPictureHint.tr(),
+                ),
+              );
+            });
+      });
+}
+
+// _imageFromGallery() async {
+//   var image = await _imagePicker.pickImage(source: ImageSource.gallery);
+//   _viewModel.setProfilePicture(File(image?.path ?? ""));
+// }
+//
+// _imageFromCamera() async {
+//   var image = await _imagePicker.pickImage(source: ImageSource.camera);
+//   _viewModel.setProfilePicture(File(image?.path ?? ""));
+// }
 Widget passwordWidgets(
     Stream<bool> outputIsPasswordValid,
     Stream<bool> outputIsConfirmPasswordValid,
@@ -171,7 +251,7 @@ Widget passwordWidgets(
         },
         stream: outputIsPasswordValid,
       ),
-       SizedBox(
+      SizedBox(
         height: 15.sp,
       ),
       StreamBuilder<bool>(
@@ -294,7 +374,7 @@ Widget genderWidget(
                             ? ColorManager.gray
                             : ColorManager.primary),
                     shape: BoxShape.circle,
-                    color: (snapshot.data ?? true)
+                    color: (snapshot.data ?? false)
                         ? ColorManager.noColor
                         : ColorManager.primary),
               ),

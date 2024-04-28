@@ -21,6 +21,8 @@ class AppStrings {
   static const nationalId="nationalId";
   static const nationalIdError="nationalId_error";
   static const nationalIdHint="nationalId_hint";
+  static const confirmationPicture= "confirmation_picture";
+  static const confirmationPictureHint= "confirmation_picture_hint";
 
   static const nameHint = "name_hint";
   static const hello = "hello";

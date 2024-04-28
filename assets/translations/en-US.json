@@ -17,6 +17,8 @@
   "nationalId": "National Id",
   "nationalId_hint": "Enter your National Id",
   "nationalId_error": "Enter valid National Id",
+  "confirmation_picture": "Confirmation Image",
+  "confirmation_picture_hint": "Please take a photo of your face and ID card in order to verify your identity.",
 
 
   "delivery": "Delivery",
