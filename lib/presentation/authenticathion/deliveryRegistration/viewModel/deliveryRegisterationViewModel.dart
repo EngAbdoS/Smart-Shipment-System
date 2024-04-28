@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:go_router/go_router.dart';
+import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseRegisterationViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/testState.dart';
@@ -8,50 +9,32 @@ import 'package:smart_shipment_system/presentation/widgets/testState.dart';
 class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   StreamController deliveryConfirmationPictureValidationStreamController =
       StreamController<File>.broadcast();
+
   StreamController deliveryConfirmationPictureStreamController =
-  StreamController<File>.broadcast();
+      StreamController<File>.broadcast();
+
+//////////////////////////declarations//////////////////////////
 
   File? deliveryConfirmationPicture;
 
-  Sink get inputDeliveryConfirmationPicture =>
-      deliveryConfirmationPictureStreamController.sink;
-  Sink get inputValidateDeliveryConfirmationPicture =>
-      deliveryConfirmationPictureValidationStreamController.sink;
+//////////////////////////output//////////////////////////
 
   Stream<bool> get outputIsDeliveryConfirmationPictureValid =>
       deliveryConfirmationPictureValidationStreamController.stream
           .map((file) => isDeliveryConfirmationPictureValid(file));
+
   Stream<File> get outputDeliveryConfirmationPicture =>
-      deliveryConfirmationPictureStreamController.stream
-          .map((file) => file);
+      deliveryConfirmationPictureStreamController.stream.map((file) => file);
 
-  setDeliveryConfirmationPicture(File deliveryConfirmationPicture) async {
-    inputDeliveryConfirmationPicture.add(deliveryConfirmationPicture);
-    inputValidateDeliveryConfirmationPicture.add(deliveryConfirmationPicture);
-    this.deliveryConfirmationPicture = deliveryConfirmationPicture;
-    inputValidation.add(null);
-  }
+  //////////////////////////input//////////////////////////
 
-  bool isDeliveryConfirmationPictureValid(File deliveryConfirmationPicture) {
-    //TODO validation
+  Sink get inputDeliveryConfirmationPicture =>
+      deliveryConfirmationPictureStreamController.sink;
 
-    return deliveryConfirmationPicture.path.isNotEmpty;
-  }
+  Sink get inputValidateDeliveryConfirmationPicture =>
+      deliveryConfirmationPictureValidationStreamController.sink;
 
-  bool _pageOneValidation() {
-    return isFirstNameValid(firstName ?? "") &&
-        isNationalIdValid(nationalId ?? "") &&
-        isPhoneNumberValid(phoneNumber ?? "") &&
-        isAddressValid(address ?? "") &&
-        isBirthDateValid(birthDate ?? DateTime(0)) &&
-        isGenderMan != null;
-  }
-
-  bool _pageTwoValidation() {
-    return isPasswordValid(password ?? "") &&
-        isEmailValid(email ?? "") &&
-        isConfirmPasswordValid(confirmPassword ?? "");
-  }
+//////////////////////////functions//////////////////////////
 
   void navigateToNextPage(dynamic context, int currentPageIndex) {
     switch (currentPageIndex) {
@@ -73,6 +56,40 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     }
   }
 
+  setDeliveryConfirmationPicture(File deliveryConfirmationPicture) async {
+    inputDeliveryConfirmationPicture.add(deliveryConfirmationPicture);
+    inputValidateDeliveryConfirmationPicture.add(deliveryConfirmationPicture);
+    this.deliveryConfirmationPicture = deliveryConfirmationPicture;
+    inputValidation.add(null);
+  }
+
+  //////////////////////////validation functions//////////////////////////
+
+  bool isDeliveryConfirmationPictureValid(File deliveryConfirmationPicture) {
+    //TODO validation
+    return deliveryConfirmationPicture.lengthSync() <=
+            AppConstants.confirmationPictureSizeByBytes &&
+        deliveryConfirmationPicture.path.isNotEmpty;
+  }
+
+  bool _pageOneValidation() {
+    return isFirstNameValid(firstName ?? "") &&
+        isNationalIdValid(nationalId ?? "") &&
+        isPhoneNumberValid(phoneNumber ?? "") &&
+        isAddressValid(address ?? "") &&
+        isBirthDateValid(birthDate ?? DateTime(0)) &&
+        isGenderMan != null;
+  }
+
+  bool _pageTwoValidation() {
+    return isPasswordValid(password ?? "") &&
+        isEmailValid(email ?? "") &&
+        isConfirmPasswordValid(confirmPassword ?? "") &&
+        isDeliveryConfirmationPictureValid(
+            deliveryConfirmationPicture ?? File(""));
+  }
+
+///////////////////////////////////////////////////////////////////////
   void getLoading(dynamic context) {
     testState(context);
     //emit(LoginLoading(asset: "asset"));
