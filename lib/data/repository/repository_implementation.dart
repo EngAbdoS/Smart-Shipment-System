@@ -15,7 +15,7 @@ class RepositoryImplementation implements Repository {
   @override
   Future<Either<Failure, String>> getSplashNextNavigationRoute() async {
     //TODO check if logged in from backend 🤨
-     return const Right(Routes.onBoardingViewRoute);
+    // return const Right(Routes.onBoardingViewRoute);
 
 //handle in local domain
 

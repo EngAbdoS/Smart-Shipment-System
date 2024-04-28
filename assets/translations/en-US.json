@@ -20,6 +20,11 @@
   "confirmation_picture": "Confirmation Image",
   "confirmation_picture_hint": "Please take a photo of your face and ID card in order to verify your identity.",
 
+  "delivery_role":    "Choose Work Method",
+  "deliveryExternal": "External Mediator",
+  "deliveryInternal": "Internal Mediator",
+  "deliveryExternalDescription": "The external mediator is committed to fixed schedules for travel and commuting between governorates.",
+  "deliveryInternalDescription": "The internal mediator owns a private vehicle and is ready to work on it partially.",
 
   "delivery": "Delivery",
   "hello_delivery": "HELLO OUR DELIVARY !!",

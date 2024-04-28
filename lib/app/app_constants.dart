@@ -10,6 +10,12 @@ class AppConstants
   static const int apiTimeOut=60000;
   static const String userRoleDelivery="USER_ROLE_DELIVERY";
   static const String userRoleClient="USER_ROLE_CLIENT";
+  static const String deliveryRoleExternal="DELIVERY_ROLE_EXTERNAL";
+  static const String deliveryRoleInternal="DELIVERY_ROLE_INTERNAL";
+
+
+
+
   static const int transitionDurationMillySeconds=300;
   static const int confirmationPictureSizeByBytes=10240;
 

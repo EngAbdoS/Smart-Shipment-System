@@ -92,11 +92,11 @@ class BaseLoginViewModel
   }
 
   bool isPasswordValid(String password) {
-    return isPasswordValid(password);
+    return isPasswordValidGlobal(password);
   }
 
   bool isEmailValid(String email) {
-    return isEmailValid(email);
+    return isEmailValidGlobal(email);
   }
 
   //////////////////////////end//////////////////////////

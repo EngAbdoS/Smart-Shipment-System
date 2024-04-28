@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
@@ -192,6 +193,92 @@ Widget deliveryConfirmationPicture(
       });
 }
 
+Widget deliveryRole(BuildContext context, Function setRole) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        AppStrings.deliveryRole,
+        style: Theme.of(context).textTheme.titleMedium,
+      ).tr(),
+      SizedBox(
+        height: 80.sp,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            onTap: () => setRole(context,AppConstants.deliveryRoleInternal),
+            child: Container(
+
+              height: 110.sp,
+              width: 150.sp,
+              decoration: BoxDecoration(
+                color: ColorManager.white,
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 16,
+                    offset: const Offset(0, 8),
+                    color: ColorManager.shadowColor.withOpacity(0.25),
+                  )
+                ],
+              ),
+              child: Center(
+                child: Text(
+                  AppStrings.deliveryInternal,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ).tr(),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () => setRole(context,AppConstants.deliveryRoleExternal),
+            child: Container(
+              height: 110.sp,
+              width: 150.sp,
+              decoration: BoxDecoration(
+                color: ColorManager.white,
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 16,
+                    offset: const Offset(0, 8),
+                    color: ColorManager.shadowColor.withOpacity(0.25),
+                  )
+                ],
+              ),
+              child: Center(
+                child: Text(
+                  AppStrings.deliveryExternal,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ).tr(),
+              ),
+            ),
+          ),
+        ],
+      ),
+      SizedBox(
+        height: 80.sp,
+      ),
+      Text(
+        AppStrings.deliveryInternalDescription,
+        style: Theme.of(context).textTheme.titleLarge!.copyWith(color: ColorManager.error.withOpacity(0.5),fontSize: 12),
+      ).tr(),
+      SizedBox(
+        height: 10.sp,
+      ),
+      Text(
+        AppStrings.deliveryExternalDescription,
+        style: Theme.of(context).textTheme.titleLarge!.copyWith(color: ColorManager.error.withOpacity(0.5),fontSize: 12),
+      ).tr(),
+    ],
+  );
+}
+
 // _imageFromGallery() async {
 //   var image = await _imagePicker.pickImage(source: ImageSource.gallery);
 //   _viewModel.setProfilePicture(File(image?.path ?? ""));
@@ -371,10 +458,10 @@ Widget genderWidget(
                 decoration: BoxDecoration(
                     border: Border.all(
                         color: (snapshot.data ?? false)
-                            ? ColorManager.gray
-                            : ColorManager.primary),
+                            ? ColorManager.primary
+                            : ColorManager.gray),
                     shape: BoxShape.circle,
-                    color: (snapshot.data ?? false)
+                    color: (snapshot.data ?? true)
                         ? ColorManager.noColor
                         : ColorManager.primary),
               ),

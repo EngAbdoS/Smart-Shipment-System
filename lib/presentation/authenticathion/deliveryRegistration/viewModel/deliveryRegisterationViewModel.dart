@@ -16,6 +16,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
 //////////////////////////declarations//////////////////////////
 
   File? deliveryConfirmationPicture;
+  String? deliveryRole;
 
 //////////////////////////output//////////////////////////
 
@@ -40,17 +41,27 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     switch (currentPageIndex) {
       case 1:
         {
-          _pageOneValidation()
+          _pageOneValidation() || true
               ? GoRouter.of(context).push(Routes.deliveryRegistrationView2Route)
               : testState(context);
         }
       case 2:
         {
           _pageTwoValidation()
-              ? GoRouter.of(context).push(Routes.deliveryRegistrationView3Route)
+              ? GoRouter.of(context)
+                  .push(Routes.deliveryRegistrationRoleViewRoute)
               : testState(context);
         }
-
+      case 3: //delivery role
+        {
+          _pageDeliveryRoleValidation()
+              ? deliveryRole == AppConstants.deliveryRoleExternal
+                  ? GoRouter.of(context)
+                      .push(Routes.deliveryExternalRegistrationViewRoute)
+                  : GoRouter.of(context)
+                      .push(Routes.deliveryInteriorRegistrationViewRoute)
+              : testState(context);
+        }
       default:
       // return false;
     }
@@ -63,13 +74,24 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     inputValidation.add(null);
   }
 
+  setDeliveryRole(dynamic context, String deliveryRole) {
+    this.deliveryRole = deliveryRole;
+    inputValidation.add(null);
+    navigateToNextPage(context, 3);
+  }
+
   //////////////////////////validation functions//////////////////////////
 
   bool isDeliveryConfirmationPictureValid(File deliveryConfirmationPicture) {
     //TODO validation
-    return deliveryConfirmationPicture.lengthSync() <=
-            AppConstants.confirmationPictureSizeByBytes &&
+    return
+        // deliveryConfirmationPicture.lengthSync() <=
+        //       AppConstants.confirmationPictureSizeByBytes &&
         deliveryConfirmationPicture.path.isNotEmpty;
+  }
+
+  bool isDeliveryRoleValid() {
+    return deliveryRole?.isNotEmpty ?? false;
   }
 
   bool _pageOneValidation() {
@@ -87,6 +109,10 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
         isConfirmPasswordValid(confirmPassword ?? "") &&
         isDeliveryConfirmationPictureValid(
             deliveryConfirmationPicture ?? File(""));
+  }
+
+  bool _pageDeliveryRoleValidation() {
+    return isDeliveryRoleValid();
   }
 
 ///////////////////////////////////////////////////////////////////////

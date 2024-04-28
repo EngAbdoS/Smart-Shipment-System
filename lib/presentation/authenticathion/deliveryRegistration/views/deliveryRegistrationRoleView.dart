@@ -17,16 +17,11 @@ import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 
 import '../../../resources/values_manager.dart';
 
-class DeliveryRegistrationView2 extends StatelessWidget {
-  DeliveryRegistrationView2({super.key});
+class DeliveryRegistrationRoleView extends StatelessWidget {
+  DeliveryRegistrationRoleView({super.key});
 
   final DeliveryRegistrationViewModel _viewModel =
       instance<DeliveryRegistrationViewModel>();
-
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -48,49 +43,7 @@ class DeliveryRegistrationView2 extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               authLogoWidget(),
-              // SizedBox(
-              //   height: 6.sp,
-              // ),
-              Text(
-                AppStrings.createAcc,
-                style: Theme.of(context).textTheme.titleMedium,
-              ).tr(),
-              // SizedBox(
-              //   height: 6.sp,
-              // ),
-              const RegistrationSlider(pageIndex: 2),
-              emailInputWidget(_viewModel.outputIsEmailValid,
-                  _viewModel.setEmail, _emailController),
-              SizedBox(
-                height: 15.sp,
-              ),
-              passwordWidgets(
-                  _viewModel.outputIsPasswordValid,
-                  _viewModel.outputIsConfirmPasswordValid,
-                  _viewModel.outputIsPasswordHidden,
-                  _viewModel.outputIsConfirmPasswordHidden,
-                  _passwordController,
-                  _confirmPasswordController,
-                  _viewModel.setPassword,
-                  _viewModel.setConfirmPassword,
-                  _viewModel.validateConfirmPassword,
-                  _viewModel.changePasswordState,
-                  _viewModel.changeConfirmPasswordState),
-              // signInWidget(context),
-              SizedBox(
-                height: 15.sp,
-              ),
-              deliveryConfirmationPicture(
-                  context,
-                  _viewModel.outputDeliveryConfirmationPicture,
-                  _viewModel.outputIsDeliveryConfirmationPictureValid,
-                  _viewModel.setDeliveryConfirmationPicture),
-
-              SizedBox(
-                height: 15.sp,
-              ),
-              nextRegistrationPage(context, _viewModel.navigateToNextPage, 2),
-
+              deliveryRole(context, _viewModel.setDeliveryRole),
               SizedBox(
                 height: 15.sp,
               ),

@@ -23,7 +23,11 @@ class AppStrings {
   static const nationalIdHint="nationalId_hint";
   static const confirmationPicture= "confirmation_picture";
   static const confirmationPictureHint= "confirmation_picture_hint";
-
+  static const deliveryRole ="delivery_role";
+  static const deliveryExternal ="deliveryExternal";
+  static const deliveryInternal ="deliveryInternal";
+  static const deliveryExternalDescription ="deliveryExternalDescription";
+  static const deliveryInternalDescription ="deliveryInternalDescription";
   static const nameHint = "name_hint";
   static const hello = "hello";
   static const readyFast = "ready_fast";

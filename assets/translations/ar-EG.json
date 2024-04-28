@@ -25,7 +25,11 @@
   "confirmation_picture": "صورة التحقق",
 
   "confirmation_picture_hint": "الرجاء التقاط صورة موضح بها الوجه و البطاقة الشخصية من اجل التحقق من لهوية .",
-
+"delivery_role": "اختر طريقة العمل",
+  "deliveryExternal": "وسيط خارجي",
+  "deliveryInternal": "وسيط داخلي",
+  "deliveryExternalDescription": "الوسيط الخارجي ملتزم بمواعيد ثابتة للتنقل و السفر بين المحافظات",
+  "deliveryInternalDescription": "الوسيط الداخلي يمتلك مركبة خاصة و علي استعداد للعمل عليها بشكل جزئي",
   "hello": "مرحبا !!",
   "ready_fast": "هل أنت مستعد لشحن حزمتك بسرعة؟",
   "welcome_login": "مرحبًا مجددًا! الرجاء إدخال بياناتك.",

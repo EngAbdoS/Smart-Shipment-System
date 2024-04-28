@@ -86,11 +86,11 @@ class ChangePasswordViewModel
   }
 
   bool _isPasswordValid(String password) {
-    return isPasswordValid(password);
+    return isPasswordValidGlobal(password);
   }
 
   bool _isConfirmPasswordValid(String confirmPassword) =>
-      isPasswordValid(confirmPassword) && password == confirmPassword;
+      isPasswordValidGlobal(confirmPassword) && password == confirmPassword;
 
   void dispose() {
     _passwordStreamController.close();

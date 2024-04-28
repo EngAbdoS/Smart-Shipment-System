@@ -7,6 +7,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/authView/clie
 import 'package:smart_shipment_system/presentation/authenticathion/authView/deliveryAuthView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/changePassword/view/changePasswordView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/view/clientRegistrationView.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/views/deliveryRegistrationRoleView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/views/deliveryRegistrationView1.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/views/deliveryRegistrationView2.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/view/forgetPasswordView.dart';
@@ -28,8 +29,10 @@ class Routes {
       "/deliveryRegistration1View";
   static const String deliveryRegistrationView2Route =
       "/deliveryRegistration2View";
-  static const String deliveryRegistrationView3Route =
-      "/deliveryRegistration3View";
+  // static const String deliveryRegistrationView3Route =
+  //     "/deliveryRegistration3View";
+  static const String deliveryRegistrationRoleViewRoute =
+      "/deliveryRegistrationRoleView";
   static const String deliveryInteriorRegistrationViewRoute =
       "/deliveryInteriorRegistrationView";
   static const String deliveryExternalRegistrationViewRoute =
@@ -170,29 +173,50 @@ abstract class AppRouter {
                         child: child),
           );
         },
-      ),
-      GoRoute(
-        path: Routes.deliveryRegistrationView3Route,
+      ),   GoRoute(
+        path: Routes.deliveryRegistrationRoleViewRoute,
         pageBuilder: (context, state) {
           initDeliveryRegistrationModule();
           return CustomTransitionPage<void>(
             transitionDuration: const Duration(
                 milliseconds: AppConstants.transitionDurationMillySeconds),
             key: state.pageKey,
-            child: DeliveryRegistrationView1(),
+            child: DeliveryRegistrationRoleView(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) =>
-                    SlideTransition(
-                        position: animation.drive(
-                          Tween<Offset>(
-                            begin: const Offset(0.25, 0.25),
-                            end: Offset.zero,
-                          ).chain(CurveTween(curve: Curves.easeIn)),
-                        ),
-                        child: child),
+                SlideTransition(
+                    position: animation.drive(
+                      Tween<Offset>(
+                        begin: const Offset(0.25, 0.25),
+                        end: Offset.zero,
+                      ).chain(CurveTween(curve: Curves.easeIn)),
+                    ),
+                    child: child),
           );
         },
       ),
+      // GoRoute(
+      //   path: Routes.deliveryRegistrationView3Route,
+      //   pageBuilder: (context, state) {
+      //     initDeliveryRegistrationModule();
+      //     return CustomTransitionPage<void>(
+      //       transitionDuration: const Duration(
+      //           milliseconds: AppConstants.transitionDurationMillySeconds),
+      //       key: state.pageKey,
+      //       child: DeliveryRegistrationView1(),
+      //       transitionsBuilder:
+      //           (context, animation, secondaryAnimation, child) =>
+      //               SlideTransition(
+      //                   position: animation.drive(
+      //                     Tween<Offset>(
+      //                       begin: const Offset(0.25, 0.25),
+      //                       end: Offset.zero,
+      //                     ).chain(CurveTween(curve: Curves.easeIn)),
+      //                   ),
+      //                   child: child),
+      //     );
+      //   },
+      // ),
       GoRoute(
         path: Routes.deliveryInteriorRegistrationViewRoute,
         pageBuilder: (context, state) {

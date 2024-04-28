@@ -33,7 +33,7 @@ class ForgotPasswordViewModel
   }
 
   bool _isEmailValid(String email) {
-    return isEmailValid(email);
+    return isEmailValidGlobal(email);
   }
 }
 
