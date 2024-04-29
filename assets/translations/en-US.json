@@ -19,12 +19,18 @@
   "nationalId_error": "Enter valid National Id",
   "confirmation_picture": "Confirmation Image",
   "confirmation_picture_hint": "Please take a photo of your face and ID card in order to verify your identity.",
-
   "delivery_role":    "Choose Work Method",
   "deliveryExternal": "External Mediator",
   "deliveryInternal": "Internal Mediator",
   "deliveryExternalDescription": "The external mediator is committed to fixed schedules for travel and commuting between governorates.",
   "deliveryInternalDescription": "The internal mediator owns a private vehicle and is ready to work on it partially.",
+  "vehicle_type": "Transportation Type",
+  "vehicle_hint": "Please enter the type and description of the transportation",
+  "vehicle_error": "Enter a valid transportation description",
+  "vehicle_license": "Vehicle License",
+  "vehicle_license_hint": "Please upload a clear image of the vehicle license",
+  "no_vehicle_hint": "If the vehicle does not have a driver's license, such as electric bicycles or scooters, please upload a clear image of the vehicle.",
+
 
   "delivery": "Delivery",
   "hello_delivery": "HELLO OUR DELIVARY !!",

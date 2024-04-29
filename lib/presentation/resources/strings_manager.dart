@@ -28,6 +28,16 @@ class AppStrings {
   static const deliveryInternal ="deliveryInternal";
   static const deliveryExternalDescription ="deliveryExternalDescription";
   static const deliveryInternalDescription ="deliveryInternalDescription";
+ static const vehicleType= "vehicle_type";
+ static const vehicleHint= "vehicle_hint";
+ static const vehicleError= "vehicle_error";
+ static const vehicleLicense= "vehicle_license";
+ static const vehicleLicenseHint= "vehicle_license_hint";
+ static const noVehicleHint= "no_vehicle_hint";
+
+
+
+
   static const nameHint = "name_hint";
   static const hello = "hello";
   static const readyFast = "ready_fast";

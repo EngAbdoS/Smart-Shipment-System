@@ -7,33 +7,64 @@ import 'package:smart_shipment_system/presentation/resources/router_manager.dart
 import 'package:smart_shipment_system/presentation/widgets/testState.dart';
 
 class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
-  StreamController deliveryConfirmationPictureValidationStreamController =
+  final StreamController
+      _deliveryConfirmationPictureValidationStreamController =
       StreamController<File>.broadcast();
 
-  StreamController deliveryConfirmationPictureStreamController =
+  final StreamController _deliveryConfirmationPictureStreamController =
       StreamController<File>.broadcast();
+
+  final StreamController
+      _deliveryVehicleLicensePictureValidationStreamController =
+      StreamController<File>.broadcast();
+
+  final StreamController _deliveryVehicleLicensePictureStreamController =
+      StreamController<File>.broadcast();
+
+  final StreamController _vehicleStreamController =
+      StreamController<String>.broadcast();
 
 //////////////////////////declarations//////////////////////////
 
   File? deliveryConfirmationPicture;
+  File? deliveryVehicleLicensePicture;
   String? deliveryRole;
+  String? vehicle;
 
 //////////////////////////output//////////////////////////
 
   Stream<bool> get outputIsDeliveryConfirmationPictureValid =>
-      deliveryConfirmationPictureValidationStreamController.stream
+      _deliveryConfirmationPictureValidationStreamController.stream
           .map((file) => isDeliveryConfirmationPictureValid(file));
 
   Stream<File> get outputDeliveryConfirmationPicture =>
-      deliveryConfirmationPictureStreamController.stream.map((file) => file);
+      _deliveryConfirmationPictureStreamController.stream.map((file) => file);
+
+  Stream<bool> get outputIsDeliveryVehicleLicensePictureValid =>
+      _deliveryVehicleLicensePictureValidationStreamController.stream
+          .map((file) => isDeliveryVehicleLicensePictureValid(file));
+
+  Stream<File> get outputDeliveryVehicleLicensePicture =>
+      _deliveryVehicleLicensePictureStreamController.stream.map((file) => file);
+
+  Stream<bool> get outputIsVehicleValid =>
+      _vehicleStreamController.stream.map((vehicle) => isVehicleValid(vehicle));
 
   //////////////////////////input//////////////////////////
 
   Sink get inputDeliveryConfirmationPicture =>
-      deliveryConfirmationPictureStreamController.sink;
+      _deliveryConfirmationPictureStreamController.sink;
 
   Sink get inputValidateDeliveryConfirmationPicture =>
-      deliveryConfirmationPictureValidationStreamController.sink;
+      _deliveryConfirmationPictureValidationStreamController.sink;
+
+  Sink get inputDeliveryVehicleLicensePicture =>
+      _deliveryVehicleLicensePictureStreamController.sink;
+
+  Sink get inputValidateDeliveryVehicleLicensePicture =>
+      _deliveryVehicleLicensePictureValidationStreamController.sink;
+
+  Sink get inputVehicle => _vehicleStreamController.sink;
 
 //////////////////////////functions//////////////////////////
 
@@ -47,7 +78,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
         }
       case 2:
         {
-          _pageTwoValidation()
+          _pageTwoValidation()|| true
               ? GoRouter.of(context)
                   .push(Routes.deliveryRegistrationRoleViewRoute)
               : testState(context);
@@ -74,10 +105,24 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     inputValidation.add(null);
   }
 
+  setDeliveryVehicleLicensePicture(File deliveryVehicleLicensePicture) async {
+    inputDeliveryVehicleLicensePicture.add(deliveryVehicleLicensePicture);
+    inputValidateDeliveryVehicleLicensePicture
+        .add(deliveryVehicleLicensePicture);
+    this.deliveryVehicleLicensePicture = deliveryVehicleLicensePicture;
+    inputValidation.add(null);
+  }
+
   setDeliveryRole(dynamic context, String deliveryRole) {
     this.deliveryRole = deliveryRole;
     inputValidation.add(null);
     navigateToNextPage(context, 3);
+  }
+
+  setVehicle(String vehicle) {
+    inputVehicle.add(vehicle);
+    this.vehicle = vehicle;
+    inputValidation.add(null);
   }
 
   //////////////////////////validation functions//////////////////////////
@@ -90,8 +135,21 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
         deliveryConfirmationPicture.path.isNotEmpty;
   }
 
-  bool isDeliveryRoleValid() {
-    return deliveryRole?.isNotEmpty ?? false;
+  bool isDeliveryVehicleLicensePictureValid(
+      File deliveryVehicleLicensePicture) {
+    //TODO validation
+    return
+        // deliveryConfirmationPicture.lengthSync() <=
+        //       AppConstants.confirmationPictureSizeByBytes &&
+        deliveryVehicleLicensePicture.path.isNotEmpty;
+  }
+
+  bool isDeliveryRoleValid(String deliveryRole) {
+    return deliveryRole.isNotEmpty;
+  }
+
+  bool isVehicleValid(String vehicle) {
+    return vehicle.isNotEmpty;
   }
 
   bool _pageOneValidation() {
@@ -112,11 +170,15 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   }
 
   bool _pageDeliveryRoleValidation() {
-    return isDeliveryRoleValid();
+    return isDeliveryRoleValid(deliveryRole ?? "");
   }
 
 ///////////////////////////////////////////////////////////////////////
   void getLoading(dynamic context) {
+    testState(context);
+    //emit(LoginLoading(asset: "asset"));
+  }
+  void login(dynamic context) {
     testState(context);
     //emit(LoginLoading(asset: "asset"));
   }
@@ -129,6 +191,6 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   @override
   void dispose() {
     super.dispose();
-    deliveryConfirmationPictureValidationStreamController.close();
+    _deliveryConfirmationPictureValidationStreamController.close();
   }
 }

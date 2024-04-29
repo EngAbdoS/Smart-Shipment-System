@@ -100,6 +100,25 @@ Widget addressInputWidget(Stream<bool> outputIsAddressValid,
       });
 }
 
+Widget vehicleInputWidget(Stream<bool> outputIsVehicleValid,
+    Function setVehicle, TextEditingController vehicleTextEditingController) {
+  return StreamBuilder<bool>(
+      stream: outputIsVehicleValid,
+      builder: (context, snapshot) {
+        return TextFormField(
+          onChanged: (vehicle) => setVehicle(vehicle),
+          keyboardType: TextInputType.text,
+          controller: vehicleTextEditingController,
+          decoration: InputDecoration(
+            hintText: AppStrings.vehicleHint.tr(),
+            labelText: AppStrings.vehicleType.tr(),
+            errorText:
+                (snapshot.data ?? true) ? null : AppStrings.vehicleError.tr(),
+          ),
+        );
+      });
+}
+
 Widget emailInputWidget(Stream<bool> outputIsEmailValid, Function setEmail,
     TextEditingController emailTextEditingController) {
   return StreamBuilder<bool>(
@@ -122,7 +141,7 @@ Widget emailInputWidget(Stream<bool> outputIsEmailValid, Function setEmail,
       });
 }
 
-Widget deliveryConfirmationPicture(
+Widget deliveryConfirmationPictureInputWidget(
   BuildContext contextt,
   Stream<File> outputDeliveryConfirmationPicture,
   Stream<bool> outputIsDeliveryConfirmationPictureValid,
@@ -193,6 +212,94 @@ Widget deliveryConfirmationPicture(
       });
 }
 
+Widget deliveryVehicleLicensePictureInputWidget(
+  BuildContext contextt,
+  Stream<File> outputDeliveryVehicleLicensePicture,
+  Stream<bool> outputIsDeliveryVehicleLicensePictureValid,
+  Function setDeliveryVehicleLicensePicture,
+) {
+  final ImagePicker _imagePicker = ImagePicker();
+  return Column(
+    children: [
+      StreamBuilder<File>(
+          stream: outputDeliveryVehicleLicensePicture,
+          builder: (context, fileSnapshot) {
+            return StreamBuilder<bool>(
+                stream: outputIsDeliveryVehicleLicensePictureValid,
+                builder: (context, snapshot) {
+                  return TextFormField(
+                    //  enabled: false,
+                    readOnly: true,
+                    minLines: 3,
+                    maxLines: 5,
+
+                    onTap: () async {
+                      showModalBottomSheet(
+                          context: contextt,
+                          builder: (BuildContext context) {
+                            return SafeArea(
+                                child: Wrap(
+                              children: [
+                                ListTile(
+                                  trailing: const Icon(Icons.arrow_forward),
+                                  leading: const Icon(Icons.photo),
+                                  title:
+                                      const Text(AppStrings.photoGallery).tr(),
+                                  onTap: () async {
+                                    var image = await _imagePicker.pickImage(
+                                        source: ImageSource.gallery);
+                                    setDeliveryVehicleLicensePicture(
+                                        File(image?.path ?? ""));
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                ListTile(
+                                  trailing: const Icon(Icons.arrow_forward),
+                                  leading:
+                                      const Icon(Icons.camera_alt_outlined),
+                                  title:
+                                      const Text(AppStrings.photoCamera).tr(),
+                                  onTap: () async {
+                                    var image = await _imagePicker.pickImage(
+                                        source: ImageSource.camera);
+                                    setDeliveryVehicleLicensePicture(
+                                        File(image?.path ?? ""));
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            ));
+                          });
+                    },
+
+                    // controller: dateOfBirthTextEditingController,
+                    decoration: InputDecoration(
+                      hintText: (snapshot.data ?? true)
+                          ? fileSnapshot.data?.path
+                          : AppStrings.vehicleLicenseHint.tr(),
+                      hintMaxLines: 1,
+                      labelText: AppStrings.vehicleLicense.tr(),
+                      errorText: (snapshot.data ?? true)
+                          ? null
+                          : AppStrings.vehicleLicenseHint.tr(),
+                    ),
+                  );
+                });
+          }),
+      SizedBox(
+        height: 30.sp,
+      ),
+      Text(
+        AppStrings.noVehicleHint,
+        style: Theme.of(contextt)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: ColorManager.error.withOpacity(0.5), fontSize: 12),
+      ).tr(),
+    ],
+  );
+}
+
 Widget deliveryRole(BuildContext context, Function setRole) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -211,9 +318,8 @@ Widget deliveryRole(BuildContext context, Function setRole) {
         //mainAxisSize: MainAxisSize.min,
         children: [
           GestureDetector(
-            onTap: () => setRole(context,AppConstants.deliveryRoleInternal),
+            onTap: () => setRole(context, AppConstants.deliveryRoleInternal),
             child: Container(
-
               height: 110.sp,
               width: 150.sp,
               decoration: BoxDecoration(
@@ -236,7 +342,7 @@ Widget deliveryRole(BuildContext context, Function setRole) {
             ),
           ),
           GestureDetector(
-            onTap: () => setRole(context,AppConstants.deliveryRoleExternal),
+            onTap: () => setRole(context, AppConstants.deliveryRoleExternal),
             child: Container(
               height: 110.sp,
               width: 150.sp,
@@ -266,14 +372,20 @@ Widget deliveryRole(BuildContext context, Function setRole) {
       ),
       Text(
         AppStrings.deliveryInternalDescription,
-        style: Theme.of(context).textTheme.titleLarge!.copyWith(color: ColorManager.error.withOpacity(0.5),fontSize: 12),
+        style: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: ColorManager.error.withOpacity(0.5), fontSize: 12),
       ).tr(),
       SizedBox(
         height: 10.sp,
       ),
       Text(
         AppStrings.deliveryExternalDescription,
-        style: Theme.of(context).textTheme.titleLarge!.copyWith(color: ColorManager.error.withOpacity(0.5),fontSize: 12),
+        style: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: ColorManager.error.withOpacity(0.5), fontSize: 12),
       ).tr(),
     ],
   );
