@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "389193902780",
+    "project_id": "android-map-421816",
+    "storage_bucket": "android-map-421816.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389193902780:android:4250d292d336f090b6feb9",
+        "android_client_info": {
+          "package_name": "com.example.smart_shipment_system"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg-4wTO4VEIr7qICBJ-SXkCrhhcw28xfk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
