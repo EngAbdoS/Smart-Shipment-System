@@ -7,6 +7,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/authView/clie
 import 'package:smart_shipment_system/presentation/authenticathion/authView/deliveryAuthView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/changePassword/view/changePasswordView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/view/clientRegistrationView.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/views/deliveryExternalRegistrationView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/views/deliveryInteriorRegistrationView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/views/deliveryRegistrationRoleView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/views/deliveryRegistrationView1.dart';
@@ -30,6 +31,7 @@ class Routes {
       "/deliveryRegistration1View";
   static const String deliveryRegistrationView2Route =
       "/deliveryRegistration2View";
+
   // static const String deliveryRegistrationView3Route =
   //     "/deliveryRegistration3View";
   static const String deliveryRegistrationRoleViewRoute =
@@ -174,7 +176,8 @@ abstract class AppRouter {
                         child: child),
           );
         },
-      ),   GoRoute(
+      ),
+      GoRoute(
         path: Routes.deliveryRegistrationRoleViewRoute,
         pageBuilder: (context, state) {
           initDeliveryRegistrationModule();
@@ -185,14 +188,14 @@ abstract class AppRouter {
             child: DeliveryRegistrationRoleView(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) =>
-                SlideTransition(
-                    position: animation.drive(
-                      Tween<Offset>(
-                        begin: const Offset(0.25, 0.25),
-                        end: Offset.zero,
-                      ).chain(CurveTween(curve: Curves.easeIn)),
-                    ),
-                    child: child),
+                    SlideTransition(
+                        position: animation.drive(
+                          Tween<Offset>(
+                            begin: const Offset(0.25, 0.25),
+                            end: Offset.zero,
+                          ).chain(CurveTween(curve: Curves.easeIn)),
+                        ),
+                        child: child),
           );
         },
       ),
@@ -248,7 +251,7 @@ abstract class AppRouter {
             transitionDuration: const Duration(
                 milliseconds: AppConstants.transitionDurationMillySeconds),
             key: state.pageKey,
-            child: DeliveryRegistrationView1(),
+            child: DeliveryExternalRegistrationView(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) =>
                     SlideTransition(
