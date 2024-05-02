@@ -6,6 +6,9 @@ class DeliveryTripModel {
   String? tripDetails;
   bool? isOneTime;
   List<String>? tripWeekDays;
+  //toGov
+//fromGov
+
 }
 
 class LongLat {
