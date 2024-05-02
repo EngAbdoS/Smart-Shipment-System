@@ -34,8 +34,19 @@ class AppStrings {
  static const vehicleLicense= "vehicle_license";
  static const vehicleLicenseHint= "vehicle_license_hint";
  static const noVehicleHint= "no_vehicle_hint";
-
-
+  static const fromLocation= "from_location";
+  static const toLocation= "to_location";
+  static const fromLocationHint= "from_location_hint";
+  static const toLocationHint= "to_location_hint";
+  static const tripTime= "trip_time";
+  static const tripTimeHint= "trip_time_hint";
+  static const tripExDuration= "trip_ex_duration";
+  static const tripExDurationHint= "trip_ex_duration_hint";
+  static const tripDetails= "trip_details";
+  static const tripDetailsHint= "trip_details_hint";
+  static const isTripPeriodic= "is_trip_periodic";
+  static const tripDays= "trip_days";
+  static const tripDaysHint= "trip_days_hint";
 
 
   static const nameHint = "name_hint";

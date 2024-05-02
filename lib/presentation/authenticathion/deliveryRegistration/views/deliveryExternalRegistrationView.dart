@@ -25,8 +25,18 @@ class DeliveryExternalRegistrationView extends StatelessWidget {
   final DeliveryRegistrationViewModel _viewModel =
       instance<DeliveryRegistrationViewModel>();
 
-  // final TextEditingController _vehicleTextEditingController =
-  // TextEditingController();
+  final TextEditingController _fromLocationTextEditingController =
+      TextEditingController();
+  final TextEditingController _toLocationTextEditingController =
+      TextEditingController();
+  final TextEditingController _startTimeLocationTextEditingController =
+      TextEditingController();
+  final TextEditingController _expectedDurationTextEditingController =
+      TextEditingController();
+  final TextEditingController _tripDetailsTextEditingController =
+      TextEditingController();
+  final TextEditingController _tripDaysLocationTextEditingController =
+      TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -53,7 +63,22 @@ class DeliveryExternalRegistrationView extends StatelessWidget {
               SizedBox(
                 height: 15.sp,
               ),
-              DeliveryTripInputWidget(),
+              DeliveryTripInputWidget(
+                addDeliveryTrip: (){},
+
+                fromLocationTextEditingController:
+                    _fromLocationTextEditingController,
+                toLocationTextEditingController:
+                    _toLocationTextEditingController,
+                expectedDurationTextEditingController:
+                    _expectedDurationTextEditingController,
+                tripDaysLocationTextEditingController:
+                    _tripDaysLocationTextEditingController,
+                tripDetailsTextEditingController:
+                    _tripDetailsTextEditingController,
+                startTimeLocationTextEditingController:
+                    _startTimeLocationTextEditingController,
+              ),
 
               SizedBox(
                 height: 15.sp,

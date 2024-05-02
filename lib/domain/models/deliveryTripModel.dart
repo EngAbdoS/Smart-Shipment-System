@@ -1,17 +1,13 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 class DeliveryTripModel {
-  LongLat? fromLocation;
-  LongLat? toLocation;
+  LatLng? fromLocation;
+  LatLng? toLocation;
+  String? fromGovernment;
+  String? toGovernment;
   int? expectedDurationByMin;
   String? tripTime;
   String? tripDetails;
   bool? isOneTime;
   List<String>? tripWeekDays;
-  //toGov
-//fromGov
-
-}
-
-class LongLat {
-  double? long;
-  double? lat;
 }

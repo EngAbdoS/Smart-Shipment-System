@@ -30,7 +30,19 @@
   "vehicle_license": "Vehicle License",
   "vehicle_license_hint": "Please upload a clear image of the vehicle license",
   "no_vehicle_hint": "If the vehicle does not have a driver's license, such as electric bicycles or scooters, please upload a clear image of the vehicle.",
-
+  "from_location": "Departure Address",
+  "to_location": "Destination",
+  "from_location_hint": "Please enter the departure address",
+  "to_location_hint": "Please enter your destination",
+  "trip_time": "Trip Time",
+  "trip_time_hint": "Please enter the trip time",
+  "trip_ex_duration": "Expected Trip Duration",
+  "trip_ex_duration_hint": "How many minutes do you expect the trip to take?",
+  "trip_details": "Trip Details",
+  "trip_details_hint": "Please enter a description and details of your trip",
+  "is_trip_periodic": "Is the trip recurring weekly?",
+  "trip_days": "Trip Days",
+  "trip_days_hint": "Please enter the weekly trip days.",
 
   "delivery": "Delivery",
   "hello_delivery": "HELLO OUR DELIVARY !!",
@@ -136,4 +148,4 @@
 
 
 
-}*/
+}
