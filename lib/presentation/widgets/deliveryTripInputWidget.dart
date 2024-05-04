@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:open_street_map_search_and_pick/open_street_map_search_and_pick.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
+import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:location/location.dart';
+import 'package:smart_shipment_system/presentation/resources/theme_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 
 class DeliveryTripInputWidget extends StatefulWidget {
@@ -56,13 +58,16 @@ class DeliveryTripInputWidget extends StatefulWidget {
 }
 
 class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
-  final googlePlex = const LatLng(31.151897, 31.934281);
+  // final googlePlex = const LatLng(31.151897, 31.934281);
+  TimeOfDay? tripTime;
 
   void _bind() {
     widget.outputFromLocation.listen(
         (location) => widget.fromLocationTextEditingController.text = location);
     widget.outputToLocation.listen(
         (location) => widget.toLocationTextEditingController.text = location);
+    widget.outputStartTime.listen((location) =>
+        widget.startTimeLocationTextEditingController.text = location);
   }
 
   @override
@@ -171,6 +176,44 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
                   );
                 }),
 
+            SizedBox(
+              height: 15.sp,
+            ),
+            TextFormField(
+              //  enabled: false,
+              readOnly: true,
+              onTap: () async => {
+                tripTime = await showTimePicker(
+                    // barrierColor: ColorManager.primary,
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                    builder: (context, child) {
+                      return Theme(
+                        data: (context.locale == ENGLISH_LOCAL
+                                ? getAppTheme()
+                                : getArabicAppTheme())
+                            .copyWith(
+                          timePickerTheme: TimePickerTheme.of(context).copyWith(
+                            dialHandColor: ColorManager.primary,
+                            // dialTextColor:  ColorManager.primary,
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    }),
+                widget.setCurrentTripStartTime(
+                    "${tripTime?.hour ?? 0}:${tripTime?.minute ?? 0}"),
+                //  print(tripTime.toString()),
+              },
+              controller: widget.startTimeLocationTextEditingController,
+              decoration: InputDecoration(
+                labelText: AppStrings.tripTime.tr(),
+                hintText: AppStrings.tripTimeHint.tr(),
+                // errorText: (() ?? true) || true
+                //     ? null
+                //     : AppStrings.fromLocationHint.tr(),
+              ),
+            ),
             // eliveryTripInputWidget()
           ],
         ),
