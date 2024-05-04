@@ -40,6 +40,11 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
       StreamController<String>.broadcast();
   final StreamController _currentDeliveryTripStartTimeValidStreamController =
       StreamController<String>.broadcast();
+  final StreamController _currentDeliveryIsTripOneTimeStreamController =
+      StreamController<bool>.broadcast();
+  final StreamController _currentDeliveryTripDaysStreamController =
+      StreamController<List<String>>.broadcast();
+
   final StreamController
       _currentDeliveryTripExpectedDurationValidStreamController =
       StreamController<int>.broadcast();
@@ -105,6 +110,13 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   Stream<List<DeliveryTripModel>> get outputDeliveryTrip =>
       _externalDeliveryTripListStreamController.stream.map((list) => list);
 
+  Stream<bool> get outputCurrentDeliveryIsTripOneTime =>
+      _currentDeliveryIsTripOneTimeStreamController.stream
+          .map((isOneTime) => isOneTime);
+
+  Stream<List<String>> get outputCurrentTripDays =>
+      _currentDeliveryTripDaysStreamController.stream.map((days) => days);
+
   //////////////////////////input//////////////////////////
 
   Sink get inputDeliveryConfirmationPicture =>
@@ -137,6 +149,12 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
       _currentDeliveryTripExpectedDurationValidStreamController.sink;
 
   Sink get inputDeliveryTrip => _externalDeliveryTripListStreamController.sink;
+
+  Sink get inputCurrentDeliveryIsTripOneTime =>
+      _currentDeliveryIsTripOneTimeStreamController.sink;
+
+  Sink get inputCurrentTripDays =>
+      _currentDeliveryTripDaysStreamController.sink;
 
 //////////////////////////functions//////////////////////////
 
@@ -197,9 +215,8 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     inputValidation.add(null);
   }
 
-  setCurrentFromLocationAndGov(
-      LatLng currentFromLocation, String currentFromGovernment, String addressName) {
-
+  setCurrentFromLocationAndGov(LatLng currentFromLocation,
+      String currentFromGovernment, String addressName) {
     inputCurrentFromLocation.add(addressName);
     deliveryTrip.fromLocation = currentFromLocation;
     deliveryTrip.fromGovernment = currentFromGovernment;
@@ -207,7 +224,8 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     inputValidation.add(null);
   }
 
-  setCurrentToLocationAndGov(LatLng currentToLocation, String currentToGovernment, String addressName) {
+  setCurrentToLocationAndGov(LatLng currentToLocation,
+      String currentToGovernment, String addressName) {
     inputCurrentToLocation.add(addressName);
     deliveryTrip.toLocation = currentToLocation;
     deliveryTrip.toGovernment = currentToGovernment;
@@ -230,6 +248,18 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   setCurrentTripExpectedDuration(int currentTripExpectedDuration) {
     inputCurrentTripExpectedDuration.add(currentTripExpectedDuration);
     deliveryTrip.expectedDurationByMin = currentTripExpectedDuration;
+    inputValidation.add(null);
+  }
+
+  setCurrentDeliveryIsTripOneTime(bool currentDeliveryIsTripOneTime) {
+    inputCurrentDeliveryIsTripOneTime.add(currentDeliveryIsTripOneTime);
+    deliveryTrip.isOneTime = currentDeliveryIsTripOneTime;
+    inputValidation.add(null);
+  }
+
+  setCurrentTripNewDay(String currentTripNewDay) {
+    deliveryTrip.tripWeekDays?.add(currentTripNewDay);
+    inputCurrentTripDays.add(deliveryTrip.tripWeekDays);
     inputValidation.add(null);
   }
 

@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:open_street_map_search_and_pick/open_street_map_search_and_pick.dart';
@@ -11,31 +13,38 @@ import 'package:smart_shipment_system/presentation/resources/theme_manager.dart'
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 
 class DeliveryTripInputWidget extends StatefulWidget {
-  DeliveryTripInputWidget(
-      {super.key,
-      required this.addDeliveryTrip,
-      required this.setCurrentFromLocationAndGov,
-      required this.setCurrentToLocationAndGov,
-      required this.setCurrentTripDetailsLocation,
-      required this.setCurrentTripStartTime,
-      required this.setCurrentTripExpectedDuration,
-      required this.fromLocationTextEditingController,
-      required this.toLocationTextEditingController,
-      required this.startTimeLocationTextEditingController,
-      required this.expectedDurationTextEditingController,
-      required this.tripDetailsTextEditingController,
-      required this.tripDaysLocationTextEditingController,
-      required this.outputFromLocation,
-      required this.outputToLocation,
-      required this.outputStartTime,
-      required this.outputExpectedDuration,
-      required this.outputTripDetails});
+  DeliveryTripInputWidget({
+    super.key,
+    required this.addDeliveryTrip,
+    required this.setCurrentFromLocationAndGov,
+    required this.setCurrentToLocationAndGov,
+    required this.setCurrentTripDetailsLocation,
+    required this.setCurrentTripStartTime,
+    required this.setCurrentTripExpectedDuration,
+    required this.setCurrentTripNewDay,
+    required this.setCurrentDeliveryIsTripOneTime,
+    required this.fromLocationTextEditingController,
+    required this.toLocationTextEditingController,
+    required this.startTimeLocationTextEditingController,
+    required this.expectedDurationTextEditingController,
+    required this.tripDetailsTextEditingController,
+    required this.tripDaysLocationTextEditingController,
+    required this.outputFromLocation,
+    required this.outputToLocation,
+    required this.outputStartTime,
+    required this.outputExpectedDuration,
+    required this.outputTripDetails,
+    required this.outputCurrentDeliveryIsTripOneTime,
+    required this.outputTripDaysList,
+  });
 
   final Stream<String> outputFromLocation;
   final Stream<String> outputToLocation;
   final Stream<String> outputStartTime;
   final Stream<bool> outputExpectedDuration;
   final Stream<bool> outputTripDetails;
+  final Stream<bool> outputCurrentDeliveryIsTripOneTime;
+  final Stream<List<String>> outputTripDaysList;
 
   //final Stream<String> outputTripDays;
 
@@ -45,12 +54,14 @@ class DeliveryTripInputWidget extends StatefulWidget {
   final TextEditingController expectedDurationTextEditingController;
   final TextEditingController tripDetailsTextEditingController;
   final TextEditingController tripDaysLocationTextEditingController;
-  Function addDeliveryTrip;
-  Function setCurrentFromLocationAndGov;
-  Function setCurrentToLocationAndGov;
-  Function setCurrentTripDetailsLocation;
-  Function setCurrentTripStartTime;
-  Function setCurrentTripExpectedDuration;
+  final Function addDeliveryTrip;
+  final Function setCurrentFromLocationAndGov;
+  final Function setCurrentToLocationAndGov;
+  final Function setCurrentTripDetailsLocation;
+  final Function setCurrentTripStartTime;
+  final Function setCurrentTripExpectedDuration;
+  final Function setCurrentTripNewDay;
+  final Function setCurrentDeliveryIsTripOneTime;
 
   @override
   State<DeliveryTripInputWidget> createState() =>
@@ -68,6 +79,7 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
         (location) => widget.toLocationTextEditingController.text = location);
     widget.outputStartTime.listen((location) =>
         widget.startTimeLocationTextEditingController.text = location);
+    widget.setCurrentDeliveryIsTripOneTime(true);
   }
 
   @override
@@ -158,62 +170,107 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
             SizedBox(
               height: 15.sp,
             ),
-            StreamBuilder<bool>(
-                stream: widget.outputExpectedDuration,
-                builder: (context, snapshot) {
-                  return TextFormField(
-                    onChanged: (duration) => widget
-                        .setCurrentTripExpectedDuration(int.parse(duration)),
-                    keyboardType: TextInputType.number,
-                    controller: widget.expectedDurationTextEditingController,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: StreamBuilder<bool>(
+                      stream: widget.outputExpectedDuration,
+                      builder: (context, snapshot) {
+                        return TextFormField(
+                          onChanged: (duration) =>
+                              widget.setCurrentTripExpectedDuration(
+                                  int.parse(duration)),
+                          keyboardType: TextInputType.number,
+                          controller:
+                              widget.expectedDurationTextEditingController,
+                          decoration: InputDecoration(
+                            hintText: AppStrings.tripExDurationHint.tr(),
+                            labelText: AppStrings.tripExDuration.tr(),
+                            errorText: (snapshot.data ?? true)
+                                ? null
+                                : AppStrings.tripExDurationHint.tr(),
+                          ),
+                        );
+                      }),
+                ),
+                SizedBox(
+                  width: 15.sp,
+                ),
+                Expanded(
+                  child: TextFormField(
+                    //  enabled: false,
+                    readOnly: true,
+                    onTap: () async => {
+                      tripTime = await showTimePicker(
+                          // barrierColor: ColorManager.primary,
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                          builder: (context, child) {
+                            return Theme(
+                              data: (context.locale == ENGLISH_LOCAL
+                                      ? getAppTheme()
+                                      : getArabicAppTheme())
+                                  .copyWith(
+                                timePickerTheme:
+                                    TimePickerTheme.of(context).copyWith(
+                                  dialHandColor: ColorManager.primary,
+                                  // dialTextColor:  ColorManager.primary,
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          }),
+                      widget.setCurrentTripStartTime(
+                          "${tripTime?.hour ?? 0}:${tripTime?.minute ?? 0}"),
+                      //  print(tripTime.toString()),
+                    },
+                    controller: widget.startTimeLocationTextEditingController,
                     decoration: InputDecoration(
-                      hintText: AppStrings.tripExDurationHint.tr(),
-                      labelText: AppStrings.tripExDuration.tr(),
-                      errorText: (snapshot.data ?? true)
-                          ? null
-                          : AppStrings.tripExDurationHint.tr(),
+                      labelText: AppStrings.tripTime.tr(),
+                      hintText: AppStrings.tripTimeHint.tr(),
+                      // errorText: (() ?? true) || true
+                      //     ? null
+                      //     : AppStrings.fromLocationHint.tr(),
                     ),
-                  );
-                }),
+                  ),
+                ),
+              ],
+            ),
 
             SizedBox(
               height: 15.sp,
             ),
-            TextFormField(
-              //  enabled: false,
-              readOnly: true,
-              onTap: () async => {
-                tripTime = await showTimePicker(
-                    // barrierColor: ColorManager.primary,
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                    builder: (context, child) {
-                      return Theme(
-                        data: (context.locale == ENGLISH_LOCAL
-                                ? getAppTheme()
-                                : getArabicAppTheme())
-                            .copyWith(
-                          timePickerTheme: TimePickerTheme.of(context).copyWith(
-                            dialHandColor: ColorManager.primary,
-                            // dialTextColor:  ColorManager.primary,
-                          ),
-                        ),
-                        child: child!,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  AppStrings.isTripPeriodic,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(color: ColorManager.black),
+                ).tr(),
+                StreamBuilder<bool>(
+                    stream: widget.outputCurrentDeliveryIsTripOneTime,
+                    builder: (context, snapshot) {
+                      return Switch(
+                        activeColor: ColorManager.primary,
+                        inactiveTrackColor:
+                            ColorManager.primary.withOpacity(0.05),
+                        inactiveThumbColor: ColorManager.gray,
+                        value: snapshot.data ?? true,
+                        onChanged: (value) =>
+                            widget.setCurrentDeliveryIsTripOneTime(value),
                       );
                     }),
-                widget.setCurrentTripStartTime(
-                    "${tripTime?.hour ?? 0}:${tripTime?.minute ?? 0}"),
-                //  print(tripTime.toString()),
-              },
-              controller: widget.startTimeLocationTextEditingController,
-              decoration: InputDecoration(
-                labelText: AppStrings.tripTime.tr(),
-                hintText: AppStrings.tripTimeHint.tr(),
-                // errorText: (() ?? true) || true
-                //     ? null
-                //     : AppStrings.fromLocationHint.tr(),
-              ),
+              ],
             ),
+
+            SizedBox(
+              height: 15.sp,
+            ),
+
             // eliveryTripInputWidget()
           ],
         ),
