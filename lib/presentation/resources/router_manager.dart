@@ -15,7 +15,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegis
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/view/forgetPasswordView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/view/loginView.dart';
 import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
-import 'package:smart_shipment_system/presentation/resources/pageTransitionManager.dart';
+import 'package:smart_shipment_system/presentation/resources/page_transition_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/splachScreen/splash_screen_view.dart';
 

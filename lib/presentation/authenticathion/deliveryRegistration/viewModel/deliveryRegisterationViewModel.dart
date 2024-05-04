@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
+import 'package:smart_shipment_system/domain/models/deliveryTripModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseRegisterationViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/testState.dart';
@@ -24,12 +26,42 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   final StreamController _vehicleStreamController =
       StreamController<String>.broadcast();
 
+//external delivery
+
+  final StreamController _externalDeliveryTripListStreamController =
+      StreamController<List<DeliveryTripModel>>.broadcast();
+  final StreamController _currentDeliveryTripValidStreamController =
+      StreamController<bool>.broadcast();
+  final StreamController _currentDeliveryTripFromLocationValidStreamController =
+      StreamController<String>.broadcast();
+  final StreamController _currentDeliveryTripToLocationValidStreamController =
+      StreamController<String>.broadcast();
+  final StreamController _currentDeliveryTripDetailsValidStreamController =
+      StreamController<String>.broadcast();
+  final StreamController _currentDeliveryTripStartTimeValidStreamController =
+      StreamController<String>.broadcast();
+  final StreamController
+      _currentDeliveryTripExpectedDurationValidStreamController =
+      StreamController<int>.broadcast();
+
 //////////////////////////declarations//////////////////////////
 
   File? deliveryConfirmationPicture;
   File? deliveryVehicleLicensePicture;
   String? deliveryRole;
   String? vehicle;
+  List<DeliveryTripModel> externalDeliveryTripList = [];
+
+  DeliveryTripModel deliveryTrip = DeliveryTripModel(
+      fromLocation: LatLng(0, 0),
+      toGovernment: "",
+      toLocation: LatLng(0, 0),
+      fromGovernment: "",
+      expectedDurationByMin: 0,
+      isOneTime: null,
+      tripDetails: "",
+      tripTime: "",
+      tripWeekDays: []);
 
 //////////////////////////output//////////////////////////
 
@@ -50,6 +82,29 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   Stream<bool> get outputIsVehicleValid =>
       _vehicleStreamController.stream.map((vehicle) => isVehicleValid(vehicle));
 
+  Stream<String> get outputCurrentFromLocation =>
+      _currentDeliveryTripFromLocationValidStreamController.stream
+          .map((location) => location);
+
+  Stream<String> get outputCurrentToLocation =>
+      _currentDeliveryTripToLocationValidStreamController.stream
+          .map((location) => location);
+
+  Stream<bool> get outputIsCurrentTripDetails =>
+      _currentDeliveryTripDetailsValidStreamController.stream
+          .map((details) => details.isNotEmpty);
+
+  Stream<String> get outputCurrentTripStartTime =>
+      _currentDeliveryTripStartTimeValidStreamController.stream
+          .map((time) => time);
+
+  Stream<bool> get outputCurrentTripExpectedDuration =>
+      _currentDeliveryTripExpectedDurationValidStreamController.stream
+          .map((duration) => duration != 0);
+
+  Stream<List<DeliveryTripModel>> get outputDeliveryTrip =>
+      _externalDeliveryTripListStreamController.stream.map((list) => list);
+
   //////////////////////////input//////////////////////////
 
   Sink get inputDeliveryConfirmationPicture =>
@@ -66,6 +121,23 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
 
   Sink get inputVehicle => _vehicleStreamController.sink;
 
+  Sink get inputCurrentFromLocation =>
+      _currentDeliveryTripFromLocationValidStreamController.sink;
+
+  Sink get inputCurrentToLocation =>
+      _currentDeliveryTripToLocationValidStreamController.sink;
+
+  Sink get inputCurrentTripDetails =>
+      _currentDeliveryTripDetailsValidStreamController.sink;
+
+  Sink get inputCurrentTripStartTime =>
+      _currentDeliveryTripStartTimeValidStreamController.sink;
+
+  Sink get inputCurrentTripExpectedDuration =>
+      _currentDeliveryTripExpectedDurationValidStreamController.sink;
+
+  Sink get inputDeliveryTrip => _externalDeliveryTripListStreamController.sink;
+
 //////////////////////////functions//////////////////////////
 
   void navigateToNextPage(dynamic context, int currentPageIndex) {
@@ -78,7 +150,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
         }
       case 2:
         {
-          _pageTwoValidation()|| true
+          _pageTwoValidation() || true
               ? GoRouter.of(context)
                   .push(Routes.deliveryRegistrationRoleViewRoute)
               : testState(context);
@@ -122,6 +194,58 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   setVehicle(String vehicle) {
     inputVehicle.add(vehicle);
     this.vehicle = vehicle;
+    inputValidation.add(null);
+  }
+
+  setCurrentFromLocationAndGov(
+      LatLng currentFromLocation, String currentFromGovernment, String addressName) {
+
+    inputCurrentFromLocation.add(addressName);
+    deliveryTrip.fromLocation = currentFromLocation;
+    deliveryTrip.fromGovernment = currentFromGovernment;
+
+    inputValidation.add(null);
+  }
+
+  setCurrentToLocationAndGov(LatLng currentToLocation, String currentToGovernment, String addressName) {
+    inputCurrentToLocation.add(addressName);
+    deliveryTrip.toLocation = currentToLocation;
+    deliveryTrip.toGovernment = currentToGovernment;
+
+    inputValidation.add(null);
+  }
+
+  setCurrentTripDetailsLocation(String currentTripDetails) {
+    inputCurrentTripDetails.add(currentTripDetails);
+    deliveryTrip.tripDetails = currentTripDetails;
+    inputValidation.add(null);
+  }
+
+  setCurrentTripStartTime(String currentTripStartTime) {
+    inputCurrentTripStartTime.add(currentTripStartTime);
+    deliveryTrip.tripTime = currentTripStartTime;
+    inputValidation.add(null);
+  }
+
+  setCurrentTripExpectedDuration(int currentTripExpectedDuration) {
+    inputCurrentTripExpectedDuration.add(currentTripExpectedDuration);
+    deliveryTrip.expectedDurationByMin = currentTripExpectedDuration;
+    inputValidation.add(null);
+  }
+
+  setNewDeliveryTrip(DeliveryTripModel deliveryTrip) {
+    inputDeliveryTrip.add(deliveryTrip);
+    this.deliveryTrip = DeliveryTripModel(
+        fromLocation: LatLng(0, 0),
+        toGovernment: "",
+        toLocation: LatLng(0, 0),
+        fromGovernment: "",
+        expectedDurationByMin: 0,
+        isOneTime: null,
+        tripDetails: "",
+        tripTime: "",
+        tripWeekDays: []);
+
     inputValidation.add(null);
   }
 
@@ -178,6 +302,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     testState(context);
     //emit(LoginLoading(asset: "asset"));
   }
+
   void login(dynamic context) {
     testState(context);
     //emit(LoginLoading(asset: "asset"));

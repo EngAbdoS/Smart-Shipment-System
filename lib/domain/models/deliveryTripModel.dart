@@ -10,4 +10,15 @@ class DeliveryTripModel {
   String? tripDetails;
   bool? isOneTime;
   List<String>? tripWeekDays;
+
+  DeliveryTripModel(
+      {required this.fromLocation,
+      required this.toGovernment,
+      required this.toLocation,
+      required this.fromGovernment,
+      required this.expectedDurationByMin,
+      required this.isOneTime,
+      required this.tripDetails,
+      required this.tripTime,
+      required this.tripWeekDays});
 }
