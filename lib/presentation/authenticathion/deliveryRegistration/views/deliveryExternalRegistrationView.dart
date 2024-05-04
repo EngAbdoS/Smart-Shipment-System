@@ -64,16 +64,21 @@ class DeliveryExternalRegistrationView extends StatelessWidget {
                 height: 15.sp,
               ),
               DeliveryTripInputWidget(
-                addDeliveryTrip: () {},
-                setCurrentFromLocationAndGov: _viewModel.setCurrentFromLocationAndGov,
-                setCurrentToLocationAndGov: _viewModel.setCurrentToLocationAndGov,
-                setCurrentTripDetailsLocation: () {},
-                setCurrentTripExpectedDuration: () {},
-                setCurrentTripStartTime: () {},
+                addDeliveryTrip: _viewModel.setNewDeliveryTrip,
+                setCurrentFromLocationAndGov:
+                    _viewModel.setCurrentFromLocationAndGov,
+                setCurrentToLocationAndGov:
+                    _viewModel.setCurrentToLocationAndGov,
+                setCurrentTripDetailsLocation:
+                    _viewModel.setCurrentTripDetailsLocation,
+                setCurrentTripExpectedDuration:
+                    _viewModel.setCurrentTripExpectedDuration,
+                setCurrentTripStartTime: _viewModel.setCurrentTripStartTime,
                 outputFromLocation: _viewModel.outputCurrentFromLocation,
                 outputToLocation: _viewModel.outputCurrentToLocation,
                 outputStartTime: _viewModel.outputCurrentTripStartTime,
-                outputExpectedDuration: _viewModel.outputCurrentTripExpectedDuration,
+                outputExpectedDuration:
+                    _viewModel.outputCurrentTripExpectedDuration,
                 outputTripDetails: _viewModel.outputIsCurrentTripDetails,
                 fromLocationTextEditingController:
                     _fromLocationTextEditingController,
@@ -87,7 +92,6 @@ class DeliveryExternalRegistrationView extends StatelessWidget {
                     _tripDetailsTextEditingController,
                 startTimeLocationTextEditingController:
                     _startTimeLocationTextEditingController,
-
               ),
 
               SizedBox(

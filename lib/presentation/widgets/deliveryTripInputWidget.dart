@@ -78,8 +78,9 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
       child: Container(
         padding: const EdgeInsets.all(AppPadding.p12),
         decoration: BoxDecoration(
-            boxShadow: const [
-              BoxShadow(color: ColorManager.primary, blurRadius: 30)
+            boxShadow: [
+              BoxShadow(
+                  color: ColorManager.primary.withOpacity(0.3), blurRadius: 30)
             ],
             color: ColorManager.offWhite,
             borderRadius: BorderRadius.circular(20)),
@@ -132,10 +133,45 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
             SizedBox(
               height: 15.sp,
             ),
+            StreamBuilder<bool>(
+                stream: widget.outputTripDetails,
+                builder: (context, snapshot) {
+                  return TextFormField(
+                    onChanged: (tripDetails) =>
+                        widget.setCurrentTripDetailsLocation(tripDetails),
+                    keyboardType: TextInputType.text,
+                    controller: widget.tripDetailsTextEditingController,
+                    decoration: InputDecoration(
+                      hintText: AppStrings.tripDetailsHint.tr(),
+                      labelText: AppStrings.tripDetails.tr(),
+                      errorText: (snapshot.data ?? true)
+                          ? null
+                          : AppStrings.tripDetailsHint.tr(),
+                    ),
+                  );
+                }),
+            SizedBox(
+              height: 15.sp,
+            ),
+            StreamBuilder<bool>(
+                stream: widget.outputExpectedDuration,
+                builder: (context, snapshot) {
+                  return TextFormField(
+                    onChanged: (duration) => widget
+                        .setCurrentTripExpectedDuration(int.parse(duration)),
+                    keyboardType: TextInputType.number,
+                    controller: widget.expectedDurationTextEditingController,
+                    decoration: InputDecoration(
+                      hintText: AppStrings.tripExDurationHint.tr(),
+                      labelText: AppStrings.tripExDuration.tr(),
+                      errorText: (snapshot.data ?? true)
+                          ? null
+                          : AppStrings.tripExDurationHint.tr(),
+                    ),
+                  );
+                }),
 
-
-
-           // eliveryTripInputWidget()
+            // eliveryTripInputWidget()
           ],
         ),
       ),
