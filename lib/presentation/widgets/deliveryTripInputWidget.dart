@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:open_street_map_search_and_pick/open_street_map_search_and_pick.dart';
@@ -280,7 +281,8 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
                           widget.outputTripDaysList,
                           widget.setCurrentTripDay,
                           widget.tripDaysTextEditingController,
-                        )
+                        ).animate().slideY(
+                          begin: -0.5, end: 0, curve: Curves.bounceInOut)
                       : Container();
                 }),
             SizedBox(
