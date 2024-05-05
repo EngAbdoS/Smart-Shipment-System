@@ -47,7 +47,13 @@ class AppStrings {
   static const isTripPeriodic= "is_trip_periodic";
   static const tripDays= "trip_days";
   static const tripDaysHint= "trip_days_hint";
-
+ static const sunday    = "sunday";
+ static const monday    = "monday";
+ static const tuesday   = "tuesday";
+ static const wednesday = "wednesday";
+ static const thursday  = "thursday";
+ static const friday    = "friday";
+ static const saturday  = "saturday";
 
   static const nameHint = "name_hint";
   static const hello = "hello";

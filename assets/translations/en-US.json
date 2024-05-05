@@ -1,7 +1,7 @@
 {
   "no_route_found": "noRouteFound",
   "triple_s": "TRIPLE S",
-  "Smart_Shipment_System":"Smart Shipment System",
+  "Smart_Shipment_System": "Smart Shipment System",
   "on_boarding_title1": "Order Shipping",
   "on_boarding_title2": "Track Shipment",
   "on_boarding_title3": "Express Delivery",
@@ -11,7 +11,7 @@
   "skip": "Skip",
   "start_shipping": "Start Shipping",
   "Who_Are_You?": "Who Are You?",
-"client": "Client",
+  "client": "Client",
   "name": "name",
   "name_hint": "Enter full name",
   "nationalId": "National Id",
@@ -19,7 +19,7 @@
   "nationalId_error": "Enter valid National Id",
   "confirmation_picture": "Confirmation Image",
   "confirmation_picture_hint": "Please take a photo of your face and ID card in order to verify your identity.",
-  "delivery_role":    "Choose Work Method",
+  "delivery_role": "Choose Work Method",
   "deliveryExternal": "External Mediator",
   "deliveryInternal": "Internal Mediator",
   "deliveryExternalDescription": "The external mediator is committed to fixed schedules for travel and commuting between governorates.",
@@ -43,7 +43,6 @@
   "is_trip_periodic": "Is the trip recurring weekly?",
   "trip_days": "Trip Days",
   "trip_days_hint": "Please enter the weekly trip days.",
-
   "delivery": "Delivery",
   "hello_delivery": "HELLO OUR DELIVARY !!",
   "happy_delivery": "We are happy to be one of our family",
@@ -76,23 +75,20 @@
   "have_acc": "Already have an account ?",
   "male": "Male",
   "female": "Female",
-"date_birth": "Date of Birth",
+  "date_birth": "Date of Birth",
   "date_birth_error": "Enter your Date of Birth",
-"sign_google": "Sign up with Google",
-"verification": "Verification",
-"enter_code": "Please enter the 6 digits code sent",
+  "sign_google": "Sign up with Google",
+  "verification": "Verification",
+  "enter_code": "Please enter the 6 digits code sent",
   "verify": "Verify",
-"verification_code_error": "Code not valid",
-"change_password": "Change password",
+  "verification_code_error": "Code not valid",
+  "change_password": "Change password",
   "password_different": "Your new password must be different from previously used password",
-"new_password": "New Password",
-          "save": "Save",
-   "forget_password": "Forget Your Password ?",
+  "new_password": "New Password",
+  "save": "Save",
+  "forget_password": "Forget Your Password ?",
   "email_associated": "Enter the email address associated with your account",
   "reset": "Reset",
-
-
-
   "forgot_password_text": "Forgot Password",
   "register_text": "Not a member ? Sign up",
   "loading": "Loading....",
@@ -144,8 +140,12 @@
   "photo_from_camera": "Photo from camera",
   "verification_message": "Please send an email to verify your email address. then check your email for a verification message.",
   "send_verification": "Send verification",
-"reset_password_message": "We have successfully send an reset password email to you, plz check your email and login again."
-
-
-
+  "reset_password_message": "We have successfully send an reset password email to you, plz check your email and login again.",
+  "sunday": "Sunday",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday"
 }

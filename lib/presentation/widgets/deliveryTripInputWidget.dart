@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -12,6 +10,7 @@ import 'package:smart_shipment_system/presentation/resources/strings_manager.dar
 import 'package:location/location.dart';
 import 'package:smart_shipment_system/presentation/resources/theme_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
+import 'package:smart_shipment_system/presentation/widgets/select_week_days.dart';
 
 class DeliveryTripInputWidget extends StatefulWidget {
   DeliveryTripInputWidget({
@@ -81,6 +80,7 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
         (location) => widget.toLocationTextEditingController.text = location);
     widget.outputStartTime.listen((location) =>
         widget.startTimeLocationTextEditingController.text = location);
+
     widget.setCurrentDeliveryIsTripOneTime(true);
   }
 
@@ -93,9 +93,9 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8 * 0.6),
       child: Container(
-        padding: const EdgeInsets.all(AppPadding.p12),
+        padding: const EdgeInsets.all(AppPadding.p8),
         decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -257,14 +257,15 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
                     stream: widget.outputCurrentDeliveryIsTripOneTime,
                     builder: (context, snapshot) {
                       return Switch(
-                        activeColor: ColorManager.primary,
-                        inactiveTrackColor:
-                            ColorManager.primary.withOpacity(0.05),
-                        inactiveThumbColor: ColorManager.gray,
-                        value: snapshot.data ?? true,
-                        onChanged: (value) =>
-                            widget.setCurrentDeliveryIsTripOneTime(value),
-                      );
+                          activeColor: ColorManager.primary,
+                          inactiveTrackColor:
+                              ColorManager.primary.withOpacity(0.05),
+                          inactiveThumbColor: ColorManager.gray,
+                          value: snapshot.data ?? true,
+                          onChanged: (value) => {
+                                widget.setCurrentDeliveryIsTripOneTime(value),
+                                widget.tripDaysTextEditingController.text = "",
+                              });
                     }),
               ],
             ),
@@ -275,7 +276,7 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
             StreamBuilder<bool>(
                 stream: widget.outputCurrentDeliveryIsTripOneTime,
                 builder: (context, snapshot) {
-                  return (snapshot.data ?? true)
+                  return ((snapshot.data ?? true)
                       ? dateOfTripInputWidget(
                           context,
                           widget.outputTripDaysList,
@@ -283,7 +284,12 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
                           widget.tripDaysTextEditingController,
                         ).animate().slideY(
                           begin: -0.5, end: 0, curve: Curves.bounceInOut)
-                      : Container();
+                      : pickTripDaysInputWidget(
+                              context,
+                              widget.outputTripDaysList,
+                              widget.setCurrentTripNewDay)
+                          .animate(delay: 300.milliseconds)
+                          .slideX(begin: 0.1, end: 0, curve: Curves.easeOut));
                 }),
             SizedBox(
               height: 15.sp,
@@ -334,10 +340,11 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
 }
 
 Widget dateOfTripInputWidget(
-    BuildContext context,
-    Stream<List<String>> outputTripDaysList,
-    Function setCurrentTripDay,
-    TextEditingController tripDaysTextEditingController) {
+  BuildContext context,
+  Stream<List<String>> outputTripDaysList,
+  Function setCurrentTripDay,
+  TextEditingController tripDaysTextEditingController,
+) {
   DateTime? pickedDate;
   return StreamBuilder<List<String>>(
       stream: outputTripDaysList,
@@ -370,6 +377,59 @@ Widget dateOfTripInputWidget(
           ),
         );
       });
+}
+
+Widget pickTripDaysInputWidget(
+  BuildContext context,
+  Stream<List<String>> outputTripDaysList,
+  Function setCurrentTripDay,
+) {
+  return SelectWeekDays(
+    daysFillColor: ColorManager.primary,
+    padding: 3.sp,
+    daysBorderColor: ColorManager.primary,
+    unSelectedDayTextColor: ColorManager.black,
+    border: true,
+    boxDecoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: ColorManager.offWhite,
+        border: Border.all(width: 2, color: ColorManager.gray)),
+    fontSize: 6.3.sp,
+    onSelect: (selectedDays) => {
+      setCurrentTripDay(selectedDays.toString()),
+      print(selectedDays),
+    },
+    days: [
+      DayInWeek(
+        AppStrings.saturday.tr(),
+        dayKey: AppStrings.saturday.tr(),
+      ),
+      DayInWeek(
+        AppStrings.sunday.tr(),
+        dayKey: AppStrings.sunday.tr(),
+      ),
+      DayInWeek(
+        AppStrings.monday.tr(),
+        dayKey: AppStrings.monday.tr(),
+      ),
+      DayInWeek(
+        AppStrings.tuesday.tr(),
+        dayKey: AppStrings.tuesday.tr(),
+      ),
+      DayInWeek(
+        AppStrings.wednesday.tr(),
+        dayKey: AppStrings.wednesday.tr(),
+      ),
+      DayInWeek(
+        AppStrings.thursday.tr(),
+        dayKey: AppStrings.thursday.tr(),
+      ),
+      DayInWeek(
+        AppStrings.friday.tr(),
+        dayKey: AppStrings.friday.tr(),
+      ),
+    ],
+  );
 }
 
 class eliveryTripInputWidget extends StatelessWidget {
