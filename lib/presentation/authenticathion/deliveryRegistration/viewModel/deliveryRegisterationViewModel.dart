@@ -66,6 +66,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
       isOneTime: null,
       tripDetails: "",
       tripTime: "",
+      tripDay: "",
       tripWeekDays: []);
 
 //////////////////////////output//////////////////////////
@@ -254,6 +255,17 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   setCurrentDeliveryIsTripOneTime(bool currentDeliveryIsTripOneTime) {
     inputCurrentDeliveryIsTripOneTime.add(currentDeliveryIsTripOneTime);
     deliveryTrip.isOneTime = currentDeliveryIsTripOneTime;
+
+    deliveryTrip.tripWeekDays = [];
+    inputCurrentTripDays.add(deliveryTrip.tripWeekDays);
+
+    deliveryTrip.tripDay = "";
+    inputValidation.add(null);
+  }
+
+  setCurrentTripDay(String currentTripDay) {
+    deliveryTrip.tripWeekDays?.add(currentTripDay);
+    deliveryTrip.tripDay = currentTripDay;
     inputValidation.add(null);
   }
 
@@ -274,6 +286,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
         isOneTime: null,
         tripDetails: "",
         tripTime: "",
+        tripDay: "",
         tripWeekDays: []);
 
     inputValidation.add(null);

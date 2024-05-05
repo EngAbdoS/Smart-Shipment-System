@@ -9,6 +9,7 @@ class DeliveryTripModel {
   String? tripTime;
   String? tripDetails;
   bool? isOneTime;
+  String? tripDay;
   List<String>? tripWeekDays;
 
   DeliveryTripModel(
@@ -20,5 +21,6 @@ class DeliveryTripModel {
       required this.isOneTime,
       required this.tripDetails,
       required this.tripTime,
+        required this.tripDay,
       required this.tripWeekDays});
 }

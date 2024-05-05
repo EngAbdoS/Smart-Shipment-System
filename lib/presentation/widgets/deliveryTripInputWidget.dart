@@ -28,7 +28,7 @@ class DeliveryTripInputWidget extends StatefulWidget {
     required this.startTimeLocationTextEditingController,
     required this.expectedDurationTextEditingController,
     required this.tripDetailsTextEditingController,
-    required this.tripDaysLocationTextEditingController,
+    required this.tripDaysTextEditingController,
     required this.outputFromLocation,
     required this.outputToLocation,
     required this.outputStartTime,
@@ -36,6 +36,7 @@ class DeliveryTripInputWidget extends StatefulWidget {
     required this.outputTripDetails,
     required this.outputCurrentDeliveryIsTripOneTime,
     required this.outputTripDaysList,
+    required this.setCurrentTripDay,
   });
 
   final Stream<String> outputFromLocation;
@@ -46,14 +47,13 @@ class DeliveryTripInputWidget extends StatefulWidget {
   final Stream<bool> outputCurrentDeliveryIsTripOneTime;
   final Stream<List<String>> outputTripDaysList;
 
-  //final Stream<String> outputTripDays;
-
   final TextEditingController fromLocationTextEditingController;
   final TextEditingController toLocationTextEditingController;
   final TextEditingController startTimeLocationTextEditingController;
   final TextEditingController expectedDurationTextEditingController;
   final TextEditingController tripDetailsTextEditingController;
-  final TextEditingController tripDaysLocationTextEditingController;
+  final TextEditingController tripDaysTextEditingController;
+
   final Function addDeliveryTrip;
   final Function setCurrentFromLocationAndGov;
   final Function setCurrentToLocationAndGov;
@@ -61,6 +61,7 @@ class DeliveryTripInputWidget extends StatefulWidget {
   final Function setCurrentTripStartTime;
   final Function setCurrentTripExpectedDuration;
   final Function setCurrentTripNewDay;
+  final Function setCurrentTripDay;
   final Function setCurrentDeliveryIsTripOneTime;
 
   @override
@@ -91,7 +92,7 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: AppPadding.p22),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
       child: Container(
         padding: const EdgeInsets.all(AppPadding.p12),
         decoration: BoxDecoration(
@@ -270,7 +271,21 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
             SizedBox(
               height: 15.sp,
             ),
-
+            StreamBuilder<bool>(
+                stream: widget.outputCurrentDeliveryIsTripOneTime,
+                builder: (context, snapshot) {
+                  return (snapshot.data ?? true)
+                      ? dateOfTripInputWidget(
+                          context,
+                          widget.outputTripDaysList,
+                          widget.setCurrentTripDay,
+                          widget.tripDaysTextEditingController,
+                        )
+                      : Container();
+                }),
+            SizedBox(
+              height: 15.sp,
+            ),
             // eliveryTripInputWidget()
           ],
         ),
@@ -314,6 +329,45 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
 
     //return pickedDataa;
   }
+}
+
+Widget dateOfTripInputWidget(
+    BuildContext context,
+    Stream<List<String>> outputTripDaysList,
+    Function setCurrentTripDay,
+    TextEditingController tripDaysTextEditingController) {
+  DateTime? pickedDate;
+  return StreamBuilder<List<String>>(
+      stream: outputTripDaysList,
+      builder: (context, snapshot) {
+        return TextFormField(
+          //  enabled: false,
+          readOnly: true,
+          onTap: () async {
+            pickedDate = await showDatePicker(
+                initialEntryMode: DatePickerEntryMode.calendarOnly,
+                // initialEntryMode=DatePickerEntryMode.input,
+                // barrierColor: ColorManager.primary,
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now(),
+                lastDate: DateTime.now().add(Duration(days: 30)));
+            setCurrentTripDay((pickedDate ?? DateTime(0)).toString());
+
+            tripDaysTextEditingController.text =
+                "${pickedDate?.year ?? "0"}-${pickedDate?.month ?? "0"}-${pickedDate?.day ?? "0"}";
+          },
+
+          controller: tripDaysTextEditingController,
+          decoration: InputDecoration(
+            hintText: AppStrings.tripDaysHint.tr(),
+            labelText: AppStrings.tripDays.tr(),
+            errorText: (snapshot.data?[0] != DateTime(0).toString() ?? true)
+                ? null
+                : AppStrings.tripDaysHint.tr(),
+          ),
+        );
+      });
 }
 
 class eliveryTripInputWidget extends StatelessWidget {
