@@ -97,7 +97,7 @@ class DeliveryExternalRegistrationView extends StatelessWidget {
                     _viewModel.setCurrentDeliveryIsTripOneTime,
                 outputTripDaysList: _viewModel.outputCurrentTripDays,
                 outputCurrentDeliveryIsTripOneTime:
-                    _viewModel.outputCurrentDeliveryIsTripOneTime, setCurrentTripDay: _viewModel.setCurrentTripDay,
+                    _viewModel.outputCurrentDeliveryIsTripOneTime, setCurrentTripDay: _viewModel.setCurrentTripDay, outputIsDeliveryTripValid: _viewModel.outputIsDeliveryTripValid,
               ),
 
               SizedBox(

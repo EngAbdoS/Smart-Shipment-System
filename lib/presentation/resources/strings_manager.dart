@@ -54,7 +54,7 @@ class AppStrings {
  static const thursday  = "thursday";
  static const friday    = "friday";
  static const saturday  = "saturday";
-
+  static const validateDeliveryTripInputToast = "validateDeliveryTripInputToast";
   static const nameHint = "name_hint";
   static const hello = "hello";
   static const readyFast = "ready_fast";

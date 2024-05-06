@@ -30,7 +30,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
 
   final StreamController _externalDeliveryTripListStreamController =
       StreamController<List<DeliveryTripModel>>.broadcast();
-  final StreamController _currentDeliveryTripValidStreamController =
+  final StreamController _currentIsDeliveryTripValidStreamController =
       StreamController<bool>.broadcast();
   final StreamController _currentDeliveryTripFromLocationValidStreamController =
       StreamController<String>.broadcast();
@@ -118,6 +118,10 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   Stream<List<String>> get outputCurrentTripDays =>
       _currentDeliveryTripDaysStreamController.stream.map((days) => days);
 
+  Stream<bool> get outputIsDeliveryTripValid =>
+      _currentIsDeliveryTripValidStreamController.stream
+          .map((isDeliveryTripValid) => isCurrentDeliveryTripValid());
+
   //////////////////////////input//////////////////////////
 
   Sink get inputDeliveryConfirmationPicture =>
@@ -156,6 +160,9 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
 
   Sink get inputCurrentTripDays =>
       _currentDeliveryTripDaysStreamController.sink;
+
+  Sink get inputIsCurrentDeliveryTripValid =>
+      _currentIsDeliveryTripValidStreamController.sink;
 
 //////////////////////////functions//////////////////////////
 
@@ -223,6 +230,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     deliveryTrip.fromGovernment = currentFromGovernment;
 
     inputValidation.add(null);
+    inputIsCurrentDeliveryTripValid.add(false);
   }
 
   setCurrentToLocationAndGov(LatLng currentToLocation,
@@ -232,24 +240,28 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     deliveryTrip.toGovernment = currentToGovernment;
 
     inputValidation.add(null);
+    inputIsCurrentDeliveryTripValid.add(false);
   }
 
   setCurrentTripDetailsLocation(String currentTripDetails) {
     inputCurrentTripDetails.add(currentTripDetails);
     deliveryTrip.tripDetails = currentTripDetails;
     inputValidation.add(null);
+    inputIsCurrentDeliveryTripValid.add(false);
   }
 
   setCurrentTripStartTime(String currentTripStartTime) {
     inputCurrentTripStartTime.add(currentTripStartTime);
     deliveryTrip.tripTime = currentTripStartTime;
     inputValidation.add(null);
+    inputIsCurrentDeliveryTripValid.add(false);
   }
 
   setCurrentTripExpectedDuration(int currentTripExpectedDuration) {
     inputCurrentTripExpectedDuration.add(currentTripExpectedDuration);
     deliveryTrip.expectedDurationByMin = currentTripExpectedDuration;
     inputValidation.add(null);
+    inputIsCurrentDeliveryTripValid.add(false);
   }
 
   setCurrentDeliveryIsTripOneTime(bool currentDeliveryIsTripOneTime) {
@@ -261,18 +273,22 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
 
     deliveryTrip.tripDay = "";
     inputValidation.add(null);
+    inputIsCurrentDeliveryTripValid.add(false);
   }
 
   setCurrentTripDay(String currentTripDay) {
+    deliveryTrip.tripWeekDays = [];
     deliveryTrip.tripWeekDays?.add(currentTripDay);
     deliveryTrip.tripDay = currentTripDay;
     inputValidation.add(null);
+    inputIsCurrentDeliveryTripValid.add(false);
   }
 
-  setCurrentTripNewDay(String currentTripNewDay) {
-    deliveryTrip.tripWeekDays?.add(currentTripNewDay);
+  setCurrentTripNewDay(List<String> currentTripDays) {
+    deliveryTrip.tripWeekDays = currentTripDays;
     inputCurrentTripDays.add(deliveryTrip.tripWeekDays);
     inputValidation.add(null);
+    inputIsCurrentDeliveryTripValid.add(false);
   }
 
   setNewDeliveryTrip(DeliveryTripModel deliveryTrip) {
@@ -293,6 +309,31 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   }
 
   //////////////////////////validation functions//////////////////////////
+  isCurrentDeliveryTripValid() {
+    // print("teeet");
+    // print(deliveryTrip.fromLocation);
+    // print(deliveryTrip.toLocation);
+    // print(deliveryTrip.fromGovernment);
+    // print(deliveryTrip.toGovernment);
+    // print(deliveryTrip.expectedDurationByMin);
+    // print(deliveryTrip.tripDetails);
+    // print(deliveryTrip.tripTime);
+    // print(deliveryTrip.isOneTime);
+    // print(deliveryTrip.tripWeekDays);
+    // print(deliveryTrip.tripDay);
+
+    return (deliveryTrip.fromLocation != LatLng(0, 0) &&
+        deliveryTrip.toLocation != LatLng(0, 0) &&
+        deliveryTrip.fromGovernment != "" &&
+        deliveryTrip.toGovernment != "" &&
+        deliveryTrip.expectedDurationByMin != 0 &&
+        deliveryTrip.tripDetails != "" &&
+        deliveryTrip.tripTime != "0:0" &&
+        deliveryTrip.isOneTime != null &&
+        ((deliveryTrip.isOneTime != true &&
+                deliveryTrip.tripWeekDays?.length != 0) ||
+            (deliveryTrip.isOneTime != false && deliveryTrip.tripDay != "")));
+  }
 
   bool isDeliveryConfirmationPictureValid(File deliveryConfirmationPicture) {
     //TODO validation

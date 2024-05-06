@@ -10,7 +10,9 @@ import 'package:smart_shipment_system/presentation/resources/strings_manager.dar
 import 'package:location/location.dart';
 import 'package:smart_shipment_system/presentation/resources/theme_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
+import 'package:smart_shipment_system/presentation/widgets/cirular_button.dart';
 import 'package:smart_shipment_system/presentation/widgets/select_week_days.dart';
+import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 
 class DeliveryTripInputWidget extends StatefulWidget {
   DeliveryTripInputWidget({
@@ -37,6 +39,7 @@ class DeliveryTripInputWidget extends StatefulWidget {
     required this.outputCurrentDeliveryIsTripOneTime,
     required this.outputTripDaysList,
     required this.setCurrentTripDay,
+    required this.outputIsDeliveryTripValid,
   });
 
   final Stream<String> outputFromLocation;
@@ -46,6 +49,7 @@ class DeliveryTripInputWidget extends StatefulWidget {
   final Stream<bool> outputTripDetails;
   final Stream<bool> outputCurrentDeliveryIsTripOneTime;
   final Stream<List<String>> outputTripDaysList;
+  final Stream<bool> outputIsDeliveryTripValid;
 
   final TextEditingController fromLocationTextEditingController;
   final TextEditingController toLocationTextEditingController;
@@ -182,7 +186,7 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
                         return TextFormField(
                           onChanged: (duration) =>
                               widget.setCurrentTripExpectedDuration(
-                                  int.parse(duration)),
+                                  duration != "" ? int.parse(duration) : 0),
                           keyboardType: TextInputType.number,
                           controller:
                               widget.expectedDurationTextEditingController,
@@ -294,6 +298,30 @@ class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
             SizedBox(
               height: 15.sp,
             ),
+
+            Center(
+              child: StreamBuilder<bool>(
+                  stream: widget.outputIsDeliveryTripValid,
+                  builder: (context, snapshot) {
+                    return CircularButton(
+                      buttonColor: (snapshot.data ?? false)
+                          ? ColorManager.primary
+                          : ColorManager.primary.withOpacity(0.2),
+                      buttonAction: (snapshot.data ?? false)
+                          ? () => print("a7a")
+                          : () => toastWidget(
+                              AppStrings.validateDeliveryTripInputToast),
+                      buttonWidget: const Icon(
+                        Icons.add,
+                        color: ColorManager.black,
+                        size: 30,
+                      ),
+                    );
+                  }),
+            ),
+            SizedBox(
+              height: 15.sp,
+            ),
             // eliveryTripInputWidget()
           ],
         ),
@@ -360,18 +388,21 @@ Widget dateOfTripInputWidget(
                 context: context,
                 initialDate: DateTime.now(),
                 firstDate: DateTime.now(),
-                lastDate: DateTime.now().add(Duration(days: 30)));
-            setCurrentTripDay((pickedDate ?? DateTime(0)).toString());
+                lastDate: DateTime.now().add(const Duration(days: 30)));
+            setCurrentTripDay((pickedDate != null
+                    ? (DateFormat.yMd().format(pickedDate!))
+                    : "")
+                .toString());
 
-            tripDaysTextEditingController.text =
-                "${pickedDate?.year ?? "0"}-${pickedDate?.month ?? "0"}-${pickedDate?.day ?? "0"}";
+            tripDaysTextEditingController.text =pickedDate!=null?
+                "${pickedDate!.year}-${pickedDate!.month }-${pickedDate!.day}":"";
           },
 
           controller: tripDaysTextEditingController,
           decoration: InputDecoration(
             hintText: AppStrings.tripDaysHint.tr(),
             labelText: AppStrings.tripDays.tr(),
-            errorText: (snapshot.data?[0] != DateTime(0).toString() ?? true)
+            errorText: ((snapshot.data?[0] !=""||snapshot.data!=[]) ?? true)
                 ? null
                 : AppStrings.tripDaysHint.tr(),
           ),
@@ -396,7 +427,7 @@ Widget pickTripDaysInputWidget(
         border: Border.all(width: 2, color: ColorManager.gray)),
     fontSize: 6.3.sp,
     onSelect: (selectedDays) => {
-      setCurrentTripDay(selectedDays.toString()),
+      setCurrentTripDay(selectedDays),
       print(selectedDays),
     },
     days: [
