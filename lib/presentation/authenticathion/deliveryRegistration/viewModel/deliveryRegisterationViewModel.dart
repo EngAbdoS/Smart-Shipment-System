@@ -60,6 +60,8 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   DeliveryTripModel deliveryTrip = DeliveryTripModel(
       fromLocation: LatLng(0, 0),
       toGovernment: "",
+      fromAddressName: "",
+      toAddressName: "",
       toLocation: LatLng(0, 0),
       fromGovernment: "",
       expectedDurationByMin: 0,
@@ -108,7 +110,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
       _currentDeliveryTripExpectedDurationValidStreamController.stream
           .map((duration) => duration != 0);
 
-  Stream<List<DeliveryTripModel>> get outputDeliveryTrip =>
+  Stream<List<DeliveryTripModel>> get outputDeliveryTripList =>
       _externalDeliveryTripListStreamController.stream
           .map((externalDeliveryTripList) => externalDeliveryTripList);
 
@@ -227,6 +229,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   setCurrentFromLocationAndGov(LatLng currentFromLocation,
       String currentFromGovernment, String addressName) {
     inputCurrentFromLocation.add(addressName);
+    deliveryTrip.fromAddressName=addressName;
     deliveryTrip.fromLocation = currentFromLocation;
     deliveryTrip.fromGovernment = currentFromGovernment;
 
@@ -237,6 +240,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   setCurrentToLocationAndGov(LatLng currentToLocation,
       String currentToGovernment, String addressName) {
     inputCurrentToLocation.add(addressName);
+    deliveryTrip.toAddressName=addressName;
     deliveryTrip.toLocation = currentToLocation;
     deliveryTrip.toGovernment = currentToGovernment;
 
@@ -308,10 +312,12 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     deliveryTrip = DeliveryTripModel(
         fromLocation: LatLng(0, 0),
         toGovernment: "",
+        fromAddressName: "",
+        toAddressName: "",
         toLocation: LatLng(0, 0),
         fromGovernment: "",
         expectedDurationByMin: 0,
-        isOneTime: null,
+        isOneTime: true,
         tripDetails: "",
         tripTime: "",
         tripDay: "",
@@ -326,7 +332,12 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     inputCurrentTripDays.add(deliveryTrip.tripWeekDays);
 
   }
+deleteTrip(int index){
+  externalDeliveryTripList.removeAt(index);
+  inputDeliveryTrip.add(externalDeliveryTripList);
+  inputValidation.add(null);
 
+}
   //////////////////////////validation functions//////////////////////////
   isCurrentDeliveryTripValid() {
     // print("teeet");

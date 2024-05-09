@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:open_street_map_search_and_pick/open_street_map_search_and_pick.dart';
+import 'package:smart_shipment_system/domain/models/deliveryTripModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -372,7 +374,7 @@ class DeliveryTripInputWidget extends StatelessWidget {
           border: Border.all(width: 2, color: ColorManager.gray)),
       fontSize: 6.3.sp,
       onSelect: (selectedDays) => {
-        viewModel.setCurrentTripDay(selectedDays),
+        viewModel.setCurrentTripNewDay(selectedDays),
         print(selectedDays),
       },
       days: [
@@ -409,6 +411,108 @@ class DeliveryTripInputWidget extends StatelessWidget {
   }
 }
 
+Widget deliveryAddedTripList(
+    BuildContext context,
+    Stream<List<DeliveryTripModel>> outputDeliveryTripList,
+    Function deleteTrip) {
+  return StreamBuilder<List<DeliveryTripModel>>(
+      stream: outputDeliveryTripList,
+      builder: (context, snapshot) {
+        return Container(
+          // height: 200,
+          child: ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) => deliveryTripWidget(
+                context, snapshot.data![index], index, deleteTrip),
+            itemCount: snapshot.data?.length ?? 0,
+          ),
+        );
+      });
+}
+
+Widget deliveryTripWidget(BuildContext context, DeliveryTripModel deliveryTrip,
+    int index, Function deleteTrip) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(
+        horizontal: AppPadding.p8 * 0.6, vertical: AppPadding.p8),
+    child: Container(
+      width: double.maxFinite,
+      padding: const EdgeInsets.all(AppPadding.p8),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(color: ColorManager.primary.withOpacity(0.1), blurRadius: 40)
+      ], color: ColorManager.offWhite, borderRadius: BorderRadius.circular(20)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                  child: Text(
+                (deliveryTrip.isOneTime ?? true)
+                    ? "${deliveryTrip.tripDay}"
+                    : "${deliveryTrip.tripWeekDays}",
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
+                style: Theme.of(context).textTheme.titleSmall,
+              )),
+              IconButton(
+                  onPressed: () => deleteTrip(index),
+                  icon: const Icon(
+                    Icons.delete,
+                    color: ColorManager.primary,
+                  ))
+            ],
+          ),
+          Text(
+
+            "${deliveryTrip.tripTime}",
+
+            overflow: TextOverflow.ellipsis,
+            softWrap: true,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          SizedBox(
+            height: 14.sp,
+          ),   Text(
+
+            "${deliveryTrip.fromAddressName}",
+
+            overflow: TextOverflow.ellipsis,
+            softWrap: true,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          SizedBox(
+            height: 14.sp,
+          ),
+          Text(
+
+            "${deliveryTrip.toAddressName}",
+
+            overflow: TextOverflow.ellipsis,
+            softWrap: true,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          SizedBox(
+            height: 14.sp,
+          ),
+          Text(
+
+            "${deliveryTrip.tripDetails}",
+
+            overflow: TextOverflow.ellipsis,
+            softWrap: true,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          SizedBox(
+            height: 14.sp,
+          ),
+        ],
+      ),
+    ),
+  );
+}
 //
 // class eliveryTripInputWidget extends StatelessWidget {
 //   eliveryTripInputWidget({super.key});
