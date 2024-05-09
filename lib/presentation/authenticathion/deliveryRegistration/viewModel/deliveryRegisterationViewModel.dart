@@ -63,7 +63,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
       toLocation: LatLng(0, 0),
       fromGovernment: "",
       expectedDurationByMin: 0,
-      isOneTime: null,
+      isOneTime: true,
       tripDetails: "",
       tripTime: "",
       tripDay: "",
@@ -109,7 +109,8 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
           .map((duration) => duration != 0);
 
   Stream<List<DeliveryTripModel>> get outputDeliveryTrip =>
-      _externalDeliveryTripListStreamController.stream.map((list) => list);
+      _externalDeliveryTripListStreamController.stream
+          .map((externalDeliveryTripList) => externalDeliveryTripList);
 
   Stream<bool> get outputCurrentDeliveryIsTripOneTime =>
       _currentDeliveryIsTripOneTimeStreamController.stream
@@ -243,7 +244,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     inputIsCurrentDeliveryTripValid.add(false);
   }
 
-  setCurrentTripDetailsLocation(String currentTripDetails) {
+  setCurrentTripDetails(String currentTripDetails) {
     inputCurrentTripDetails.add(currentTripDetails);
     deliveryTrip.tripDetails = currentTripDetails;
     inputValidation.add(null);
@@ -291,9 +292,20 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     inputIsCurrentDeliveryTripValid.add(false);
   }
 
-  setNewDeliveryTrip(DeliveryTripModel deliveryTrip) {
-    inputDeliveryTrip.add(deliveryTrip);
-    this.deliveryTrip = DeliveryTripModel(
+  setNewDeliveryTrip() {
+    print("heeer");
+    externalDeliveryTripList.add(deliveryTrip);
+    inputDeliveryTrip.add(externalDeliveryTripList);
+    print("a7aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    print(externalDeliveryTripList.length);
+    print(externalDeliveryTripList.last.fromLocation);
+    setCurrentTripDataEmpty();
+
+    inputValidation.add(null);
+  }
+
+  setCurrentTripDataEmpty() {
+    deliveryTrip = DeliveryTripModel(
         fromLocation: LatLng(0, 0),
         toGovernment: "",
         toLocation: LatLng(0, 0),
@@ -304,8 +316,15 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
         tripTime: "",
         tripDay: "",
         tripWeekDays: []);
+    inputIsCurrentDeliveryTripValid.add(false);
+    inputCurrentFromLocation.add("");
+    inputCurrentToLocation.add("");
+    inputCurrentTripDetails.add("");
+    inputCurrentTripStartTime.add("");
+    inputCurrentTripExpectedDuration.add(0);
+    inputCurrentDeliveryIsTripOneTime.add(true);
+    inputCurrentTripDays.add(deliveryTrip.tripWeekDays);
 
-    inputValidation.add(null);
   }
 
   //////////////////////////validation functions//////////////////////////

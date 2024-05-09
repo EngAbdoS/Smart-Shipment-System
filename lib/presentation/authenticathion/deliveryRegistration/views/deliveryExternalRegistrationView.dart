@@ -25,18 +25,18 @@ class DeliveryExternalRegistrationView extends StatelessWidget {
   final DeliveryRegistrationViewModel _viewModel =
       instance<DeliveryRegistrationViewModel>();
 
-  final TextEditingController _fromLocationTextEditingController =
-      TextEditingController();
-  final TextEditingController _toLocationTextEditingController =
-      TextEditingController();
-  final TextEditingController _startTimeLocationTextEditingController =
-      TextEditingController();
-  final TextEditingController _expectedDurationTextEditingController =
-      TextEditingController();
-  final TextEditingController _tripDetailsTextEditingController =
-      TextEditingController();
-  final TextEditingController _tripDaysLocationTextEditingController =
-      TextEditingController();
+  // final TextEditingController _fromLocationTextEditingController =
+  //     TextEditingController();
+  // final TextEditingController _toLocationTextEditingController =
+  //     TextEditingController();
+  // final TextEditingController _startTimeLocationTextEditingController =
+  //     TextEditingController();
+  // final TextEditingController _expectedDurationTextEditingController =
+  //     TextEditingController();
+  // final TextEditingController _tripDetailsTextEditingController =
+  //     TextEditingController();
+  // final TextEditingController _tripDaysLocationTextEditingController =
+  //     TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -64,40 +64,43 @@ class DeliveryExternalRegistrationView extends StatelessWidget {
                 height: 15.sp,
               ),
               DeliveryTripInputWidget(
-                addDeliveryTrip: _viewModel.setNewDeliveryTrip,
-                setCurrentFromLocationAndGov:
-                    _viewModel.setCurrentFromLocationAndGov,
-                setCurrentToLocationAndGov:
-                    _viewModel.setCurrentToLocationAndGov,
-                setCurrentTripDetailsLocation:
-                    _viewModel.setCurrentTripDetailsLocation,
-                setCurrentTripExpectedDuration:
-                    _viewModel.setCurrentTripExpectedDuration,
-                setCurrentTripStartTime: _viewModel.setCurrentTripStartTime,
-                outputFromLocation: _viewModel.outputCurrentFromLocation,
-                outputToLocation: _viewModel.outputCurrentToLocation,
-                outputStartTime: _viewModel.outputCurrentTripStartTime,
-                outputExpectedDuration:
-                    _viewModel.outputCurrentTripExpectedDuration,
-                outputTripDetails: _viewModel.outputIsCurrentTripDetails,
-                fromLocationTextEditingController:
-                    _fromLocationTextEditingController,
-                toLocationTextEditingController:
-                    _toLocationTextEditingController,
-                expectedDurationTextEditingController:
-                    _expectedDurationTextEditingController,
-                tripDaysTextEditingController:
-                    _tripDaysLocationTextEditingController,
-                tripDetailsTextEditingController:
-                    _tripDetailsTextEditingController,
-                startTimeLocationTextEditingController:
-                    _startTimeLocationTextEditingController,
-                setCurrentTripNewDay: _viewModel.setCurrentTripNewDay,
-                setCurrentDeliveryIsTripOneTime:
-                    _viewModel.setCurrentDeliveryIsTripOneTime,
-                outputTripDaysList: _viewModel.outputCurrentTripDays,
-                outputCurrentDeliveryIsTripOneTime:
-                    _viewModel.outputCurrentDeliveryIsTripOneTime, setCurrentTripDay: _viewModel.setCurrentTripDay, outputIsDeliveryTripValid: _viewModel.outputIsDeliveryTripValid,
+                viewModel: _viewModel,
+                // setNewDeliveryTrip: _viewModel.setNewDeliveryTrip,
+                // setCurrentFromLocationAndGov:
+                //     _viewModel.setCurrentFromLocationAndGov,
+                // setCurrentToLocationAndGov:
+                //     _viewModel.setCurrentToLocationAndGov,
+                // setCurrentTripDetails:
+                //     _viewModel.setCurrentTripDetails,
+                // setCurrentTripExpectedDuration:
+                //     _viewModel.setCurrentTripExpectedDuration,
+                // setCurrentTripStartTime: _viewModel.setCurrentTripStartTime,
+                // outputFromLocation: _viewModel.outputCurrentFromLocation,
+                // outputToLocation: _viewModel.outputCurrentToLocation,
+                // outputStartTime: _viewModel.outputCurrentTripStartTime,
+                // outputExpectedDuration:
+                //     _viewModel.outputCurrentTripExpectedDuration,
+                // outputTripDetails: _viewModel.outputIsCurrentTripDetails,
+                // // fromLocationTextEditingController:
+                // //     _fromLocationTextEditingController,
+                // // toLocationTextEditingController:
+                // //     _toLocationTextEditingController,
+                // // expectedDurationTextEditingController:
+                // //     _expectedDurationTextEditingController,
+                // // tripDaysTextEditingController:
+                // //     _tripDaysLocationTextEditingController,
+                // // tripDetailsTextEditingController:
+                // //     _tripDetailsTextEditingController,
+                // // startTimeLocationTextEditingController:
+                // //     _startTimeLocationTextEditingController,
+                // setCurrentTripNewDay: _viewModel.setCurrentTripNewDay,
+                // setCurrentDeliveryIsTripOneTime:
+                //     _viewModel.setCurrentDeliveryIsTripOneTime,
+                // outputTripDaysList: _viewModel.outputCurrentTripDays,
+                // outputCurrentDeliveryIsTripOneTime:
+                //     _viewModel.outputCurrentDeliveryIsTripOneTime,
+                // setCurrentTripDay: _viewModel.setCurrentTripDay,
+                // outputIsDeliveryTripValid: _viewModel.outputIsDeliveryTripValid,
               ),
 
               SizedBox(
