@@ -179,7 +179,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
         }
       case 2:
         {
-          _pageTwoValidation() || true
+          _pageTwoValidation()  || true
               ? GoRouter.of(context)
                   .push(Routes.deliveryRegistrationRoleViewRoute)
               : testState(context);
@@ -229,7 +229,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   setCurrentFromLocationAndGov(LatLng currentFromLocation,
       String currentFromGovernment, String addressName) {
     inputCurrentFromLocation.add(addressName);
-    deliveryTrip.fromAddressName=addressName;
+    deliveryTrip.fromAddressName = addressName;
     deliveryTrip.fromLocation = currentFromLocation;
     deliveryTrip.fromGovernment = currentFromGovernment;
 
@@ -240,7 +240,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   setCurrentToLocationAndGov(LatLng currentToLocation,
       String currentToGovernment, String addressName) {
     inputCurrentToLocation.add(addressName);
-    deliveryTrip.toAddressName=addressName;
+    deliveryTrip.toAddressName = addressName;
     deliveryTrip.toLocation = currentToLocation;
     deliveryTrip.toGovernment = currentToGovernment;
 
@@ -330,14 +330,14 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     inputCurrentTripExpectedDuration.add(0);
     inputCurrentDeliveryIsTripOneTime.add(true);
     inputCurrentTripDays.add(deliveryTrip.tripWeekDays);
-
   }
-deleteTrip(int index){
-  externalDeliveryTripList.removeAt(index);
-  inputDeliveryTrip.add(externalDeliveryTripList);
-  inputValidation.add(null);
 
-}
+  deleteTrip(int index) {
+    externalDeliveryTripList.removeAt(index);
+    inputDeliveryTrip.add(externalDeliveryTripList);
+    inputValidation.add(null);
+  }
+
   //////////////////////////validation functions//////////////////////////
   isCurrentDeliveryTripValid() {
     // print("teeet");
@@ -418,6 +418,7 @@ deleteTrip(int index){
   }
 
   void login(dynamic context) {
+    print(firstName);
     testState(context);
     //emit(LoginLoading(asset: "asset"));
   }

@@ -424,7 +424,7 @@ Widget deliveryAddedTripList(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) => deliveryTripWidget(
-                context, snapshot.data![index], index, deleteTrip),
+                context, snapshot.data![index], index, deleteTrip).animate().slideY(duration: 300.milliseconds,curve: Curves.bounceInOut),
             itemCount: snapshot.data?.length ?? 0,
           ),
         );
@@ -449,14 +449,10 @@ Widget deliveryTripWidget(BuildContext context, DeliveryTripModel deliveryTrip,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                  child: Text(
-                (deliveryTrip.isOneTime ?? true)
-                    ? "${deliveryTrip.tripDay}"
-                    : "${deliveryTrip.tripWeekDays}",
-                overflow: TextOverflow.ellipsis,
-                softWrap: true,
-                style: Theme.of(context).textTheme.titleSmall,
-              )),
+                  child: tripTextWidget(context , (deliveryTrip.isOneTime ?? true)
+          ? "${AppStrings.tripDays.tr()}: ${deliveryTrip.tripDay}"
+          : "${AppStrings.tripDays.tr()}: ${deliveryTrip.tripWeekDays}")
+                 ),
               IconButton(
                   onPressed: () => deleteTrip(index),
                   icon: const Icon(
@@ -465,51 +461,44 @@ Widget deliveryTripWidget(BuildContext context, DeliveryTripModel deliveryTrip,
                   ))
             ],
           ),
-          Text(
-
-            "${deliveryTrip.tripTime}",
-
-            overflow: TextOverflow.ellipsis,
-            softWrap: true,
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-          SizedBox(
-            height: 14.sp,
-          ),   Text(
-
-            "${deliveryTrip.fromAddressName}",
-
-            overflow: TextOverflow.ellipsis,
-            softWrap: true,
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
+          tripTextWidget(context, "${AppStrings.tripTime.tr()}: ${deliveryTrip.tripTime}")
+        ,
           SizedBox(
             height: 14.sp,
           ),
-          Text(
-
-            "${deliveryTrip.toAddressName}",
-
-            overflow: TextOverflow.ellipsis,
-            softWrap: true,
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
+          tripTextWidget(context,   "${AppStrings.fromLocation.tr()}: ${deliveryTrip.fromAddressName}")
+          ,
           SizedBox(
             height: 14.sp,
           ),
-          Text(
+          tripTextWidget(context,  "${AppStrings.toLocation.tr()}: ${deliveryTrip.toAddressName}")
 
-            "${deliveryTrip.tripDetails}",
-
-            overflow: TextOverflow.ellipsis,
-            softWrap: true,
-            style: Theme.of(context).textTheme.titleSmall,
+,
+          SizedBox(
+            height: 14.sp,
           ),
+          tripTextWidget(context,   "${AppStrings.tripDetails.tr()}: ${deliveryTrip.tripDetails}")
+,
           SizedBox(
             height: 14.sp,
           ),
         ],
       ),
+    ),
+  );
+}
+Widget tripTextWidget(BuildContext context,String text)
+{
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: AppPadding.p8 , vertical: AppPadding.p8),
+    decoration: BoxDecoration(
+      border: Border.all(color: ColorManager.lightGray),borderRadius: BorderRadius.circular(24),
+    ),
+    child: Text(
+     text,
+      overflow: TextOverflow.ellipsis,
+      softWrap: true,
+      style: Theme.of(context).textTheme.titleSmall,
     ),
   );
 }
