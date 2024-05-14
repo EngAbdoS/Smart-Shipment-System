@@ -414,80 +414,110 @@ Widget passwordWidgets(
     Function changeConfirmPasswordState) {
   return Column(
     children: [
-      StreamBuilder<bool>(
-        builder: (context, snapshot) {
-          return StreamBuilder<bool>(
-              stream: outputIsPasswordHidden,
-              builder: (context, hiddenState) {
-                return TextFormField(
-                  onChanged: (password) => {
-                    setPassword(password),
-                    validateConfirmPassword(),
-                  },
-                  obscureText: hiddenState.data ?? true,
-                  keyboardType: TextInputType.visiblePassword,
-                  controller: passwordTextEditing,
-                  decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          changePasswordState();
-                        },
-                        icon: Icon(
-                          (hiddenState.data ?? true)
-                              ? Icons.remove_red_eye_rounded
-                              : Icons.remove_red_eye_outlined,
-                          color: ColorManager.primary,
-                        ),
-                      ),
-                      hintText: AppStrings.password.tr(),
-                      labelText: AppStrings.password.tr(),
-                      errorText: (snapshot.data ?? true)
-                          ? null
-                          : AppStrings.passwordInvalid.tr(),
-                      errorMaxLines: 2),
-                );
-              });
-        },
-        stream: outputIsPasswordValid,
-      ),
+      passwordInputWidget(
+          outputIsPasswordHidden,
+          setPassword,
+          validateConfirmPassword,
+          passwordTextEditing,
+          changePasswordState,
+          outputIsPasswordValid),
       SizedBox(
         height: 15.sp,
       ),
-      StreamBuilder<bool>(
-        builder: (context, snapshot) {
-          return StreamBuilder<bool>(
-              stream: outputIsConfirmPasswordHidden,
-              builder: (context, hiddenState) {
-                return TextFormField(
-                  onChanged: (confirmPassword) =>
-                      setConfirmPassword(confirmPassword),
-                  obscureText: hiddenState.data ?? true,
-                  keyboardType: TextInputType.visiblePassword,
-                  controller: confirmPasswordTextEditing,
-                  decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          changeConfirmPasswordState();
-                        },
-                        icon: Icon(
-                          (hiddenState.data ?? true)
-                              ? Icons.remove_red_eye_rounded
-                              : Icons.remove_red_eye_outlined,
-                          color: ColorManager.primary,
-                        ),
-                      ),
-                      hintText: AppStrings.confirmPass.tr(),
-                      labelText: AppStrings.confirmPass.tr(),
-                      errorText: (snapshot.data ?? true)
-                          ? null
-                          : AppStrings.confirmPassError.tr(),
-                      errorMaxLines: 2),
-                );
-              });
-        },
-        stream: outputIsConfirmPasswordValid,
-      ),
+      ConfirmPasswordInputWidget(
+          outputIsConfirmPasswordHidden,
+          setConfirmPassword,
+          confirmPasswordTextEditing,
+          changeConfirmPasswordState,
+          outputIsConfirmPasswordValid),
     ],
+  );
+}
+
+StreamBuilder<bool> ConfirmPasswordInputWidget(
+    Stream<bool> outputIsConfirmPasswordHidden,
+    Function setConfirmPassword,
+    TextEditingController confirmPasswordTextEditing,
+    Function changeConfirmPasswordState,
+    Stream<bool> outputIsConfirmPasswordValid) {
+  return StreamBuilder<bool>(
+    builder: (context, snapshot) {
+      return StreamBuilder<bool>(
+          stream: outputIsConfirmPasswordHidden,
+          builder: (context, hiddenState) {
+            return TextFormField(
+              onChanged: (confirmPassword) =>
+                  setConfirmPassword(confirmPassword),
+              obscureText: hiddenState.data ?? true,
+              keyboardType: TextInputType.visiblePassword,
+              controller: confirmPasswordTextEditing,
+              decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      changeConfirmPasswordState();
+                    },
+                    icon: Icon(
+                      (hiddenState.data ?? true)
+                          ? Icons.remove_red_eye_rounded
+                          : Icons.remove_red_eye_outlined,
+                      color: ColorManager.primary,
+                    ),
+                  ),
+                  hintText: AppStrings.confirmPass.tr(),
+                  labelText: AppStrings.confirmPass.tr(),
+                  errorText: (snapshot.data ?? true)
+                      ? null
+                      : AppStrings.confirmPassError.tr(),
+                  errorMaxLines: 2),
+            );
+          });
+    },
+    stream: outputIsConfirmPasswordValid,
+  );
+}
+
+Widget passwordInputWidget(
+    Stream<bool> outputIsPasswordHidden,
+    Function setPassword,
+    Function validateConfirmPassword,
+    TextEditingController passwordTextEditing,
+    Function changePasswordState,
+    Stream<bool> outputIsPasswordValid) {
+  return StreamBuilder<bool>(
+    builder: (context, snapshot) {
+      return StreamBuilder<bool>(
+          stream: outputIsPasswordHidden,
+          builder: (context, hiddenState) {
+            return TextFormField(
+              onChanged: (password) => {
+                setPassword(password),
+                validateConfirmPassword(),
+              },
+              obscureText: hiddenState.data ?? true,
+              keyboardType: TextInputType.visiblePassword,
+              controller: passwordTextEditing,
+              decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      changePasswordState();
+                    },
+                    icon: Icon(
+                      (hiddenState.data ?? true)
+                          ? Icons.remove_red_eye_rounded
+                          : Icons.remove_red_eye_outlined,
+                      color: ColorManager.primary,
+                    ),
+                  ),
+                  hintText: AppStrings.password.tr(),
+                  labelText: AppStrings.password.tr(),
+                  errorText: (snapshot.data ?? true)
+                      ? null
+                      : AppStrings.passwordInvalid.tr(),
+                  errorMaxLines: 2),
+            );
+          });
+    },
+    stream: outputIsPasswordValid,
   );
 }
 
@@ -629,6 +659,3 @@ Widget nextRegistrationPage(
     ),
   );
 }
-
-
-

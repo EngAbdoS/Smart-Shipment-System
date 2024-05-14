@@ -5,7 +5,7 @@ import 'package:smart_shipment_system/presentation/resources/assets_manager.dart
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 
-Widget authLogoWidget() => Container(
+Widget authLogoWidget({int height=122}) => Container(
       padding: const EdgeInsets.only(
           top: AppPadding.p22 * 2, bottom: AppPadding.p18),
       decoration: BoxDecoration(
@@ -18,7 +18,7 @@ Widget authLogoWidget() => Container(
           //   ),
           // ],
           ),
-child:  SvgPicture.asset(SVGAssets.logoShadowSVG,height: 112.sp,),
+child:  SvgPicture.asset(SVGAssets.logoShadowSVG,height: height.sp,),
 //       child: SvgPicture.string('''
 //       <svg width="119" height="200" viewBox="0 0 119 200" fill="none" xmlns="http://www.w3.org/2000/svg">
 // <g clip-path="url(#clip0_767_2312)">
