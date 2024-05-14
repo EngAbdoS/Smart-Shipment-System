@@ -42,11 +42,13 @@ class LoginView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              authLogoWidget(height: 150).animate().shake(curve: Curves.bounceInOut),
+              authLogoWidget(height: 150)
+                  .animate()
+                  .shake(curve: Curves.bounceInOut),
               Text(
                 AppStrings.welcomeLogin,
                 style: Theme.of(context).textTheme.bodyMedium,
-              ).tr().animate().fade(duration: 300.ms),
+              ).tr().animate(delay: 300.milliseconds).fade(duration: 300.milliseconds,curve: Curves.fastEaseInToSlowEaseOut),
               SizedBox(
                 height: 40.sp,
               ),
@@ -93,7 +95,7 @@ class LoginView extends StatelessWidget {
                     )
                   ],
                 ),
-              ).animate().fade(duration: 300.ms),
+              ).animate(delay: 300.milliseconds).fade(duration: 300.milliseconds,curve: Curves.fastEaseInToSlowEaseOut),
               SizedBox(
                 height: 28.sp,
               ),
@@ -103,7 +105,7 @@ class LoginView extends StatelessWidget {
                   AppStrings.signIn,
                   style: Theme.of(context).textTheme.titleMedium,
                 ).tr(),
-              ).animate().fade(duration: 300.ms),
+              ).animate(delay: 300.milliseconds).fade(duration: 300.milliseconds,curve: Curves.fastEaseInToSlowEaseOut),
               SizedBox(
                 height: 28.sp,
               ),
@@ -132,7 +134,7 @@ class LoginView extends StatelessWidget {
                     )
                   ],
                 ),
-              ).animate().fade(duration: 300.ms),
+              ).animate(delay: 300.milliseconds).fade(duration: 300.milliseconds,curve: Curves.fastEaseInToSlowEaseOut),
 
               // TextButton(onPressed: _viewModel.loading(), child: Text("a7a"))
             ],
@@ -141,4 +143,6 @@ class LoginView extends StatelessWidget {
       ),
     );
   }
+
+
 }
