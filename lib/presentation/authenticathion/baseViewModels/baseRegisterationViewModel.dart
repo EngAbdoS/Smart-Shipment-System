@@ -113,7 +113,7 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
   setAddress(String address) {
     inputAddress.add(address);
     this.address = address;
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
   }
 
   // @override
@@ -141,53 +141,53 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
   setConfirmPassword(String confirmPassword) {
     inputConfirmPassword.add(confirmPassword);
     this.confirmPassword = confirmPassword;
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
   }
 
   validateConfirmPassword() {
     confirmPassword == null ? {} : setConfirmPassword(confirmPassword!);
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
   }
 
   @override
   setFirstName(String firstName) {
     inputFirstName.add(firstName);
     this.firstName = firstName;
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
   }
 
   @override
   setGender(bool isGenderMan) {
     inputGender.add(isGenderMan);
     this.isGenderMan = isGenderMan;
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
   }
 
   @override
   setLastName(String lastName) {
     inputLastName.add(lastName);
     this.lastName = lastName;
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
   }
 
   @override
   setNationalId(String nationalId) {
     inputNationalId.add(nationalId);
     this.nationalId = nationalId;
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
   }
 
   @override
   setPhoneNumber(String phoneNumber) {
     inputPhoneNumber.add(phoneNumber);
     this.phoneNumber = phoneNumber;
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
   }
   @override
   setBirthDate(DateTime birthDate) {
    inputBirthDay.add(birthDate);
    this.birthDate=birthDate;
-   inputValidation.add(null);
+   inputLoginValidation.add(null);
 
   }
   changeConfirmPasswordState() {

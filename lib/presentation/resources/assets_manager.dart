@@ -47,6 +47,7 @@ class JsonAssets {
   static const String map = "$JSON_PATH/map.json";
   static const String exDel = "$JSON_PATH/ex_del.json";
   static const String trac = "$JSON_PATH/trac.json";
+  static const String loadingBasic = "$JSON_PATH/loading.json";
 
 
 }

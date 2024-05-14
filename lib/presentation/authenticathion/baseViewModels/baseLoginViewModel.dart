@@ -6,7 +6,7 @@ class BaseLoginViewModel
     with BaseLoginViewModelInputs, BaseLoginViewModelOutputs {
   final StreamController _userEmailStreamController = BehaviorSubject<String>();
   final StreamController _passwordStreamController = BehaviorSubject<String>();
-  final StreamController _areAllInputsValidStreamController =
+  final StreamController _areAllLoginInputsValidStreamController =
       BehaviorSubject<void>();
   final StreamController _isPasswordHiddenStreamController =
       BehaviorSubject<void>();
@@ -31,8 +31,8 @@ class BaseLoginViewModel
       .map((email) => isEmailValid(email));
 
   @override
-  Stream<bool> get outputAreAllDataValid =>
-      _areAllInputsValidStreamController.stream
+  Stream<bool> get outputAreAllLoginDataValid =>
+      _areAllLoginInputsValidStreamController.stream
           .map((_) => areAllInputsValid());
 
   @override
@@ -42,7 +42,7 @@ class BaseLoginViewModel
 //////////////////////////input//////////////////////////
 
   @override
-  Sink get inputValidation => _areAllInputsValidStreamController.sink;
+  Sink get inputLoginValidation => _areAllLoginInputsValidStreamController.sink;
 
   @override
   Sink get inputPasswordHideState => _isPasswordHiddenStreamController.sink;
@@ -60,14 +60,14 @@ class BaseLoginViewModel
 
     this.password=password;
     //  loginObject = loginObject.copyWith(password: password);
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
   }
 
   setEmail(String email) {
     inputEmail.add(email);
     this.email=email;
     //loginObject = loginObject.copyWith(userName: userName);
-    inputValidation.add(null); //
+    inputLoginValidation.add(null); //
   }
 
   changePasswordState() {
@@ -104,7 +104,7 @@ class BaseLoginViewModel
   void dispose() {
     _passwordStreamController.close();
     _userEmailStreamController.close();
-    _areAllInputsValidStreamController.close();
+    _areAllLoginInputsValidStreamController.close();
     _isPasswordHiddenStreamController.close();
   }
 }
@@ -116,7 +116,7 @@ abstract mixin class BaseLoginViewModelInputs {
 
   Sink get inputPasswordHideState;
 
-  Sink get inputValidation;
+  Sink get inputLoginValidation;
 }
 
 abstract mixin class BaseLoginViewModelOutputs {
@@ -126,5 +126,5 @@ abstract mixin class BaseLoginViewModelOutputs {
 
   Stream<bool> get outputIsPasswordHidden;
 
-  Stream<bool> get outputAreAllDataValid;
+  Stream<bool> get outputAreAllLoginDataValid;
 }

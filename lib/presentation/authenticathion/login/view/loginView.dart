@@ -6,13 +6,13 @@ import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/ViewModel/loginViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/widgets/authWidgets.dart';
-
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/auth_logo_widget.dart';
 import 'package:smart_shipment_system/presentation/widgets/regular_button.dart';
+import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});
@@ -48,7 +48,9 @@ class LoginView extends StatelessWidget {
               Text(
                 AppStrings.welcomeLogin,
                 style: Theme.of(context).textTheme.bodyMedium,
-              ).tr().animate(delay: 300.milliseconds).fade(duration: 300.milliseconds,curve: Curves.fastEaseInToSlowEaseOut),
+              ).tr().animate(delay: 300.milliseconds).fade(
+                  duration: 300.milliseconds,
+                  curve: Curves.fastEaseInToSlowEaseOut),
               SizedBox(
                 height: 40.sp,
               ),
@@ -95,17 +97,38 @@ class LoginView extends StatelessWidget {
                     )
                   ],
                 ),
-              ).animate(delay: 300.milliseconds).fade(duration: 300.milliseconds,curve: Curves.fastEaseInToSlowEaseOut),
+              ).animate(delay: 300.milliseconds).fade(
+                  duration: 300.milliseconds,
+                  curve: Curves.fastEaseInToSlowEaseOut),
               SizedBox(
                 height: 28.sp,
               ),
-              RegularButton(
-                buttonAction: () => _viewModel.getLoading(context),
-                buttonWidget: Text(
-                  AppStrings.signIn,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ).tr(),
-              ).animate(delay: 300.milliseconds).fade(duration: 300.milliseconds,curve: Curves.fastEaseInToSlowEaseOut),
+
+              StreamBuilder<bool>(
+                  stream: _viewModel.outputAreAllLoginDataValid,
+                  builder: (context, snapshot) {
+                    return RegularButton(
+                      buttonAction: (snapshot.data ?? false)
+                          ? () => _viewModel.getLoading(context)
+                          : () => toastWidget(
+                              AppStrings.validateDeliveryTripInputToast),
+                      buttonWidget: Text(
+                        AppStrings.signIn,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ).tr(),
+                    ).animate(delay: 300.milliseconds).fade(
+                        duration: 300.milliseconds,
+                        curve: Curves.fastEaseInToSlowEaseOut);
+                  }),
+              // RegularButton(
+              //   buttonAction: () => _viewModel.getLoading(context),
+              //   buttonWidget: Text(
+              //     AppStrings.signIn,
+              //     style: Theme.of(context).textTheme.titleMedium,
+              //   ).tr(),
+              // ).animate(delay: 300.milliseconds).fade(
+              //     duration: 300.milliseconds,
+              //     curve: Curves.fastEaseInToSlowEaseOut),
               SizedBox(
                 height: 28.sp,
               ),
@@ -134,7 +157,9 @@ class LoginView extends StatelessWidget {
                     )
                   ],
                 ),
-              ).animate(delay: 300.milliseconds).fade(duration: 300.milliseconds,curve: Curves.fastEaseInToSlowEaseOut),
+              ).animate(delay: 300.milliseconds).fade(
+                  duration: 300.milliseconds,
+                  curve: Curves.fastEaseInToSlowEaseOut),
 
               // TextButton(onPressed: _viewModel.loading(), child: Text("a7a"))
             ],
@@ -143,6 +168,4 @@ class LoginView extends StatelessWidget {
       ),
     );
   }
-
-
 }

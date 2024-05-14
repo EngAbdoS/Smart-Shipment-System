@@ -203,7 +203,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     inputDeliveryConfirmationPicture.add(deliveryConfirmationPicture);
     inputValidateDeliveryConfirmationPicture.add(deliveryConfirmationPicture);
     this.deliveryConfirmationPicture = deliveryConfirmationPicture;
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
   }
 
   setDeliveryVehicleLicensePicture(File deliveryVehicleLicensePicture) async {
@@ -211,19 +211,19 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     inputValidateDeliveryVehicleLicensePicture
         .add(deliveryVehicleLicensePicture);
     this.deliveryVehicleLicensePicture = deliveryVehicleLicensePicture;
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
   }
 
   setDeliveryRole(dynamic context, String deliveryRole) {
     this.deliveryRole = deliveryRole;
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
     navigateToNextPage(context, 3);
   }
 
   setVehicle(String vehicle) {
     inputVehicle.add(vehicle);
     this.vehicle = vehicle;
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
   }
 
   setCurrentFromLocationAndGov(LatLng currentFromLocation,
@@ -233,7 +233,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     deliveryTrip.fromLocation = currentFromLocation;
     deliveryTrip.fromGovernment = currentFromGovernment;
 
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
     inputIsCurrentDeliveryTripValid.add(false);
   }
 
@@ -244,28 +244,28 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     deliveryTrip.toLocation = currentToLocation;
     deliveryTrip.toGovernment = currentToGovernment;
 
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
     inputIsCurrentDeliveryTripValid.add(false);
   }
 
   setCurrentTripDetails(String currentTripDetails) {
     inputCurrentTripDetails.add(currentTripDetails);
     deliveryTrip.tripDetails = currentTripDetails;
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
     inputIsCurrentDeliveryTripValid.add(false);
   }
 
   setCurrentTripStartTime(String currentTripStartTime) {
     inputCurrentTripStartTime.add(currentTripStartTime);
     deliveryTrip.tripTime = currentTripStartTime;
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
     inputIsCurrentDeliveryTripValid.add(false);
   }
 
   setCurrentTripExpectedDuration(int currentTripExpectedDuration) {
     inputCurrentTripExpectedDuration.add(currentTripExpectedDuration);
     deliveryTrip.expectedDurationByMin = currentTripExpectedDuration;
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
     inputIsCurrentDeliveryTripValid.add(false);
   }
 
@@ -277,7 +277,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     inputCurrentTripDays.add(deliveryTrip.tripWeekDays);
 
     deliveryTrip.tripDay = "";
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
     inputIsCurrentDeliveryTripValid.add(false);
   }
 
@@ -285,14 +285,14 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     deliveryTrip.tripWeekDays = [];
     deliveryTrip.tripWeekDays?.add(currentTripDay);
     deliveryTrip.tripDay = currentTripDay;
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
     inputIsCurrentDeliveryTripValid.add(false);
   }
 
   setCurrentTripNewDay(List<String> currentTripDays) {
     deliveryTrip.tripWeekDays = currentTripDays;
     inputCurrentTripDays.add(deliveryTrip.tripWeekDays);
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
     inputIsCurrentDeliveryTripValid.add(false);
   }
 
@@ -305,7 +305,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     print(externalDeliveryTripList.last.fromLocation);
     setCurrentTripDataEmpty();
 
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
   }
 
   setCurrentTripDataEmpty() {
@@ -335,7 +335,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   deleteTrip(int index) {
     externalDeliveryTripList.removeAt(index);
     inputDeliveryTrip.add(externalDeliveryTripList);
-    inputValidation.add(null);
+    inputLoginValidation.add(null);
   }
 
   //////////////////////////validation functions//////////////////////////
