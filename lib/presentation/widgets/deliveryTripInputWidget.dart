@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -424,7 +423,9 @@ Widget deliveryAddedTripList(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) => deliveryTripWidget(
-                context, snapshot.data![index], index, deleteTrip).animate().slideY(duration: 300.milliseconds,curve: Curves.bounceInOut),
+                    context, snapshot.data![index], index, deleteTrip)
+                .animate()
+                .slideY(duration: 300.milliseconds, curve: Curves.bounceInOut),
             itemCount: snapshot.data?.length ?? 0,
           ),
         );
@@ -449,10 +450,11 @@ Widget deliveryTripWidget(BuildContext context, DeliveryTripModel deliveryTrip,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                  child: tripTextWidget(context , (deliveryTrip.isOneTime ?? true)
-          ? "${AppStrings.tripDays.tr()}: ${deliveryTrip.tripDay}"
-          : "${AppStrings.tripDays.tr()}: ${deliveryTrip.tripWeekDays}")
-                 ),
+                  child: tripTextWidget(
+                      context,
+                      (deliveryTrip.isOneTime ?? true)
+                          ? "${AppStrings.tripDays.tr()}: ${deliveryTrip.tripDay}"
+                          : "${AppStrings.tripDays.tr()}: ${deliveryTrip.tripWeekDays}")),
               IconButton(
                   onPressed: () => deleteTrip(index),
                   icon: const Icon(
@@ -461,24 +463,23 @@ Widget deliveryTripWidget(BuildContext context, DeliveryTripModel deliveryTrip,
                   ))
             ],
           ),
-          tripTextWidget(context, "${AppStrings.tripTime.tr()}: ${deliveryTrip.tripTime}")
-        ,
+          tripTextWidget(
+              context, "${AppStrings.tripTime.tr()}: ${deliveryTrip.tripTime}"),
           SizedBox(
             height: 14.sp,
           ),
-          tripTextWidget(context,   "${AppStrings.fromLocation.tr()}: ${deliveryTrip.fromAddressName}")
-          ,
+          tripTextWidget(context,
+              "${AppStrings.fromLocation.tr()}: ${deliveryTrip.fromAddressName}"),
           SizedBox(
             height: 14.sp,
           ),
-          tripTextWidget(context,  "${AppStrings.toLocation.tr()}: ${deliveryTrip.toAddressName}")
-
-,
+          tripTextWidget(context,
+              "${AppStrings.toLocation.tr()}: ${deliveryTrip.toAddressName}"),
           SizedBox(
             height: 14.sp,
           ),
-          tripTextWidget(context,   "${AppStrings.tripDetails.tr()}: ${deliveryTrip.tripDetails}")
-,
+          tripTextWidget(context,
+              "${AppStrings.tripDetails.tr()}: ${deliveryTrip.tripDetails}"),
           SizedBox(
             height: 14.sp,
           ),
@@ -487,15 +488,17 @@ Widget deliveryTripWidget(BuildContext context, DeliveryTripModel deliveryTrip,
     ),
   );
 }
-Widget tripTextWidget(BuildContext context,String text)
-{
+
+Widget tripTextWidget(BuildContext context, String text) {
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: AppPadding.p8 , vertical: AppPadding.p8),
+    padding: EdgeInsets.symmetric(
+        horizontal: AppPadding.p8, vertical: AppPadding.p8),
     decoration: BoxDecoration(
-      border: Border.all(color: ColorManager.lightGray),borderRadius: BorderRadius.circular(24),
+      border: Border.all(color: ColorManager.lightGray),
+      borderRadius: BorderRadius.circular(24),
     ),
     child: Text(
-     text,
+      text,
       overflow: TextOverflow.ellipsis,
       softWrap: true,
       style: Theme.of(context).textTheme.titleSmall,

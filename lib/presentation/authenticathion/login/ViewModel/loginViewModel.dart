@@ -6,7 +6,34 @@ class LoginViewModel extends BaseLoginViewModel{
 
 
 
+void login(dynamic context)async
+{
+  loadingState(context: context);
 
+
+
+
+
+  /*
+  *             _appPreferences.setLoggedIn();
+
+  *(await _loginUseCase.execute(
+            LoginUseCaseInput(loginObject.userName, loginObject.password)))
+        .fold(
+            (failure) => {
+
+                  inputState.add(ErrorState(
+                      StateRendererType.popupErrorState, failure.message))
+                }, (data) {
+      _appPreferences.setUserID(data.user!.uid);
+
+      inputState.add(ContentState());
+      isUserLoggedInSuccessfullyStreamController.add(true);
+  *
+  *
+  *
+  * */
+}
 
 
 

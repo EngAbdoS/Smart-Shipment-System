@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -26,13 +25,7 @@ loadingState(
             Animate(
               child: Lottie.asset(lottieAssetPass,
                   fit: BoxFit.cover, alignment: Alignment.center),
-
-
-
-
-
             ).slideX(begin: 1, end: 0.0, curve: Curves.fastEaseInToSlowEaseOut),
-
             Text(message),
           ],
         )),

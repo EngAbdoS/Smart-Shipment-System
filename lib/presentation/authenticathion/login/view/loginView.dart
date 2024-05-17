@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
+import 'package:smart_shipment_system/data/network/app_api.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/ViewModel/loginViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/widgets/authWidgets.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
@@ -23,6 +24,7 @@ class LoginView extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  final AppServiceClient client = instance<AppServiceClient>();
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +110,7 @@ class LoginView extends StatelessWidget {
                   stream: _viewModel.outputAreAllLoginDataValid,
                   builder: (context, snapshot) {
                     return RegularButton(
+
                       buttonAction: (snapshot.data ?? false)
                           ? () => _viewModel.getLoading(context)
                           : () => toastWidget(
