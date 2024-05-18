@@ -62,7 +62,7 @@ class DeliveryRegistrationView1 extends StatelessWidget {
                 height: 15.sp,
               ),
               nationalIdInputWidget(_viewModel.outputIsNationalIdValid,
-                  _viewModel.setNationalId, _nationalIdController),
+                  _viewModel.setNationalId),
               SizedBox(
                 height: 15.sp,
               ),

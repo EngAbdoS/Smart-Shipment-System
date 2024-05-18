@@ -41,7 +41,8 @@ Widget nameInputWidget(Stream<bool> outputIsFirstNameValid, Function setName,
 Widget nationalIdInputWidget(
     Stream<bool> outputIsNationalIdValid,
     Function setNationalID,
-    TextEditingController nationalIdTextEditingController) {
+    ) {
+  TextEditingController nationalIdTextEditingController = TextEditingController();
   return StreamBuilder<bool>(
       stream: outputIsNationalIdValid,
       builder: (context, snapshot) {
