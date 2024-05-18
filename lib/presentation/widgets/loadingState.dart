@@ -9,6 +9,7 @@ loadingState(
     {required BuildContext context,
     String lottieAssetPass = JsonAssets.loadingBasic,
     String message = ""}) {
+  context.loaderOverlay.visible?context.loaderOverlay.hide():null;
   context.loaderOverlay.show(widgetBuilder: (p) {
     return Stack(
       children: [

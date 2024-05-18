@@ -15,11 +15,15 @@ void login(dynamic context)async
       LoginUseCaseInput(email!,password!)))
       .fold(
           (failure) => {
+            context.loaderOverlay.hide(),
             getLoading(context)
             //TODO create error state
       }, (data) {
+            print("data.userName");
+
+  print(data.userName);
+testState(context);
     loadingState(context: context,message: "success");
-print(data.userName);
 //TODO navigate
   });
 
