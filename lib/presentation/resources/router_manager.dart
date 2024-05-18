@@ -88,7 +88,7 @@ abstract class AppRouter {
         pageBuilder: (context, state) {
           initClientRegistrationModule();
           return customPageTransition(
-              state.pageKey, ClientRegistrationView(), fadeTransitionGlobal);
+              state.pageKey, ClientRegistrationView(), slideTransitionLeft);
         },
       ),
       GoRoute(
