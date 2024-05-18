@@ -528,7 +528,8 @@ Widget dateOfBirthInputWidget(
     BuildContext context,
     Stream<bool> outputIsDateOfBirthValid,
     Function setDateOfBirth,
-    TextEditingController dateOfBirthTextEditingController) {
+    ) {
+  TextEditingController dateOfBirthTextEditingController = TextEditingController();
   DateTime? pickedDate;
   return StreamBuilder<bool>(
       stream: outputIsDateOfBirthValid,

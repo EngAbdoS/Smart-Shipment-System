@@ -77,7 +77,7 @@ class DeliveryRegistrationView1 extends StatelessWidget {
                 height: 15.sp,
               ),
               dateOfBirthInputWidget(context, _viewModel.outputIsBirthDayValid,
-                  _viewModel.setBirthDate, _birthDateController),
+                  _viewModel.setBirthDate),
               SizedBox(
                 height: 15.sp,
               ),
