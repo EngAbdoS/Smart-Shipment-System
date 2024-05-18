@@ -70,7 +70,6 @@ class DeliveryRegistrationView2 extends StatelessWidget {
                   _viewModel.outputIsPasswordHidden,
                   _viewModel.outputIsConfirmPasswordHidden,
                   _passwordController,
-                  _confirmPasswordController,
                   _viewModel.setPassword,
                   _viewModel.setConfirmPassword,
                   _viewModel.validateConfirmPassword,

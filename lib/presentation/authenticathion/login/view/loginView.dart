@@ -67,7 +67,6 @@ class LoginView extends StatelessWidget {
                       _viewModel.outputIsPasswordHidden,
                       _viewModel.setPassword,
                       () {},
-                      _passwordController,
                       _viewModel.changePasswordState,
                       _viewModel.outputIsPasswordValid)
                   .animate()
