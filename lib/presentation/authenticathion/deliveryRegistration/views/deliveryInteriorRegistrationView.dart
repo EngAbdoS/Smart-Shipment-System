@@ -59,7 +59,7 @@ class DeliveryInteriorRegistrationView extends StatelessWidget {
               // ),
               const RegistrationSlider(pageIndex: 3),
               vehicleInputWidget(_viewModel.outputIsVehicleValid,
-                  _viewModel.setVehicle, _vehicleTextEditingController),
+                  _viewModel.setVehicle),
               SizedBox(
                 height: 30.sp,
               ),

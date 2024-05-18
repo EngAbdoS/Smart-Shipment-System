@@ -14,9 +14,11 @@ import 'package:smart_shipment_system/presentation/resources/strings_manager.dar
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/cirular_button.dart';
 
-Widget nameInputWidget(Stream<bool> outputIsFirstNameValid, Function setName,
-  ) {
-  TextEditingController nameTextEditingController=TextEditingController();
+Widget nameInputWidget(
+  Stream<bool> outputIsFirstNameValid,
+  Function setName,
+) {
+  TextEditingController nameTextEditingController = TextEditingController();
   return StreamBuilder<bool>(
       stream: outputIsFirstNameValid,
       //_viewModel.outputIsFirstNameValid,
@@ -39,10 +41,11 @@ Widget nameInputWidget(Stream<bool> outputIsFirstNameValid, Function setName,
 }
 
 Widget nationalIdInputWidget(
-    Stream<bool> outputIsNationalIdValid,
-    Function setNationalID,
-    ) {
-  TextEditingController nationalIdTextEditingController = TextEditingController();
+  Stream<bool> outputIsNationalIdValid,
+  Function setNationalID,
+) {
+  TextEditingController nationalIdTextEditingController =
+      TextEditingController();
   return StreamBuilder<bool>(
       stream: outputIsNationalIdValid,
       builder: (context, snapshot) {
@@ -62,10 +65,11 @@ Widget nationalIdInputWidget(
 }
 
 Widget phoneNumberInputWidget(
-    Stream<bool> outputIsPhoneNumberValid,
-    Function setPhoneNumber,
- ) {
-  TextEditingController phoneNumberTextEditingController = TextEditingController();
+  Stream<bool> outputIsPhoneNumberValid,
+  Function setPhoneNumber,
+) {
+  TextEditingController phoneNumberTextEditingController =
+      TextEditingController();
   return StreamBuilder<bool>(
       stream: outputIsPhoneNumberValid,
       builder: (context, snapshot) {
@@ -84,9 +88,11 @@ Widget phoneNumberInputWidget(
       });
 }
 
-Widget addressInputWidget(Stream<bool> outputIsAddressValid,
-    Function setAddress, ) {
-  TextEditingController addressTextEditingController  = TextEditingController();
+Widget addressInputWidget(
+  Stream<bool> outputIsAddressValid,
+  Function setAddress,
+) {
+  TextEditingController addressTextEditingController = TextEditingController();
   return StreamBuilder<bool>(
       stream: outputIsAddressValid,
       builder: (context, snapshot) {
@@ -105,7 +111,8 @@ Widget addressInputWidget(Stream<bool> outputIsAddressValid,
 }
 
 Widget vehicleInputWidget(Stream<bool> outputIsVehicleValid,
-    Function setVehicle, TextEditingController vehicleTextEditingController) {
+    Function setVehicle, ) {
+  TextEditingController vehicleTextEditingController = TextEditingController();
   return StreamBuilder<bool>(
       stream: outputIsVehicleValid,
       builder: (context, snapshot) {
@@ -123,9 +130,11 @@ Widget vehicleInputWidget(Stream<bool> outputIsVehicleValid,
       });
 }
 
-Widget emailInputWidget(Stream<bool> outputIsEmailValid, Function setEmail,
-   ) {
-  TextEditingController emailTextEditingController  = TextEditingController();
+Widget emailInputWidget(
+  Stream<bool> outputIsEmailValid,
+  Function setEmail,
+) {
+  TextEditingController emailTextEditingController = TextEditingController();
   return StreamBuilder<bool>(
       stream: outputIsEmailValid,
       //_viewModel.outputIsFirstNameValid,
@@ -417,12 +426,8 @@ Widget passwordWidgets(
     Function changeConfirmPasswordState) {
   return Column(
     children: [
-      passwordInputWidget(
-          outputIsPasswordHidden,
-          setPassword,
-          validateConfirmPassword,
-          changePasswordState,
-          outputIsPasswordValid),
+      passwordInputWidget(outputIsPasswordHidden, setPassword,
+          validateConfirmPassword, changePasswordState, outputIsPasswordValid),
       SizedBox(
         height: 15.sp,
       ),
@@ -525,11 +530,12 @@ Widget passwordInputWidget(
 }
 
 Widget dateOfBirthInputWidget(
-    BuildContext context,
-    Stream<bool> outputIsDateOfBirthValid,
-    Function setDateOfBirth,
-    ) {
-  TextEditingController dateOfBirthTextEditingController = TextEditingController();
+  BuildContext context,
+  Stream<bool> outputIsDateOfBirthValid,
+  Function setDateOfBirth,
+) {
+  TextEditingController dateOfBirthTextEditingController =
+      TextEditingController();
   DateTime? pickedDate;
   return StreamBuilder<bool>(
       stream: outputIsDateOfBirthValid,
