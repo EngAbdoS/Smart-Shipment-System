@@ -3,12 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/viewModel/clientRegistrationViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/widgets/authWidgets.dart';
-import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
-import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/auth_logo_widget.dart';
@@ -92,32 +89,4 @@ class ClientRegistrationView extends StatelessWidget {
     );
   }
 
-  Widget signInWidget(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            AppStrings.haveAcc,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(color: ColorManager.black),
-          ).tr(),
-          TextButton(
-            onPressed: () =>
-                GoRouter.of(context).pushReplacement(Routes.loginViewRoute),
-            child: Text(
-              AppStrings.signIn,
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: ColorManager.black,
-                    decoration: TextDecoration.underline,
-                  ),
-            ).tr(),
-          )
-        ],
-      ),
-    );
-  }
 }
