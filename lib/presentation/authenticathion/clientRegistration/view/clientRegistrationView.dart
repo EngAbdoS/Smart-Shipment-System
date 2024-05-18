@@ -2,10 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/viewModel/clientRegistrationViewModel.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/authWidgets.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -33,23 +35,7 @@ class ClientRegistrationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: mainClientRegistrationWidget(context));
-    // return BlocBuilder<ClientRegistrationCubit, ClientRegistrationCubitStates>(
-    //     builder: (context, state) {
-    //   final clientRegistrationCubit = context.read<ClientRegistrationCubit>();
-    //
-    //   if (state is ClientRegistrationInitial) {
-    //     return Scaffold(
-    //       body: mainClientRegisterationWidget(clientRegistrationCubit, context),
-    //     );
-    //   } else if (state is ClientRegistrationLoading) {
-    //     testState(context);
-    //     return Container();
-    //   } else if (state is ClientRegistrationSuccess) {
-    //     return Container();
-    //   } else {
-    //     return const Text("a7a");
-    //   }
-    // });
+
   }
 
   SingleChildScrollView mainClientRegistrationWidget(BuildContext context) {
@@ -64,13 +50,22 @@ class ClientRegistrationView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               authLogoWidget(),
-              const SizedBox(
-                height: AppSize.s18 * 2,
+
+              Text(
+                AppStrings.createAcc,
+                style: Theme.of(context).textTheme.titleMedium,
+              ).tr(),
+
+              nameInputWidget(_viewModel.outputIsFirstNameValid,
+                  _viewModel.setFirstName),
+              SizedBox(
+                height: 15.sp,
               ),
-              nameWidget(),
-              const SizedBox(
-                height: AppSize.s28,
-              ),
+            //  nameWidget(),
+            //   const SizedBox(
+            //     height: AppSize.s28,
+            //   ),
+
               phoneNumberWidget(),
               const SizedBox(
                 height: AppSize.s28,

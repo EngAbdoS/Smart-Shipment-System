@@ -15,7 +15,8 @@ import 'package:smart_shipment_system/presentation/resources/values_manager.dart
 import 'package:smart_shipment_system/presentation/widgets/cirular_button.dart';
 
 Widget nameInputWidget(Stream<bool> outputIsFirstNameValid, Function setName,
-    TextEditingController nameTextEditingController) {
+  ) {
+  TextEditingController nameTextEditingController=TextEditingController();
   return StreamBuilder<bool>(
       stream: outputIsFirstNameValid,
       //_viewModel.outputIsFirstNameValid,
