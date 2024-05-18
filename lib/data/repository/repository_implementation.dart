@@ -8,7 +8,6 @@ import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
-
 import '../network/error_handler.dart';
 
 class RepositoryImplementation implements Repository {
@@ -23,6 +22,7 @@ class RepositoryImplementation implements Repository {
     // return const Right(Routes.onBoardingViewRoute);
 
 //handle in local domain
+    return const Right(Routes.loginViewRoute);
 
     if (!_localDataSource.isOnBoardingViewed()) {
       return const Right(Routes.onBoardingViewRoute);
@@ -43,7 +43,7 @@ class RepositoryImplementation implements Repository {
 
   @override
   Future<Either<Failure, UserModel>> login(LoginRequest loginRequest) async {
-    (await _remoteDataSource.login(loginRequest)).fold((error) {
+    return await (await _remoteDataSource.login(loginRequest)).fold((error) {
       return Left(error);
     }, (response) {
       if (response.status == ResponseMessage.SUCCESS) {
@@ -57,7 +57,6 @@ class RepositoryImplementation implements Repository {
             ApiInternalStatus.FAILURE));
       }
     });
-    return Left(Failure(ResponseMessage.DEFAULT, ApiInternalStatus.FAILURE));
 
     //   final response = await _remoteDataSource.login(loginRequest);
     //   if(response is AuthenticationResponse )
