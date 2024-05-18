@@ -65,11 +65,15 @@ class ClientRegistrationView extends StatelessWidget {
             //   const SizedBox(
             //     height: AppSize.s28,
             //   ),
-
-              phoneNumberWidget(),
-              const SizedBox(
-                height: AppSize.s28,
+              phoneNumberInputWidget(_viewModel.outputIsPhoneNumberValid,
+                  _viewModel.setPhoneNumber),
+              SizedBox(
+                height: 15.sp,
               ),
+              // phoneNumberWidget(),
+              // const SizedBox(
+              //   height: AppSize.s28,
+              // ),
               addressWidget(),
               const SizedBox(
                 height: AppSize.s28,

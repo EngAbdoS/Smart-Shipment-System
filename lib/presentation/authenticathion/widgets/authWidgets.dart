@@ -63,7 +63,8 @@ Widget nationalIdInputWidget(
 Widget phoneNumberInputWidget(
     Stream<bool> outputIsPhoneNumberValid,
     Function setPhoneNumber,
-    TextEditingController phoneNumberTextEditingController) {
+ ) {
+  TextEditingController phoneNumberTextEditingController = TextEditingController();
   return StreamBuilder<bool>(
       stream: outputIsPhoneNumberValid,
       builder: (context, snapshot) {
