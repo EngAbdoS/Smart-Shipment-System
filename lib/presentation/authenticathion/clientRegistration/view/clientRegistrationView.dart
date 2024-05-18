@@ -74,14 +74,20 @@ class ClientRegistrationView extends StatelessWidget {
               // const SizedBox(
               //   height: AppSize.s28,
               // ),
-              addressWidget(),
-              const SizedBox(
-                height: AppSize.s28,
+              // addressWidget(),
+              // const SizedBox(
+              //   height: AppSize.s28,
+              // ),
+              emailInputWidget(_viewModel.outputIsEmailValid,
+                  _viewModel.setEmail),
+              SizedBox(
+                height: 15.sp,
               ),
-              emailWidget(),
-              const SizedBox(
-                height: AppSize.s28,
-              ),
+
+              // emailWidget(),
+              // const SizedBox(
+              //   height: AppSize.s28,
+              // ),
               passwordWidgets(),
               const SizedBox(
                 height: AppSize.s28,

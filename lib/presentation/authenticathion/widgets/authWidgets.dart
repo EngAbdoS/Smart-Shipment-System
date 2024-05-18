@@ -122,7 +122,8 @@ Widget vehicleInputWidget(Stream<bool> outputIsVehicleValid,
 }
 
 Widget emailInputWidget(Stream<bool> outputIsEmailValid, Function setEmail,
-    TextEditingController emailTextEditingController) {
+   ) {
+  TextEditingController emailTextEditingController  = TextEditingController();
   return StreamBuilder<bool>(
       stream: outputIsEmailValid,
       //_viewModel.outputIsFirstNameValid,

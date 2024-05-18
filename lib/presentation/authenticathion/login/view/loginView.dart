@@ -19,7 +19,6 @@ class LoginView extends StatelessWidget {
   LoginView({super.key});
 
   final LoginViewModel _viewModel = instance<LoginViewModel>();
-  final TextEditingController _emailController = TextEditingController();
 
   final TextEditingController _passwordController = TextEditingController();
 
@@ -58,7 +57,7 @@ class LoginView extends StatelessWidget {
               ),
 
               emailInputWidget(_viewModel.outputIsEmailValid,
-                      _viewModel.setEmail, _emailController)
+                      _viewModel.setEmail)
                   .animate()
                   .slideX(begin: 0.25, end: 0.0, curve: Curves.easeOut),
               SizedBox(
