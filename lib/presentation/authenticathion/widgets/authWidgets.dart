@@ -85,7 +85,8 @@ Widget phoneNumberInputWidget(
 }
 
 Widget addressInputWidget(Stream<bool> outputIsAddressValid,
-    Function setAddress, TextEditingController addressTextEditingController) {
+    Function setAddress, ) {
+  TextEditingController addressTextEditingController  = TextEditingController();
   return StreamBuilder<bool>(
       stream: outputIsAddressValid,
       builder: (context, snapshot) {

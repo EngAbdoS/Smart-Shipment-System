@@ -72,7 +72,7 @@ class DeliveryRegistrationView1 extends StatelessWidget {
                 height: 15.sp,
               ),
               addressInputWidget(_viewModel.outputIsAddressValid,
-                  _viewModel.setAddress, _addressController),
+                  _viewModel.setAddress),
               SizedBox(
                 height: 15.sp,
               ),
