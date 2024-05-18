@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_shipment_system/app/app_preferances.dart';
+import 'package:smart_shipment_system/data/data_sourse/cache_data_sourse.dart';
 import 'package:smart_shipment_system/data/data_sourse/local_data_sourse.dart';
 import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
 import 'package:smart_shipment_system/data/network/app_api.dart';
@@ -30,12 +31,13 @@ Future<void> initAppModule() async {
 
   Dio dio = await instance<DioFactory>().getDio();
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
-
-
+  instance.registerLazySingleton<CacheDataSource>(
+          () => CacheDataSourceImplementation());
+  instance.registerLazySingleton<RemoteDataSource>(
+          () => RemoteDataSourceImplementation(instance()));
   instance.registerLazySingleton<LocalDataSource>(
       () => LocalDataSourceImplementation());
-  instance.registerLazySingleton<RemoteDataSource>(
-      () => RemoteDataSourceImplementation(instance()));
+
   instance.registerLazySingleton<Repository>(
       () => RepositoryImplementation(instance(), instance()));
   instance.registerLazySingleton<SplashNavigationUseCase>(

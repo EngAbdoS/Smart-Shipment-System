@@ -5,7 +5,6 @@ import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
 import 'package:smart_shipment_system/data/mappers/mappers.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
-import 'package:smart_shipment_system/data/response/response.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
@@ -48,7 +47,11 @@ class RepositoryImplementation implements Repository {
       return Left(error);
     }, (response) {
       if (response.status == ResponseMessage.SUCCESS) {
-        return Right(response.data?.userData?.toDomain());
+        var userData = response.data?.userData?.toDomain();
+        _localDataSource.setUserLogin(response.token ?? "no token", userData!);
+        _localDataSource.setUserRole(
+            response.data?.userData?.role ?? AppConstants.userRoleNoRole);
+        return Right(userData);
       } else {
         return Left(Failure(response.status ?? ResponseMessage.DEFAULT,
             ApiInternalStatus.FAILURE));

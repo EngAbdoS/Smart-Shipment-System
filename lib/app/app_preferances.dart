@@ -8,6 +8,7 @@ const String PREFS_KEY_ONBOARDING_SCREEN_VIEWED =
     "PREFS_KEY_ONBOARDING_SCREEN_VIEWED";
 const String PREFS_KEY_IS_USER_LOGGED_IN = "PREFS_KEY_IS_USER_LOGGED_IN";
 const String PREFS_KEY_USER_ROLE = "PREFS_KEY_USER_ROLE";
+const String PREFS_KEY_USER_TOKEN = "PREFS_KEY_USER_TOKEN";
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
@@ -27,6 +28,7 @@ class AppPreferences {
   removeUserRole() {
     _sharedPreferences.remove(PREFS_KEY_USER_ROLE);
   }
+
 
 ///////////////////logged in////////////////////////
 
@@ -53,6 +55,20 @@ class AppPreferences {
         false;
   }
 
+///////////////////user data////////////////////////
+  setUserToken(String token) {
+    _sharedPreferences.setString(PREFS_KEY_USER_TOKEN, token);
+  }
+getUserToken() {
+    return _sharedPreferences.getString(PREFS_KEY_USER_TOKEN);
+  }
+  removeUserToken() {
+    _sharedPreferences.remove(PREFS_KEY_USER_TOKEN);
+  }
+
+
+
+
 ///////////////////localization////////////////////////
 
   Future<String> getAppLanguage() async {
@@ -60,7 +76,6 @@ class AppPreferences {
     if (language != null && language.isNotEmpty) {
       return language;
     } else {
-
       /////////////////////////default language
       return LanguageType.ARABIC.getValue();
     }
@@ -85,4 +100,8 @@ class AppPreferences {
       return ENGLISH_LOCAL;
     }
   }
+
+
+
+
 }

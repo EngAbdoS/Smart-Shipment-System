@@ -9,9 +9,11 @@ class AppConstants
   static const int zero=0;
   static const int apiTimeOut=120000;
   static const String userRoleDelivery="USER_ROLE_DELIVERY";
-  static const String userRoleClient="USER_ROLE_CLIENT";
-  static const String deliveryRoleExternal="DELIVERY_ROLE_EXTERNAL";
-  static const String deliveryRoleInternal="DELIVERY_ROLE_INTERNAL";
+  static const String userRoleClient="client";
+  static const String deliveryRoleExternal="fix-delivery";
+  static const String deliveryRoleInternal="unorganized-delivery";
+  static const String userRoleAdmin="admin";
+  static const String userRoleNoRole="no-role";
 
 
 
