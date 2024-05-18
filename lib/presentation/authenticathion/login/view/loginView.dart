@@ -112,7 +112,7 @@ class LoginView extends StatelessWidget {
                     return RegularButton(
 
                       buttonAction: (snapshot.data ?? false)
-                          ? () => _viewModel.getLoading(context)
+                          ? () => _viewModel.login(context)
                           : () => toastWidget(
                               AppStrings.validateDeliveryTripInputToast),
                       buttonWidget: Text(

@@ -2,9 +2,15 @@ import 'package:dartz/dartz.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/data/data_sourse/local_data_sourse.dart';
 import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
+import 'package:smart_shipment_system/data/mappers/mappers.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
+import 'package:smart_shipment_system/data/network/requests.dart';
+import 'package:smart_shipment_system/data/response/response.dart';
+import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
+
+import '../network/error_handler.dart';
 
 class RepositoryImplementation implements Repository {
   final LocalDataSource _localDataSource;
@@ -34,5 +40,37 @@ class RepositoryImplementation implements Repository {
       }
     }
     return const Right(Routes.noRoute);
+  }
+
+  @override
+  Future<Either<Failure, UserModel>> login(LoginRequest loginRequest) async {
+    (await _remoteDataSource.login(loginRequest)).fold((error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        return Right(response.data?.userData?.toDomain());
+      } else {
+        return Left(Failure(response.status ?? ResponseMessage.DEFAULT,
+            ApiInternalStatus.FAILURE));
+      }
+    });
+    return Left(Failure(ResponseMessage.DEFAULT, ApiInternalStatus.FAILURE));
+
+    //   final response = await _remoteDataSource.login(loginRequest);
+    //   if(response is AuthenticationResponse )
+    //     {
+    //
+    //       if (response.status == ApiInternalStatus.SUCCESS) {
+    //         return Right(response.toDomain());
+    //       } else {
+    //         return left(Failure(response.message ?? ResponceMessage.DEFAULT,
+    //             ApiInternalStatus.FAILURE));
+    //       }
+    //     }
+    //
+    //
+    // } catch (error) {
+    //   return Left(ErrorHandler.handle(error).failure);
+    // }
   }
 }

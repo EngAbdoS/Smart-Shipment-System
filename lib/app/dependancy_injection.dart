@@ -9,6 +9,7 @@ import 'package:smart_shipment_system/data/network/app_api.dart';
 import 'package:smart_shipment_system/data/network/dio_factory.dart';
 import 'package:smart_shipment_system/data/repository/repository_implementation.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
+import 'package:smart_shipment_system/domain/use_cases/login_usecase.dart';
 import 'package:smart_shipment_system/domain/use_cases/splash_navigation_use_case.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseLoginViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseRegisterationViewModel.dart';
@@ -34,7 +35,7 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<LocalDataSource>(
       () => LocalDataSourceImplementation());
   instance.registerLazySingleton<RemoteDataSource>(
-      () => RemoteDataSourceImplementation());
+      () => RemoteDataSourceImplementation(instance()));
   instance.registerLazySingleton<Repository>(
       () => RepositoryImplementation(instance(), instance()));
   instance.registerLazySingleton<SplashNavigationUseCase>(
@@ -54,7 +55,10 @@ initLoginModule() {
         .registerLazySingleton<BaseLoginViewModel>(() => BaseLoginViewModel());
   }
   if (!GetIt.I.isRegistered<LoginViewModel>()) {
-    instance.registerLazySingleton<LoginViewModel>(() => LoginViewModel());
+    instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
+
+    instance.registerLazySingleton<LoginViewModel>(() => LoginViewModel(instance()));
+
   }
 
   // }
