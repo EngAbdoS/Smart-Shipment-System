@@ -408,7 +408,6 @@ Widget passwordWidgets(
     Stream<bool> outputIsConfirmPasswordValid,
     Stream<bool> outputIsPasswordHidden,
     Stream<bool> outputIsConfirmPasswordHidden,
-    TextEditingController confirmPasswordTextEditing,
     Function setPassword,
     Function setConfirmPassword,
     Function validateConfirmPassword,
@@ -425,22 +424,22 @@ Widget passwordWidgets(
       SizedBox(
         height: 15.sp,
       ),
-      ConfirmPasswordInputWidget(
+      confirmPasswordInputWidget(
           outputIsConfirmPasswordHidden,
           setConfirmPassword,
-          confirmPasswordTextEditing,
           changeConfirmPasswordState,
           outputIsConfirmPasswordValid),
     ],
   );
 }
 
-StreamBuilder<bool> ConfirmPasswordInputWidget(
+StreamBuilder<bool> confirmPasswordInputWidget(
     Stream<bool> outputIsConfirmPasswordHidden,
     Function setConfirmPassword,
-    TextEditingController confirmPasswordTextEditing,
     Function changeConfirmPasswordState,
     Stream<bool> outputIsConfirmPasswordValid) {
+  TextEditingController confirmPasswordTextEditing = TextEditingController();
+
   return StreamBuilder<bool>(
     builder: (context, snapshot) {
       return StreamBuilder<bool>(

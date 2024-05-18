@@ -88,10 +88,20 @@ class ClientRegistrationView extends StatelessWidget {
               // const SizedBox(
               //   height: AppSize.s28,
               // ),
-              passwordWidgets(),
-              const SizedBox(
-                height: AppSize.s28,
-              ),
+              passwordWidgets(
+                  _viewModel.outputIsPasswordValid,
+                  _viewModel.outputIsConfirmPasswordValid,
+                  _viewModel.outputIsPasswordHidden,
+                  _viewModel.outputIsConfirmPasswordHidden,
+                  _viewModel.setPassword,
+                  _viewModel.setConfirmPassword,
+                  _viewModel.validateConfirmPassword,
+                  _viewModel.changePasswordState,
+                  _viewModel.changeConfirmPasswordState),
+              // passwordWidgets(),
+              // const SizedBox(
+              //   height: AppSize.s28,
+              // ),
               dateOfBirthWidget(context),
               const SizedBox(
                 height: AppSize.s28,
@@ -175,7 +185,7 @@ class ClientRegistrationView extends StatelessWidget {
         });
   }
 
-  Widget passwordWidgets() {
+  Widget passwordsWidget() {
     return Column(
       children: [
         StreamBuilder<bool>(
