@@ -8,7 +8,7 @@ part 'app_api.g.dart';
 
 @RestApi(baseUrl: AppConstants.baseUrl) //annotation
 abstract class AppServiceClient {
-  factory AppServiceClient(Dio dio, {String baseUrl}) = _AppServiceClient;
+  factory AppServiceClient(Dio dio , {String baseUrl}) = _AppServiceClient;
 
   @POST("users/login")
   Future<AuthenticationResponse> login(

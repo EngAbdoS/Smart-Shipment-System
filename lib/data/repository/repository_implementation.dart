@@ -53,8 +53,9 @@ class RepositoryImplementation implements Repository {
             response.data?.userData?.role ?? AppConstants.userRoleNoRole);
         return Right(userData);
       } else {
-        return Left(Failure(response.status ?? ResponseMessage.DEFAULT,
-            ApiInternalStatus.FAILURE));
+
+        return Left(ErrorHandler.handle(response).failure);
+
       }
     });
 
