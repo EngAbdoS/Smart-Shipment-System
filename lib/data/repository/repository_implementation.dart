@@ -5,6 +5,7 @@ import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
 import 'package:smart_shipment_system/data/mappers/mappers.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
+import 'package:smart_shipment_system/data/response/response.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
@@ -53,27 +54,25 @@ class RepositoryImplementation implements Repository {
             response.data?.userData?.role ?? AppConstants.userRoleNoRole);
         return Right(userData);
       } else {
-
         return Left(ErrorHandler.handle(response).failure);
-
       }
     });
+  }
 
-    //   final response = await _remoteDataSource.login(loginRequest);
-    //   if(response is AuthenticationResponse )
-    //     {
-    //
-    //       if (response.status == ApiInternalStatus.SUCCESS) {
-    //         return Right(response.toDomain());
-    //       } else {
-    //         return left(Failure(response.message ?? ResponceMessage.DEFAULT,
-    //             ApiInternalStatus.FAILURE));
-    //       }
-    //     }
-    //
-    //
-    // } catch (error) {
-    //   return Left(ErrorHandler.handle(error).failure);
-    // }
+  @override
+  Future<Either<Failure, RegistrationResponse>> clientRegistration(
+      ClientRegistrationRequest clientRegistrationRequest) async {
+    return await (await _remoteDataSource
+            .clientRegistration(clientRegistrationRequest))
+        .fold((error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        var registrationResponse = response;
+        return Right(registrationResponse);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
   }
 }
