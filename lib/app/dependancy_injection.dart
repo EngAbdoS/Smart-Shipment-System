@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_shipment_system/app/app_preferances.dart';
@@ -10,10 +9,10 @@ import 'package:smart_shipment_system/data/network/app_api.dart';
 import 'package:smart_shipment_system/data/network/dio_factory.dart';
 import 'package:smart_shipment_system/data/repository/repository_implementation.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
+import 'package:smart_shipment_system/domain/use_cases/client_registration_usecase.dart';
 import 'package:smart_shipment_system/domain/use_cases/login_usecase.dart';
 import 'package:smart_shipment_system/domain/use_cases/splash_navigation_use_case.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseLoginViewModel.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseRegisterationViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/changePassword/viewModel/changePasswordViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/viewModel/clientRegistrationViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/viewModel/deliveryRegisterationViewModel.dart';
@@ -32,9 +31,9 @@ Future<void> initAppModule() async {
   Dio dio = await instance<DioFactory>().getDio();
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
   instance.registerLazySingleton<CacheDataSource>(
-          () => CacheDataSourceImplementation());
+      () => CacheDataSourceImplementation());
   instance.registerLazySingleton<RemoteDataSource>(
-          () => RemoteDataSourceImplementation(instance()));
+      () => RemoteDataSourceImplementation(instance()));
   instance.registerLazySingleton<LocalDataSource>(
       () => LocalDataSourceImplementation());
 
@@ -45,13 +44,6 @@ Future<void> initAppModule() async {
 }
 
 initLoginModule() {
-//  if (!GetIt.I.isRegistered<LoginUseCase>()) {
-  // instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
-  // BlocProvider(create: (context)=>LoginCubit()
-  //
-  //
-  // );
-  // instance.registerLazySingleton<LoginCubit>(()=>LoginCubit());
   if (!GetIt.I.isRegistered<BaseLoginViewModel>()) {
     instance
         .registerLazySingleton<BaseLoginViewModel>(() => BaseLoginViewModel());
@@ -59,29 +51,22 @@ initLoginModule() {
   if (!GetIt.I.isRegistered<LoginViewModel>()) {
     instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
 
-    instance.registerLazySingleton<LoginViewModel>(() => LoginViewModel(instance()));
-
+    instance.registerLazySingleton<LoginViewModel>(
+        () => LoginViewModel(instance()));
   }
-
-  // }
 }
 
 initClientRegistrationModule() {
-  // if (!GetIt.I.isRegistered<BaseRegistrationViewModel>()) {
-  //   instance.registerLazySingleton<BaseRegistrationViewModel>(
-  //       () => BaseRegistrationViewModel());
-  // }
   if (!GetIt.I.isRegistered<ClientRegistrationViewModel>()) {
+    instance.registerFactory<ClientRegistrationUseCase>(
+        () => ClientRegistrationUseCase(instance()));
+
     instance.registerLazySingleton<ClientRegistrationViewModel>(
         () => ClientRegistrationViewModel());
   }
 }
 
 initDeliveryRegistrationModule() {
-  // if (!GetIt.I.isRegistered<BaseRegistrationViewModel>()) {
-  //   instance.registerLazySingleton<BaseRegistrationViewModel>(
-  //           () => BaseRegistrationViewModel());
-  // }
   if (!GetIt.I.isRegistered<DeliveryRegistrationViewModel>()) {
     instance.registerLazySingleton<DeliveryRegistrationViewModel>(
         () => DeliveryRegistrationViewModel());
