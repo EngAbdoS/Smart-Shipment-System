@@ -419,6 +419,7 @@ Widget deliveryAddedTripList(
       builder: (context, snapshot) {
         return Container(
           // height: 200,
+          padding: EdgeInsets.only(bottom:25.sp ),
           child: ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -427,7 +428,7 @@ Widget deliveryAddedTripList(
                 .animate()
                 .slideY(duration: 300.milliseconds, curve: Curves.bounceInOut),
             itemCount: snapshot.data?.length ?? 0,
-          ),
+          ).animate().shake(curve: Curves.bounceInOut),
         );
       });
 }

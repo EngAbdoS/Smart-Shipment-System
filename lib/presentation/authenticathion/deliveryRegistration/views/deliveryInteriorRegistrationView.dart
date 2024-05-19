@@ -1,21 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/viewModel/deliveryRegisterationViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/widgets/authWidgets.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/widgets/registrationSlider.dart';
-import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
-import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
-import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/auth_logo_widget.dart';
-import 'package:smart_shipment_system/presentation/widgets/cirular_button.dart';
 import 'package:smart_shipment_system/presentation/widgets/regular_button.dart';
-import 'package:smart_shipment_system/presentation/widgets/toast.dart';
-
 import '../../../resources/values_manager.dart';
 
 class DeliveryInteriorRegistrationView extends StatelessWidget {
@@ -23,9 +16,6 @@ class DeliveryInteriorRegistrationView extends StatelessWidget {
 
   final DeliveryRegistrationViewModel _viewModel =
       instance<DeliveryRegistrationViewModel>();
-
-  final TextEditingController _vehicleTextEditingController =
-      TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -47,19 +37,10 @@ class DeliveryInteriorRegistrationView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               authLogoWidget(),
-              // SizedBox(
-              //   height: 6.sp,
-              // ),
-              // Text(
-              //   AppStrings.createAcc,
-              //   style: Theme.of(context).textTheme.titleMedium,
-              // ).tr(),
-              // SizedBox(
-              //   height: 6.sp,
-              // ),
               const RegistrationSlider(pageIndex: 3),
               vehicleInputWidget(_viewModel.outputIsVehicleValid,
-                  _viewModel.setVehicle),
+                  _viewModel.setVehicle)  .animate()
+                  .slideX(begin: 0.25, end: 0.0, curve: Curves.easeOut),
               SizedBox(
                 height: 30.sp,
               ),
@@ -68,28 +49,20 @@ class DeliveryInteriorRegistrationView extends StatelessWidget {
                   context,
                   _viewModel.outputDeliveryVehicleLicensePicture,
                   _viewModel.outputIsDeliveryVehicleLicensePictureValid,
-                  _viewModel.setDeliveryVehicleLicensePicture),
+                  _viewModel.setDeliveryVehicleLicensePicture).animate()
+                  .slideX(begin: -0.25, end: 0.0, curve: Curves.easeOut),
               SizedBox(
-                height: 15.sp,
+                height: 30.sp,
               ),
-              // deliveryConfirmationPicture(
-              //     context,
-              //     _viewModel.outputDeliveryConfirmationPicture,
-              //     _viewModel.outputIsDeliveryConfirmationPictureValid,
-              //     _viewModel.setDeliveryConfirmationPicture),
-
-              SizedBox(
-                height: 15.sp,
-              ),
-
               RegularButton(
                 buttonAction: () => _viewModel.login(context),
                 buttonWidget: Text(
                   AppStrings.createAcc,
                   style: Theme.of(context).textTheme.titleMedium,
                 ).tr(),
-              ),
-              //nextRegistrationPage(context, _viewModel.navigateToNextPage, 2),
+              ).animate(delay: 600.milliseconds).fade(
+                  duration: 300.milliseconds,
+                  curve: Curves.fastEaseInToSlowEaseOut),
 
               SizedBox(
                 height: 15.sp,

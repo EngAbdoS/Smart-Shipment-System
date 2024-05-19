@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/viewModel/deliveryRegisterationViewModel.dart';
@@ -38,19 +39,20 @@ class DeliveryExternalRegistrationView extends StatelessWidget {
               authLogoWidget(),
 
               const RegistrationSlider(pageIndex: 3),
-              SizedBox(
-                height: 15.sp,
-              ),
+              // SizedBox(
+              //   height: 15.sp,
+              // ),
 
               deliveryAddedTripList(context, _viewModel.outputDeliveryTripList,
                   _viewModel.deleteTrip),
-              SizedBox(
-                height: 25.sp,
-              ),
+              // SizedBox(
+              //   height: 25.sp,
+              // ),
 
               DeliveryTripInputWidget(
                 viewModel: _viewModel,
-              ),
+              ).animate().scaleXY(
+                  begin: 0.5, end: 1.0, curve: Curves.fastEaseInToSlowEaseOut),
 
               SizedBox(
                 height: 15.sp,
@@ -62,7 +64,9 @@ class DeliveryExternalRegistrationView extends StatelessWidget {
                   AppStrings.createAcc,
                   style: Theme.of(context).textTheme.titleMedium,
                 ).tr(),
-              ),
+              ).animate(delay: 600.milliseconds).fade(
+                  duration: 300.milliseconds,
+                  curve: Curves.fastEaseInToSlowEaseOut),
               //nextRegistrationPage(context, _viewModel.navigateToNextPage, 2),
 
               SizedBox(
