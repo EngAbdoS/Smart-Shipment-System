@@ -36,7 +36,7 @@ class ClientRegistrationView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              authLogoWidget().animate().shake(curve: Curves.bounceInOut),
+              authLogoWidget(),
               Text(
                 AppStrings.createAcc,
                 style: Theme.of(context).textTheme.titleMedium,

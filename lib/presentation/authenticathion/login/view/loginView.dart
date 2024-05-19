@@ -43,9 +43,7 @@ class LoginView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              authLogoWidget(height: 150)
-                  .animate()
-                  .shake(curve: Curves.bounceInOut),
+              authLogoWidget(height: 150),
               Text(
                 AppStrings.welcomeLogin,
                 style: Theme.of(context).textTheme.bodyMedium,
@@ -56,8 +54,8 @@ class LoginView extends StatelessWidget {
                 height: 40.sp,
               ),
 
-              emailInputWidget(_viewModel.outputIsEmailValid,
-                      _viewModel.setEmail)
+              emailInputWidget(
+                      _viewModel.outputIsEmailValid, _viewModel.setEmail)
                   .animate()
                   .slideX(begin: 0.25, end: 0.0, curve: Curves.easeOut),
               SizedBox(
@@ -108,7 +106,6 @@ class LoginView extends StatelessWidget {
                   stream: _viewModel.outputAreAllLoginDataValid,
                   builder: (context, snapshot) {
                     return RegularButton(
-
                       buttonAction: (snapshot.data ?? false)
                           ? () => _viewModel.login(context)
                           : () => toastWidget(
