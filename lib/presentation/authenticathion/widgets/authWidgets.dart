@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -323,7 +324,9 @@ Widget deliveryRole(BuildContext context, Function setRole) {
       Text(
         AppStrings.deliveryRole,
         style: Theme.of(context).textTheme.titleMedium,
-      ).tr(),
+      ).tr().animate(delay: 300.milliseconds).fade(
+          duration: 300.milliseconds,
+          curve: Curves.fastEaseInToSlowEaseOut),
       SizedBox(
         height: 80.sp,
       ),
@@ -354,7 +357,8 @@ Widget deliveryRole(BuildContext context, Function setRole) {
                 ).tr(),
               ),
             ),
-          ),
+          ).animate()
+              .slideX(begin: 0.5, end: 0.0, curve: Curves.easeInOutBack),
           GestureDetector(
             onTap: () => setRole(context, AppConstants.deliveryRoleExternal),
             child: Container(
@@ -378,7 +382,8 @@ Widget deliveryRole(BuildContext context, Function setRole) {
                 ).tr(),
               ),
             ),
-          ),
+          ).animate()
+              .slideX(begin: -0.5, end: 0.0, curve: Curves.easeInOutBack),
         ],
       ),
       SizedBox(
@@ -400,7 +405,9 @@ Widget deliveryRole(BuildContext context, Function setRole) {
             .textTheme
             .titleLarge!
             .copyWith(color: ColorManager.error.withOpacity(0.5), fontSize: 12),
-      ).tr(),
+      ).tr().animate(delay: 300.milliseconds).fade(
+          duration: 300.milliseconds,
+          curve: Curves.fastEaseInToSlowEaseOut),
     ],
   );
 }

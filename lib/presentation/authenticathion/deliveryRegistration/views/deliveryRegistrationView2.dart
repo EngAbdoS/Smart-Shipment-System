@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -48,47 +49,47 @@ class DeliveryRegistrationView2 extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               authLogoWidget(),
-              // SizedBox(
-              //   height: 6.sp,
-              // ),
               Text(
                 AppStrings.createAcc,
                 style: Theme.of(context).textTheme.titleMedium,
-              ).tr(),
-              // SizedBox(
-              //   height: 6.sp,
-              // ),
+              ).tr().animate(delay: 300.milliseconds).fade(
+                  duration: 300.milliseconds,
+                  curve: Curves.fastEaseInToSlowEaseOut),
               const RegistrationSlider(pageIndex: 2),
-              emailInputWidget(_viewModel.outputIsEmailValid,
-                  _viewModel.setEmail),
-              SizedBox(
-                height: 15.sp,
+              Column(
+                children: [
+                  emailInputWidget(
+                      _viewModel.outputIsEmailValid, _viewModel.setEmail),
+                  SizedBox(
+                    height: 15.sp,
+                  ),
+                  passwordWidgets(
+                      _viewModel.outputIsPasswordValid,
+                      _viewModel.outputIsConfirmPasswordValid,
+                      _viewModel.outputIsPasswordHidden,
+                      _viewModel.outputIsConfirmPasswordHidden,
+                      _viewModel.setPassword,
+                      _viewModel.setConfirmPassword,
+                      _viewModel.validateConfirmPassword,
+                      _viewModel.changePasswordState,
+                      _viewModel.changeConfirmPasswordState),
+                  SizedBox(
+                    height: 15.sp,
+                  ),
+                  deliveryConfirmationPictureInputWidget(
+                      context,
+                      _viewModel.outputDeliveryConfirmationPicture,
+                      _viewModel.outputIsDeliveryConfirmationPictureValid,
+                      _viewModel.setDeliveryConfirmationPicture),
+                  SizedBox(
+                    height: 15.sp,
+                  ),
+                  nextRegistrationPage(
+                      context, _viewModel.navigateToNextPage, 2),
+                ]
+                    .animate(delay: 500.ms, interval: 300.ms)
+                    .fade(duration: 200.ms),
               ),
-              passwordWidgets(
-                  _viewModel.outputIsPasswordValid,
-                  _viewModel.outputIsConfirmPasswordValid,
-                  _viewModel.outputIsPasswordHidden,
-                  _viewModel.outputIsConfirmPasswordHidden,
-                  _viewModel.setPassword,
-                  _viewModel.setConfirmPassword,
-                  _viewModel.validateConfirmPassword,
-                  _viewModel.changePasswordState,
-                  _viewModel.changeConfirmPasswordState),
-              // signInWidget(context),
-              SizedBox(
-                height: 15.sp,
-              ),
-              deliveryConfirmationPictureInputWidget(
-                  context,
-                  _viewModel.outputDeliveryConfirmationPicture,
-                  _viewModel.outputIsDeliveryConfirmationPictureValid,
-                  _viewModel.setDeliveryConfirmationPicture),
-
-              SizedBox(
-                height: 15.sp,
-              ),
-              nextRegistrationPage(context, _viewModel.navigateToNextPage, 2),
-
               SizedBox(
                 height: 15.sp,
               ),

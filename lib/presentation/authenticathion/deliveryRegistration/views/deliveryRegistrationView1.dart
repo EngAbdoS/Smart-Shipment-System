@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/viewModel/deliveryRegisterationViewModel.dart';
@@ -36,54 +37,55 @@ class DeliveryRegistrationView1 extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               authLogoWidget(),
-              // SizedBox(
-              //   height: 6.sp,
-              // ),
               Text(
                 AppStrings.createAcc,
                 style: Theme.of(context).textTheme.titleMedium,
-              ).tr(),
-              // SizedBox(
-              //   height: 6.sp,
-              // ),
+              ).tr().animate(delay: 300.milliseconds).fade(
+                  duration: 300.milliseconds,
+                  curve: Curves.fastEaseInToSlowEaseOut),
               const RegistrationSlider(pageIndex: 1),
-
-              nameInputWidget(
-                  _viewModel.outputIsFirstNameValid, _viewModel.setFirstName),
-              SizedBox(
-                height: 15.sp,
+              Column(
+                children: [
+                  nameInputWidget(_viewModel.outputIsFirstNameValid,
+                      _viewModel.setFirstName),
+                  SizedBox(
+                    height: 15.sp,
+                  ),
+                  nationalIdInputWidget(_viewModel.outputIsNationalIdValid,
+                      _viewModel.setNationalId),
+                  SizedBox(
+                    height: 15.sp,
+                  ),
+                  phoneNumberInputWidget(_viewModel.outputIsPhoneNumberValid,
+                      _viewModel.setPhoneNumber),
+                  SizedBox(
+                    height: 15.sp,
+                  ),
+                  addressInputWidget(
+                      _viewModel.outputIsAddressValid, _viewModel.setAddress),
+                  SizedBox(
+                    height: 15.sp,
+                  ),
+                  dateOfBirthInputWidget(
+                      context,
+                      _viewModel.outputIsBirthDayValid,
+                      _viewModel.setBirthDate),
+                  SizedBox(
+                    height: 15.sp,
+                  ),
+                  genderWidget(context, _viewModel.outputIsGenderManValid,
+                      _viewModel.setGender),
+                  SizedBox(
+                    height: 15.sp,
+                  ),
+                  signInWidget(context),
+                  SizedBox(
+                    height: 15.sp,
+                  ),
+                  nextRegistrationPage(
+                      context, _viewModel.navigateToNextPage, 1),
+                ].animate(delay:500.ms,interval: 300.ms).fade(duration: 200.ms),
               ),
-              nationalIdInputWidget(
-                  _viewModel.outputIsNationalIdValid, _viewModel.setNationalId),
-              SizedBox(
-                height: 15.sp,
-              ),
-              phoneNumberInputWidget(_viewModel.outputIsPhoneNumberValid,
-                  _viewModel.setPhoneNumber),
-              SizedBox(
-                height: 15.sp,
-              ),
-              addressInputWidget(
-                  _viewModel.outputIsAddressValid, _viewModel.setAddress),
-              SizedBox(
-                height: 15.sp,
-              ),
-              dateOfBirthInputWidget(context, _viewModel.outputIsBirthDayValid,
-                  _viewModel.setBirthDate),
-              SizedBox(
-                height: 15.sp,
-              ),
-              genderWidget(context, _viewModel.outputIsGenderManValid,
-                  _viewModel.setGender),
-              SizedBox(
-                height: 15.sp,
-              ),
-              signInWidget(context),
-              SizedBox(
-                height: 15.sp,
-              ),
-              nextRegistrationPage(context, _viewModel.navigateToNextPage, 1),
-
               SizedBox(
                 height: 15.sp,
               ),

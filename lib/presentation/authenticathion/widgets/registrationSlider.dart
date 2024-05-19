@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 
@@ -33,7 +34,8 @@ class RegistrationSlider extends StatelessWidget {
           pageNumber(context, 3),
         ],
       ),
-    );
+    ) .animate()
+        .slideX(begin:1, end: 0.0, curve: Curves.easeOut);
   }
 
   Widget buildDivider(int stateIndex) => Expanded(
