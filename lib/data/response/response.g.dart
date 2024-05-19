@@ -8,12 +8,14 @@ part of 'response.dart';
 
 BaseResponse _$BaseResponseFromJson(Map<String, dynamic> json) => BaseResponse()
   ..statusCode = (json['statusCode'] as num?)?.toInt()
-  ..status = json['status'] as String?;
+  ..status = json['status'] as String?
+  ..message = json['message'] as String?;
 
 Map<String, dynamic> _$BaseResponseToJson(BaseResponse instance) =>
     <String, dynamic>{
       'statusCode': instance.statusCode,
       'status': instance.status,
+      'message': instance.message,
     };
 
 UserResponse _$UserResponseFromJson(Map<String, dynamic> json) => UserResponse(
@@ -60,13 +62,30 @@ AuthenticationResponse _$AuthenticationResponseFromJson(
           : DataUserResponse.fromJson(json['data'] as Map<String, dynamic>),
     )
       ..statusCode = (json['statusCode'] as num?)?.toInt()
-      ..status = json['status'] as String?;
+      ..status = json['status'] as String?
+      ..message = json['message'] as String?;
 
 Map<String, dynamic> _$AuthenticationResponseToJson(
         AuthenticationResponse instance) =>
     <String, dynamic>{
       'statusCode': instance.statusCode,
       'status': instance.status,
+      'message': instance.message,
       'token': instance.token,
       'data': instance.data,
+    };
+
+RegistrationResponse _$RegistrationResponseFromJson(
+        Map<String, dynamic> json) =>
+    RegistrationResponse()
+      ..statusCode = (json['statusCode'] as num?)?.toInt()
+      ..status = json['status'] as String?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$RegistrationResponseToJson(
+        RegistrationResponse instance) =>
+    <String, dynamic>{
+      'statusCode': instance.statusCode,
+      'status': instance.status,
+      'message': instance.message,
     };
