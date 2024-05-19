@@ -54,7 +54,7 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<AuthenticationResponse> clientRegistration(
+  Future<RegistrationResponse> clientRegistration(
     String name,
     String email,
     String phone,
@@ -74,7 +74,7 @@ class _AppServiceClient implements AppServiceClient {
       'role': role,
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<AuthenticationResponse>(Options(
+        _setStreamType<RegistrationResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -90,7 +90,7 @@ class _AppServiceClient implements AppServiceClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = AuthenticationResponse.fromJson(_result.data!);
+    final value = RegistrationResponse.fromJson(_result.data!);
     return value;
   }
 

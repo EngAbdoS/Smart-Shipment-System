@@ -14,7 +14,7 @@ abstract class AppServiceClient {
       @Field("email") String email, @Field("password") String password);
 
   @POST("users/signup")
-  Future<AuthenticationResponse> clientRegistration(
+  Future<RegistrationResponse> clientRegistration(
     @Field("name") String name,
     @Field("email") String email,
     @Field("phone") String phone,

@@ -8,6 +8,9 @@ import 'package:smart_shipment_system/data/response/response.dart';
 abstract class RemoteDataSource {
   Future<Either<Failure, AuthenticationResponse>> login(
       LoginRequest loginRequest);
+
+  Future<Either<Failure, RegistrationResponse>> clientRegistration(
+      ClientRegistrationRequest clientRegistrationRequest);
 }
 
 class RemoteDataSourceImplementation implements RemoteDataSource {
@@ -24,7 +27,23 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Right(result);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
+    }
+  }
 
+  @override
+  Future<Either<Failure, RegistrationResponse>> clientRegistration(
+      ClientRegistrationRequest clientRegistrationRequest) async {
+    try {
+      var result = await _appServiceClient.clientRegistration(
+          clientRegistrationRequest.name,
+          clientRegistrationRequest.email,
+          clientRegistrationRequest.phone,
+          clientRegistrationRequest.password,
+          clientRegistrationRequest.confirmPassword,
+          clientRegistrationRequest.role);
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
     }
   }
 }
