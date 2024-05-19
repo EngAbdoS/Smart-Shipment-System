@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/viewModel/clientRegistrationViewModel.dart';
@@ -35,7 +36,7 @@ class ClientRegistrationView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              authLogoWidget(),
+              authLogoWidget().animate().shake(curve: Curves.bounceInOut),
               Text(
                 AppStrings.createAcc,
                 style: Theme.of(context).textTheme.titleMedium,
@@ -82,11 +83,10 @@ class ClientRegistrationView extends StatelessWidget {
                 height: AppSize.s28,
               ),
               signInWidget(context),
-            ],
+            ].animate(interval: 300.ms).fade(duration: 300.ms),
           ),
         ),
       ),
     );
   }
-
 }
