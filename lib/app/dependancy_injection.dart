@@ -62,7 +62,7 @@ initClientRegistrationModule() {
         () => ClientRegistrationUseCase(instance()));
 
     instance.registerLazySingleton<ClientRegistrationViewModel>(
-        () => ClientRegistrationViewModel());
+        () => ClientRegistrationViewModel(instance()));
   }
 }
 

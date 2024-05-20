@@ -11,6 +11,7 @@ import 'package:smart_shipment_system/presentation/resources/strings_manager.dar
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/auth_logo_widget.dart';
 import 'package:smart_shipment_system/presentation/widgets/regular_button.dart';
+import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 
 class ClientRegistrationView extends StatelessWidget {
   ClientRegistrationView({super.key});
@@ -42,7 +43,7 @@ class ClientRegistrationView extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleMedium,
               ).tr(),
               SizedBox(
-                height: 15.sp,
+                height: 30.sp,
               ),
               nameInputWidget(
                   _viewModel.outputIsFirstNameValid, _viewModel.setFirstName),
@@ -73,7 +74,10 @@ class ClientRegistrationView extends StatelessWidget {
                 height: 30.sp,
               ),
               RegularButton(
-                buttonAction: () => _viewModel.getLoading(context),
+                buttonAction: ()=>( _viewModel
+                        .areAllClientRegistrationInputsValid())
+                    ?  _viewModel.register(context)
+                    : toastWidget(AppStrings.validateDeliveryTripInputToast),
                 buttonWidget: Text(
                   AppStrings.createAcc,
                   style: Theme.of(context).textTheme.titleMedium,
