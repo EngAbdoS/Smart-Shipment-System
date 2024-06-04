@@ -1,36 +1,32 @@
 import 'package:smart_shipment_system/domain/use_cases/login_usecase.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseLoginViewModel.dart';
+import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
 import 'package:smart_shipment_system/presentation/widgets/testState.dart';
 
-class LoginViewModel extends BaseLoginViewModel{
+class LoginViewModel extends BaseLoginViewModel {
   final LoginUseCase _loginUseCase;
+
   LoginViewModel(this._loginUseCase);
 
+  void login(dynamic context) async {
+    errorState(context:context);
+    //loadingState(context: context);
+    (await _loginUseCase.execute(LoginUseCaseInput(email!, password!))).fold(
+        (failure) => {
+              context.loaderOverlay.hide(),
+              getLoading(context)
+              //TODO create error state
+            }, (data) {
+      print("data.userName");
 
-void login(dynamic context)async
-{
-  loadingState(context: context);
-  (await _loginUseCase.execute(
-      LoginUseCaseInput(email!,password!)))
-      .fold(
-          (failure) => {
-            context.loaderOverlay.hide(),
-            getLoading(context)
-            //TODO create error state
-      }, (data) {
-            print("data.userName");
-
-  print(data.userName);
-testState(context);
-    loadingState(context: context,message: "success");
+      print(data.userName);
+      testState(context);
+      loadingState(context: context, message: "success");
 //TODO navigate
-  });
+    });
 
-
-
-
-  /*
+    /*
   *             _appPreferences.setLoggedIn();
 
   *(await _loginUseCase.execute(
@@ -49,12 +45,7 @@ testState(context);
   *
   *
   * */
-}
-
-
-
-
-
+  }
 
   void getLoading(dynamic context) {
     loadingState(context: context);
@@ -62,9 +53,6 @@ testState(context);
   }
 
   void getsuccess() {
-
-
-
     super.dispose();
     // emit(LoginSuccess(route: ""));
   }

@@ -20,8 +20,6 @@ class LoginView extends StatelessWidget {
 
   final LoginViewModel _viewModel = instance<LoginViewModel>();
 
-  final TextEditingController _passwordController = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
   final AppServiceClient client = instance<AppServiceClient>();
 
