@@ -56,8 +56,8 @@
   "friday"   : "الجمعة",
   "saturday" : "السبت",
 "validateDeliveryTripInputToast": "تأكد من ادخال جميع البينات الرحلة بشكل صحيح",
-
-
+"locationMassage": "أختيار الموقع",
+"locationMassageHint": "حدد موقعك علي الخريطة",
 
 
   "hello": "مرحبا !!",

@@ -148,5 +148,7 @@
   "thursday": "Thursday",
   "friday": "Friday",
   "saturday": "Saturday",
-  "validateDeliveryTripInputToast": "تأكد من ادخال جميع البينات الرحلة بشكل صحيح"
+  "validateDeliveryTripInputToast": "تأكد من ادخال جميع البينات الرحلة بشكل صحيح",
+  "locationMassage":    "Select Location",
+  "locationMassageHint": "Pinpoint your location on the map"
 }

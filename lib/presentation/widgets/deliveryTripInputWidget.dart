@@ -24,17 +24,18 @@ class DeliveryTripInputWidget extends StatelessWidget {
     required this.viewModel,
   });
 
-  TextEditingController fromLocationTextEditingController =
+  final TextEditingController fromLocationTextEditingController =
       TextEditingController();
-  TextEditingController toLocationTextEditingController =
+  final TextEditingController toLocationTextEditingController =
       TextEditingController();
-  TextEditingController startTimeLocationTextEditingController =
+  final TextEditingController startTimeLocationTextEditingController =
       TextEditingController();
-  TextEditingController expectedDurationTextEditingController =
+  final TextEditingController expectedDurationTextEditingController =
       TextEditingController();
-  TextEditingController tripDetailsTextEditingController =
+  final TextEditingController tripDetailsTextEditingController =
       TextEditingController();
-  TextEditingController tripDaysTextEditingController = TextEditingController();
+  final TextEditingController tripDaysTextEditingController =
+      TextEditingController();
   TimeOfDay? tripTime;
 
   DateTime? pickedDate;
@@ -66,8 +67,8 @@ class DeliveryTripInputWidget extends StatelessWidget {
                   context,
                   viewModel.setCurrentFromLocationAndGov,
                   fromLocationTextEditingController,
-                  "ميتين ام اللوكيشن",
-                  "اختار ميتين ام اللوكيشن"),
+                  AppStrings.locationMassage.tr(),
+                  AppStrings.locationMassageHint.tr()),
 
               controller: fromLocationTextEditingController,
               decoration: InputDecoration(
@@ -89,8 +90,8 @@ class DeliveryTripInputWidget extends StatelessWidget {
                   viewModel.setCurrentToLocationAndGov,
                   toLocationTextEditingController,
                   //  widget.setCurrentToLocationAndGov,
-                  "ميتين ام اللوكيشن",
-                  "اختار ميتين ام اللوكيشن"),
+                  AppStrings.locationMassage.tr(),
+                  AppStrings.locationMassageHint.tr()),
 
               controller: toLocationTextEditingController,
               decoration: InputDecoration(
@@ -419,7 +420,7 @@ Widget deliveryAddedTripList(
       builder: (context, snapshot) {
         return Container(
           // height: 200,
-          padding: EdgeInsets.only(bottom:25.sp ),
+          padding: EdgeInsets.only(bottom: 25.sp),
           child: ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
