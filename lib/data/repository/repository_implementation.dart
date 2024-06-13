@@ -48,7 +48,6 @@ class RepositoryImplementation implements Repository {
       return Left(error);
     }, (response) {
       if (response.status == ResponseMessage.SUCCESS) {
-        var userData = response.data?.userData?.toDomain();
         _localDataSource.setUserLogin(response.token ?? "no token",
             response.data?.userData?.role ?? AppConstants.userRoleNoRole);
         return Right(true);
@@ -59,7 +58,7 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
-  Future<Either<Failure, RegistrationResponse>> clientRegistration(
+  Future<Either<Failure, bool>> clientRegistration(
       ClientRegistrationRequest clientRegistrationRequest) async {
     return await (await _remoteDataSource
             .clientRegistration(clientRegistrationRequest))
@@ -67,8 +66,7 @@ class RepositoryImplementation implements Repository {
       return Left(error);
     }, (response) {
       if (response.status == ResponseMessage.SUCCESS) {
-        var registrationResponse = response;
-        return Right(registrationResponse);
+        return Right(true);
       } else {
         return Left(ErrorHandler.handle(response).failure);
       }

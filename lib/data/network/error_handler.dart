@@ -67,7 +67,7 @@ extension DataSourceExtention on DataSource {
         return Failure(ResponseMessage.SUCCESS, ResponseCode.SUCCESS);
         break;
       case DataSource.NO_CONTANT:
-        return Failure(ResponseMessage.NO_CONTANT, ResponseCode.NO_CONTANT);
+        return Failure(ResponseMessage.NO_CONTANT, ResponseCode.CREATED);
         break;
 
       case DataSource.BAD_REQUEST:
@@ -144,7 +144,8 @@ enum DataSource {
 
 class ResponseCode {
   static const int SUCCESS = 200;
-  static const int NO_CONTANT = 201;
+  static const int CREATED = 201;
+  static const int NO_CONTANT = 204;
   static const int BAD_REQUEST = 400;
   static const int UNAUTHORISED = 401;
   static const int FORBIDDEN = 403;

@@ -2,7 +2,7 @@ class LoginRequest {
   String email;
   String password;
 
-  LoginRequest(this.email, this.password);
+  LoginRequest({ required this.email,required this.password});
 }
 
 class ClientRegistrationRequest {
@@ -13,6 +13,12 @@ class ClientRegistrationRequest {
   String confirmPassword;
   String role;
 
-  ClientRegistrationRequest(this.name, this.email, this.phone, this.password,
-      this.confirmPassword, this.role);
+  ClientRegistrationRequest(
+      {
+        required this.name,
+      required this.email,
+     required this.phone,
+     required this.password,
+     required this.confirmPassword,
+     required this.role});
 }

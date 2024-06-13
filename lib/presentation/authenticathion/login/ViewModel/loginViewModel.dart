@@ -10,20 +10,23 @@ class LoginViewModel extends BaseLoginViewModel {
 
   void login(dynamic context) async {
     loadingState(context: context);
-    (await _loginUseCase.execute(LoginUseCaseInput(email!, password!))).fold(
-        (failure) => {
-              errorState(context: context, message: failure.message),
+    (await _loginUseCase
+            .execute(LoginUseCaseInput(email: email!, password: password!)))
+        .fold(
+      (failure) => {
+        errorState(context: context, message: failure.message),
+      },
+      (data) => data
+          ? {
+              context.loaderOverlay.hide(),
+              print(" logind"),
+              //TODO navigate
+            }
+          : {
+              errorState(
+                context: context,
+              ),
             },
-        (data) => data
-            ? {
-                context.loaderOverlay.hide(),
-                print(" logind"),
-                //TODO navigate
-              }
-            : {
-                errorState(
-                  context: context,
-                ),
-              });
+    );
   }
 }

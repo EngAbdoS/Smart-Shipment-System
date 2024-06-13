@@ -1,9 +1,8 @@
-import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/domain/use_cases/client_registration_usecase.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseRegisterationViewModel.dart';
+import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
-import 'package:smart_shipment_system/presentation/widgets/testState.dart';
 
 class ClientRegistrationViewModel extends BaseRegistrationViewModel {
   final ClientRegistrationUseCase _clientRegistrationUseCase;
@@ -12,25 +11,29 @@ class ClientRegistrationViewModel extends BaseRegistrationViewModel {
 
   void register(dynamic context) async {
     loadingState(context: context);
-
     (await _clientRegistrationUseCase.execute(ClientRegistrationUseCaseInput(
-            firstName!,
-            phoneNumber!,
-            email!,
-            password!,
-            confirmPassword!,
-            AppConstants.userRoleClient)))
+         userName:    firstName!,
+         phone:    phoneNumber!,
+          email:   email!,
+          password:   password!,
+          confirmPassword:   confirmPassword!,
+         role:    AppConstants.userRoleClient)))
         .fold(
-            (failure) => {
-                  getLoading(context)
-                  //TODO create error state
-                }, (data) {
-      print("data.message");
-      print(data.message);
-      testState(context);
-      loadingState(context: context, message: "success");
-      // TODO navigate otp
-    });
+      (failure) => {
+        errorState(context: context, message: failure.message),
+      },
+      (data) => data
+          ? {
+              context.loaderOverlay.hide(),
+              print(" registered"),
+              //TODO navigate
+            }
+          : {
+              errorState(
+                context: context,
+              ),
+            },
+    );
   }
 
   bool areAllClientRegistrationInputsValid() {
@@ -40,15 +43,4 @@ class ClientRegistrationViewModel extends BaseRegistrationViewModel {
         isPasswordValid(password ?? "") &&
         isConfirmPasswordValid(confirmPassword ?? "");
   }
-
-
-  void getLoading(dynamic context) {
-    testState(context);
-  }
-
-  void getsuccess() {
-    super.dispose();
-  }
-
-
 }

@@ -9,6 +9,6 @@ abstract class Repository{
   Future<Either<Failure,String>> getSplashNextNavigationRoute();
 
   Future<Either<Failure, bool>> login(LoginRequest loginRequest);
-  Future<Either<Failure, RegistrationResponse>> clientRegistration(ClientRegistrationRequest clientRegistrationRequest);
+  Future<Either<Failure, bool>> clientRegistration(ClientRegistrationRequest clientRegistrationRequest);
 
 }
