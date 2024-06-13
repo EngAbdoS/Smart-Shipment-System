@@ -101,6 +101,9 @@ class AppStrings {
   static const reset = "reset";
   static const locationMassage ="locationMassage";
   static const locationMassageHint= "locationMassageHint";
+  static const confirm= "confirm";
+  static const confirmm= "confirmm";
+ static const enterOtp= "enterOtp";
 
   // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";

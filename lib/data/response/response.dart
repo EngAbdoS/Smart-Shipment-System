@@ -71,6 +71,7 @@ class AuthenticationResponse extends BaseResponse {
       _$AuthenticationResponseFromJson(json);
   Map<String, dynamic> toJson() => _$AuthenticationResponseToJson(this);
 }
+
 @JsonSerializable()
 class RegistrationResponse extends BaseResponse {
   RegistrationResponse();
@@ -80,3 +81,14 @@ class RegistrationResponse extends BaseResponse {
       _$RegistrationResponseFromJson(json);
   Map<String, dynamic> toJson() => _$RegistrationResponseToJson(this);
 }
+
+@JsonSerializable()
+class EmailVerificationResponse extends BaseResponse {
+  EmailVerificationResponse();
+
+
+  factory EmailVerificationResponse.fromJson(Map<String, dynamic> json) =>
+      _$EmailVerificationResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$EmailVerificationResponseToJson(this);
+}
+

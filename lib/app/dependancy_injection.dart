@@ -18,6 +18,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/clientRegistr
 import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/viewModel/deliveryRegisterationViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/viewModel/forgetPasswordViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/ViewModel/loginViewModel.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/verification/viewModel/verificationViewModel.dart';
 
 final instance = GetIt.instance;
 
@@ -84,5 +85,11 @@ initChangePasswordModule() {
   if (!GetIt.I.isRegistered<ChangePasswordViewModel>()) {
     instance.registerLazySingleton<ChangePasswordViewModel>(
         () => ChangePasswordViewModel());
+  }
+}
+initEmailVerificationModule(String email) {
+  if (!GetIt.I.isRegistered<EmailVerificationViewModel>()) {
+    instance.registerLazySingleton<EmailVerificationViewModel>(
+            () => EmailVerificationViewModel(instance(),email));
   }
 }

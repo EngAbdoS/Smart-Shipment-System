@@ -94,6 +94,39 @@ class _AppServiceClient implements AppServiceClient {
     return value;
   }
 
+  @override
+  Future<EmailVerificationResponse> emailVerification(
+    String email,
+    String otp,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'email': email,
+      'otp': otp,
+    };
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EmailVerificationResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'users/confirmAccount',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = EmailVerificationResponse.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

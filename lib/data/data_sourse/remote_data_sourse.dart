@@ -11,6 +11,11 @@ abstract class RemoteDataSource {
 
   Future<Either<Failure, RegistrationResponse>> clientRegistration(
       ClientRegistrationRequest clientRegistrationRequest);
+
+  Future<Either<Failure, EmailVerificationResponse>> emailVerification(EmailVerificationRequest emailVerificationRequest);
+
+
+
 }
 
 class RemoteDataSourceImplementation implements RemoteDataSource {
@@ -41,6 +46,20 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
           clientRegistrationRequest.password,
           clientRegistrationRequest.confirmPassword,
           clientRegistrationRequest.role);
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, EmailVerificationResponse>> emailVerification(EmailVerificationRequest emailVerificationRequest)async {
+    try {
+      var result = await _appServiceClient.emailVerification(
+
+          emailVerificationRequest.email,
+          emailVerificationRequest.code,
+          );
       return Right(result);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);

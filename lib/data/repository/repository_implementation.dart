@@ -72,4 +72,19 @@ class RepositoryImplementation implements Repository {
       }
     });
   }
+
+  @override
+  Future<Either<Failure, bool>> emailVerification(EmailVerificationRequest emailVerificationRequest) async{
+    return await (await _remoteDataSource
+        .emailVerification(emailVerificationRequest))
+        .fold((error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        return Right(true);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
 }

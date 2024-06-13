@@ -116,15 +116,6 @@ class LoginView extends StatelessWidget {
                         duration: 300.milliseconds,
                         curve: Curves.fastEaseInToSlowEaseOut);
                   }),
-              // RegularButton(
-              //   buttonAction: () => _viewModel.getLoading(context),
-              //   buttonWidget: Text(
-              //     AppStrings.signIn,
-              //     style: Theme.of(context).textTheme.titleMedium,
-              //   ).tr(),
-              // ).animate(delay: 300.milliseconds).fade(
-              //     duration: 300.milliseconds,
-              //     curve: Curves.fastEaseInToSlowEaseOut),
               SizedBox(
                 height: 28.sp,
               ),

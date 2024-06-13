@@ -14,6 +14,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegis
 import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/views/deliveryRegistrationView2.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/view/forgetPasswordView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/view/loginView.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/verification/view/verificationView.dart';
 import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
 import 'package:smart_shipment_system/presentation/resources/page_transition_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -33,8 +34,6 @@ class Routes {
   static const String deliveryRegistrationView2Route =
       "/deliveryRegistration2View";
 
-  // static const String deliveryRegistrationView3Route =
-  //     "/deliveryRegistration3View";
   static const String deliveryRegistrationRoleViewRoute =
       "/deliveryRegistrationRoleView";
   static const String deliveryInteriorRegistrationViewRoute =
@@ -45,6 +44,7 @@ class Routes {
   static const String clientRegistrationViewRoute = "/clientRegistrationView";
   static const String forgotPasswordViewRoute = "/forgotPasswordView";
   static const String changePasswordViewRoute = "/changePasswordView";
+  static const String emilVerificationViewRoute = "/emilVerificationView";
 }
 
 abstract class AppRouter {
@@ -149,6 +149,12 @@ abstract class AppRouter {
           initChangePasswordModule();
           return customPageTransition(
               state.pageKey, ChangePasswordView(), fadeTransitionGlobal);
+        },
+      ),   GoRoute(
+        path: Routes.emilVerificationViewRoute,
+        pageBuilder: (context, state) {
+          return customPageTransition(
+              state.pageKey,  EmailVerificationView(), fadeTransitionGlobal);
         },
       ),
       GoRoute(

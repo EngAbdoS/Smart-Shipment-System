@@ -22,5 +22,15 @@ abstract class AppServiceClient {
     @Field("passwordConfirm") String passwordConfirm,
     @Field("role") String role,
   );
+
+  @POST("users/confirmAccount")
+  Future<EmailVerificationResponse> emailVerification(
+      @Field("email") String email,
+      @Field("otp") String otp,
+      );
+
+
+
+
 }
   

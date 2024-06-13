@@ -95,6 +95,14 @@
   "retry_again": "Retry again",
   "error_occurred": "An Error Occurred",
   "ok": "Ok",
+  "confirm": "تَحَقّق",
+  "enterOtp": "الرجاء إدخال الرمز المكون من 6 أرقام الذي تم إرساله",
+  "confirmm": "تأكيد",
+
+
+
+
+
   "invalid_user_name": "Invalid User Name",
   "invalid_mobile_number": "Invalid Mobile Number",
   "register": "Register",
