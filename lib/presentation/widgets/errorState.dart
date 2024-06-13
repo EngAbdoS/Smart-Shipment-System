@@ -9,9 +9,9 @@ import 'package:smart_shipment_system/presentation/resources/strings_manager.dar
 
 errorState(
     {required BuildContext context,
-      String lottieAssetPass = JsonAssets.error,
-      String message = ""}) {
-  context.loaderOverlay.visible?context.loaderOverlay.hide():null;
+    String lottieAssetPass = JsonAssets.error,
+    String message = ""}) {
+  context.loaderOverlay.visible ? context.loaderOverlay.hide() : null;
   context.loaderOverlay.show(widgetBuilder: (p) {
     return Stack(
       children: [
@@ -22,35 +22,23 @@ errorState(
           ),
         ),
         Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Animate(
-                  child: Lottie.asset(lottieAssetPass,
-                      fit: BoxFit.cover, alignment: Alignment.center,height: 300),
-                ).slideX(begin: 1, end: 0.0, curve: Curves.fastEaseInToSlowEaseOut),
-                Text(message),
-
-                ElevatedButton(onPressed: () => context.loaderOverlay.hide(), child: const Text(AppStrings.retryAgain).tr()),
-
-
-
-
-
-              ],
-            )),
-
-        // Center(
-        //   child: GestureDetector(
-        //     onTap: () => context.loaderOverlay.hide(),
-        //     child: Container(
-        //       height: 50,
-        //       width: 50,
-        //       color: Colors.red,
-        //
-        //     ),
-        //   ),
-        // )
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Animate(
+                child: Lottie.asset(lottieAssetPass,
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center,
+                    height: 300),
+              ).slideX(
+                  begin: 1, end: 0.0, curve: Curves.fastEaseInToSlowEaseOut),
+              Text(message).tr(),
+              ElevatedButton(
+                  onPressed: () => context.loaderOverlay.hide(),
+                  child: const Text(AppStrings.retryAgain).tr()),
+            ],
+          ),
+        ),
       ],
     );
   });

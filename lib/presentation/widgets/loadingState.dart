@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -27,21 +28,10 @@ loadingState(
               child: Lottie.asset(lottieAssetPass,
                   fit: BoxFit.cover, alignment: Alignment.center),
             ).slideX(begin: 1, end: 0.0, curve: Curves.fastEaseInToSlowEaseOut),
-            Text(message),
+            Text(message).tr(),
           ],
         )),
 
-        // Center(
-        //   child: GestureDetector(
-        //     onTap: () => context.loaderOverlay.hide(),
-        //     child: Container(
-        //       height: 50,
-        //       width: 50,
-        //       color: Colors.red,
-        //
-        //     ),
-        //   ),
-        // )
       ],
     );
   });
