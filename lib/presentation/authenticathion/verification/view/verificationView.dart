@@ -41,7 +41,7 @@ final EmailVerificationViewModel _viewModel=instance<EmailVerificationViewModel>
 
               VerificationCodeField(
                 length: 6,
-                onFilled: (value) => print(value),
+                onFilled: (otp) => _viewModel.setOtp(otp),
                 size: const Size(40, 90),
                 spaceBetween: 10,
                 matchingPattern: RegExp(r'^\d+$'),
@@ -52,9 +52,9 @@ final EmailVerificationViewModel _viewModel=instance<EmailVerificationViewModel>
               ),
 
               RegularButton(
-                buttonAction:_viewModel.isOTPValid()
-                    ? () => _viewModel.verification(context)
-                    : () => toastWidget(
+                buttonAction:() =>(_viewModel.isOTPValid())
+                    ? _viewModel.verification(context)
+                    : toastWidget(
                     AppStrings.validateDeliveryTripInputToast),
                 buttonWidget: Text(
                   AppStrings.confirmm,

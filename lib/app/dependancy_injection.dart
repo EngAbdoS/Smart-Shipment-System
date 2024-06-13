@@ -77,7 +77,7 @@ initDeliveryRegistrationModule() {
 initForgotPasswordModule() {
   if (!GetIt.I.isRegistered<ForgotPasswordViewModel>()) {
     instance.registerLazySingleton<ForgotPasswordViewModel>(
-        () => ForgotPasswordViewModel());
+        () => ForgotPasswordViewModel(instance()));
   }
 }
 
@@ -87,9 +87,9 @@ initChangePasswordModule() {
         () => ChangePasswordViewModel());
   }
 }
-initEmailVerificationModule(String email) {
+initEmailVerificationModule(String email,String nextActionRoute) {
   if (!GetIt.I.isRegistered<EmailVerificationViewModel>()) {
     instance.registerLazySingleton<EmailVerificationViewModel>(
-            () => EmailVerificationViewModel(instance(),email));
+            () => EmailVerificationViewModel(instance(),email,nextActionRoute));
   }
 }

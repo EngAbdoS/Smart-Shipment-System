@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/optWidget/characterField.dart';
 import 'package:smart_shipment_system/presentation/widgets/optWidget/focus_node_list_hook.dart';
 import 'package:smart_shipment_system/presentation/widgets/optWidget/text_controller_list_hook.dart';
@@ -49,6 +51,7 @@ class VerificationCodeField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+   // context.locale = ENGLISH_LOCAL;
     final code = useRef(List.filled(length, ''));
     final textControllers = useTextControllerList(length: length);
     final focusNodes =

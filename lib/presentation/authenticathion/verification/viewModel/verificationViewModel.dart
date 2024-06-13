@@ -1,41 +1,48 @@
+import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
+import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
 import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
 
 class EmailVerificationViewModel {
   final Repository _repository;
 
-  EmailVerificationViewModel(this._repository, this.email);
-final String email;
-  String ? otp;
+  EmailVerificationViewModel(
+      this._repository, this.email, this.nextActionRoute);
 
-  bool isOTPValid() => otp?.length == 6 ?? false;
+  final String email;
+  final String nextActionRoute;
+  String? otp;
 
+  bool isOTPValid() {
+    return otp?.length == 6 ?? false;
+  }
+
+  setOtp(String otp) {
+    this.otp = otp;
+  }
 
   verification(dynamic context) async {
     loadingState(context: context);
-    (await  _repository.emailVerification(EmailVerificationRequest(email: email, code: otp!)))
+    otp = otp?.split('').reversed.join();
+    (await _repository.emailVerification(
+            EmailVerificationRequest(email: email, code: otp!)))
         .fold(
-          (failure) =>
-      {
+      (failure) => {
         errorState(context: context, message: failure.message),
       },
-          (data) =>
-      data
+      (data) => data
           ? {
-        context.loaderOverlay.hide(),
-        print(" verified"),
-//TODO navigate to login
-      }
+              hideState(context: context),
+              GoRouter.of(context).pushReplacement(nextActionRoute),
+              print(" verified"),
+            }
           : {
-        errorState(
-          context: context,
-        ),
-      },
+              errorState(
+                context: context,
+              ),
+            },
     );
   }
-
 }
-
-

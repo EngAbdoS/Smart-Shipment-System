@@ -13,6 +13,7 @@ abstract class RemoteDataSource {
       ClientRegistrationRequest clientRegistrationRequest);
 
   Future<Either<Failure, EmailVerificationResponse>> emailVerification(EmailVerificationRequest emailVerificationRequest);
+  Future<Either<Failure, ForgetPasswordResponse>> forgetPassword(String email);
 
 
 
@@ -60,6 +61,20 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
           emailVerificationRequest.email,
           emailVerificationRequest.code,
           );
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, ForgetPasswordResponse>> forgetPassword(String email) async{
+    try {
+      var result = await _appServiceClient.forgetPassword(
+
+        email,
+
+      );
       return Right(result);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);

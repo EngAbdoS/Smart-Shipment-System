@@ -10,5 +10,6 @@ abstract class Repository{
   Future<Either<Failure, bool>> login(LoginRequest loginRequest);
   Future<Either<Failure, bool>> clientRegistration(ClientRegistrationRequest clientRegistrationRequest);
   Future<Either<Failure, bool>> emailVerification(EmailVerificationRequest emailVerificationRequest);
+  Future<Either<Failure, bool>> forgetPassword(String email);
 
 }

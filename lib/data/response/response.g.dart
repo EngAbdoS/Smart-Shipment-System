@@ -104,3 +104,18 @@ Map<String, dynamic> _$EmailVerificationResponseToJson(
       'status': instance.status,
       'message': instance.message,
     };
+
+ForgetPasswordResponse _$ForgetPasswordResponseFromJson(
+        Map<String, dynamic> json) =>
+    ForgetPasswordResponse()
+      ..statusCode = (json['statusCode'] as num?)?.toInt()
+      ..status = json['status'] as String?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$ForgetPasswordResponseToJson(
+        ForgetPasswordResponse instance) =>
+    <String, dynamic>{
+      'statusCode': instance.statusCode,
+      'status': instance.status,
+      'message': instance.message,
+    };

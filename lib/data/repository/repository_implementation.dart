@@ -87,4 +87,19 @@ class RepositoryImplementation implements Repository {
       }
     });
   }
+
+  @override
+  Future<Either<Failure, bool>> forgetPassword(String email)async {
+    return await (await _remoteDataSource
+        .forgetPassword(email))
+        .fold((error) {
+    return Left(error);
+    }, (response) {
+    if (response.status == ResponseMessage.SUCCESS) {
+    return Right(true);
+    } else {
+    return Left(ErrorHandler.handle(response).failure);
+    }
+    });
+  }
 }
