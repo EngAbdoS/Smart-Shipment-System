@@ -99,8 +99,8 @@ class AppStrings {
   static const forgetPassword = "forget_password";
   static const emailAssociated = "email_associated";
   static const reset = "reset";
-   static const locationMassage ="locationMassage";
-   static const locationMassageHint= "locationMassageHint";
+  static const locationMassage ="locationMassage";
+  static const locationMassageHint= "locationMassageHint";
 
   // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";

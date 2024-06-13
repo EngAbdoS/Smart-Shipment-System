@@ -2,7 +2,6 @@ import 'package:smart_shipment_system/domain/use_cases/login_usecase.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseLoginViewModel.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
-import 'package:smart_shipment_system/presentation/widgets/testState.dart';
 
 class LoginViewModel extends BaseLoginViewModel {
   final LoginUseCase _loginUseCase;
@@ -10,50 +9,21 @@ class LoginViewModel extends BaseLoginViewModel {
   LoginViewModel(this._loginUseCase);
 
   void login(dynamic context) async {
-    errorState(context:context);
-    //loadingState(context: context);
+    loadingState(context: context);
     (await _loginUseCase.execute(LoginUseCaseInput(email!, password!))).fold(
         (failure) => {
-              context.loaderOverlay.hide(),
-              getLoading(context)
-              //TODO create error state
-            }, (data) {
-      print("data.userName");
-
-      print(data.userName);
-      testState(context);
-      loadingState(context: context, message: "success");
-//TODO navigate
-    });
-
-    /*
-  *             _appPreferences.setLoggedIn();
-
-  *(await _loginUseCase.execute(
-            LoginUseCaseInput(loginObject.userName, loginObject.password)))
-        .fold(
-            (failure) => {
-
-                  inputState.add(ErrorState(
-                      StateRendererType.popupErrorState, failure.message))
-                }, (data) {
-      _appPreferences.setUserID(data.user!.uid);
-
-      inputState.add(ContentState());
-      isUserLoggedInSuccessfullyStreamController.add(true);
-  *
-  *
-  *
-  * */
-  }
-
-  void getLoading(dynamic context) {
-    loadingState(context: context);
-    //emit(LoginLoading(asset: "asset"));
-  }
-
-  void getsuccess() {
-    super.dispose();
-    // emit(LoginSuccess(route: ""));
+              errorState(context: context, message: failure.message),
+            },
+        (data) => data
+            ? {
+                context.loaderOverlay.hide(),
+                print(" logind"),
+                //TODO navigate
+              }
+            : {
+                errorState(
+                  context: context,
+                ),
+              });
   }
 }

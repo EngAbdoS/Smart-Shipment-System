@@ -13,7 +13,6 @@ import 'package:smart_shipment_system/presentation/resources/values_manager.dart
 import 'package:smart_shipment_system/presentation/widgets/cirular_button.dart';
 import 'package:smart_shipment_system/presentation/widgets/select_week_days.dart';
 import 'package:smart_shipment_system/presentation/widgets/toast.dart';
-
 import '../authenticathion/deliveryRegistration/viewModel/deliveryRegisterationViewModel.dart';
 
 class DeliveryTripInputWidget extends StatelessWidget {

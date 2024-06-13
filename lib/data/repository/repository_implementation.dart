@@ -43,16 +43,15 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
-  Future<Either<Failure, UserModel>> login(LoginRequest loginRequest) async {
+  Future<Either<Failure, bool>> login(LoginRequest loginRequest) async {
     return await (await _remoteDataSource.login(loginRequest)).fold((error) {
       return Left(error);
     }, (response) {
       if (response.status == ResponseMessage.SUCCESS) {
         var userData = response.data?.userData?.toDomain();
-        _localDataSource.setUserLogin(response.token ?? "no token", userData!);
-        _localDataSource.setUserRole(
+        _localDataSource.setUserLogin(response.token ?? "no token",
             response.data?.userData?.role ?? AppConstants.userRoleNoRole);
-        return Right(userData);
+        return Right(true);
       } else {
         return Left(ErrorHandler.handle(response).failure);
       }

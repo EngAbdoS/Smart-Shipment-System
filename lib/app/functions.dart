@@ -5,6 +5,7 @@ bool isEmailValidGlobal(String email) {
 }
 
 bool isPasswordValidGlobal(String password) {
+  return true;
   return RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
       .hasMatch(password);
 }

@@ -10,7 +10,7 @@ abstract class LocalDataSource {
 
   bool isOnBoardingViewed();
 
-  void setUserLogin(String token, UserModel userData);
+  void setUserLogin(String token,String userRole);
 
   void setUserToken(String token);
 
@@ -48,9 +48,10 @@ class LocalDataSourceImplementation implements LocalDataSource {
   }
 
   @override
-  void setUserLogin(String token, UserModel userData) {
+  void setUserLogin(String token,String userRole) {
     setUserToken(token);
-    saveUserDataToCache(userData);
+    setUserRole( userRole);
+    //saveUserDataToCache(userData);
     _appPreferences.setLoggedIn();
   }
 

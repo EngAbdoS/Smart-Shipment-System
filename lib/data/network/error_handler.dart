@@ -54,7 +54,7 @@ Failure _handlePadResponse(int statusCode, dynamic response) {
   } else if (statusCode == 500) {
     return DataSource.INTERNAL_SERVER_ERROR.getFailure();
   } else if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-    return Failure(response!.statusMessage!, response!.statusCode!);
+    return DataSource.UNAUTHORISED.getFailure();
   } else {
     return DataSource.DEFAULT.getFailure();
   }
