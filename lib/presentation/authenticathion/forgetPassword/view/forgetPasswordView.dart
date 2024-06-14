@@ -40,7 +40,6 @@ class ForgotPasswordView extends StatelessWidget {
               Image.asset(ImageAssets.forgetPassword).animate().shake(
                   duration: 200.milliseconds,
                   curve: Curves.fastEaseInToSlowEaseOut),
-              //SvgPicture.asset(SVGAssets.forgetPassword),
               SizedBox(
                 height: 24.h,
               ),

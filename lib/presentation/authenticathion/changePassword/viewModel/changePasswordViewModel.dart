@@ -14,7 +14,6 @@ class ChangePasswordViewModel
       BehaviorSubject<void>();
   String? password;
   String? confirmPassword;
-
   bool? _isHidden;
   bool? _isConfirmHidden;
 
@@ -29,7 +28,7 @@ class ChangePasswordViewModel
   @override
   Stream<bool> get outputIsConfirmPasswordValid =>
       _confirmPasswordStreamController.stream
-          .map((password) => _isConfirmPasswordValid(password));
+          .map((password) => isConfirmPasswordValid());
 
   @override
   Stream<bool> get outputIsConfirmPasswordHidden =>
@@ -89,8 +88,8 @@ class ChangePasswordViewModel
     return isPasswordValidGlobal(password);
   }
 
-  bool _isConfirmPasswordValid(String confirmPassword) =>
-      isPasswordValidGlobal(confirmPassword) && password == confirmPassword;
+  bool isConfirmPasswordValid() =>
+      isPasswordValidGlobal(confirmPassword??"") && password == confirmPassword;
 
   void dispose() {
     _passwordStreamController.close();
@@ -118,6 +117,7 @@ abstract mixin class ChangePasswordViewModelInputs {
   setConfirmPassword(String confirmPassword);
 
   setPassword(String password);
+
   changePassword(dynamic context);
 }
 
