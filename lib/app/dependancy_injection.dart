@@ -30,21 +30,17 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
   instance
       .registerLazySingleton<AppPreferences>(() => AppPreferences(instance()));
-  instance.registerLazySingleton<DioFactory>(() => DioFactory(instance()));
-
-  Dio dio = await instance<DioFactory>().getDio();
-  instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
   instance.registerLazySingleton<CacheDataSource>(
       () => CacheDataSourceImplementation());
-
-  instance.registerLazySingleton<FirebaseStorage>(() => FirebaseStorage.instance);
-
-
-  instance.registerLazySingleton<RemoteDataSource>(
-      () => RemoteDataSourceImplementation(instance(),instance()));
   instance.registerLazySingleton<LocalDataSource>(
-      () => LocalDataSourceImplementation());
-
+      () => LocalDataSourceImplementation(instance(), instance()));
+  instance.registerLazySingleton<DioFactory>(() => DioFactory(instance()));
+  Dio dio = await instance<DioFactory>().getDio();
+  instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
+  instance
+      .registerLazySingleton<FirebaseStorage>(() => FirebaseStorage.instance);
+  instance.registerLazySingleton<RemoteDataSource>(
+      () => RemoteDataSourceImplementation(instance(), instance()));
   instance.registerLazySingleton<Repository>(
       () => RepositoryImplementation(instance(), instance()));
   instance.registerLazySingleton<SplashNavigationUseCase>(
@@ -76,11 +72,8 @@ initClientRegistrationModule() {
 
 initDeliveryRegistrationModule() {
   if (!GetIt.I.isRegistered<DeliveryRegistrationViewModel>()) {
-
     instance.registerFactory<UnorganizedDeliveryRegistrationUseCase>(
-            () => UnorganizedDeliveryRegistrationUseCase(instance()));
-
-
+        () => UnorganizedDeliveryRegistrationUseCase(instance()));
 
     instance.registerLazySingleton<DeliveryRegistrationViewModel>(
         () => DeliveryRegistrationViewModel(instance()));
@@ -100,9 +93,10 @@ initChangePasswordModule() {
         () => ChangePasswordViewModel());
   }
 }
-initEmailVerificationModule(String email,String nextActionRoute) {
+
+initEmailVerificationModule(String email, String nextActionRoute) {
   if (!GetIt.I.isRegistered<EmailVerificationViewModel>()) {
     instance.registerLazySingleton<EmailVerificationViewModel>(
-            () => EmailVerificationViewModel(instance(),email,nextActionRoute));
+        () => EmailVerificationViewModel(instance(), email, nextActionRoute));
   }
 }

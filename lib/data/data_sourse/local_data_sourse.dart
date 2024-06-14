@@ -26,8 +26,11 @@ abstract class LocalDataSource {
 }
 
 class LocalDataSourceImplementation implements LocalDataSource {
-  final AppPreferences _appPreferences = instance<AppPreferences>();
-  final CacheDataSource _cacheDataSource = instance<CacheDataSource>();
+  final AppPreferences _appPreferences ;
+
+  final CacheDataSource _cacheDataSource;
+
+  LocalDataSourceImplementation(this._appPreferences, this._cacheDataSource);
 
   @override
   bool isOnBoardingViewed() {

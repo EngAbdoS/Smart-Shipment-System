@@ -20,6 +20,8 @@ class LoginViewModel extends BaseLoginViewModel {
       (data) => data
           ? {
               hideState(context: context),
+        //TODO call me for getting data
+        //TODO navigate based on role
               print(" logind"),
               //TODO navigate
             }
