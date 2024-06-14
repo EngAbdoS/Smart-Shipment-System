@@ -8,9 +8,11 @@ abstract class LocalDataSource {
 
   String getUserRole();
 
+  String getUserToken();
+
   bool isOnBoardingViewed();
 
-  void setUserLogin(String token,String userRole);
+  void setUserLogin(String token, String userRole);
 
   void setUserToken(String token);
 
@@ -19,7 +21,7 @@ abstract class LocalDataSource {
   void saveUserDataToCache(UserModel userData);
 
   void setOnBoardingVied();
-  //TODO get user data
+//TODO get user data
 // checks is cache data valid if not call remote data source
 }
 
@@ -48,9 +50,9 @@ class LocalDataSourceImplementation implements LocalDataSource {
   }
 
   @override
-  void setUserLogin(String token,String userRole) {
+  void setUserLogin(String token, String userRole) {
     setUserToken(token);
-    setUserRole( userRole);
+    setUserRole(userRole);
     //saveUserDataToCache(userData);
     _appPreferences.setLoggedIn();
   }
@@ -68,5 +70,10 @@ class LocalDataSourceImplementation implements LocalDataSource {
   @override
   void saveUserDataToCache(UserModel userData) {
     _cacheDataSource.putDataToCache(CACHE_USER_DATA_KEY, userData);
+  }
+
+  @override
+  String getUserToken() {
+    return _appPreferences.getUserToken();
   }
 }

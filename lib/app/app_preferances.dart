@@ -59,7 +59,8 @@ class AppPreferences {
   setUserToken(String token) {
     _sharedPreferences.setString(PREFS_KEY_USER_TOKEN, token);
   }
-getUserToken() {
+
+  getUserToken() {
     return _sharedPreferences.getString(PREFS_KEY_USER_TOKEN);
   }
   removeUserToken() {
