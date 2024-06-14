@@ -12,7 +12,6 @@ import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
 
 class ForgotPasswordViewModel
     with ForgotPasswordViewModelInputs, ForgotPasswordViewModelOutputs {
-
   final Repository _repository;
 
   final StreamController _emailStreamController = BehaviorSubject<String>();
@@ -26,30 +25,26 @@ class ForgotPasswordViewModel
 
   @override
   forgotPassword(dynamic context) async {
-dynamic stateContext = context;
+    dynamic stateContext = context;
     loadingState(context: stateContext);
     (await _repository.forgetPassword(email!)).fold(
-          (failure) => {
+      (failure) => {
         errorState(context: context, message: failure.message),
       },
-          (data) => data
+      (data) => data
           ? {
-            hideState(context: context),
-         // context.loaderOverlay.visible ? context.loaderOverlay.hide() : null,
-           // stateContext.loaderOverlay.hide(),
-            getEmailVerification(context,email!,Routes.changePasswordViewRoute),
-        print(" logind"),
-        //TODO navigate
-      }
+              hideState(context: context),
+              getEmailVerification(
+                  context, email!, Routes.changePasswordViewRoute),
+            }
           : {
-        errorState(
-          context: context,
-        ),
-      },
+              errorState(
+                context: context,
+              ),
+            },
     );
-
-
   }
+
   // GoRouter.of(context).push(Routes.changePasswordViewRoute);
 
   @override

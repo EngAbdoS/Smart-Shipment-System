@@ -104,7 +104,7 @@ class AppStrings {
   static const confirm= "confirm";
   static const confirmm= "confirmm";
  static const enterOtp= "enterOtp";
-
+  static const successRegistration= "success_registration";
   // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";
   static const loading = "loading";
