@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
+import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/data/response/response.dart';
 
 part 'app_api.g.dart';
@@ -33,4 +34,10 @@ abstract class AppServiceClient {
   Future<ForgetPasswordResponse> forgetPassword(
     @Field("email") String email,
   );
+
+  @POST("users/signup")
+  Future<RegistrationResponse> unorganizedDeliveryRegistration(
+      @Body()
+      UnorganizedDeliveryRegistrationRequest
+          unorganizedDeliveryRegistrationRequest);
 }

@@ -14,6 +14,10 @@ class AppConstants
   static const String deliveryRoleInternal="unorganized-delivery";
   static const String userRoleAdmin="admin";
   static const String userRoleNoRole="no-role";
+  static const String deliveryApprovalImageStorageRef="delivery_approval_image/";
+  static const String vehicleLicenseImageStorageRef="vehicle_license_image/";
+  static const String profilePhotosStorageRef="profile_photos/";
+  static const String currentStateTypePoint="Point";
 
 
 

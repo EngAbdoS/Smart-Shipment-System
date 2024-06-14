@@ -1,6 +1,7 @@
 import 'package:smart_shipment_system/domain/use_cases/login_usecase.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseLoginViewModel.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
+import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
 import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
 
 class LoginViewModel extends BaseLoginViewModel {
@@ -18,7 +19,7 @@ class LoginViewModel extends BaseLoginViewModel {
       },
       (data) => data
           ? {
-              context.loaderOverlay.hide(),
+              hideState(context: context),
               print(" logind"),
               //TODO navigate
             }

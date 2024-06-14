@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_shipment_system/app/app_preferances.dart';
@@ -7,11 +8,13 @@ import 'package:smart_shipment_system/data/data_sourse/local_data_sourse.dart';
 import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
 import 'package:smart_shipment_system/data/network/app_api.dart';
 import 'package:smart_shipment_system/data/network/dio_factory.dart';
+import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/data/repository/repository_implementation.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/domain/use_cases/client_registration_usecase.dart';
 import 'package:smart_shipment_system/domain/use_cases/login_usecase.dart';
 import 'package:smart_shipment_system/domain/use_cases/splash_navigation_use_case.dart';
+import 'package:smart_shipment_system/domain/use_cases/unorganized_delivery_registration_usecase.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseLoginViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/changePassword/viewModel/changePasswordViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/viewModel/clientRegistrationViewModel.dart';
@@ -33,8 +36,12 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
   instance.registerLazySingleton<CacheDataSource>(
       () => CacheDataSourceImplementation());
+
+  instance.registerLazySingleton<FirebaseStorage>(() => FirebaseStorage.instance);
+
+
   instance.registerLazySingleton<RemoteDataSource>(
-      () => RemoteDataSourceImplementation(instance()));
+      () => RemoteDataSourceImplementation(instance(),instance()));
   instance.registerLazySingleton<LocalDataSource>(
       () => LocalDataSourceImplementation());
 
@@ -69,8 +76,14 @@ initClientRegistrationModule() {
 
 initDeliveryRegistrationModule() {
   if (!GetIt.I.isRegistered<DeliveryRegistrationViewModel>()) {
+
+    instance.registerFactory<UnorganizedDeliveryRegistrationUseCase>(
+            () => UnorganizedDeliveryRegistrationUseCase(instance()));
+
+
+
     instance.registerLazySingleton<DeliveryRegistrationViewModel>(
-        () => DeliveryRegistrationViewModel());
+        () => DeliveryRegistrationViewModel(instance()));
   }
 }
 

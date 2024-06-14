@@ -2,11 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/data/data_sourse/local_data_sourse.dart';
 import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
-import 'package:smart_shipment_system/data/mappers/mappers.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
-import 'package:smart_shipment_system/data/response/response.dart';
-import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import '../network/error_handler.dart';
@@ -74,9 +71,10 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
-  Future<Either<Failure, bool>> emailVerification(EmailVerificationRequest emailVerificationRequest) async{
+  Future<Either<Failure, bool>> emailVerification(
+      EmailVerificationRequest emailVerificationRequest) async {
     return await (await _remoteDataSource
-        .emailVerification(emailVerificationRequest))
+            .emailVerification(emailVerificationRequest))
         .fold((error) {
       return Left(error);
     }, (response) {
@@ -89,17 +87,51 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
-  Future<Either<Failure, bool>> forgetPassword(String email)async {
-    return await (await _remoteDataSource
-        .forgetPassword(email))
-        .fold((error) {
-    return Left(error);
+  Future<Either<Failure, bool>> forgetPassword(String email) async {
+    return await (await _remoteDataSource.forgetPassword(email)).fold((error) {
+      return Left(error);
     }, (response) {
-    if (response.status == ResponseMessage.SUCCESS) {
-    return Right(true);
-    } else {
-    return Left(ErrorHandler.handle(response).failure);
-    }
+      if (response.status == ResponseMessage.SUCCESS) {
+        return Right(true);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+  @override
+  Future<Either<Failure, bool>> unorganizedDeliveryRegistration(
+      UnorganizedDeliveryRegistrationRequest
+          unorganizedDeliveryRegistrationRequest) async {
+    (await _remoteDataSource.uploadPhoto(
+            unorganizedDeliveryRegistrationRequest.deliveryApprovalImg,
+            AppConstants.deliveryApprovalImageStorageRef,
+            unorganizedDeliveryRegistrationRequest.email))
+        .fold((error) {
+      return Left(error);
+    },
+            (imgUrl) => unorganizedDeliveryRegistrationRequest
+                .deliveryApprovalImg = imgUrl);
+    (await _remoteDataSource.uploadPhoto(
+            unorganizedDeliveryRegistrationRequest.vehicleLicenseImg,
+            AppConstants.vehicleLicenseImageStorageRef,
+            unorganizedDeliveryRegistrationRequest.email))
+        .fold((error) {
+      return Left(error);
+    },
+            (imgUrl) => unorganizedDeliveryRegistrationRequest
+                .vehicleLicenseImg = imgUrl);
+
+    return await (await _remoteDataSource.unorganizedDeliveryRegistration(
+            unorganizedDeliveryRegistrationRequest))
+        .fold((error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        return const Right(true);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
     });
   }
 }

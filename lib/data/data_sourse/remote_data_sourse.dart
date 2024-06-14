@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:smart_shipment_system/data/network/app_api.dart';
 import 'package:smart_shipment_system/data/network/error_handler.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
@@ -12,17 +15,24 @@ abstract class RemoteDataSource {
   Future<Either<Failure, RegistrationResponse>> clientRegistration(
       ClientRegistrationRequest clientRegistrationRequest);
 
-  Future<Either<Failure, EmailVerificationResponse>> emailVerification(EmailVerificationRequest emailVerificationRequest);
+  Future<Either<Failure, RegistrationResponse>> unorganizedDeliveryRegistration(
+      UnorganizedDeliveryRegistrationRequest
+          unorganizedDeliveryRegistrationRequest);
+
+  Future<Either<Failure, EmailVerificationResponse>> emailVerification(
+      EmailVerificationRequest emailVerificationRequest);
+
   Future<Either<Failure, ForgetPasswordResponse>> forgetPassword(String email);
 
-
-
+  Future<Either<Failure, String>> uploadPhoto(
+      String imagePath, String refPath, String userEmail);
 }
 
 class RemoteDataSourceImplementation implements RemoteDataSource {
-  RemoteDataSourceImplementation(this._appServiceClient);
+  RemoteDataSourceImplementation(this._appServiceClient, this._firebaseStorage);
 
   final AppServiceClient _appServiceClient;
+  final FirebaseStorage _firebaseStorage;
 
   @override
   Future<Either<Failure, AuthenticationResponse>> login(
@@ -54,13 +64,13 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, EmailVerificationResponse>> emailVerification(EmailVerificationRequest emailVerificationRequest)async {
+  Future<Either<Failure, EmailVerificationResponse>> emailVerification(
+      EmailVerificationRequest emailVerificationRequest) async {
     try {
       var result = await _appServiceClient.emailVerification(
-
-          emailVerificationRequest.email,
-          emailVerificationRequest.code,
-          );
+        emailVerificationRequest.email,
+        emailVerificationRequest.code,
+      );
       return Right(result);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
@@ -68,13 +78,38 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, ForgetPasswordResponse>> forgetPassword(String email) async{
+  Future<Either<Failure, ForgetPasswordResponse>> forgetPassword(
+      String email) async {
     try {
       var result = await _appServiceClient.forgetPassword(
-
         email,
-
       );
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> uploadPhoto(
+      String imagePath, String refPath, String userEmail) async {
+    try {
+      var storageRef = _firebaseStorage.ref(refPath).child(userEmail);
+      await storageRef.putFile(File(imagePath));
+      String url = await storageRef.getDownloadURL();
+      return Right(url);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, RegistrationResponse>> unorganizedDeliveryRegistration(
+      UnorganizedDeliveryRegistrationRequest
+          unorganizedDeliveryRegistrationRequest) async {
+    try {
+      var result = await _appServiceClient.unorganizedDeliveryRegistration(
+          unorganizedDeliveryRegistrationRequest);
       return Right(result);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);

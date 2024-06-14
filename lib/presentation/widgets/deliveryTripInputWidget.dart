@@ -11,6 +11,7 @@ import 'package:smart_shipment_system/presentation/resources/strings_manager.dar
 import 'package:smart_shipment_system/presentation/resources/theme_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/cirular_button.dart';
+import 'package:smart_shipment_system/presentation/widgets/inputLocationWidget.dart';
 import 'package:smart_shipment_system/presentation/widgets/select_week_days.dart';
 import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 import '../authenticathion/deliveryRegistration/viewModel/deliveryRegisterationViewModel.dart';
@@ -52,55 +53,28 @@ class DeliveryTripInputWidget extends StatelessWidget {
             ],
             color: ColorManager.offWhite,
             borderRadius: BorderRadius.circular(20)),
-        // height: 400,
         width: double.maxFinite,
         child: Column(
           children: [
             SizedBox(
               height: 15.sp,
             ),
-            TextFormField(
-              //  enabled: false,
-              readOnly: true,
-              onTap: () async => pickLocation(
-                  context,
-                  viewModel.setCurrentFromLocationAndGov,
-                  fromLocationTextEditingController,
-                  AppStrings.locationMassage.tr(),
-                  AppStrings.locationMassageHint.tr()),
-
-              controller: fromLocationTextEditingController,
-              decoration: InputDecoration(
-                labelText: AppStrings.fromLocation.tr(),
-                hintText: AppStrings.fromLocationHint.tr(),
-                // errorText: (() ?? true) || true
-                //     ? null
-                //     : AppStrings.fromLocationHint.tr(),
-              ),
-            ),
+            inputLocationWidget(
+                context,
+                viewModel.setCurrentFromLocationAndGov,
+                AppStrings.fromLocation,
+                AppStrings.locationMassage,
+                AppStrings.fromLocationHint),
             SizedBox(
               height: 15.sp,
             ),
-            TextFormField(
-              //  enabled: false,
-              readOnly: true,
-              onTap: () async => pickLocation(
-                  context,
-                  viewModel.setCurrentToLocationAndGov,
-                  toLocationTextEditingController,
-                  //  widget.setCurrentToLocationAndGov,
-                  AppStrings.locationMassage.tr(),
-                  AppStrings.locationMassageHint.tr()),
 
-              controller: toLocationTextEditingController,
-              decoration: InputDecoration(
-                labelText: AppStrings.toLocation.tr(),
-                hintText: AppStrings.toLocationHint.tr(),
-                // errorText: (() ?? true) || true
-                //     ? null
-                //     : AppStrings.fromLocationHint.tr(),
-              ),
-            ),
+            inputLocationWidget(
+                context,
+                viewModel.setCurrentToLocationAndGov,
+                AppStrings.toLocation,
+                AppStrings.locationMassage,
+                AppStrings.toLocationHint),
             SizedBox(
               height: 15.sp,
             ),
@@ -280,47 +254,6 @@ class DeliveryTripInputWidget extends StatelessWidget {
     tripDaysTextEditingController.text = "";
   }
 
-  pickLocation(
-      BuildContext context,
-      Function setCurrentLocation,
-      TextEditingController controller,
-      String locationMassage,
-      String locationMassageHint) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Scaffold(
-          body: OpenStreetMapSearchAndPick(
-              //center: LatLong(23, 89),
-              buttonColor: ColorManager.primary,
-              locationPinIconColor: ColorManager.primary,
-              buttonText: locationMassage.tr(),
-              hintText: locationMassageHint.tr(),
-              locationPinTextStyle: Theme.of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .copyWith(color: ColorManager.primary),
-              onPicked: (pickedData) {
-                print(pickedData.latLong.latitude);
-                print(pickedData.latLong.longitude);
-                print(pickedData.address);
-                //pickedDataa = pickedData;
-                setCurrentLocation(
-                    LatLng(pickedData.latLong.latitude,
-                        pickedData.latLong.longitude),
-                    pickedData.address['state'] ?? "a7a",
-                    pickedData.addressName);
-                controller.text = pickedData.addressName;
-
-                Navigator.of(context).pop();
-              }),
-        ),
-      ),
-    );
-
-    //return pickedDataa;
-  }
-
   Widget dateOfTripInputWidget() {
     return StreamBuilder<List<String>>(
         stream: viewModel.outputCurrentTripDays,
@@ -492,7 +425,7 @@ Widget deliveryTripWidget(BuildContext context, DeliveryTripModel deliveryTrip,
 
 Widget tripTextWidget(BuildContext context, String text) {
   return Container(
-    padding: EdgeInsets.symmetric(
+    padding: const EdgeInsets.symmetric(
         horizontal: AppPadding.p8, vertical: AppPadding.p8),
     decoration: BoxDecoration(
       border: Border.all(color: ColorManager.lightGray),
@@ -506,44 +439,3 @@ Widget tripTextWidget(BuildContext context, String text) {
     ),
   );
 }
-//
-// class eliveryTripInputWidget extends StatelessWidget {
-//   eliveryTripInputWidget({super.key});
-//
-//   final locationController = Location();
-//   final googlePlex = const LatLng(31.151897, 31.934281);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       height: 300,
-//       width: double.maxFinite,
-//       child: GoogleMap(
-//         initialCameraPosition: CameraPosition(target: googlePlex, zoom: 13),
-//         markers: {
-//           Marker(
-//               markerId: const MarkerId("a7a"),
-//               icon: BitmapDescriptor.defaultMarker,
-//               position: googlePlex)
-//         },
-//       ),
-//     );
-//   }
-//
-//   Future<void> fetchLocation() async {
-//     bool serviceEnabled;
-//     PermissionStatus premissionGranted;
-//     serviceEnabled = await locationController.serviceEnabled();
-//     if (!serviceEnabled) {
-//       serviceEnabled = await locationController.requestService();
-//     }
-//     premissionGranted = await locationController.hasPermission();
-//     if (premissionGranted == PermissionStatus.denied) {
-//       premissionGranted = await locationController.requestPermission();
-//       if (premissionGranted == PermissionStatus.granted) {
-//         return;
-//       }
-//     }
-//     locationController.onLocationChanged.listen((currentLocation) {});
-//   }
-// }

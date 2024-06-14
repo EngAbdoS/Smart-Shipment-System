@@ -4,11 +4,23 @@ import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/domain/models/deliveryTripModel.dart';
+import 'package:smart_shipment_system/domain/use_cases/unorganized_delivery_registration_usecase.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseRegisterationViewModel.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/verification/getEmailVerification.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
+import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
+import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
+import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
+import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
 import 'package:smart_shipment_system/presentation/widgets/testState.dart';
+import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 
 class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
+  final UnorganizedDeliveryRegistrationUseCase
+      _unorganizedDeliveryRegistrationUseCase;
+
+  DeliveryRegistrationViewModel(this._unorganizedDeliveryRegistrationUseCase);
+
   final StreamController
       _deliveryConfirmationPictureValidationStreamController =
       StreamController<File>.broadcast();
@@ -44,7 +56,6 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
       StreamController<bool>.broadcast();
   final StreamController _currentDeliveryTripDaysStreamController =
       StreamController<List<String>>.broadcast();
-
   final StreamController
       _currentDeliveryTripExpectedDurationValidStreamController =
       StreamController<int>.broadcast();
@@ -55,14 +66,15 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   File? deliveryVehicleLicensePicture;
   String? deliveryRole;
   String? vehicle;
+  LatLng unorganizedDeliveryCoordinates = const LatLng(0, 0);
   List<DeliveryTripModel> externalDeliveryTripList = [];
 
   DeliveryTripModel deliveryTrip = DeliveryTripModel(
-      fromLocation: LatLng(0, 0),
+      fromLocation: const LatLng(0, 0),
       toGovernment: "",
       fromAddressName: "",
       toAddressName: "",
-      toLocation: LatLng(0, 0),
+      toLocation: const LatLng(0, 0),
       fromGovernment: "",
       expectedDurationByMin: 0,
       isOneTime: true,
@@ -70,6 +82,47 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
       tripTime: "",
       tripDay: "",
       tripWeekDays: []);
+
+//////////////////////////Registration Functions//////////////////////////
+
+  void registerUnorganizedDelivery(dynamic context) async {
+    loadingState(context: context);
+    (await _unorganizedDeliveryRegistrationUseCase.execute(
+      UnorganizedDeliveryRegistrationUseCaseInput(
+        name: firstName!,
+        phone: phoneNumber!,
+        email: email!,
+        password: password!,
+        confirmPassword: confirmPassword!,
+        role: AppConstants.deliveryRoleInternal,
+        type: AppConstants.currentStateTypePoint,
+        vehicleType: vehicle ?? "",
+        coordinates: [
+          unorganizedDeliveryCoordinates.latitude,
+          unorganizedDeliveryCoordinates.longitude,
+        ],
+        vehicleLicenseImg: deliveryVehicleLicensePicture?.path ?? "",
+        deliveryApprovalImg: deliveryConfirmationPicture?.path ?? "",
+      ),
+    ))
+        .fold(
+      (failure) => {
+        errorState(context: context, message: failure.message),
+      },
+      (data) => data
+          ? {
+              hideState(context: context),
+              getEmailVerification(context, email!, Routes.loginViewRoute),
+              toastWidgetC(context, AppStrings.successRegistration),
+              print("registered"),
+            }
+          : {
+              errorState(
+                context: context,
+              ),
+            },
+    );
+  }
 
 //////////////////////////output//////////////////////////
 
@@ -173,16 +226,18 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     switch (currentPageIndex) {
       case 1:
         {
-          _pageOneValidation() || true
+          _pageOneValidation()
               ? GoRouter.of(context).push(Routes.deliveryRegistrationView2Route)
-              : testState(context);
+              : toastWidgetC(
+                  context, AppStrings.validateDeliveryTripInputToast);
         }
       case 2:
         {
-          _pageTwoValidation()  || true
+          _pageTwoValidation()
               ? GoRouter.of(context)
                   .push(Routes.deliveryRegistrationRoleViewRoute)
-              : testState(context);
+              : toastWidgetC(
+                  context, AppStrings.validateDeliveryTripInputToast);
         }
       case 3: //delivery role
         {
@@ -192,7 +247,8 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
                       .push(Routes.deliveryExternalRegistrationViewRoute)
                   : GoRouter.of(context)
                       .push(Routes.deliveryInteriorRegistrationViewRoute)
-              : testState(context);
+              : toastWidgetC(
+                  context, AppStrings.validateDeliveryTripInputToast);
         }
       default:
       // return false;
@@ -246,6 +302,12 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
 
     inputLoginValidation.add(null);
     inputIsCurrentDeliveryTripValid.add(false);
+  }
+
+  setUnorganizedDeliveryGovState(
+      LatLng govState, String currentFromGovernment, String addressName) {
+    unorganizedDeliveryCoordinates = govState;
+    inputLoginValidation.add(null);
   }
 
   setCurrentTripDetails(String currentTripDetails) {
@@ -310,11 +372,11 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
 
   setCurrentTripDataEmpty() {
     deliveryTrip = DeliveryTripModel(
-        fromLocation: LatLng(0, 0),
+        fromLocation: const LatLng(0, 0),
         toGovernment: "",
         fromAddressName: "",
         toAddressName: "",
-        toLocation: LatLng(0, 0),
+        toLocation: const LatLng(0, 0),
         fromGovernment: "",
         expectedDurationByMin: 0,
         isOneTime: true,
@@ -352,8 +414,8 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     // print(deliveryTrip.tripWeekDays);
     // print(deliveryTrip.tripDay);
 
-    return (deliveryTrip.fromLocation != LatLng(0, 0) &&
-        deliveryTrip.toLocation != LatLng(0, 0) &&
+    return (deliveryTrip.fromLocation != const LatLng(0, 0) &&
+        deliveryTrip.toLocation != const LatLng(0, 0) &&
         deliveryTrip.fromGovernment != "" &&
         deliveryTrip.toGovernment != "" &&
         deliveryTrip.expectedDurationByMin != 0 &&
@@ -410,6 +472,12 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   bool _pageDeliveryRoleValidation() {
     return isDeliveryRoleValid(deliveryRole ?? "");
   }
+
+  bool unorganizedDeliveryValidation() =>
+      unorganizedDeliveryCoordinates != LatLng(0, 0) &&
+      isVehicleValid(vehicle ?? "") &&
+      isDeliveryVehicleLicensePictureValid(
+          deliveryConfirmationPicture ?? File(""));
 
 ///////////////////////////////////////////////////////////////////////
   void getLoading(dynamic context) {
