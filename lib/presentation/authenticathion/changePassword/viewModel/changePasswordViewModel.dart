@@ -1,7 +1,16 @@
 import 'dart:async';
 
+import 'package:go_router/go_router.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/app/functions.dart';
+import 'package:smart_shipment_system/data/network/requests.dart';
+import 'package:smart_shipment_system/domain/repository/repository.dart';
+import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
+import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
+import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
+import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
+import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
+import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 
 class ChangePasswordViewModel
     with ChangePasswordViewModelInputs, ChangePasswordViewModelOutputs {
@@ -12,6 +21,12 @@ class ChangePasswordViewModel
       BehaviorSubject<String>();
   final StreamController _isConfirmPasswordHiddenStreamController =
       BehaviorSubject<void>();
+
+  final String otp;
+  final Repository repository;
+
+  ChangePasswordViewModel(this.repository, this.otp);
+
   String? password;
   String? confirmPassword;
   bool? _isHidden;
@@ -89,7 +104,8 @@ class ChangePasswordViewModel
   }
 
   bool isConfirmPasswordValid() =>
-      isPasswordValidGlobal(confirmPassword??"") && password == confirmPassword;
+      isPasswordValidGlobal(confirmPassword ?? "") &&
+      password == confirmPassword;
 
   void dispose() {
     _passwordStreamController.close();
@@ -99,9 +115,26 @@ class ChangePasswordViewModel
   }
 
   @override
-  changePassword(context) {
-    // TODO: implement changePassword
-    throw UnimplementedError();
+  changePassword(context) async {
+    loadingState(context: context);
+    (await repository.resetPassword(ResetPasswordRequest(
+            otp: otp, password: password!, confirmPassword: confirmPassword!)))
+        .fold(
+      (failure) => {
+        errorState(context: context, message: failure.message),
+      },
+      (data) => data
+          ? {
+              hideState(context: context),
+              GoRouter.of(context).pushReplacement(Routes.loginViewRoute),
+              toastWidgetC(context, AppStrings.successVerified),
+            }
+          : {
+              errorState(
+                context: context,
+              ),
+            },
+    );
   }
 }
 

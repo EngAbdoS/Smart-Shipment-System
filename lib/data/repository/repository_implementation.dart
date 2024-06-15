@@ -22,7 +22,7 @@ class RepositoryImplementation implements Repository {
     // return const Right(Routes.onBoardingViewRoute);
 
 //handle in local domain
-    //  return const Right(Routes.loginViewRoute);
+      return const Right(Routes.loginViewRoute);
 
     if (!_localDataSource.isOnBoardingViewed()) {
       return const Right(Routes.onBoardingViewRoute);

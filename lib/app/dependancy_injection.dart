@@ -91,16 +91,16 @@ initForgotPasswordModule() {
   }
 }
 
-initChangePasswordModule() {
+initChangePasswordModule(String otp) {
   if (!GetIt.I.isRegistered<ChangePasswordViewModel>()) {
     instance.registerLazySingleton<ChangePasswordViewModel>(
-        () => ChangePasswordViewModel());
+        () => ChangePasswordViewModel(instance(),otp));
   }
 }
 
-initEmailVerificationModule(String email, String nextActionRoute) {
+initEmailVerificationModule(String email, String nextActionRoute,bool executeOrRouteOnly) {
   if (!GetIt.I.isRegistered<EmailVerificationViewModel>()) {
     instance.registerLazySingleton<EmailVerificationViewModel>(
-        () => EmailVerificationViewModel(instance(), email, nextActionRoute));
+        () => EmailVerificationViewModel(instance(), email, nextActionRoute,executeOrRouteOnly));
   }
 }

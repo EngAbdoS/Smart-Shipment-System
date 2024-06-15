@@ -146,7 +146,6 @@ abstract class AppRouter {
       GoRoute(
         path: Routes.changePasswordViewRoute,
         pageBuilder: (context, state) {
-          initChangePasswordModule();
           return customPageTransition(
               state.pageKey, ChangePasswordView(), fadeTransitionGlobal);
         },

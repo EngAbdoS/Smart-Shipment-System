@@ -112,7 +112,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
       (data) => data
           ? {
               hideState(context: context),
-              getEmailVerification(context, email!, Routes.loginViewRoute),
+              getEmailVerification(context: context,email:  email!,nextActionRoute:  Routes.loginViewRoute),
               toastWidgetC(context, AppStrings.successRegistration),
               print("registered"),
             }

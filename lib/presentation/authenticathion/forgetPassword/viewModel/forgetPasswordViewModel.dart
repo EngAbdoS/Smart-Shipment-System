@@ -34,8 +34,9 @@ class ForgotPasswordViewModel
       (data) => data
           ? {
               hideState(context: context),
+        //TODO do not excute
               getEmailVerification(
-                  context, email!, Routes.changePasswordViewRoute),
+                context:   context,email:  email!,nextActionRoute:  Routes.changePasswordViewRoute,executeOrRouteOnly: false),
             }
           : {
               errorState(
