@@ -17,7 +17,7 @@ class ClientHomeView extends StatelessWidget {
           SliverAppBar(
             backgroundColor: ColorManager.primary,
             actions: [
-              studentProfileCirclerImage(),
+              StudentProfileCirclerImage(),
               Spacer(),
               IconButton(
                 onPressed: () {},
