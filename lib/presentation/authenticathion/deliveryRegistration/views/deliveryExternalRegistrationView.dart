@@ -9,6 +9,7 @@ import 'package:smart_shipment_system/presentation/resources/strings_manager.dar
 import 'package:smart_shipment_system/presentation/widgets/auth_logo_widget.dart';
 import 'package:smart_shipment_system/presentation/widgets/deliveryTripInputWidget.dart';
 import 'package:smart_shipment_system/presentation/widgets/regular_button.dart';
+import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 import '../../../resources/values_manager.dart';
 
 class DeliveryExternalRegistrationView extends StatelessWidget {
@@ -39,16 +40,8 @@ class DeliveryExternalRegistrationView extends StatelessWidget {
               authLogoWidget(),
 
               const RegistrationSlider(pageIndex: 3),
-              // SizedBox(
-              //   height: 15.sp,
-              // ),
-
               deliveryAddedTripList(context, _viewModel.outputDeliveryTripList,
                   _viewModel.deleteTrip),
-              // SizedBox(
-              //   height: 25.sp,
-              // ),
-
               DeliveryTripInputWidget(
                 viewModel: _viewModel,
               ).animate().scaleXY(
@@ -59,7 +52,9 @@ class DeliveryExternalRegistrationView extends StatelessWidget {
               ),
 
               RegularButton(
-                buttonAction: () => _viewModel.login(context),
+                buttonAction: () => (_viewModel.fixedDeliveryValidation())
+                    ? _viewModel.registerFixedDelivery(context)
+                    : toastWidget(AppStrings.validateDeliveryTripInputToast),
                 buttonWidget: Text(
                   AppStrings.createAcc,
                   style: Theme.of(context).textTheme.titleMedium,

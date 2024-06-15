@@ -12,7 +12,6 @@ import 'package:smart_shipment_system/presentation/resources/strings_manager.dar
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
 import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
-import 'package:smart_shipment_system/presentation/widgets/testState.dart';
 import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 
 class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
@@ -112,7 +111,10 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
       (data) => data
           ? {
               hideState(context: context),
-              getEmailVerification(context: context,email:  email!,nextActionRoute:  Routes.loginViewRoute),
+              getEmailVerification(
+                  context: context,
+                  email: email!,
+                  nextActionRoute: Routes.loginViewRoute),
               toastWidgetC(context, AppStrings.successRegistration),
               print("registered"),
             }
@@ -123,6 +125,8 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
             },
     );
   }
+
+  void registerFixedDelivery(dynamic context) async {}
 
 //////////////////////////output//////////////////////////
 
@@ -334,10 +338,8 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   setCurrentDeliveryIsTripOneTime(bool currentDeliveryIsTripOneTime) {
     inputCurrentDeliveryIsTripOneTime.add(currentDeliveryIsTripOneTime);
     deliveryTrip.isOneTime = currentDeliveryIsTripOneTime;
-
     deliveryTrip.tripWeekDays = [];
     inputCurrentTripDays.add(deliveryTrip.tripWeekDays);
-
     deliveryTrip.tripDay = "";
     inputLoginValidation.add(null);
     inputIsCurrentDeliveryTripValid.add(false);
@@ -359,14 +361,9 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   }
 
   setNewDeliveryTrip() {
-    print("heeer");
     externalDeliveryTripList.add(deliveryTrip);
     inputDeliveryTrip.add(externalDeliveryTripList);
-    print("a7aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    print(externalDeliveryTripList.length);
-    print(externalDeliveryTripList.last.fromLocation);
     setCurrentTripDataEmpty();
-
     inputLoginValidation.add(null);
   }
 
@@ -402,18 +399,6 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
 
   //////////////////////////validation functions//////////////////////////
   isCurrentDeliveryTripValid() {
-    // print("teeet");
-    // print(deliveryTrip.fromLocation);
-    // print(deliveryTrip.toLocation);
-    // print(deliveryTrip.fromGovernment);
-    // print(deliveryTrip.toGovernment);
-    // print(deliveryTrip.expectedDurationByMin);
-    // print(deliveryTrip.tripDetails);
-    // print(deliveryTrip.tripTime);
-    // print(deliveryTrip.isOneTime);
-    // print(deliveryTrip.tripWeekDays);
-    // print(deliveryTrip.tripDay);
-
     return (deliveryTrip.fromLocation != const LatLng(0, 0) &&
         deliveryTrip.toLocation != const LatLng(0, 0) &&
         deliveryTrip.fromGovernment != "" &&
@@ -479,26 +464,26 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
       isDeliveryVehicleLicensePictureValid(
           deliveryConfirmationPicture ?? File(""));
 
+  bool fixedDeliveryValidation() => externalDeliveryTripList.isNotEmpty;
+
 ///////////////////////////////////////////////////////////////////////
-  void getLoading(dynamic context) {
-    testState(context);
-    //emit(LoginLoading(asset: "asset"));
-  }
-
-  void login(dynamic context) {
-    print(firstName);
-    testState(context);
-    //emit(LoginLoading(asset: "asset"));
-  }
-
-  void getsuccess() {
-    dispose();
-    //emit(ClientRegistrationSuccess(route: ""));
-  }
-
   @override
   void dispose() {
     super.dispose();
     _deliveryConfirmationPictureValidationStreamController.close();
+    _deliveryVehicleLicensePictureValidationStreamController.close();
+    _deliveryConfirmationPictureStreamController.close();
+    _deliveryVehicleLicensePictureValidationStreamController.close();
+    _deliveryVehicleLicensePictureStreamController.close();
+    _vehicleStreamController.close();
+    _currentDeliveryTripExpectedDurationValidStreamController.close();
+    _currentDeliveryTripDaysStreamController.close();
+    _currentDeliveryTripStartTimeValidStreamController.close();
+    _currentDeliveryIsTripOneTimeStreamController.close();
+    _currentDeliveryTripDetailsValidStreamController.close();
+    _currentIsDeliveryTripValidStreamController.close();
+    _externalDeliveryTripListStreamController.close();
+    _currentDeliveryTripFromLocationValidStreamController.close();
+    _currentDeliveryTripToLocationValidStreamController.close();
   }
 }
