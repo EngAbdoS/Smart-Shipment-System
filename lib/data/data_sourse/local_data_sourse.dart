@@ -1,6 +1,7 @@
 import 'package:smart_shipment_system/app/app_preferances.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/data/data_sourse/cache_data_sourse.dart';
+import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 
 abstract class LocalDataSource {
@@ -12,7 +13,7 @@ abstract class LocalDataSource {
 
   bool isOnBoardingViewed();
 
-  void setUserLogin(String token, String userRole);
+  void setUserLogin(String token);
 
   void setUserToken(String token);
 
@@ -26,11 +27,13 @@ abstract class LocalDataSource {
 }
 
 class LocalDataSourceImplementation implements LocalDataSource {
-  final AppPreferences _appPreferences ;
+  final AppPreferences _appPreferences;
 
   final CacheDataSource _cacheDataSource;
+  final RemoteDataSource _remoteDataSource;
 
-  LocalDataSourceImplementation(this._appPreferences, this._cacheDataSource);
+  LocalDataSourceImplementation(
+      this._appPreferences, this._cacheDataSource, this._remoteDataSource);
 
   @override
   bool isOnBoardingViewed() {
@@ -53,9 +56,9 @@ class LocalDataSourceImplementation implements LocalDataSource {
   }
 
   @override
-  void setUserLogin(String token, String userRole) {
+  void setUserLogin(String token) {
     setUserToken(token);
-    setUserRole(userRole);
+    // setUserRole(userRole);
     //saveUserDataToCache(userData);
     _appPreferences.setLoggedIn();
   }

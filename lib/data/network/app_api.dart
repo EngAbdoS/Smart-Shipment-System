@@ -10,6 +10,9 @@ part 'app_api.g.dart';
 abstract class AppServiceClient {
   factory AppServiceClient(Dio dio, {String baseUrl}) = _AppServiceClient;
 
+  @GET("users/me")
+  Future<MeDataResponse> getUserData();
+
   @POST("users/login")
   Future<AuthenticationResponse> login(
       @Field("email") String email, @Field("password") String password);
@@ -40,4 +43,12 @@ abstract class AppServiceClient {
       @Body()
       UnorganizedDeliveryRegistrationRequest
           unorganizedDeliveryRegistrationRequest);
+  
+  
+  @PATCH("users/resetPassword")
+  Future<ForgetPasswordResponse> resetPassword(
+    @Field("otp") String otp,
+    @Field("password") String password,
+    @Field("passwordConfirm") String passwordConfirm,
+  );
 }

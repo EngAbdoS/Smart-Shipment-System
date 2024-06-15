@@ -12,12 +12,35 @@ class BaseResponse {
   String? message;
 }
 
+
+@JsonSerializable()
+class MeDataResponse extends BaseResponse {
+  @JsonKey(name: "data")
+  DataResponse? dataResponse;
+
+  MeDataResponse(this.dataResponse);
+
+  factory MeDataResponse.fromJson(Map<String, dynamic> json) =>
+      _$MeDataResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$MeDataResponseToJson(this);
+}
+
+@JsonSerializable()
+class DataResponse {
+  @JsonKey(name: "data")
+  UserResponse? userResponse;
+
+  DataResponse(this.userResponse);
+
+  factory DataResponse.fromJson(Map<String, dynamic> json) =>
+      _$DataResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$DataResponseToJson(this);
+}
+
 @JsonSerializable()
 class UserResponse {
   @JsonKey(name: "deliveryApproved")
   bool? isDeliveryApproved;
-  @JsonKey(name: "tripPeriod")
-  List? tripPeriod;
   @JsonKey(name: "_id")
   String? userId;
   @JsonKey(name: "name")
@@ -33,7 +56,6 @@ class UserResponse {
 
   UserResponse(
       this.isDeliveryApproved,
-      this.tripPeriod,
       this.userId,
       this.userName,
       this.email,
@@ -45,6 +67,8 @@ class UserResponse {
       _$UserResponseFromJson(json); //why factory
   Map<String, dynamic> toJson() => _$UserResponseToJson(this);
 }
+
+
 
 @JsonSerializable()
 class DataUserResponse {
@@ -62,10 +86,10 @@ class DataUserResponse {
 class AuthenticationResponse extends BaseResponse {
   @JsonKey(name: "token")
   String? token;
-  @JsonKey(name: 'data')
-  DataUserResponse? data;
+ // @JsonKey(name: 'data')
+ // DataUserResponse? data;
 
-  AuthenticationResponse(this.token, this.data);
+  AuthenticationResponse(this.token);
 
   factory AuthenticationResponse.fromJson(Map<String, dynamic> json) =>
       _$AuthenticationResponseFromJson(json);

@@ -9,6 +9,8 @@ import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/data/response/response.dart';
 
 abstract class RemoteDataSource {
+  Future<Either<Failure, MeDataResponse>> getUserData();
+
   Future<Either<Failure, AuthenticationResponse>> login(
       LoginRequest loginRequest);
 
@@ -23,6 +25,9 @@ abstract class RemoteDataSource {
       EmailVerificationRequest emailVerificationRequest);
 
   Future<Either<Failure, ForgetPasswordResponse>> forgetPassword(String email);
+
+  Future<Either<Failure, ForgetPasswordResponse>> resetPassword(
+      ResetPasswordRequest resetPasswordRequest);
 
   Future<Either<Failure, String>> uploadPhoto(
       String imagePath, String refPath, String userEmail);
@@ -110,6 +115,30 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
     try {
       var result = await _appServiceClient.unorganizedDeliveryRegistration(
           unorganizedDeliveryRegistrationRequest);
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, MeDataResponse>> getUserData() async {
+    try {
+      var result = await _appServiceClient.getUserData();
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, ForgetPasswordResponse>> resetPassword(
+      ResetPasswordRequest resetPasswordRequest) async {
+    try {
+      var result = await _appServiceClient.resetPassword(
+          resetPasswordRequest.otp,
+          resetPasswordRequest.password,
+          resetPasswordRequest.confirmPassword);
       return Right(result);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);

@@ -21,6 +21,33 @@ class _AppServiceClient implements AppServiceClient {
   String? baseUrl;
 
   @override
+  Future<MeDataResponse> getUserData() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<MeDataResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'users/me',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = MeDataResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<AuthenticationResponse> login(
     String email,
     String password,
@@ -181,6 +208,41 @@ class _AppServiceClient implements AppServiceClient {
               baseUrl,
             ))));
     final value = RegistrationResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ForgetPasswordResponse> resetPassword(
+    String otp,
+    String password,
+    String passwordConfirm,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'otp': otp,
+      'password': password,
+      'passwordConfirm': passwordConfirm,
+    };
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ForgetPasswordResponse>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'users/resetPassword',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ForgetPasswordResponse.fromJson(_result.data!);
     return value;
   }
 

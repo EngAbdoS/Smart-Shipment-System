@@ -8,7 +8,7 @@ class AppConstants
   static const String token="SEND TOKEN HERE";
   static const int zero=0;
   static const int apiTimeOut=120000;
-  static const String userRoleDelivery="USER_ROLE_DELIVERY";
+  //static const String userRoleDelivery="USER_ROLE_DELIVERY";
   static const String userRoleClient="client";
   static const String deliveryRoleExternal="fix-delivery";
   static const String deliveryRoleInternal="unorganized-delivery";

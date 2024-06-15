@@ -99,3 +99,14 @@ class EmailVerificationRequest {
 
   EmailVerificationRequest({required this.email, required this.code});
 }
+
+class ResetPasswordRequest {
+  String otp;
+  String password;
+  String confirmPassword;
+
+  ResetPasswordRequest(
+      {required this.otp,
+      required this.password,
+      required this.confirmPassword});
+}

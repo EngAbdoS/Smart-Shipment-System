@@ -2,8 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/data/data_sourse/local_data_sourse.dart';
 import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
+import 'package:smart_shipment_system/data/mappers/mappers.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
+import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import '../network/error_handler.dart';
@@ -20,18 +22,31 @@ class RepositoryImplementation implements Repository {
     // return const Right(Routes.onBoardingViewRoute);
 
 //handle in local domain
-    return const Right(Routes.loginViewRoute);
+    //  return const Right(Routes.loginViewRoute);
 
     if (!_localDataSource.isOnBoardingViewed()) {
       return const Right(Routes.onBoardingViewRoute);
     } else {
       if (_localDataSource.isUserLoggedIn()) {
-        if (_localDataSource.getUserRole() == AppConstants.userRoleClient) {
-          return const Right(Routes.clientHomeRoute);
-        } else if (_localDataSource.getUserRole() ==
-            AppConstants.userRoleDelivery) {
-          return const Right(Routes.deliveryHomeRoute);
-        }
+        return await (await getUserData()).fold((error) {
+          return Left(error);
+        }, (data) {
+          if (data.role == AppConstants.userRoleClient) {
+            return const Right(Routes.clientHomeRoute);
+          } else if (data.role == AppConstants.deliveryRoleExternal) {
+            return const Right(Routes.deliveryHomeRoute);
+          } else if (data.role == AppConstants.deliveryRoleInternal) {
+            return const Right(Routes.deliveryHomeRoute);
+          }
+          return const Right(Routes.loginViewRoute);
+        });
+        //TODO getHomeRoute
+        // if (_localDataSource.getUserRole() == AppConstants.userRoleClient) {
+        //   return const Right(Routes.clientHomeRoute);
+        // } else if (_localDataSource.getUserRole() ==
+        //     AppConstants.userRoleDelivery) {
+        //   return const Right(Routes.deliveryHomeRoute);
+        // }
       } else {
         return const Right(Routes.loginViewRoute);
       }
@@ -45,9 +60,29 @@ class RepositoryImplementation implements Repository {
       return Left(error);
     }, (response) {
       if (response.status == ResponseMessage.SUCCESS) {
-        _localDataSource.setUserLogin(response.token ?? "no token",
-            response.data?.userData?.role ?? AppConstants.userRoleNoRole);
-        return Right(true);
+        _localDataSource.setUserLogin(
+          response.token ?? "no token",
+          //  response.data?.userData?.role ?? AppConstants.userRoleNoRole
+        );
+        return const Right(true);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+  @override
+  Future<Either<Failure, UserModel>> getUserData() async {
+    return await (await _remoteDataSource.getUserData()).fold((error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        var userData = response.dataResponse?.userResponse.toDomain();
+        _localDataSource.saveUserDataToCache(userData!);
+
+        _localDataSource
+            .setUserRole(userData.role ?? AppConstants.userRoleNoRole);
+        return Right(userData);
       } else {
         return Left(ErrorHandler.handle(response).failure);
       }
@@ -63,7 +98,7 @@ class RepositoryImplementation implements Repository {
       return Left(error);
     }, (response) {
       if (response.status == ResponseMessage.SUCCESS) {
-        return Right(true);
+        return const Right(true);
       } else {
         return Left(ErrorHandler.handle(response).failure);
       }
@@ -79,7 +114,7 @@ class RepositoryImplementation implements Repository {
       return Left(error);
     }, (response) {
       if (response.status == ResponseMessage.SUCCESS) {
-        return Right(true);
+        return const Right(true);
       } else {
         return Left(ErrorHandler.handle(response).failure);
       }
@@ -92,7 +127,7 @@ class RepositoryImplementation implements Repository {
       return Left(error);
     }, (response) {
       if (response.status == ResponseMessage.SUCCESS) {
-        return Right(true);
+        return const Right(true);
       } else {
         return Left(ErrorHandler.handle(response).failure);
       }
@@ -124,6 +159,21 @@ class RepositoryImplementation implements Repository {
 
     return await (await _remoteDataSource.unorganizedDeliveryRegistration(
             unorganizedDeliveryRegistrationRequest))
+        .fold((error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        return const Right(true);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+  @override
+  Future<Either<Failure, bool>> resetPassword(
+      ResetPasswordRequest resetPasswordRequest) async {
+    return await (await _remoteDataSource.resetPassword(resetPasswordRequest))
         .fold((error) {
       return Left(error);
     }, (response) {

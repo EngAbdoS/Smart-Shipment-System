@@ -27,20 +27,24 @@ final instance = GetIt.instance;
 
 Future<void> initAppModule() async {
   final sharedPrefs = await SharedPreferences.getInstance();
+
   instance.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
   instance
       .registerLazySingleton<AppPreferences>(() => AppPreferences(instance()));
-  instance.registerLazySingleton<CacheDataSource>(
-      () => CacheDataSourceImplementation());
-  instance.registerLazySingleton<LocalDataSource>(
-      () => LocalDataSourceImplementation(instance(), instance()));
   instance.registerLazySingleton<DioFactory>(() => DioFactory(instance()));
   Dio dio = await instance<DioFactory>().getDio();
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
+
   instance
       .registerLazySingleton<FirebaseStorage>(() => FirebaseStorage.instance);
   instance.registerLazySingleton<RemoteDataSource>(
       () => RemoteDataSourceImplementation(instance(), instance()));
+
+  instance.registerLazySingleton<CacheDataSource>(
+      () => CacheDataSourceImplementation());
+  instance.registerLazySingleton<LocalDataSource>(
+      () => LocalDataSourceImplementation(instance(), instance(), instance()));
+
   instance.registerLazySingleton<Repository>(
       () => RepositoryImplementation(instance(), instance()));
   instance.registerLazySingleton<SplashNavigationUseCase>(
