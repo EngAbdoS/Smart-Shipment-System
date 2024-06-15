@@ -1,3 +1,5 @@
+import 'package:go_router/go_router.dart';
+import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/domain/use_cases/login_usecase.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseLoginViewModel.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
@@ -6,8 +8,9 @@ import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
 
 class LoginViewModel extends BaseLoginViewModel {
   final LoginUseCase _loginUseCase;
+  final Repository _repository;
 
-  LoginViewModel(this._loginUseCase);
+  LoginViewModel(this._loginUseCase, this._repository);
 
   void login(dynamic context) async {
     loadingState(context: context);
@@ -17,11 +20,18 @@ class LoginViewModel extends BaseLoginViewModel {
       (failure) => {
         errorState(context: context, message: failure.message),
       },
-      (data) => data
+      (data) async => data
           ? {
-              hideState(context: context),
-        //TODO call me for getting data
-        //TODO navigate based on role
+              await (await _repository.getLoginNextNavigationRoute()).fold(
+                  (error) =>
+                      errorState(context: context, message: error.message),
+                  (route) => {
+                        hideState(context: context),
+                        GoRouter.of(context).pushReplacement(route),
+                      }),
+
+              //TODO call me for getting data
+              //TODO navigate based on role
               print(" logind"),
               //TODO navigate
             }

@@ -60,7 +60,7 @@ initLoginModule() {
     instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
 
     instance.registerLazySingleton<LoginViewModel>(
-        () => LoginViewModel(instance()));
+        () => LoginViewModel(instance(),instance()));
   }
 }
 

@@ -5,7 +5,11 @@ import 'package:smart_shipment_system/domain/models/userModel.dart';
 
 abstract class Repository {
   Future<Either<Failure, String>> getSplashNextNavigationRoute();
+
+  Future<Either<Failure, String>> getLoginNextNavigationRoute();
+
   Future<Either<Failure, UserModel>> getUserData();
+
   Future<Either<Failure, bool>> login(LoginRequest loginRequest);
 
   Future<Either<Failure, bool>> clientRegistration(

@@ -22,23 +22,16 @@ class RepositoryImplementation implements Repository {
     // return const Right(Routes.onBoardingViewRoute);
 
 //handle in local domain
-      return const Right(Routes.loginViewRoute);
+    //   return const Right(Routes.loginViewRoute);
 
     if (!_localDataSource.isOnBoardingViewed()) {
       return const Right(Routes.onBoardingViewRoute);
     } else {
       if (_localDataSource.isUserLoggedIn()) {
-        return await (await getUserData()).fold((error) {
+        return await (await getLoginNextNavigationRoute()).fold((error) {
           return Left(error);
-        }, (data) {
-          if (data.role == AppConstants.userRoleClient) {
-            return const Right(Routes.clientHomeRoute);
-          } else if (data.role == AppConstants.deliveryRoleExternal) {
-            return const Right(Routes.deliveryHomeRoute);
-          } else if (data.role == AppConstants.deliveryRoleInternal) {
-            return const Right(Routes.deliveryHomeRoute);
-          }
-          return const Right(Routes.loginViewRoute);
+        }, (route) {
+          return Right(route);
         });
         //TODO getHomeRoute
         // if (_localDataSource.getUserRole() == AppConstants.userRoleClient) {
@@ -52,6 +45,22 @@ class RepositoryImplementation implements Repository {
       }
     }
     return const Right(Routes.noRoute);
+  }
+
+  @override
+  Future<Either<Failure, String>> getLoginNextNavigationRoute() async {
+    return await (await getUserData()).fold((error) {
+      return Left(error);
+    }, (data) {
+      if (data.role == AppConstants.userRoleClient) {
+        return const Right(Routes.clientHomeRoute);
+      } else if (data.role == AppConstants.deliveryRoleExternal) {
+        return const Right(Routes.deliveryHomeRoute);
+      } else if (data.role == AppConstants.deliveryRoleInternal) {
+        return const Right(Routes.deliveryHomeRoute);
+      }
+      return const Right(Routes.loginViewRoute);
+    });
   }
 
   @override
