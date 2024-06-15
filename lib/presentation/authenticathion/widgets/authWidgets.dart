@@ -412,15 +412,6 @@ Widget deliveryRole(BuildContext context, Function setRole) {
   );
 }
 
-// _imageFromGallery() async {
-//   var image = await _imagePicker.pickImage(source: ImageSource.gallery);
-//   _viewModel.setProfilePicture(File(image?.path ?? ""));
-// }
-//
-// _imageFromCamera() async {
-//   var image = await _imagePicker.pickImage(source: ImageSource.camera);
-//   _viewModel.setProfilePicture(File(image?.path ?? ""));
-// }
 Widget passwordWidgets(
     Stream<bool> outputIsPasswordValid,
     Stream<bool> outputIsConfirmPasswordValid,

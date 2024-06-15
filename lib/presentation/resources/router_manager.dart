@@ -15,6 +15,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegis
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/view/forgetPasswordView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/view/loginView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/verification/view/verificationView.dart';
+import 'package:smart_shipment_system/presentation/client/home/view/clientHomeView.dart';
 import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
 import 'package:smart_shipment_system/presentation/resources/page_transition_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -33,7 +34,6 @@ class Routes {
       "/deliveryRegistration1View";
   static const String deliveryRegistrationView2Route =
       "/deliveryRegistration2View";
-
   static const String deliveryRegistrationRoleViewRoute =
       "/deliveryRegistrationRoleView";
   static const String deliveryInteriorRegistrationViewRoute =
@@ -50,6 +50,11 @@ class Routes {
 abstract class AppRouter {
   static final router = GoRouter(
     routes: [
+      GoRoute(
+        path: Routes.clientHomeRoute,
+        pageBuilder: (context, state) => customPageTransition(
+            state.pageKey, ClientHomeView(), fadeTransitionGlobal),
+      ),
       GoRoute(
         path: Routes.splashRoute,
         pageBuilder: (context, state) => customPageTransition(
@@ -149,11 +154,12 @@ abstract class AppRouter {
           return customPageTransition(
               state.pageKey, ChangePasswordView(), fadeTransitionGlobal);
         },
-      ),   GoRoute(
+      ),
+      GoRoute(
         path: Routes.emilVerificationViewRoute,
         pageBuilder: (context, state) {
           return customPageTransition(
-              state.pageKey,  EmailVerificationView(), fadeTransitionGlobal);
+              state.pageKey, EmailVerificationView(), fadeTransitionGlobal);
         },
       ),
       GoRoute(

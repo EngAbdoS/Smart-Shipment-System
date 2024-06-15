@@ -33,6 +33,8 @@ class SVGAssets {
   static const String authIll = "$SVG_PATH/auth_ill.svg";
   static const String changePassword = "$SVG_PATH/change_password.svg";
   static const String forgetPassword = "$SVG_PATH/forget_password.svg";
+  static const String notificationIcon = "$SVG_PATH/notification.svg";
+  static const String noProfilePic = "$SVG_PATH/noProfile.svg";
 
 
 }
