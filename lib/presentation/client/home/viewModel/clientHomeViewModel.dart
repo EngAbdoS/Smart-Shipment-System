@@ -6,21 +6,10 @@ import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
 import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
 
 class ClientHomeViewModel {
-  ClientHomeViewModel(this._repository);
+  ClientHomeViewModel(this._repository, this.userModel);
 
   final Repository _repository;
 
-  UserModel? userModel;
+ final UserModel userModel;
 
-
-   userData(dynamic context) async {
-    loadingState(context: context);
-    (await _repository.getUserData()).fold(
-        (failure) => {
-              errorState(context: context, message: failure.message),
-            }, (data) {
-      userModel = data;
-      hideState(context: context);
-    });
-  }
 }

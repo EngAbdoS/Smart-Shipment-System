@@ -54,7 +54,7 @@ class RepositoryImplementation implements Repository {
       return Left(error);
     }, (data) {
       if (data.role == AppConstants.userRoleClient) {
-        return const Right(Routes.clientHomeRoute);
+        return const Right(Routes.mainClientViewRoute);
       } else if (data.role == AppConstants.deliveryRoleExternal) {
         return const Right(Routes.deliveryHomeRoute);
       } else if (data.role == AppConstants.deliveryRoleInternal) {
@@ -70,14 +70,9 @@ class RepositoryImplementation implements Repository {
       return Left(error);
     }, (response) async {
       if (response.status == ResponseMessage.SUCCESS) {
-        _localDataSource.setUserLogin(
-          response.token ?? "no token",
-          //  response.data?.userData?.role ?? AppConstants.userRoleNoRole
-        );
+        _localDataSource.setUserLogin(response.token ?? "no token");
         await reInitializeDio();
         await _remoteDataSource.reInitAppServiceClient();
-        print(response.token ?? "mo");
-
         return const Right(true);
       } else {
         return Left(ErrorHandler.handle(response).failure);

@@ -10,6 +10,7 @@ import 'package:smart_shipment_system/data/network/app_api.dart';
 import 'package:smart_shipment_system/data/network/dio_factory.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/data/repository/repository_implementation.dart';
+import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/domain/use_cases/client_registration_usecase.dart';
 import 'package:smart_shipment_system/domain/use_cases/login_usecase.dart';
@@ -24,6 +25,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/login/ViewMod
 import 'package:smart_shipment_system/presentation/authenticathion/verification/viewModel/verificationViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/home/view/clientHomeView.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
+import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
 
 final instance = GetIt.instance;
 
@@ -69,10 +71,19 @@ reInitializeDio() async {
 
 }
 
-initClientHomeModule() {
+
+
+
+initClientHomeModule(UserModel userData) {
   if (!GetIt.I.isRegistered<ClientHomeViewModel>()) {
     instance.registerLazySingleton<ClientHomeViewModel>(
-        () => ClientHomeViewModel(instance()));
+            () => ClientHomeViewModel(instance(),userData));
+  }
+}
+initMainClientModule() {
+  if (!GetIt.I.isRegistered<MainClientViewModel>()) {
+    instance.registerLazySingleton<MainClientViewModel>(
+            () => MainClientViewModel(instance()));
   }
 }
 

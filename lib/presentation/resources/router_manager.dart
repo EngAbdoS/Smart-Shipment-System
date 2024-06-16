@@ -16,6 +16,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/forgetPasswor
 import 'package:smart_shipment_system/presentation/authenticathion/login/view/loginView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/verification/view/verificationView.dart';
 import 'package:smart_shipment_system/presentation/client/home/view/clientHomeView.dart';
+import 'package:smart_shipment_system/presentation/client/main/view/mainClientView.dart';
 import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
 import 'package:smart_shipment_system/presentation/resources/page_transition_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -26,6 +27,7 @@ class Routes {
   static const String noRoute = "/noRoute";
   static const String deliveryHomeRoute = "/deliveryHome";
   static const String clientHomeRoute = "/clientHome";
+  static const String mainClientViewRoute = "/mainClientView";
   static const String onBoardingViewRoute = "/onBoardingView";
   static const String loginViewRoute = "/loginView";
   static const String authViewRoute = "/authView";
@@ -50,12 +52,21 @@ class Routes {
 abstract class AppRouter {
   static final router = GoRouter(
     routes: [
+      // GoRoute(
+      //   path: Routes.clientHomeRoute,
+      //   pageBuilder: (context, state) {
+      //     initClientHomeModule();
+      //     return customPageTransition(
+      //         state.pageKey, ClientHomeView(), fadeTransitionGlobal);
+      //   },
+      // ),
+      //
       GoRoute(
-        path: Routes.clientHomeRoute,
+        path: Routes.mainClientViewRoute,
         pageBuilder: (context, state) {
-          initClientHomeModule();
+          initMainClientModule();
           return customPageTransition(
-              state.pageKey, ClientHomeView(), fadeTransitionGlobal);
+              state.pageKey, MainClientView(), fadeTransitionGlobal);
         },
       ),
       GoRoute(
