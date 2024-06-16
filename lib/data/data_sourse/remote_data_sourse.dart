@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/data/network/app_api.dart';
 import 'package:smart_shipment_system/data/network/error_handler.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
@@ -31,13 +32,29 @@ abstract class RemoteDataSource {
 
   Future<Either<Failure, String>> uploadPhoto(
       String imagePath, String refPath, String userEmail);
+  reInitAppServiceClient();
 }
 
 class RemoteDataSourceImplementation implements RemoteDataSource {
   RemoteDataSourceImplementation(this._appServiceClient, this._firebaseStorage);
 
-  final AppServiceClient _appServiceClient;
+  AppServiceClient _appServiceClient;
   final FirebaseStorage _firebaseStorage;
+
+  @override
+  reInitAppServiceClient() async{
+    _appServiceClient = instance<AppServiceClient>();
+  }
+
+  @override
+  Future<Either<Failure, MeDataResponse>> getUserData() async {
+    try {
+      var result = await _appServiceClient.getUserData();
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
 
   @override
   Future<Either<Failure, AuthenticationResponse>> login(
@@ -115,16 +132,6 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
     try {
       var result = await _appServiceClient.unorganizedDeliveryRegistration(
           unorganizedDeliveryRegistrationRequest);
-      return Right(result);
-    } catch (error) {
-      return Left(ErrorHandler.handle(error).failure);
-    }
-  }
-
-  @override
-  Future<Either<Failure, MeDataResponse>> getUserData() async {
-    try {
-      var result = await _appServiceClient.getUserData();
       return Right(result);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);

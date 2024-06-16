@@ -5,7 +5,7 @@ const CACHE_USER_DATA_INTRVAL = 60 * 1000;
 abstract class CacheDataSource {
 
   void putDataToCache(String key, dynamic data);
-  Future<dynamic> getDataFromCache(String key);
+  Future<CachedItem> getDataFromCache(String key);
  void clearCache();
   void removeFromCache(String key);
 }
@@ -20,8 +20,12 @@ class CacheDataSourceImplementation implements CacheDataSource {
   }
 
   @override
-  Future getDataFromCache(String key) async{
-  return await cacheMap[key]?.data;
+  Future<CachedItem> getDataFromCache(String key) async{
+  return  cacheMap[key]??CachedItem(
+
+
+    null
+  );
   }
 
   @override
@@ -50,9 +54,9 @@ class CachedItem {
 }
 
 extension CachedItemExtension on CachedItem {
-  bool isValid(int expirationTime) {
+  bool isValid({int expirationTime=CACHE_USER_DATA_INTRVAL}) {
     int currentTime = DateTime.now().millisecondsSinceEpoch;
     bool isValid = currentTime - cacheTime <= expirationTime;
-    return isValid;
+    return isValid&&data!=null;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
+import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/data/data_sourse/local_data_sourse.dart';
 import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
 import 'package:smart_shipment_system/data/mappers/mappers.dart';
@@ -67,12 +68,16 @@ class RepositoryImplementation implements Repository {
   Future<Either<Failure, bool>> login(LoginRequest loginRequest) async {
     return await (await _remoteDataSource.login(loginRequest)).fold((error) {
       return Left(error);
-    }, (response) {
+    }, (response) async {
       if (response.status == ResponseMessage.SUCCESS) {
         _localDataSource.setUserLogin(
           response.token ?? "no token",
           //  response.data?.userData?.role ?? AppConstants.userRoleNoRole
         );
+        await reInitializeDio();
+        await _remoteDataSource.reInitAppServiceClient();
+        print(response.token ?? "mo");
+
         return const Right(true);
       } else {
         return Left(ErrorHandler.handle(response).failure);
@@ -82,20 +87,23 @@ class RepositoryImplementation implements Repository {
 
   @override
   Future<Either<Failure, UserModel>> getUserData() async {
-    return await (await _remoteDataSource.getUserData()).fold((error) {
-      return Left(error);
-    }, (response) {
-      if (response.status == ResponseMessage.SUCCESS) {
-        var userData = response.dataResponse?.userResponse.toDomain();
-        _localDataSource.saveUserDataToCache(userData!);
+    return await (await _localDataSource.getUserData()).fold(
+        (noLocalData) async {
+      return await (await _remoteDataSource.getUserData()).fold((error) {
+        return Left(error);
+      }, (response) {
+        if (response.status == ResponseMessage.SUCCESS) {
+          var userData = response.dataResponse?.userResponse.toDomain();
+          _localDataSource.saveUserDataToCache(userData!);
 
-        _localDataSource
-            .setUserRole(userData.role ?? AppConstants.userRoleNoRole);
-        return Right(userData);
-      } else {
-        return Left(ErrorHandler.handle(response).failure);
-      }
-    });
+          _localDataSource
+              .setUserRole(userData.role ?? AppConstants.userRoleNoRole);
+          return Right(userData);
+        } else {
+          return Left(ErrorHandler.handle(response).failure);
+        }
+      });
+    }, (data) => right(data));
   }
 
   @override

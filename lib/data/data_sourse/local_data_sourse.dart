@@ -1,7 +1,8 @@
+import 'package:dartz/dartz.dart';
 import 'package:smart_shipment_system/app/app_preferances.dart';
-import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/data/data_sourse/cache_data_sourse.dart';
 import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
+import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 
 abstract class LocalDataSource {
@@ -22,6 +23,8 @@ abstract class LocalDataSource {
   void saveUserDataToCache(UserModel userData);
 
   void setOnBoardingVied();
+
+  Future<Either<bool, UserModel>> getUserData();
 //TODO get user data
 // checks is cache data valid if not call remote data source
 }
@@ -71,6 +74,7 @@ class LocalDataSourceImplementation implements LocalDataSource {
   @override
   void setUserToken(String token) {
     _appPreferences.setUserToken(token);
+
   }
 
   @override
@@ -81,5 +85,12 @@ class LocalDataSourceImplementation implements LocalDataSource {
   @override
   String getUserToken() {
     return _appPreferences.getUserToken();
+  }
+
+  @override
+  Future<Either<bool, UserModel>> getUserData() async {
+    CachedItem data =
+        await _cacheDataSource.getDataFromCache(CACHE_USER_DATA_KEY);
+    return data.isValid() ? Right(data.data) : const Left(false);
   }
 }

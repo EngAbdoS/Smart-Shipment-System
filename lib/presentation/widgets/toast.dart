@@ -5,7 +5,9 @@ import 'package:smart_shipment_system/presentation/resources/color_manager.dart'
 
 toastWidgetC(BuildContext context, String message) {
   FToast().init(context).showToast(
-        child: toastWidget(message),
+        child: Container(
+          child: toastWidget(message),
+        ),
       );
 }
 

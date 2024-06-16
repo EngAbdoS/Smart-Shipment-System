@@ -1,13 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
+import 'package:smart_shipment_system/app/dependancy_injection.dart';
+import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/profilePicture.dart';
 
-class ClientHomeView extends StatelessWidget {
-  const ClientHomeView({super.key});
+class ClientHomeView extends StatefulWidget {
+   const ClientHomeView({super.key});
+
+  @override
+  State<ClientHomeView> createState() => _ClientHomeViewState();
+}
+
+class _ClientHomeViewState extends State<ClientHomeView> {
+final ClientHomeViewModel _viewModel = instance<ClientHomeViewModel>();
+
+@override
+  void initState() {
+//  await _viewModel.userData(context);
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +31,7 @@ class ClientHomeView extends StatelessWidget {
           SliverAppBar(
             backgroundColor: ColorManager.primary,
             actions: [
-              StudentProfileCirclerImage(),
+              StudentProfileCirclerImage(imageUrl: "_viewModel.userModel!.email",),
               Spacer(),
               IconButton(
                 onPressed: () {},

@@ -22,6 +22,8 @@ import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegis
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/viewModel/forgetPasswordViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/ViewModel/loginViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/verification/viewModel/verificationViewModel.dart';
+import 'package:smart_shipment_system/presentation/client/home/view/clientHomeView.dart';
+import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 
 final instance = GetIt.instance;
 
@@ -32,6 +34,7 @@ Future<void> initAppModule() async {
   instance
       .registerLazySingleton<AppPreferences>(() => AppPreferences(instance()));
   instance.registerLazySingleton<DioFactory>(() => DioFactory(instance()));
+
   Dio dio = await instance<DioFactory>().getDio();
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
 
@@ -44,11 +47,33 @@ Future<void> initAppModule() async {
       () => CacheDataSourceImplementation());
   instance.registerLazySingleton<LocalDataSource>(
       () => LocalDataSourceImplementation(instance(), instance(), instance()));
-
   instance.registerLazySingleton<Repository>(
       () => RepositoryImplementation(instance(), instance()));
   instance.registerLazySingleton<SplashNavigationUseCase>(
       () => SplashNavigationUseCase(instance()));
+}
+
+reInitializeDio() async {
+  Dio dio = await instance<DioFactory>().getDio();
+  instance.unregister<AppServiceClient>();
+  // instance.unregister<RemoteDataSource>();
+  // instance.unregister<LocalDataSource>();
+  // instance.unregister<Repository>();
+  instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
+  // instance.registerLazySingleton<RemoteDataSource>(
+  //         () => RemoteDataSourceImplementation(instance(), instance()));
+  // instance.registerLazySingleton<LocalDataSource>(
+  //         () => LocalDataSourceImplementation(instance(), instance(), instance()));
+  // instance.registerLazySingleton<Repository>(
+  //         () => RepositoryImplementation(instance(), instance()));
+
+}
+
+initClientHomeModule() {
+  if (!GetIt.I.isRegistered<ClientHomeViewModel>()) {
+    instance.registerLazySingleton<ClientHomeViewModel>(
+        () => ClientHomeViewModel(instance()));
+  }
 }
 
 initLoginModule() {
@@ -60,7 +85,7 @@ initLoginModule() {
     instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
 
     instance.registerLazySingleton<LoginViewModel>(
-        () => LoginViewModel(instance(),instance()));
+        () => LoginViewModel(instance(), instance()));
   }
 }
 
@@ -94,13 +119,15 @@ initForgotPasswordModule() {
 initChangePasswordModule(String otp) {
   if (!GetIt.I.isRegistered<ChangePasswordViewModel>()) {
     instance.registerLazySingleton<ChangePasswordViewModel>(
-        () => ChangePasswordViewModel(instance(),otp));
+        () => ChangePasswordViewModel(instance(), otp));
   }
 }
 
-initEmailVerificationModule(String email, String nextActionRoute,bool executeOrRouteOnly) {
+initEmailVerificationModule(
+    String email, String nextActionRoute, bool executeOrRouteOnly) {
   if (!GetIt.I.isRegistered<EmailVerificationViewModel>()) {
-    instance.registerLazySingleton<EmailVerificationViewModel>(
-        () => EmailVerificationViewModel(instance(), email, nextActionRoute,executeOrRouteOnly));
+    instance.registerLazySingleton<EmailVerificationViewModel>(() =>
+        EmailVerificationViewModel(
+            instance(), email, nextActionRoute, executeOrRouteOnly));
   }
 }

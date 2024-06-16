@@ -52,33 +52,42 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: Routes.clientHomeRoute,
-        pageBuilder: (context, state) => customPageTransition(
-            state.pageKey, ClientHomeView(), fadeTransitionGlobal),
+        pageBuilder: (context, state) {
+          initClientHomeModule();
+          return customPageTransition(
+              state.pageKey, ClientHomeView(), fadeTransitionGlobal);
+        },
       ),
       GoRoute(
         path: Routes.splashRoute,
-        pageBuilder: (context, state) => customPageTransition(
-            state.pageKey, SplashScreenView(), fadeTransitionGlobal),
+        pageBuilder: (context, state) =>
+            customPageTransition(
+                state.pageKey, SplashScreenView(), fadeTransitionGlobal),
       ),
       GoRoute(
         path: Routes.onBoardingViewRoute,
-        pageBuilder: (context, state) => customPageTransition(
-            state.pageKey, OnBoardingView(), fadeTransitionGlobal),
+        pageBuilder: (context, state) =>
+            customPageTransition(
+                state.pageKey, OnBoardingView(), fadeTransitionGlobal),
       ),
       GoRoute(
         path: Routes.authViewRoute,
-        pageBuilder: (context, state) => customPageTransition(
-            state.pageKey, const AuthenticationView(), fadeTransitionGlobal),
+        pageBuilder: (context, state) =>
+            customPageTransition(
+                state.pageKey, const AuthenticationView(),
+                fadeTransitionGlobal),
       ),
       GoRoute(
         path: Routes.deliveryAuthViewRoute,
-        pageBuilder: (context, state) => customPageTransition(
-            state.pageKey, const DeliveryAuthView(), fadeTransitionGlobal),
+        pageBuilder: (context, state) =>
+            customPageTransition(
+                state.pageKey, const DeliveryAuthView(), fadeTransitionGlobal),
       ),
       GoRoute(
         path: Routes.clientAuthViewRoute,
-        pageBuilder: (context, state) => customPageTransition(
-            state.pageKey, const ClientAuthView(), fadeTransitionGlobal),
+        pageBuilder: (context, state) =>
+            customPageTransition(
+                state.pageKey, const ClientAuthView(), fadeTransitionGlobal),
       ),
       GoRoute(
         path: Routes.loginViewRoute,
@@ -164,21 +173,23 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: Routes.noRoute,
-        pageBuilder: (context, state) => CustomTransitionPage<void>(
-          transitionDuration: const Duration(
-              milliseconds: AppConstants.transitionDurationMillySeconds),
-          key: state.pageKey,
-          child: Scaffold(
-            appBar: AppBar(
-              title: const Text(AppStrings.noRouteFound),
+        pageBuilder: (context, state) =>
+            CustomTransitionPage<void>(
+              transitionDuration: const Duration(
+                  milliseconds: AppConstants.transitionDurationMillySeconds),
+              key: state.pageKey,
+              child: Scaffold(
+                appBar: AppBar(
+                  title: const Text(AppStrings.noRouteFound),
+                ),
+                body: const Center(
+                  child: Text(AppStrings.noRouteFound),
+                ),
+              ),
+              transitionsBuilder: (context, animation, secondaryAnimation,
+                  child) =>
+                  FadeTransition(opacity: animation, child: child),
             ),
-            body: const Center(
-              child: Text(AppStrings.noRouteFound),
-            ),
-          ),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              FadeTransition(opacity: animation, child: child),
-        ),
       ),
     ],
   );
