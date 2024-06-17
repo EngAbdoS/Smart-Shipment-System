@@ -196,4 +196,8 @@ class RepositoryImplementation implements Repository {
       }
     });
   }
+
+  @override
+  void logout() {
+_localDataSource.logout();  }
 }

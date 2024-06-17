@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
@@ -227,7 +225,7 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
 
   Widget logoutWidget() {
     return GestureDetector(
-      onTap: () => {},
+      onTap: () => _viewModel.logout(context),
       child: Container(
         width: double.maxFinite,
         padding: const EdgeInsets.all(14),
@@ -252,10 +250,8 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(AppStrings.logout,
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelSmall!
-                            .copyWith(color: ColorManager.black, fontSize: 17))
+                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                            color: ColorManager.primary, fontSize: 17))
                     .tr(),
                 SizedBox(
                   height: 5.h,

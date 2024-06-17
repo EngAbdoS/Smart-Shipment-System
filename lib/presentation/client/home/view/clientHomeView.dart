@@ -1,10 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
@@ -39,31 +35,14 @@ class _ClientHomeViewState extends State<ClientHomeView> {
       slivers: [
         buildSliverAppBar(context),
         SliverList(
-          delegate: SliverChildListDelegate([
-            Align(
-              alignment: Alignment.topCenter,
-              child: activeShipmentList(),
-            )
-          ]),
-        ),
-        SliverList(
-          delegate: SliverChildListDelegate([
-            Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                height: 800,
-                width: double.maxFinite,
-                color: ColorManager.offWhite,
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    color: Colors.red,
-                    height: 700,
-                  ),
-                ),
+          delegate: SliverChildListDelegate(
+            [
+              Align(
+                alignment: Alignment.topCenter,
+                child: activeShipmentList(),
               ),
-            )
-          ]),
+            ],
+          ),
         ),
       ],
     );
@@ -79,13 +58,15 @@ class _ClientHomeViewState extends State<ClientHomeView> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(AppStrings.active_shipments,
-                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                        color: ColorManager.black,
-                        fontSize: 14,
-                      ),).tr(),
+              Text(
+                AppStrings.active_shipments,
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                      color: ColorManager.black,
+                      fontSize: 14,
+                    ),
+              ).tr(),
               TextButton(
-                onPressed: ()=>_viewModel.seeMore(),
+                onPressed: () => _viewModel.seeMore(),
                 child: Text(
                   AppStrings.see_more,
                   style: Theme.of(context)
@@ -112,6 +93,7 @@ class _ClientHomeViewState extends State<ClientHomeView> {
                     });
               }),
         ),
+        SizedBox(height: 40,)
       ],
     );
   }

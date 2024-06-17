@@ -24,6 +24,8 @@ abstract class LocalDataSource {
 
   void setOnBoardingVied();
 
+  void logout();
+
   Future<Either<bool, UserModel>> getUserData();
 //TODO get user data
 // checks is cache data valid if not call remote data source
@@ -74,7 +76,6 @@ class LocalDataSourceImplementation implements LocalDataSource {
   @override
   void setUserToken(String token) {
     _appPreferences.setUserToken(token);
-
   }
 
   @override
@@ -92,5 +93,11 @@ class LocalDataSourceImplementation implements LocalDataSource {
     CachedItem data =
         await _cacheDataSource.getDataFromCache(CACHE_USER_DATA_KEY);
     return data.isValid() ? Right(data.data) : const Left(false);
+  }
+
+  @override
+  void logout() {
+    _appPreferences.logout();
+    _cacheDataSource.removeFromCache(CACHE_USER_DATA_KEY);
   }
 }

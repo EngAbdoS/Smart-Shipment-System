@@ -26,4 +26,5 @@ abstract class Repository {
 
   Future<Either<Failure, bool>> resetPassword(
       ResetPasswordRequest resetPasswordRequest);
+  void logout();
 }

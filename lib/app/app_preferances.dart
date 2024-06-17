@@ -42,6 +42,8 @@ class AppPreferences {
 
   logout() {
     _sharedPreferences.remove(PREFS_KEY_IS_USER_LOGGED_IN);
+    _sharedPreferences.remove(PREFS_KEY_USER_ROLE);
+    _sharedPreferences.remove(PREFS_KEY_USER_TOKEN);
   }
 
 ///////////////////on boarding////////////////////////

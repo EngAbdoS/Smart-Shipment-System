@@ -36,10 +36,9 @@ class MainClientViewModel {
   List<Widget> widgetList() => [
 
         const ClientHomeView(),
-        Container(
-          color: Colors.red,
-        ),
-    Container(color: Colors.red),
+
+    Container(color: Colors.red,child: Center(child: Text("حمرا")),),
+    Container(color: Colors.red,child: Center(child: Text("حمرا")),),
     //Container(color: Colors.red),
         ClientUserProfileView()
       ];

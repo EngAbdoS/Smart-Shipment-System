@@ -1,6 +1,7 @@
+import 'package:go_router/go_router.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
-import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
+import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 
 class ClientUserProfileViewModel //extends MainClientViewModel
 {
@@ -12,6 +13,8 @@ class ClientUserProfileViewModel //extends MainClientViewModel
 
 
 
-
-
+void logout(dynamic context) {
+  _repository.logout();
+  GoRouter.of(context).pushReplacement(Routes.loginViewRoute);
+}
 }
