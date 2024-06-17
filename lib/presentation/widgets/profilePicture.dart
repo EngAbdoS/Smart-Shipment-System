@@ -1,16 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:smart_shipment_system/app/dependancy_injection.dart';
-import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 
 class StudentProfileCirclerImage extends StatelessWidget {
-  StudentProfileCirclerImage(
+  const StudentProfileCirclerImage(
       {super.key, this.size = 64, required this.imageUrl});
 
-//final Repository _repository=instance<Repository>();
   final double size;
   final String imageUrl;
 
@@ -22,19 +19,21 @@ class StudentProfileCirclerImage extends StatelessWidget {
           height: size,
           width: size,
           imageBuilder: (context, imageProvider) => FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Container(
-              height: size ,
-              width: size ,
+                fit: BoxFit.scaleDown,
+                child: Container(
+                  height: size,
+                  width: size,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: ColorManager.white,
                     border: Border.all(color: ColorManager.white),
                     image: DecorationImage(
-                        image: imageProvider, fit: BoxFit.cover,),
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-          ),
+              ),
           placeholder: (context, url) => const Center(
                 child: CircularProgressIndicator(
                   color: Colors.white,
@@ -45,8 +44,8 @@ class StudentProfileCirclerImage extends StatelessWidget {
           //Uri.parse("https://static3.bigstockphoto.com/9/1/3/large1500/31903202.jpg").toString(),
           errorWidget: (context, url, error) {
             return Container(
-              height: size ,
-              width: size ,
+              height: size,
+              width: size,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(color: ColorManager.white, width: 2),
@@ -56,8 +55,8 @@ class StudentProfileCirclerImage extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 child: SvgPicture.asset(
                   SVGAssets.noProfilePic,
-                  height: size*0.7,
-                  width: size*0.7,
+                  height: size * 0.7,
+                  width: size * 0.7,
                 ),
               ),
             );

@@ -1,0 +1,37 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+class ShipmentModel {
+
+  String id;
+  String date;
+
+  String type;
+  String recipentName;
+  String reciepentPhone;
+  String senderName;
+  String senderPhone;
+  LatLng startLoc;
+  LatLng currentLoc;
+  LatLng endLoc;
+
+  String endLocation;
+  String weight;
+  int quantity;
+  String description;
+
+  ShipmentModel(
+      {required this.id,  required this.date,
+
+        required this.type,
+      required this.recipentName,
+      required this.reciepentPhone,
+      required this.senderName,
+      required this.senderPhone,
+      required this.startLoc,
+      required this.currentLoc,
+      required this.endLoc,
+      required this.endLocation,
+      required this.weight,
+      required this.quantity,
+      required this.description});
+}
