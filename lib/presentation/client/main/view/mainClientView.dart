@@ -32,6 +32,7 @@ class _MainClientViewState extends State<MainClientView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.offWhite,
         body: StreamBuilder<Widget?>(
       stream: _viewModel.outputMainStream,
       builder: (context, snapshot) {

@@ -66,7 +66,7 @@ abstract class AppRouter {
         pageBuilder: (context, state) {
           initMainClientModule();
           return customPageTransition(
-              state.pageKey, MainClientView(), fadeTransitionGlobal);
+              state.pageKey,const MainClientView(), fadeTransitionGlobal);
         },
       ),
       GoRoute(

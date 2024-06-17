@@ -24,10 +24,9 @@ class MainClientViewModel {
 
   Sink get inputMainStream => _mainStream.sink;
 
-  List<Widget> widgetList = [const ClientHomeView()];
+  List<Widget> widgetList() => [ClientHomeView()];
 
-  List widgetInitialization(UserModel userData) =>
-      [initClientHomeModule(userData)];
+  List<Function> widgetInitialization = [initClientHomeModule];
 
   void start(dynamic context) async {
     await changeWidget(context, pageViewIndex);
@@ -46,9 +45,10 @@ class MainClientViewModel {
 
   changeWidget(dynamic context, int widget) async {
     pageViewIndex = widget;
-    await getUserData(context).then((userModel) {
-      widgetInitialization(this.userModel!)[widget];
-      inputMainStream.add(widgetList[widget]);
-    });
+    await getUserData(context);
+//widget==0?initClientHomeModule(userModel!):{};
+    widgetInitialization[widget](userModel!);
+
+    inputMainStream.add(widgetList()[widget]);
   }
 }

@@ -75,6 +75,7 @@ reInitializeDio() async {
 
 
 initClientHomeModule(UserModel userData) {
+  print("innn");
   if (!GetIt.I.isRegistered<ClientHomeViewModel>()) {
     instance.registerLazySingleton<ClientHomeViewModel>(
             () => ClientHomeViewModel(instance(),userData));

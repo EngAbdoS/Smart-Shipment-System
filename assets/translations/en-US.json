@@ -103,7 +103,14 @@
   "gov_state_hint": "ادخل منطقتك الجغرافية",
   "gov_state_add": "اضافة المنطقة الجغرافية",
   "success_verified": "تم التحقق بنجاح",
+  "good_morning": "صباح الخير",
 
+  "track_your_shipment": "تتبع الشحنة بتاعتك",
+  "track_your_shipment_hint": "ممكن تدخل رقم شحنتك",
+  "shipment_number": "رقم الشحنة",
+  "shipment_not_found": "شحنة غير موجودة",
+  "active_shipments": "المعاملات النشطة",
+  "see_more": "رؤية المزيد",
 
 
 

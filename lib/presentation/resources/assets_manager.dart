@@ -51,6 +51,7 @@ class JsonAssets {
   static const String trac = "$JSON_PATH/trac.json";
   static const String error = "$JSON_PATH/erro.json";
   static const String loadingBasic = "$JSON_PATH/loading.json";
+  static const String clientMain = "$JSON_PATH/clientMain.json";
 
 
 }

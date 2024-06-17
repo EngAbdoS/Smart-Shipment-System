@@ -110,6 +110,13 @@ class AppStrings {
   static const govStateHint = "gov_state_hint";
   static const govStateAdd = "gov_state_add";
   static const successVerified =  "success_verified";
+  static const goodMorning = "good_morning";
+  static const track_your_shipment="track_your_shipment";
+  static const track_your_shipment_hint="track_your_shipment_hint";
+  static const shipment_number="shipment_number";
+  static const shipment_not_found="shipment_not_found";
+  static const active_shipments="active_shipments";
+  static const see_more="see_more";
 
   // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";
