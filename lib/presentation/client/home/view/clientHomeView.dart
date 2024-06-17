@@ -45,6 +45,7 @@ class ClientHomeView extends StatelessWidget {
                 ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       AppStrings.goodMorning,
@@ -55,7 +56,7 @@ class ClientHomeView extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .labelSmall!
-                          .copyWith(color: ColorManager.black),
+                          .copyWith(color: ColorManager.black,fontSize: 17),
                     ).tr(),
                   ],
                 ),
@@ -82,7 +83,7 @@ class ClientHomeView extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.only(top: 160),
+                padding: const EdgeInsets.only(top: 160),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -137,11 +138,11 @@ class ClientHomeView extends StatelessWidget {
               child: Container( color:ColorManager.offWhite,
                 child: ListView.builder(
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: 10,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Container(
                           height: 50,
                           width: 30,
@@ -189,9 +190,9 @@ Widget shipmentSearch() {
         // border: Border.all(color: ColorManager.primary, width: 1),
         boxShadow: [
           BoxShadow(
-            color: ColorManager.gray.withOpacity(0.25),
-            blurRadius: 16,
-            offset: Offset(2, 8),
+            color: ColorManager.black.withOpacity(0.15),
+            blurRadius: 25,
+            offset: const Offset(2, 8),
           )
         ],
       ),
@@ -200,18 +201,18 @@ Widget shipmentSearch() {
         keyboardType: TextInputType.number,
         controller: shipmentTextEditing,
         decoration: InputDecoration(
-            prefixIcon: Icon(
+            prefixIcon: const Icon(
               Icons.search_sharp,
               weight: 100,
               color: ColorManager.black,
             ),
-            enabledBorder: OutlineInputBorder(
+            enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: ColorManager.inputField, width: 0),
               borderRadius: BorderRadius.all(
                 Radius.circular(24),
               ),
             ),
-            focusedBorder: OutlineInputBorder(
+            focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: ColorManager.primary, width: 0),
               borderRadius: BorderRadius.all(
                 Radius.circular(24),

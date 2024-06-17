@@ -7,64 +7,61 @@ import 'package:smart_shipment_system/presentation/resources/assets_manager.dart
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 
 class StudentProfileCirclerImage extends StatelessWidget {
-   StudentProfileCirclerImage({super.key, this.size = 60, required this.imageUrl});
+  StudentProfileCirclerImage(
+      {super.key, this.size = 64, required this.imageUrl});
+
 //final Repository _repository=instance<Repository>();
   final double size;
   final String imageUrl;
 
-
-   @override
+  @override
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () async {},
-      icon: Padding(
-        padding: const EdgeInsets.all(0.0),
-        child: CachedNetworkImage(
-            //fit: BoxFit.cover,
-            height: size,
-            width: size,
-            imageBuilder: (context, imageProvider) => Container(
-                  // width: size,
-                  // height: size,
+      icon: CachedNetworkImage(
+          height: size,
+          width: size,
+          imageBuilder: (context, imageProvider) => FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Container(
+              height: size ,
+              width: size ,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,color: ColorManager.white,
-
+                    shape: BoxShape.circle,
+                    color: ColorManager.white,
                     border: Border.all(color: ColorManager.white),
                     image: DecorationImage(
-                        image: imageProvider, fit: BoxFit.cover),
+                        image: imageProvider, fit: BoxFit.cover,),
                   ),
                 ),
-            placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                  ),
+          ),
+          placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
                 ),
-            imageUrl:imageUrl,
-              //  "https://static3.bigstockphoto.com/9/1/3/large1500/31903202.jpg",
-            //Uri.parse("https://static3.bigstockphoto.com/9/1/3/large1500/31903202.jpg").toString(),
-            errorWidget: (context, url, error) {
-
-              return Container(
-                height: size+5,
-                width:size +5,
-
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: ColorManager.white,width: 2),
-color: ColorManager.white,
-                ),
+              ),
+          imageUrl: imageUrl,
+          //  "https://static3.bigstockphoto.com/9/1/3/large1500/31903202.jpg",
+          //Uri.parse("https://static3.bigstockphoto.com/9/1/3/large1500/31903202.jpg").toString(),
+          errorWidget: (context, url, error) {
+            return Container(
+              height: size ,
+              width: size ,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: ColorManager.white, width: 2),
+                color: ColorManager.white,
+              ),
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
                 child: SvgPicture.asset(
-                  //clipBehavior: Clip.antiAlias,
                   SVGAssets.noProfilePic,
-                  fit: BoxFit.contain,
-                  // height: size,
-                  // width: size,
+                  height: size*0.7,
+                  width: size*0.7,
                 ),
-
-              );
-
-            }),
-      ),
+              ),
+            );
+          }),
     );
   }
 }
