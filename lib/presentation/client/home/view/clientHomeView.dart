@@ -10,6 +10,7 @@ import 'package:smart_shipment_system/presentation/resources/color_manager.dart'
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/profilePicture.dart';
 import 'package:lottie/lottie.dart';
+
 class ClientHomeView extends StatelessWidget {
   ClientHomeView({super.key});
 
@@ -18,17 +19,18 @@ class ClientHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+
       physics: const BouncingScrollPhysics(
         parent: AlwaysScrollableScrollPhysics(),
       ),
       slivers: [
         SliverAppBar(
-          pinned: true,
+          pinned: false,
           expandedHeight: 491.w,
           collapsedHeight: 100,
           stretch: true,
-          snap: false,
-          floating: false,
+          snap: true,
+          floating: true,
           shape: const ContinuousRectangleBorder(
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(30),
@@ -99,20 +101,16 @@ class ClientHomeView extends StatelessWidget {
                     ).tr(),
                     shipmentSearch(),
 
-                    Align(                        alignment: Alignment.bottomCenter,
-
+                    Align(
+                      alignment: Alignment.bottomCenter,
                       child: ClipRRect(
-
-                          borderRadius: BorderRadius.circular(5),
-
-
+                        borderRadius: BorderRadius.circular(5),
                         child: Lottie.asset(
                           JsonAssets.clientMain,
-                        alignment: Alignment.bottomCenter,
+                          alignment: Alignment.bottomCenter,
                           width: double.maxFinite,
                           height: 300.h,
                           fit: BoxFit.fill,
-
                         ),
                       ),
                     )
@@ -132,13 +130,37 @@ class ClientHomeView extends StatelessWidget {
           ),
         ),
         SliverList(
+
+          delegate: SliverChildListDelegate([
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container( color:ColorManager.offWhite,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Container(
+                          height: 50,
+                          width: 30,
+                          color: Colors.cyan,
+                        ),
+                      );
+                    }),
+              ),
+            )
+          ]),
+        ),
+        SliverList(
           delegate: SliverChildListDelegate([
             Align(
               alignment: Alignment.topCenter,
               child: Container(
                 height: 800,
                 width: double.maxFinite,
-                color: Colors.lightBlue.withOpacity(0.1),
+                color:ColorManager.offWhite,
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: Container(

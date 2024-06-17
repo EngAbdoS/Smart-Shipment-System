@@ -10,23 +10,34 @@ import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
 import '../../../widgets/loadingState.dart';
 
 class MainClientViewModel {
+  MainClientViewModel(this._repository);
+
   final Repository _repository;
-
   UserModel? userModel;
-
-  final StreamController _mainStream = BehaviorSubject<Widget?>();
   int pageViewIndex = 0;
 
-  MainClientViewModel(this._repository);
+  final StreamController _mainStream = BehaviorSubject<Widget?>();
+  final StreamController _mainIndexStream = BehaviorSubject<int?>();
 
   Stream<Widget?> get outputMainStream =>
       _mainStream.stream.map((widget) => widget);
 
+  Stream<int?> get outputMainIndexStream =>
+      _mainIndexStream.stream.map((index) => index);
+
   Sink get inputMainStream => _mainStream.sink;
 
-  List<Widget> widgetList() => [ClientHomeView()];
+  Sink get inputMainIndexStream => _mainIndexStream.sink;
 
-  List<Function> widgetInitialization = [initClientHomeModule];
+  List<Widget> widgetList() =>
+      [ClientHomeView(), Container(), Container(), Container()];
+
+  List<Function> widgetInitialization = [
+    initClientHomeModule,
+    initClientHomeModule,
+    initClientHomeModule,
+    initClientHomeModule
+  ];
 
   void start(dynamic context) async {
     await changeWidget(context, pageViewIndex);
@@ -46,9 +57,8 @@ class MainClientViewModel {
   changeWidget(dynamic context, int widget) async {
     pageViewIndex = widget;
     await getUserData(context);
-//widget==0?initClientHomeModule(userModel!):{};
     widgetInitialization[widget](userModel!);
-
     inputMainStream.add(widgetList()[widget]);
+    inputMainIndexStream.add(widget);
   }
 }
