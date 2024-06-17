@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
@@ -14,7 +15,7 @@ import 'package:smart_shipment_system/presentation/widgets/profilePicture.dart';
 import 'package:lottie/lottie.dart';
 
 class ClientHomeView extends StatefulWidget {
-  ClientHomeView({super.key});
+  const ClientHomeView({super.key});
 
   @override
   State<ClientHomeView> createState() => _ClientHomeViewState();
@@ -82,9 +83,9 @@ class _ClientHomeViewState extends State<ClientHomeView> {
                   style: Theme.of(context).textTheme.labelSmall!.copyWith(
                         color: ColorManager.black,
                         fontSize: 14,
-                      )).tr(),
+                      ),).tr(),
               TextButton(
-                onPressed: () {},
+                onPressed: ()=>_viewModel.seeMore(),
                 child: Text(
                   AppStrings.see_more,
                   style: Theme.of(context)
@@ -193,9 +194,11 @@ class _ClientHomeViewState extends State<ClientHomeView> {
       snap: true,
       floating: true,
       shape: const ContinuousRectangleBorder(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30))),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(30),
+          bottomRight: Radius.circular(30),
+        ),
+      ),
       backgroundColor: ColorManager.primary,
       title: Container(
         padding: const EdgeInsets.only(bottom: 10),

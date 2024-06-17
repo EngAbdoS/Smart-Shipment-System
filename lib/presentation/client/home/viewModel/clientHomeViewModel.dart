@@ -14,8 +14,8 @@ class ClientHomeViewModel {
   ClientHomeViewModel(this._repository, this.userModel);
 
   final Repository _repository;
-  final UserModel userModel;
-
+  UserModel userModel;
+  bool isActiveShipmentListExpanded = true;
   final StreamController _activeShipmentListStreamController =
       BehaviorSubject<int?>();
 
@@ -24,12 +24,20 @@ class ClientHomeViewModel {
           .map((activeShipmentList) => activeShipmentList);
 
   Sink get inputActiveShipmentList => _activeShipmentListStreamController.sink;
-start(){
 
+  start() {
+    seeMore();
+  }
 
+  void seeMore() {
+    isActiveShipmentListExpanded
+        ? activeShipmentList.length >= 3
+            ? inputActiveShipmentList.add(3)
+            : inputActiveShipmentList.add(activeShipmentList.length)
+        : inputActiveShipmentList.add(activeShipmentList.length);
+    isActiveShipmentListExpanded = !isActiveShipmentListExpanded;
+  }
 
-  inputActiveShipmentList.add(activeShipmentList.length);
-}
   List<ShipmentModel> activeShipmentList = [
     ShipmentModel(
       id: "5266911",
