@@ -76,6 +76,26 @@
   "active_shipments": "المعاملات النشطة",
   "see_more": "رؤية المزيد",
 
+  "profile_settings":"اعدادات الملف الشخصي",
+  "general":"عام",
+
+  "edit_profile":"تعديل الملف الشخصي",
+  "profile_edits":"تغيير صورة الملف الشخصي,رقم الهاتف,البريد الالكتروني",
+  "profile_safety":"تحديث وتعزيز أمان الحساب",
+  "my_locations":"عناويني",
+  "add_card":"إضافة بطاقة",
+  "add_card_method":"الأمان إضافة طريقة الدفع",
+  "faves":"التفضيلات",
+  "notifications":"الإشعارات",
+  "edit_notifications":"تخصيص تفضيلات الإشعارات",
+  "fave_notifications":"تفضيلات الإشعارات",
+  "language": "اللغة",
+  "choose_language": "اختر لغتك",
+  "arabic": "العربية",
+  "english": "الإنجليزية",
+  "rate": "قيمنا",
+  "how_rate": "إلى أي مدى تحب تطبيقنا",
+  "safe_logout": "تسجيل الخروج آمن من الحساب",
 
 
 

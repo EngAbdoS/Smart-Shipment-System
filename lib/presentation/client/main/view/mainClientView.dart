@@ -1,6 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';

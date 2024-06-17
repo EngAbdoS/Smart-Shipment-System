@@ -118,6 +118,29 @@ class AppStrings {
   static const active_shipments="active_shipments";
   static const see_more="see_more";
 
+
+static const profile_settings=  "profile_settings";
+  static const general=  "general";
+static const edit_profile=  "edit_profile";
+static const profile_edits=  "profile_edits";
+static const profile_safety=  "profile_safety";
+static const my_locations=  "my_locations";
+static const add_card=  "add_card";
+static const add_card_method=  "add_card_method";
+static const faves=  "faves";
+static const notifications=  "notifications";
+static const edit_notifications=  "edit_notifications";
+static const fave_notifications=  "fave_notifications";
+static const language=  "language";
+static const choose_language=  "choose_language";
+static const arabic=  "arabic";
+static const english=  "english";
+static const rate=  "rate";
+static const how_rate=  "how_rate";
+static const safe_logout=  "safe_logout";
+
+
+
   // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";
   static const loading = "loading";
@@ -134,7 +157,7 @@ class AppStrings {
   static const photoGallery = "photo_from_galley";
   static const photoCamera = "photo_from_camera";
   static const home = "home";
-  static const notifications = "notification";
+  static const notification = "notification";
   static const search = "search";
   static const settings = "settings";
   static const services = "services";
