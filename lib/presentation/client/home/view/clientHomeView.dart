@@ -26,7 +26,7 @@ class _ClientHomeViewState extends State<ClientHomeView> {
 
   @override
   void initState() {
-    _viewModel.start();
+    _viewModel.startHomeView();
     super.initState();
   }
 
@@ -216,7 +216,7 @@ class _ClientHomeViewState extends State<ClientHomeView> {
                   style: Theme.of(context).textTheme.titleSmall,
                 ).tr(),
                 Text(
-                  _viewModel.userModel.userName,
+                  _viewModel.userHomeData.userName,
                   style: Theme.of(context)
                       .textTheme
                       .labelSmall!

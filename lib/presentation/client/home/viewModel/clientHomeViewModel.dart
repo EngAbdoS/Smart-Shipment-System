@@ -6,15 +6,17 @@ import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
+import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
 import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
 
-class ClientHomeViewModel {
-  ClientHomeViewModel(this._repository, this.userModel);
+class ClientHomeViewModel extends MainClientViewModel{
+  ClientHomeViewModel(this._repository,this.userHomeData) : super(_repository) ;
 
+
+  UserModel userHomeData;
   final Repository _repository;
-  UserModel userModel;
   bool isActiveShipmentListExpanded = true;
   final StreamController _activeShipmentListStreamController =
       BehaviorSubject<int?>();
@@ -25,7 +27,7 @@ class ClientHomeViewModel {
 
   Sink get inputActiveShipmentList => _activeShipmentListStreamController.sink;
 
-  start() {
+  startHomeView() {
     seeMore();
   }
 

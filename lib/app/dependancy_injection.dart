@@ -26,6 +26,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/verification/
 import 'package:smart_shipment_system/presentation/client/home/view/clientHomeView.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
+import 'package:smart_shipment_system/presentation/client/userProfile/viewModel/clientUserProfileViewModel.dart';
 
 final instance = GetIt.instance;
 
@@ -74,11 +75,16 @@ reInitializeDio() async {
 
 
 
-initClientHomeModule(UserModel userData) {
-  print("innn");
+initClientHomeModule(UserModel userModel) {
   if (!GetIt.I.isRegistered<ClientHomeViewModel>()) {
     instance.registerLazySingleton<ClientHomeViewModel>(
-            () => ClientHomeViewModel(instance(),userData));
+            () => ClientHomeViewModel(instance(),userModel));
+
+  }
+}initClientProfileModule(UserModel userModel) {
+  if (!GetIt.I.isRegistered<ClientUserProfileViewModel>()) {
+    instance.registerLazySingleton<ClientUserProfileViewModel>(
+            () => ClientUserProfileViewModel(instance(),userModel));
   }
 }
 initMainClientModule() {
