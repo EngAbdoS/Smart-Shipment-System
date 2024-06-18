@@ -30,16 +30,23 @@ class MainClientViewModel {
   Sink get inputMainStream => _mainStream.sink;
 
   Sink get inputMainIndexStream => _mainIndexStream.sink;
+
   void start(dynamic context) async {
     await changeWidget(context, pageViewIndex);
   }
-  List<Widget> widgetList() => [
 
+  List<Widget> widgetList() => [
         const ClientHomeView(),
 
-    Container(color: Colors.red,child: Center(child: Text("حمرا")),),
-    Container(color: Colors.red,child: Center(child: Text("حمرا")),),
-    //Container(color: Colors.red),
+        Container(
+          color: Colors.red,
+          child: Center(child: Text("حمرا")),
+        ),
+        Container(
+          color: Colors.red,
+          child: Center(child: Text("حمرا")),
+        ),
+        //Container(color: Colors.red),
         ClientUserProfileView()
       ];
 
@@ -49,8 +56,6 @@ class MainClientViewModel {
     initClientHomeModule,
     initClientProfileModule,
   ];
-
-
 
   Future getUserData(dynamic context) async {
     loadingState(context: context);

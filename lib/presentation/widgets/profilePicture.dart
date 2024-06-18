@@ -5,16 +5,17 @@ import 'package:smart_shipment_system/presentation/resources/assets_manager.dart
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 
 class StudentProfileCirclerImage extends StatelessWidget {
-  const StudentProfileCirclerImage(
-      {super.key, this.size = 64, required this.imageUrl});
+   const StudentProfileCirclerImage(
+      {super.key, this.size = 64, required this.imageUrl,required this.navigate});
 
   final double size;
   final String imageUrl;
+  final GestureTapCallback navigate;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () async {},
+      onPressed:()=>navigate(),
       icon: CachedNetworkImage(
           height: size,
           width: size,
@@ -39,8 +40,9 @@ class StudentProfileCirclerImage extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-          imageUrl: imageUrl,
-          //  "https://static3.bigstockphoto.com/9/1/3/large1500/31903202.jpg",
+          imageUrl:
+          //imageUrl,
+          "https://static3.bigstockphoto.com/9/1/3/large1500/31903202.jpg",
           //Uri.parse("https://static3.bigstockphoto.com/9/1/3/large1500/31903202.jpg").toString(),
           errorWidget: (context, url, error) {
             return Container(

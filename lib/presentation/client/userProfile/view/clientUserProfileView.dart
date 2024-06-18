@@ -292,8 +292,9 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const StudentProfileCirclerImage(
-          imageUrl: "_viewModel.userModel!.email",
+         StudentProfileCirclerImage(
+          imageUrl: _viewModel.userProfileData.email,
+          navigate:  (){},
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.start,

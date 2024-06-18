@@ -186,8 +186,9 @@ class _ClientHomeViewState extends State<ClientHomeView> {
         padding: const EdgeInsets.only(bottom: 10),
         child: Row(
           children: [
-            const StudentProfileCirclerImage(
-              imageUrl: "_viewModel.userModel!.email",
+             StudentProfileCirclerImage(
+              imageUrl: _viewModel.userHomeData.email,
+               navigate:()=>_viewModel.changeWidget(context, 3),
             ),
             Column(
               mainAxisSize: MainAxisSize.min,
