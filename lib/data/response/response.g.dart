@@ -68,6 +68,100 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
       'confirmedEmail': instance.isEmailConfirmed,
     };
 
+OrdersResponse _$OrdersResponseFromJson(Map<String, dynamic> json) =>
+    OrdersResponse(
+      (json['results'] as num?)?.toInt(),
+      json['data'] == null
+          ? null
+          : OrdersDataResponse.fromJson(json['data'] as Map<String, dynamic>),
+    )
+      ..statusCode = (json['statusCode'] as num?)?.toInt()
+      ..status = json['status'] as String?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$OrdersResponseToJson(OrdersResponse instance) =>
+    <String, dynamic>{
+      'statusCode': instance.statusCode,
+      'status': instance.status,
+      'message': instance.message,
+      'results': instance.resultsNumber,
+      'data': instance.data,
+    };
+
+OrdersDataResponse _$OrdersDataResponseFromJson(Map<String, dynamic> json) =>
+    OrdersDataResponse(
+      (json['orders'] as List<dynamic>?)
+          ?.map((e) => OrderResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$OrdersDataResponseToJson(OrdersDataResponse instance) =>
+    <String, dynamic>{
+      'orders': instance.orders,
+    };
+
+OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) =>
+    OrderResponse(
+      json['type'] as String?,
+      json['id'] as String?,
+      json['date'] as String?,
+      json['recipentName'] as String?,
+      json['reciepentPhone'] as String?,
+      json['senderName'] as String?,
+      json['senderPhone'] as String?,
+      json['startLoc'] == null
+          ? null
+          : LatLonResponse.fromJson(json['startLoc'] as Map<String, dynamic>),
+      json['currentLoc'] == null
+          ? null
+          : LatLonResponse.fromJson(json['currentLoc'] as Map<String, dynamic>),
+      json['endLoc'] == null
+          ? null
+          : LatLonResponse.fromJson(json['endLoc'] as Map<String, dynamic>),
+      json['endLocation'] as String?,
+      json['weight'] as String?,
+      (json['quantity'] as num?)?.toInt(),
+      json['description'] as String?,
+    )
+      ..statusCode = (json['statusCode'] as num?)?.toInt()
+      ..status = json['status'] as String?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
+    <String, dynamic>{
+      'statusCode': instance.statusCode,
+      'status': instance.status,
+      'message': instance.message,
+      'id': instance.id,
+      'date': instance.date,
+      'type': instance.type,
+      'recipentName': instance.recipentName,
+      'reciepentPhone': instance.reciepentPhone,
+      'senderName': instance.senderName,
+      'senderPhone': instance.senderPhone,
+      'startLoc': instance.startLoc,
+      'currentLoc': instance.currentLoc,
+      'endLoc': instance.endLoc,
+      'endLocation': instance.endLocation,
+      'weight': instance.weight,
+      'quantity': instance.quantity,
+      'description': instance.description,
+    };
+
+LatLonResponse _$LatLonResponseFromJson(Map<String, dynamic> json) =>
+    LatLonResponse(
+      json['type'] as String?,
+      (json['coordinates'] as List<dynamic>?)
+          ?.map((e) => (e as num).toDouble())
+          .toList(),
+    );
+
+Map<String, dynamic> _$LatLonResponseToJson(LatLonResponse instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+      'coordinates': instance.coordinates,
+    };
+
 DataUserResponse _$DataUserResponseFromJson(Map<String, dynamic> json) =>
     DataUserResponse(
       json['user'] == null

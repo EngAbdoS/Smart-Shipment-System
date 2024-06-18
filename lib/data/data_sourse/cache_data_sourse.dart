@@ -1,6 +1,9 @@
 // run time cache
 
 const CACHE_USER_DATA_KEY = "CACHE_USER_DATA_KEY";
+const CACHE_ALL_SHIPMENT_LIST = "CACHE_ALL_SHIPMENT_LIST";
+
+
 const CACHE_USER_DATA_INTRVAL = 60 * 1000;
 abstract class CacheDataSource {
 

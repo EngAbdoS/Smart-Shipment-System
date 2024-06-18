@@ -21,6 +21,7 @@ class DioFactory {
     Dio dio = Dio();
     // String langauge = await _appPreferences.getAppLangauge();
     String token = _appPreferences.getUserToken();
+    print(token);
     Map<String, String> headers = {
       CONTENT_TYPE: APPLICATION_JSON,
       ACCEPT: APPLICATION_JSON,

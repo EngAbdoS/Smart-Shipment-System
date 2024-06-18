@@ -3,6 +3,7 @@ import 'package:smart_shipment_system/app/app_preferances.dart';
 import 'package:smart_shipment_system/data/data_sourse/cache_data_sourse.dart';
 import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
+import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 
 abstract class LocalDataSource {
@@ -22,11 +23,14 @@ abstract class LocalDataSource {
 
   void saveUserDataToCache(UserModel userData);
 
+  void saveShipmentListToCache(List<ShipmentModel> list);
+
   void setOnBoardingVied();
 
   void logout();
 
   Future<Either<bool, UserModel>> getUserData();
+  Future<Either<bool, List<ShipmentModel>>> getShipmentList();
 //TODO get user data
 // checks is cache data valid if not call remote data source
 }
@@ -99,5 +103,17 @@ class LocalDataSourceImplementation implements LocalDataSource {
   void logout() {
     _appPreferences.logout();
     _cacheDataSource.removeFromCache(CACHE_USER_DATA_KEY);
+  }
+
+  @override
+  Future<Either<bool, List<ShipmentModel>>> getShipmentList()async {
+    CachedItem data =
+        await _cacheDataSource.getDataFromCache(CACHE_ALL_SHIPMENT_LIST);
+    return data.isValid() ? Right(data.data) : const Left(false);
+  }
+
+  @override
+  void saveShipmentListToCache(List<ShipmentModel> list) {
+    _cacheDataSource.putDataToCache(CACHE_ALL_SHIPMENT_LIST, list);
   }
 }

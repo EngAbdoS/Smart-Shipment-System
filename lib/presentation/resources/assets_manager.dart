@@ -35,6 +35,7 @@ class SVGAssets {
   static const String forgetPassword = "$SVG_PATH/forget_password.svg";
   static const String notificationIcon = "$SVG_PATH/notification.svg";
   static const String noProfilePic = "$SVG_PATH/noProfile.svg";
+  static const String noData = "$SVG_PATH/noData.svg";
 
 
 }
@@ -52,6 +53,7 @@ class JsonAssets {
   static const String error = "$JSON_PATH/erro.json";
   static const String loadingBasic = "$JSON_PATH/loading.json";
   static const String clientMain = "$JSON_PATH/clientMain.json";
+  static const String noData = "$JSON_PATH/noData.json";
 
 
 }

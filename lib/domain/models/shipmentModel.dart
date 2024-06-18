@@ -13,10 +13,9 @@ class ShipmentModel {
   LatLng startLoc;
   LatLng currentLoc;
   LatLng endLoc;
-
   String endLocation;
   String weight;
-  int quantity;
+  int    quantity;
   String description;
 
   ShipmentModel(

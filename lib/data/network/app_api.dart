@@ -13,6 +13,9 @@ abstract class AppServiceClient {
   @GET("users/me")
   Future<MeDataResponse> getUserData();
 
+  @GET("client/order/getAllOrders")
+  Future<OrdersResponse> getAllOrders();
+
   @POST("users/login")
   Future<AuthenticationResponse> login(
       @Field("email") String email, @Field("password") String password);

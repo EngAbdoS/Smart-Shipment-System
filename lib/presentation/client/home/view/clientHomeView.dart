@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
@@ -22,7 +23,7 @@ class _ClientHomeViewState extends State<ClientHomeView> {
 
   @override
   void initState() {
-    _viewModel.startHomeView();
+    _viewModel.startHomeView(context);
     super.initState();
   }
 
@@ -83,17 +84,21 @@ class _ClientHomeViewState extends State<ClientHomeView> {
           child: StreamBuilder<int?>(
               stream: _viewModel.outputActiveShipmentList,
               builder: (context, snapshot) {
-                return ListView.builder(
+                //print(snapshot.data);
+                return(snapshot.hasData&&snapshot.data!>0)? ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: snapshot.data ?? 0,
                     itemBuilder: (context, index) {
                       return shipmentCard(
                           context, _viewModel.activeShipmentList[index]);
-                    });
+                    }):Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: SvgPicture.asset(SVGAssets.noData,height: 200,),
+                    );
               }),
         ),
-        SizedBox(height: 40,)
+        SizedBox(height: 60,)
       ],
     );
   }

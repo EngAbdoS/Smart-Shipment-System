@@ -11,6 +11,7 @@ import 'package:smart_shipment_system/data/response/response.dart';
 
 abstract class RemoteDataSource {
   Future<Either<Failure, MeDataResponse>> getUserData();
+  Future<Either<Failure, OrdersResponse>> getAllShipments();
 
   Future<Either<Failure, AuthenticationResponse>> login(
       LoginRequest loginRequest);
@@ -55,7 +56,18 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
-
+  @override
+  Future<Either<Failure, OrdersResponse>> getAllShipments()async {
+    try {
+      print("heerr");
+      var result = await _appServiceClient.getAllOrders();
+      print(result);
+      return Right(result);
+    } catch (error) {
+      print(error);
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
   @override
   Future<Either<Failure, AuthenticationResponse>> login(
       LoginRequest loginRequest) async {
@@ -151,4 +163,6 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
+
+
 }

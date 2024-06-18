@@ -6,6 +6,7 @@ import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
 import 'package:smart_shipment_system/data/mappers/mappers.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
+import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
@@ -94,6 +95,25 @@ class RepositoryImplementation implements Repository {
           _localDataSource
               .setUserRole(userData.role ?? AppConstants.userRoleNoRole);
           return Right(userData);
+        } else {
+          return Left(ErrorHandler.handle(response).failure);
+        }
+      });
+    }, (data) => right(data));
+  }
+
+  @override
+  Future<Either<Failure, List<ShipmentModel>>> getAllShipment() async {
+    return await (await _localDataSource.getShipmentList()).fold(
+        (noLocalData) async {
+      return await (await _remoteDataSource.getAllShipments()).fold((error) {
+        return Left(error);
+      }, (response) {
+        if (response.status == ResponseMessage.SUCCESS) {
+          var shipmentList =
+              response.data?.orders?.map((order) => order.toDomain()).toList();
+          _localDataSource.saveShipmentListToCache(shipmentList ?? []);
+          return Right(shipmentList ?? []);
         } else {
           return Left(ErrorHandler.handle(response).failure);
         }
@@ -199,5 +219,6 @@ class RepositoryImplementation implements Repository {
 
   @override
   void logout() {
-_localDataSource.logout();  }
+    _localDataSource.logout();
+  }
 }
