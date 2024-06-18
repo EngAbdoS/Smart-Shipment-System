@@ -24,7 +24,10 @@ abstract class Repository {
 
   Future<Either<Failure, bool>> unorganizedDeliveryRegistration(
       UnorganizedDeliveryRegistrationRequest
-          unorganizedDeliveryRegistrationRequest);
+      unorganizedDeliveryRegistrationRequest);
+  Future<Either<Failure, bool>> fixedDeliveryRegistration(
+      FixedDeliveryRegistrationRequest
+      fixedDeliveryRegistrationRequest);
 
   Future<Either<Failure, bool>> resetPassword(
       ResetPasswordRequest resetPasswordRequest);

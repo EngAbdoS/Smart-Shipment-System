@@ -21,7 +21,10 @@ abstract class RemoteDataSource {
 
   Future<Either<Failure, RegistrationResponse>> unorganizedDeliveryRegistration(
       UnorganizedDeliveryRegistrationRequest
-          unorganizedDeliveryRegistrationRequest);
+      unorganizedDeliveryRegistrationRequest);
+  Future<Either<Failure, RegistrationResponse>> fixedDeliveryRegistration(
+      FixedDeliveryRegistrationRequest
+      fixedDeliveryRegistrationRequest);
 
   Future<Either<Failure, EmailVerificationResponse>> emailVerification(
       EmailVerificationRequest emailVerificationRequest);
@@ -149,6 +152,16 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
+  @override
+  Future<Either<Failure, RegistrationResponse>> fixedDeliveryRegistration(FixedDeliveryRegistrationRequest fixedDeliveryRegistrationRequest)async {
+    try {
+      var result = await _appServiceClient.fixedDeliveryRegistration(
+          fixedDeliveryRegistrationRequest);
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
 
   @override
   Future<Either<Failure, ForgetPasswordResponse>> resetPassword(
@@ -163,6 +176,7 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
+
 
 
 }

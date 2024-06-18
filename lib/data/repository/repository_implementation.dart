@@ -203,6 +203,32 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
+  Future<Either<Failure, bool>> fixedDeliveryRegistration(
+      FixedDeliveryRegistrationRequest fixedDeliveryRegistrationRequest) async {
+    (await _remoteDataSource.uploadPhoto(
+            fixedDeliveryRegistrationRequest.deliveryApprovalImg,
+            AppConstants.deliveryApprovalImageStorageRef,
+            fixedDeliveryRegistrationRequest.email))
+        .fold((error) {
+      return Left(error);
+    },
+            (imgUrl) =>
+                fixedDeliveryRegistrationRequest.deliveryApprovalImg = imgUrl);
+
+    return await (await _remoteDataSource
+            .fixedDeliveryRegistration(fixedDeliveryRegistrationRequest))
+        .fold((error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        return const Right(true);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+  @override
   Future<Either<Failure, bool>> resetPassword(
       ResetPasswordRequest resetPasswordRequest) async {
     return await (await _remoteDataSource.resetPassword(resetPasswordRequest))

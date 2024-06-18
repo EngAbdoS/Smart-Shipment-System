@@ -16,6 +16,15 @@ abstract class AppServiceClient {
   @GET("client/order/getAllOrders")
   Future<OrdersResponse> getAllOrders();
 
+  // @GET("/posts/{id}")
+  // Future<Post> getPostFromId(@Path("id") int postId);
+  // @GET("/comments?postId={id}")
+  // Future<Comment> getCommentFromPostId(@Path("id") int postId);
+
+
+
+
+
   @POST("users/login")
   Future<AuthenticationResponse> login(
       @Field("email") String email, @Field("password") String password);
@@ -45,9 +54,14 @@ abstract class AppServiceClient {
   Future<RegistrationResponse> unorganizedDeliveryRegistration(
       @Body()
       UnorganizedDeliveryRegistrationRequest
-          unorganizedDeliveryRegistrationRequest);
-  
-  
+      unorganizedDeliveryRegistrationRequest);
+  @POST("users/signup")
+  Future<RegistrationResponse> fixedDeliveryRegistration(
+      @Body()
+      FixedDeliveryRegistrationRequest
+      fixedDeliveryRegistrationRequest);
+
+
   @PATCH("users/resetPassword")
   Future<ForgetPasswordResponse> resetPassword(
     @Field("otp") String otp,

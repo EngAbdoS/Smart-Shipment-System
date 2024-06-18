@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
+import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/domain/models/deliveryTripModel.dart';
+import 'package:smart_shipment_system/domain/use_cases/fixed_delivery_registration_usecase.dart';
 import 'package:smart_shipment_system/domain/use_cases/unorganized_delivery_registration_usecase.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseRegisterationViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/verification/getEmailVerification.dart';
@@ -17,8 +19,10 @@ import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
   final UnorganizedDeliveryRegistrationUseCase
       _unorganizedDeliveryRegistrationUseCase;
+  final FixedDeliveryRegistrationUseCase _fixedDeliveryRegistrationUseCase;
 
-  DeliveryRegistrationViewModel(this._unorganizedDeliveryRegistrationUseCase);
+  DeliveryRegistrationViewModel(this._unorganizedDeliveryRegistrationUseCase,
+      this._fixedDeliveryRegistrationUseCase);
 
   final StreamController
       _deliveryConfirmationPictureValidationStreamController =
@@ -126,7 +130,65 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     );
   }
 
-  void registerFixedDelivery(dynamic context) async {}
+  void registerFixedDelivery(dynamic context) async {
+    loadingState(context: context);
+    (await _fixedDeliveryRegistrationUseCase.execute(
+      FixedDeliveryRegistrationUseCaseInput(
+        name: firstName!,
+        phone: phoneNumber!,
+        email: email!,
+        password: password!,
+        confirmPassword: confirmPassword!,
+        role: AppConstants.deliveryRoleExternal,
+        trip: externalDeliveryTripList
+            .map(
+              (trip) => DeliveryTripRequest(
+                endLoc: CurrentStateRequest(
+                    type: AppConstants.currentStateTypePoint,
+                    coordinates: [
+                      trip.toLocation?.latitude ?? 0.0,
+                      trip.toLocation?.longitude ?? 0.0,
+                    ]),
+                startLoc: CurrentStateRequest(
+                    type: AppConstants.currentStateTypePoint,
+                    coordinates: [
+                      trip.fromLocation?.latitude ?? 0.0,
+                      trip.fromLocation?.longitude ?? 0.0,
+                    ]),
+                startState: trip.fromGovernment ?? "",
+                endState: trip.toGovernment ?? "",
+                time: trip.tripTime ?? "",
+                duration: '${trip.expectedDurationByMin} min',
+                day: trip.isOneTime!
+                    ? trip.tripDay ?? ""
+                    : trip.tripWeekDays?[0] ?? "",
+              ),
+            )
+            .toList(),
+        deliveryApprovalImg: deliveryConfirmationPicture?.path ?? "",
+      ),
+    ))
+        .fold(
+      (failure) => {
+        errorState(context: context, message: failure.message),
+      },
+      (data) => data
+          ? {
+              hideState(context: context),
+              getEmailVerification(
+                  context: context,
+                  email: email!,
+                  nextActionRoute: Routes.loginViewRoute),
+              toastWidgetC(context, AppStrings.successRegistration),
+              print("registered"),
+            }
+          : {
+              errorState(
+                context: context,
+              ),
+            },
+    );
+  }
 
 //////////////////////////output//////////////////////////
 

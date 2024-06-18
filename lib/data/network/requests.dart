@@ -22,22 +22,78 @@ class ClientRegistrationRequest {
       required this.role});
 }
 
-// class FixedDeliveryRegistrationRequest {
-//   String name;
-//   String email;
-//   String phone;
-//   String password;
-//   String confirmPassword;
-//   String role;
-//
-//   FixedDeliveryRegistrationRequest(
-//       {required this.name,
-//         required this.email,
-//         required this.phone,
-//         required this.password,
-//         required this.confirmPassword,
-//         required this.role});
-// }
+class FixedDeliveryRegistrationRequest {
+  String name;
+  String email;
+  String phone;
+  String password;
+  String confirmPassword;
+  String vehicleType;
+  String vehicleLicenseImg;
+  String deliveryApprovalImg;
+  String role;
+  List<DeliveryTripRequest> trip;
+
+  FixedDeliveryRegistrationRequest({
+    required this.name,
+    required this.email,
+    required this.phone,
+    required this.password,
+    required this.confirmPassword,
+    required this.vehicleType,
+    required this.vehicleLicenseImg,
+    required this.deliveryApprovalImg,
+    required this.role,
+    required this.trip,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'password': password,
+      'confirmPassword': confirmPassword,
+      'vehicleType': vehicleType,
+      'vehicleLicenseImg': vehicleLicenseImg,
+      'deliveryApprovalImg': deliveryApprovalImg,
+      'trip': trip.map((trip) => trip.toJson()).toList(),
+      'role': role,
+    };
+  }
+}
+
+class DeliveryTripRequest {
+  CurrentStateRequest endLoc;
+  CurrentStateRequest startLoc;
+  String startState;
+  String endState;
+  String time;
+  String duration;
+  String day;
+
+  DeliveryTripRequest({
+    required this.endLoc,
+    required this.startLoc,
+    required this.startState,
+    required this.endState,
+    required this.time,
+    required this.duration,
+    required this.day,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'endLoc': endLoc.toJson(),
+      'startLoc': startLoc.toJson(),
+      'startState': startState,
+      'endState': endState,
+      'time': time,
+      'duration': duration,
+      'day': day,
+    };
+  }
+}
 
 class UnorganizedDeliveryRegistrationRequest {
   String name;

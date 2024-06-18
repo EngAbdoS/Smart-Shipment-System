@@ -13,6 +13,7 @@ import 'package:smart_shipment_system/data/repository/repository_implementation.
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/domain/use_cases/client_registration_usecase.dart';
+import 'package:smart_shipment_system/domain/use_cases/fixed_delivery_registration_usecase.dart';
 import 'package:smart_shipment_system/domain/use_cases/login_usecase.dart';
 import 'package:smart_shipment_system/domain/use_cases/splash_navigation_use_case.dart';
 import 'package:smart_shipment_system/domain/use_cases/unorganized_delivery_registration_usecase.dart';
@@ -120,10 +121,11 @@ initClientRegistrationModule() {
 initDeliveryRegistrationModule() {
   if (!GetIt.I.isRegistered<DeliveryRegistrationViewModel>()) {
     instance.registerFactory<UnorganizedDeliveryRegistrationUseCase>(
-        () => UnorganizedDeliveryRegistrationUseCase(instance()));
-
+            () => UnorganizedDeliveryRegistrationUseCase(instance()));
+    instance.registerFactory<FixedDeliveryRegistrationUseCase>(
+            () => FixedDeliveryRegistrationUseCase(instance()));
     instance.registerLazySingleton<DeliveryRegistrationViewModel>(
-        () => DeliveryRegistrationViewModel(instance()));
+        () => DeliveryRegistrationViewModel(instance(),instance()));
   }
 }
 
