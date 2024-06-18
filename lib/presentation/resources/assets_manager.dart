@@ -20,7 +20,6 @@ class SVGAssets {
 
   static const String logoSVG = "$SVG_PATH/logo.svg";
   static const String logoShadowSVG = "$SVG_PATH/logo_with_shadow.svg";
-
   static const String onBoardingPic1 = "$SVG_PATH/onB_pic_1.svg";
   static const String onBoardingPic2 = "$SVG_PATH/onB_pic_2.svg";
   static const String onBoardingPic3 = "$SVG_PATH/onB_pic_3.svg";
@@ -54,6 +53,7 @@ class JsonAssets {
   static const String loadingBasic = "$JSON_PATH/loading.json";
   static const String clientMain = "$JSON_PATH/clientMain.json";
   static const String noData = "$JSON_PATH/noData.json";
+  static const String ch = "$JSON_PATH/ch.json";
 
 
 }

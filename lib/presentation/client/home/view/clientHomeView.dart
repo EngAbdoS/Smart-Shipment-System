@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -182,8 +183,8 @@ class _ClientHomeViewState extends State<ClientHomeView> {
       floating: true,
       shape: const ContinuousRectangleBorder(
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-          bottomRight: Radius.circular(30),
+          bottomLeft: Radius.circular(80),
+          bottomRight: Radius.circular(80),
         ),
       ),
       backgroundColor: ColorManager.primary,
@@ -227,12 +228,13 @@ class _ClientHomeViewState extends State<ClientHomeView> {
       toolbarHeight: 100,
       flexibleSpace: FlexibleSpaceBar(
         background: Container(
-          decoration: const BoxDecoration(
+          decoration:  BoxDecoration(
             color: ColorManager.primary,
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(100),
-              bottomRight: Radius.circular(100),
-            ),
+            borderRadius: BorderRadius.circular(35)
+            // borderRadius: BorderRadius.only(
+            //   bottomLeft: Radius.circular(100),
+            //   bottomRight: Radius.circular(100),
+           // ),
           ),
           child: Padding(
             padding: const EdgeInsets.only(top: 160),
@@ -259,7 +261,7 @@ class _ClientHomeViewState extends State<ClientHomeView> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: Lottie.asset(
-                      JsonAssets.clientMain,
+                      JsonAssets.ch,
                       alignment: Alignment.bottomCenter,
                       width: double.maxFinite,
                       height: 300.h,
