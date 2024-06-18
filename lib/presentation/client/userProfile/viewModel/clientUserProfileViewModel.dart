@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:go_router/go_router.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
@@ -10,8 +13,17 @@ class ClientUserProfileViewModel //extends MainClientViewModel
   final Repository _repository;
 
   UserModel userProfileData;
+  final StreamController _notificationSwitchStream = BehaviorSubject<bool?>();
+
+  Stream<bool?> get outputNotificationSwitchStream =>
+      _notificationSwitchStream.stream.map((value) => value);
 
 
+
+  Sink get inputNotificationSwitchStream => _notificationSwitchStream.sink;
+  void changeNotificationSwitch(bool value) {
+    _notificationSwitchStream.sink.add(value);
+  }
 
 void logout(dynamic context) {
   _repository.logout();

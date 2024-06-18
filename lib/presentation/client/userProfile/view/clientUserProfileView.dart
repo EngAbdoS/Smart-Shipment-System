@@ -213,14 +213,31 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
             style: Theme.of(context).textTheme.headlineMedium,
           ).tr(),
         ),
-        faverSetting(Container(), AppStrings.notifications,
-            AppStrings.edit_notifications, Icons.notifications),
+        faverSetting(
+            notificationSwitch(_viewModel.changeNotificationSwitch,
+                _viewModel.outputNotificationSwitchStream),
+            AppStrings.notifications,
+            AppStrings.edit_notifications,
+            Icons.notifications),
         faverSetting(Container(), AppStrings.language,
             AppStrings.choose_language, Icons.language),
         generalSetting(() {}, AppStrings.rate, AppStrings.how_rate, Icons.star),
         logoutWidget(),
       ],
     );
+  }
+
+  Widget notificationSwitch(Function fun, Stream<bool?> outputSwitchValue) {
+    return StreamBuilder<bool?>(
+        stream: outputSwitchValue,
+        builder: (context, snapshot) {
+          return Switch(
+              activeColor: ColorManager.primary,
+              inactiveTrackColor: ColorManager.primary.withOpacity(0.05),
+              inactiveThumbColor: ColorManager.gray,
+              value: snapshot.data ?? true,
+              onChanged: (value) => fun(value));
+        });
   }
 
   Widget logoutWidget() {
@@ -292,9 +309,9 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-         StudentProfileCirclerImage(
+        StudentProfileCirclerImage(
           imageUrl: _viewModel.userProfileData.email,
-          navigate:  (){},
+          navigate: () {},
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
