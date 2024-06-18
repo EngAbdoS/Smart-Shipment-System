@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/client/userProfile/viewModel/clientUserProfileViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
+import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/profilePicture.dart';
 
@@ -219,11 +220,47 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
             AppStrings.notifications,
             AppStrings.edit_notifications,
             Icons.notifications),
-        faverSetting(Container(), AppStrings.language,
-            AppStrings.choose_language, Icons.language),
+        faverSetting(changeLanguage(),
+            AppStrings.language, AppStrings.choose_language, Icons.language),
         generalSetting(() {}, AppStrings.rate, AppStrings.how_rate, Icons.star),
         logoutWidget(),
       ],
+    );
+  }
+
+  Widget changeLanguage() {
+    bool isArabic = context.locale == ARABIC_LOCAL ? true : false;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        languageWidget( isArabic, AppStrings.arabic),
+        SizedBox(
+          width: 5.w,
+        ),
+        languageWidget( !isArabic, AppStrings.english),
+      ],
+    );
+  }
+
+  Widget languageWidget( bool isLang, String lang) {
+    return GestureDetector(
+      onTap: () => isLang ? {} : _viewModel.changeLanguage(context),
+      child: Container(
+        width: 60.w,
+        height: 35.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          color: isLang ? ColorManager.primary : ColorManager.white,
+          border: Border.all(color: ColorManager.primary),
+        ),
+        child: Center(
+          child: Text(
+            lang,
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                color: isLang ? ColorManager.black : ColorManager.primary),
+          ).tr(),
+        ),
+      ),
     );
   }
 
