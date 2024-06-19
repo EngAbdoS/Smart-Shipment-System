@@ -31,16 +31,22 @@ Widget shipmentList(
                           fontSize: 14,
                         ),
                   ).tr(),
-                  TextButton(
-                    onPressed: () => viewModel.seeMore(),
-                    child: Text(
-                      AppStrings.see_more,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(color: ColorManager.black),
-                    ).tr(),
-                  )
+                  StreamBuilder<List<ShipmentModel>?>(
+                      stream: viewModel.outputShipmentList,
+                      builder: (context, snapshot) {
+                        //  print(snapshot.data?.length??"7");
+                        return TextButton(
+                          onPressed: () =>
+                              viewModel.seeMore(snapshot.data?.length ?? 0),
+                          child: Text(
+                            AppStrings.see_more,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(color: ColorManager.black),
+                          ).tr(),
+                        );
+                      })
                 ],
               ),
             )
@@ -50,9 +56,7 @@ Widget shipmentList(
         child: StreamBuilder<List<ShipmentModel>?>(
             stream: viewModel.outputShipmentList,
             builder: (context, snapshot) {
-              print(snapshot.data);
-              print("snapshot.data");
-              return (snapshot.hasData && snapshot.data!.length> 0)
+              return (snapshot.hasData && snapshot.data!.length > 0)
                   ? ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -60,12 +64,12 @@ Widget shipmentList(
                       itemBuilder: (context, index) {
                         return isActiveShipmentList
                             ? (!isDetailedCard)
-                                ? activeShipmentCard(context,
-                            snapshot.data![index])
-                                : detailedShipmentCard(context,
-                            snapshot.data![index])
-                            : detailedShipmentCard(context,
-                            snapshot.data![index]);
+                                ? activeShipmentCard(
+                                    context, snapshot.data![index])
+                                : detailedShipmentCard(
+                                    context, snapshot.data![index])
+                            : detailedShipmentCard(
+                                context, snapshot.data![index]);
                       })
                   : Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
