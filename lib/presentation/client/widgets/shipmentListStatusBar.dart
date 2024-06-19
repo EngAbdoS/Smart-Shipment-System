@@ -23,7 +23,7 @@ Widget shipmentListStatusBar(BuildContext context, Function changeState,
               mainAxisSize: MainAxisSize.min,
               children: [
                 shipmentListStatusBarTap(context, AppStrings.done_operation,
-                    (snapshot.data ?? false) == false, changeState, false),
+                    (snapshot.data ?? true) == false, changeState, false),
                 const SizedBox(
                   width: 4,
                 ),
