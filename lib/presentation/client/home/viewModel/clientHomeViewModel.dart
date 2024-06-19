@@ -18,7 +18,7 @@ class ClientHomeViewModel extends MainClientViewModel {
   final Repository _repository;
   List<ShipmentModel> activeShipmentList = [];
   List<ShipmentModel> deliveredShipmentList = [];
-  bool isShipmentListStatusBarActive = true;
+  bool isShipmentListStatusBarActive = false;
   bool isActiveShipmentListExpanded = true;
   final StreamController _activeShipmentListStreamController =
       BehaviorSubject<int?>();
@@ -26,6 +26,11 @@ class ClientHomeViewModel extends MainClientViewModel {
       BehaviorSubject<int?>();
   final StreamController _shipmentListStatusBarStreamController =
       BehaviorSubject<bool?>();
+  final StreamController _shipmentListStreamController =
+      BehaviorSubject<List<ShipmentModel>?>();
+
+  Stream<List<ShipmentModel>?> get outputShipmentList =>
+      _shipmentListStreamController.stream.map((shipmentList) => shipmentList);
 
   Stream<int?> get outputActiveShipmentList =>
       _activeShipmentListStreamController.stream
@@ -38,7 +43,12 @@ class ClientHomeViewModel extends MainClientViewModel {
   Stream<bool?> get outputIsShipmentListStatusBarActive =>
       _shipmentListStatusBarStreamController.stream.map((status) => status);
 
+  Sink get inputShipmentList => _shipmentListStreamController.sink;
+
   Sink get inputActiveShipmentList => _activeShipmentListStreamController.sink;
+
+  Sink get inputDeliveredShipmentList =>
+      _deliveredShipmentListStreamController.sink;
 
   Sink get inputIsShipmentListStatusBarActive =>
       _shipmentListStatusBarStreamController.sink;
@@ -47,14 +57,30 @@ class ClientHomeViewModel extends MainClientViewModel {
     isShipmentListStatusBarActive != status
         ? {
             isShipmentListStatusBarActive = status,
-            inputIsShipmentListStatusBarActive.add(status)
+            inputIsShipmentListStatusBarActive.add(status),
+            inputShipmentList
+                .add(status ? activeShipmentList : deliveredShipmentList),
           }
         : {};
     print(isShipmentListStatusBarActive);
   }
 
   startHomeView(dynamic context) async {
+    await getHomeActiveShipmentList(context);
+  }
+
+  getHomeActiveShipmentList(dynamic context) async {
     await getAllShipments(context);
+    seeMore();
+  }
+  getActiveShipmentList(dynamic context) async {
+    await getAllShipments(context);
+    changeShipmentListStatusBar(true);
+    inputShipmentList.add(activeShipmentList);
+  }
+  getDeliveredShipmentList(dynamic context) async {
+    await getAllShipments(context);
+    inputShipmentList.add(deliveredShipmentList);
   }
 
   Future getAllShipments(dynamic context) async {
@@ -63,8 +89,14 @@ class ClientHomeViewModel extends MainClientViewModel {
         (failure) => {
               errorState(context: context, message: failure.message),
             }, (data) {
-      activeShipmentList = data;
-      seeMore();
+      deliveredShipmentList = [];
+      activeShipmentList = [];
+      for (var shipment in data) {
+        shipment.delivered
+            ? deliveredShipmentList.add(shipment)
+            : activeShipmentList.add(shipment);
+      }
+
       hideState(context: context);
     });
   }
@@ -72,12 +104,12 @@ class ClientHomeViewModel extends MainClientViewModel {
   void seeMore() => isActiveShipmentListExpanded
       ? {
           activeShipmentList.length >= 3
-              ? inputActiveShipmentList.add(3)
-              : inputActiveShipmentList.add(activeShipmentList.length),
+              ? inputShipmentList.add(activeShipmentList.getRange(0, 3))
+              : inputShipmentList.add(activeShipmentList),
           isActiveShipmentListExpanded = false,
         }
       : {
-          inputActiveShipmentList.add(activeShipmentList.length),
+          inputShipmentList.add(activeShipmentList),
           isActiveShipmentListExpanded = true,
         };
 

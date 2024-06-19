@@ -5,12 +5,24 @@ import 'package:smart_shipment_system/presentation/client/main/viewModel/mainCli
 import 'package:smart_shipment_system/presentation/client/widgets/clientAppBar.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/shipmentList.dart';
 
-class ShipmentView extends StatelessWidget {
+class ShipmentView extends StatefulWidget {
   ShipmentView({super.key});
 
+  @override
+  State<ShipmentView> createState() => _ShipmentViewState();
+}
+
+class _ShipmentViewState extends State<ShipmentView> {
   final ClientHomeViewModel _viewModel = instance<ClientHomeViewModel>();
+
   final MainClientViewModel mainClientViewModel =
       instance<MainClientViewModel>();
+
+  @override
+  void initState() {
+    _viewModel.getActiveShipmentList(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +41,23 @@ class ShipmentView extends StatelessWidget {
             [
               Align(
                 alignment: Alignment.topCenter,
-                child: shipmentList(
-                  context: context,
-                  viewModel: _viewModel,
-                  isActiveShipmentList: false,
-                  isDetailedCard: true,
-                ),
+                child: StreamBuilder<bool?>(
+                    stream: _viewModel.outputIsShipmentListStatusBarActive,
+                    builder: (context, snapshot) {
+                      return (snapshot.data ?? true)
+                          ? shipmentList(
+                              context: context,
+                              viewModel: _viewModel,
+                              isActiveShipmentList: true,
+                              isDetailedCard: true,
+                            )
+                          : shipmentList(
+                              context: context,
+                              viewModel: _viewModel,
+                              isActiveShipmentList: false,
+                              isDetailedCard: true,
+                            );
+                    }),
               ),
             ],
           ),

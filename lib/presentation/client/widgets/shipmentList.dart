@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/activeShipmentCard.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/detailedShipmentCard.dart';
@@ -46,26 +47,25 @@ Widget shipmentList(
           : Container(),
       Container(
         color: ColorManager.offWhite,
-        child: StreamBuilder<int?>(
-            stream: isActiveShipmentList
-                ? viewModel.outputActiveShipmentList
-                : viewModel.outputDeliveredShipmentList,
+        child: StreamBuilder<List<ShipmentModel>?>(
+            stream: viewModel.outputShipmentList,
             builder: (context, snapshot) {
-              //print(snapshot.data);
-              return (snapshot.hasData && snapshot.data! > 0)
+              print(snapshot.data);
+              print("snapshot.data");
+              return (snapshot.hasData && snapshot.data!.length> 0)
                   ? ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: snapshot.data ?? 0,
+                      itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         return isActiveShipmentList
-                            ? !isDetailedCard
+                            ? (!isDetailedCard)
                                 ? activeShipmentCard(context,
-                                    viewModel.activeShipmentList[index])
+                            snapshot.data![index])
                                 : detailedShipmentCard(context,
-                                    viewModel.activeShipmentList[index])
+                            snapshot.data![index])
                             : detailedShipmentCard(context,
-                                viewModel.deliveredShipmentList[index]);
+                            snapshot.data![index]);
                       })
                   : Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
