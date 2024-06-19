@@ -18,6 +18,10 @@ class AppConstants
   static const String vehicleLicenseImageStorageRef="vehicle_license_image/";
   static const String profilePhotosStorageRef="profile_photos/";
   static const String currentStateTypePoint="Point";
+  static const String activeShipmentStatusUnPicked="un-picked";
+  static const String activeShipmentStatusPickedUp="picked-up";
+  static const String activeShipmentStatusComing="coming";
+  static const String activeShipmentStatusDelivered="delivered";
 
   static const int transitionDurationMillySeconds=300;
   static const int confirmationPictureSizeByBytes=10240;

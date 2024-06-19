@@ -92,17 +92,17 @@ class OrdersDataResponse {
 }
 
 @JsonSerializable()
-class OrderResponse extends BaseResponse {
-  @JsonKey(name: "id")
+class OrderResponse {
+  @JsonKey(name: "_id")
   String? id;
-  @JsonKey(name: "date")
-  String ?date;
+  @JsonKey(name: "date") //not found
+  String? date;
   @JsonKey(name: "type")
-  String ?type;
+  String? type;
   @JsonKey(name: "recipentName")
-  String ?recipentName;
+  String? recipentName;
   @JsonKey(name: "reciepentPhone")
-  String ?reciepentPhone;
+  String? reciepentPhone;
   @JsonKey(name: "senderName")
   String? senderName;
   @JsonKey(name: "senderPhone")
@@ -112,31 +112,53 @@ class OrderResponse extends BaseResponse {
   @JsonKey(name: "currentLoc")
   LatLonResponse? currentLoc;
   @JsonKey(name: "endLoc")
-  LatLonResponse ?endLoc;
+  LatLonResponse? endLoc;
   @JsonKey(name: "endLocation")
-  String ?endLocation;
+  String? endLocation;
+  @JsonKey(name: "status")
+  String? status;
+  @JsonKey(name: "unPicked")
+  bool? unPicked;
+  @JsonKey(name: "pickedUp")
+  bool? pickedUp;
+  @JsonKey(name: "coming")
+  bool? coming;
+  @JsonKey(name: "delivered")
+  bool? delivered;
   @JsonKey(name: "weight")
   String? weight;
   @JsonKey(name: "quantity")
   int? quantity;
   @JsonKey(name: "description")
   String? description;
+  @JsonKey(name: "delivery")
+  List<UserResponse>? delivery;
+  @JsonKey(name: "client")
+  String? client;
 
   OrderResponse(
-      this.type,
-      this.id,
-      this.date,
-      this.recipentName,
-      this.reciepentPhone,
-      this.senderName,
-      this.senderPhone,
-      this.startLoc,
-      this.currentLoc,
-      this.endLoc,
-      this.endLocation,
-      this.weight,
-      this.quantity,
-      this.description);
+    this.type,
+    this.id,
+    this.date,
+    this.recipentName,
+    this.reciepentPhone,
+    this.senderName,
+    this.senderPhone,
+    this.startLoc,
+    this.currentLoc,
+    this.endLoc,
+    this.endLocation,
+    this.status,
+    this.unPicked,
+    this.pickedUp,
+    this.coming,
+    this.delivered,
+    this.weight,
+    this.quantity,
+    this.description,
+    this.delivery,
+    this.client,
+  );
 
   factory OrderResponse.fromJson(Map<String, dynamic> json) =>
       _$OrderResponseFromJson(json);

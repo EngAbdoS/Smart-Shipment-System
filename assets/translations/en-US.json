@@ -130,7 +130,11 @@
   "rate": "Rate us",
   "how_rate": "How much do you like our app",
   "safe_logout": "Safe logout from the account",
-
+  "un-picked": "قيد الانتظار",
+  "picked-up":"جاهز للتوصيل",
+  "coming": "في الطريق",
+  "delivered":"وصل",
+  "cancel": "Canceled",
 
   "invalid_user_name": "Invalid User Name",
   "invalid_mobile_number": "Invalid Mobile Number",

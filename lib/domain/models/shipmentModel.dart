@@ -1,10 +1,9 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:smart_shipment_system/domain/models/userModel.dart';
 
 class ShipmentModel {
-
   String id;
   String date;
-
   String type;
   String recipentName;
   String reciepentPhone;
@@ -15,13 +14,20 @@ class ShipmentModel {
   LatLng endLoc;
   String endLocation;
   String weight;
-  int    quantity;
+  int quantity;
   String description;
+  String status;
+  bool unPicked;
+  bool pickedUp;
+  bool coming;
+  bool delivered;
+  List<UserModel> delivery;
+  String client;
 
   ShipmentModel(
-      {required this.id,  required this.date,
-
-        required this.type,
+      {required this.id,
+      required this.date,
+      required this.type,
       required this.recipentName,
       required this.reciepentPhone,
       required this.senderName,
@@ -32,5 +38,12 @@ class ShipmentModel {
       required this.endLocation,
       required this.weight,
       required this.quantity,
-      required this.description});
+      required this.description,
+      required this.status,
+      required this.unPicked,
+      required this.pickedUp,
+      required this.coming,
+      required this.delivered,
+      required this.delivery,
+      required this.client});
 }

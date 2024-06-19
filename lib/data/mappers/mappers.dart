@@ -37,6 +37,14 @@ extension OrdersResponseMapper on OrderResponse? {
       weight: this?.weight ?? "",
       quantity: this?.quantity ?? 0,
       description: this?.description ?? "",
+      status: this?.status ?? "noStatus",
+      unPicked: this?.unPicked ?? false,
+      pickedUp: this?.pickedUp ?? false,
+      delivered: this?.delivered ?? false,
+      coming: this?.coming ?? false,
+      delivery:
+          this?.delivery?.map((delivery) => delivery.toDomain()).toList() ?? [],
+      client: this?.client ?? "noClient",
     );
   }
 }

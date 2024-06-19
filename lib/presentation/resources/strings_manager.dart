@@ -139,7 +139,11 @@ static const rate=  "rate";
 static const how_rate=  "how_rate";
 static const safe_logout=  "safe_logout";
 
-
+ static const unPicked="un-picked";
+ static const pickedUp= "picked-up";
+ static const coming= "coming";
+ static const delivered=  "delivered";
+ static const cancel= "cancel";
 
   // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";

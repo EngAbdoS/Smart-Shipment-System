@@ -103,7 +103,7 @@ Map<String, dynamic> _$OrdersDataResponseToJson(OrdersDataResponse instance) =>
 OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) =>
     OrderResponse(
       json['type'] as String?,
-      json['id'] as String?,
+      json['_id'] as String?,
       json['date'] as String?,
       json['recipentName'] as String?,
       json['reciepentPhone'] as String?,
@@ -119,20 +119,23 @@ OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) =>
           ? null
           : LatLonResponse.fromJson(json['endLoc'] as Map<String, dynamic>),
       json['endLocation'] as String?,
+      json['status'] as String?,
+      json['unPicked'] as bool?,
+      json['pickedUp'] as bool?,
+      json['coming'] as bool?,
+      json['delivered'] as bool?,
       json['weight'] as String?,
       (json['quantity'] as num?)?.toInt(),
       json['description'] as String?,
-    )
-      ..statusCode = (json['statusCode'] as num?)?.toInt()
-      ..status = json['status'] as String?
-      ..message = json['message'] as String?;
+      (json['delivery'] as List<dynamic>?)
+          ?.map((e) => UserResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      json['client'] as String?,
+    );
 
 Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
     <String, dynamic>{
-      'statusCode': instance.statusCode,
-      'status': instance.status,
-      'message': instance.message,
-      'id': instance.id,
+      '_id': instance.id,
       'date': instance.date,
       'type': instance.type,
       'recipentName': instance.recipentName,
@@ -143,9 +146,16 @@ Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
       'currentLoc': instance.currentLoc,
       'endLoc': instance.endLoc,
       'endLocation': instance.endLocation,
+      'status': instance.status,
+      'unPicked': instance.unPicked,
+      'pickedUp': instance.pickedUp,
+      'coming': instance.coming,
+      'delivered': instance.delivered,
       'weight': instance.weight,
       'quantity': instance.quantity,
       'description': instance.description,
+      'delivery': instance.delivery,
+      'client': instance.client,
     };
 
 LatLonResponse _$LatLonResponseFromJson(Map<String, dynamic> json) =>
