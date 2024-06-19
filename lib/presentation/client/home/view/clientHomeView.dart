@@ -1,16 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
-import 'package:smart_shipment_system/presentation/widgets/activeShipmentCard.dart';
 import 'package:smart_shipment_system/presentation/widgets/profilePicture.dart';
 import 'package:lottie/lottie.dart';
-import 'package:smart_shipment_system/presentation/widgets/shipmentSearch.dart';
+import 'package:smart_shipment_system/presentation/client/widgets/shipmentSearch.dart';
+import '../../widgets/shipmentList.dart';
 
 class ClientHomeView extends StatefulWidget {
   const ClientHomeView({super.key});
@@ -41,7 +40,10 @@ class _ClientHomeViewState extends State<ClientHomeView> {
             [
               Align(
                 alignment: Alignment.topCenter,
-                child: activeShipmentList(),
+                child: shipmentList(
+                    context: context,
+                    viewModel: _viewModel,
+                    isActiveShipmentList: true),
               ),
             ],
           ),
@@ -150,67 +152,6 @@ class _ClientHomeViewState extends State<ClientHomeView> {
           StretchMode.fadeTitle,
         ],
       ),
-    );
-  }
-
-  Widget activeShipmentList() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 16, left: 10, top: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                AppStrings.active_shipments,
-                style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                      color: ColorManager.black,
-                      fontSize: 14,
-                    ),
-              ).tr(),
-              TextButton(
-                onPressed: () => _viewModel.seeMore(),
-                child: Text(
-                  AppStrings.see_more,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall!
-                      .copyWith(color: ColorManager.black),
-                ).tr(),
-              )
-            ],
-          ),
-        ),
-        Container(
-          color: ColorManager.offWhite,
-          child: StreamBuilder<int?>(
-              stream: _viewModel.outputActiveShipmentList,
-              builder: (context, snapshot) {
-                //print(snapshot.data);
-                return (snapshot.hasData && snapshot.data! > 0)
-                    ? ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: snapshot.data ?? 0,
-                        itemBuilder: (context, index) {
-                          return activeShipmentCard(
-                              context, _viewModel.activeShipmentList[index]);
-                        })
-                    : Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: SvgPicture.asset(
-                          SVGAssets.noData,
-                          height: 200,
-                        ),
-                      );
-              }),
-        ),
-        const SizedBox(
-          height: 60,
-        )
-      ],
     );
   }
 }

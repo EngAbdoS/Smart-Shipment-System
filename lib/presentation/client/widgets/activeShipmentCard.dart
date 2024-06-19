@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
+import 'package:smart_shipment_system/presentation/client/widgets/activeShipmentStatusBar.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
-import 'package:smart_shipment_system/presentation/widgets/activeShipmentStatusBar.dart';
 
 Widget activeShipmentCard(BuildContext context, ShipmentModel shipment) {
   return Padding(

@@ -17,13 +17,20 @@ class ClientHomeViewModel extends MainClientViewModel {
   UserModel userHomeData;
   final Repository _repository;
   List<ShipmentModel> activeShipmentList = [];
+  List<ShipmentModel> deliveredShipmentList = [];
+
   bool isActiveShipmentListExpanded = true;
   final StreamController _activeShipmentListStreamController =
-      BehaviorSubject<int?>();
+  BehaviorSubject<int?>();
+  final StreamController _deliveredShipmentListStreamController =
+  BehaviorSubject<int?>();
 
   Stream<int?> get outputActiveShipmentList =>
       _activeShipmentListStreamController.stream
           .map((activeShipmentList) => activeShipmentList);
+  Stream<int?> get outputDeliveredShipmentList =>
+      _deliveredShipmentListStreamController.stream
+          .map((deliveredShipmentList) => deliveredShipmentList);
 
   Sink get inputActiveShipmentList => _activeShipmentListStreamController.sink;
 
@@ -54,87 +61,4 @@ class ClientHomeViewModel extends MainClientViewModel {
           inputActiveShipmentList.add(activeShipmentList.length),
           isActiveShipmentListExpanded = true,
         };
-
-// List<ShipmentModel> activeShipmentList = [
-//   ShipmentModel(
-//     id: "5266911",
-//     date: "211c 5 5 ",
-//     type: 'rtyfuygfd',
-//     recipentName: 'gdfgdsfg',
-//     reciepentPhone: 'fdgegdfsg',
-//     senderName: 'gfdfgsd',
-//     senderPhone: 'sgsgsgsggs',
-//     startLoc: LatLng(0, 0),
-//     currentLoc: LatLng(0, 0),
-//     endLoc: LatLng(0, 0),
-//     endLocation: 'sgsgsgs',
-//     weight: 'gskg',
-//     quantity: 0,
-//     description: 'AEFAREGREGDS',
-//   ),
-//   ShipmentModel(
-//     id: "5266911",
-//     date: "211c 5 5 ",
-//     type: 'rtyfuygfd',
-//     recipentName: 'gdfgdsfg',
-//     reciepentPhone: 'fdgegdfsg',
-//     senderName: 'gfdfgsd',
-//     senderPhone: 'sgsgsgsggs',
-//     startLoc: LatLng(0, 0),
-//     currentLoc: LatLng(0, 0),
-//     endLoc: LatLng(0, 0),
-//     endLocation: 'sgsgsgs',
-//     weight: 'gskg',
-//     quantity: 0,
-//     description: 'AEFAREGREGDS',
-//   ),
-//   ShipmentModel(
-//     id: "5266911",
-//     date: "211c 5 5 ",
-//     type: 'rtyfuygfd',
-//     recipentName: 'gdfgdsfg',
-//     reciepentPhone: 'fdgegdfsg',
-//     senderName: 'gfdfgsd',
-//     senderPhone: 'sgsgsgsggs',
-//     startLoc: LatLng(0, 0),
-//     currentLoc: LatLng(0, 0),
-//     endLoc: LatLng(0, 0),
-//     endLocation: 'sgsgsgs',
-//     weight: 'gskg',
-//     quantity: 0,
-//     description: 'AEFAREGREGDS',
-//   ),
-//   ShipmentModel(
-//     id: "5266911",
-//     date: "211c 5 5 ",
-//     type: 'rtyfuygfd',
-//     recipentName: 'gdfgdsfg',
-//     reciepentPhone: 'fdgegdfsg',
-//     senderName: 'gfdfgsd',
-//     senderPhone: 'sgsgsgsggs',
-//     startLoc: LatLng(0, 0),
-//     currentLoc: LatLng(0, 0),
-//     endLoc: LatLng(0, 0),
-//     endLocation: 'sgsgsgs',
-//     weight: 'gskg',
-//     quantity: 0,
-//     description: 'AEFAREGREGDS',
-//   ),
-//   ShipmentModel(
-//     id: "5266911",
-//     date: "211c 5 5 ",
-//     type: 'rtyfuygfd',
-//     recipentName: 'gdfgdsfg',
-//     reciepentPhone: 'fdgegdfsg',
-//     senderName: 'gfdfgsd',
-//     senderPhone: 'sgsgsgsggs',
-//     startLoc: LatLng(0, 0),
-//     currentLoc: LatLng(0, 0),
-//     endLoc: LatLng(0, 0),
-//     endLocation: 'sgsgsgs',
-//     weight: 'gskg',
-//     quantity: 0,
-//     description: 'AEFAREGREGDS',
-//   ),
-// ];
 }
