@@ -35,6 +35,7 @@ class SVGAssets {
   static const String notificationIcon = "$SVG_PATH/notification.svg";
   static const String noProfilePic = "$SVG_PATH/noProfile.svg";
   static const String noData = "$SVG_PATH/noData.svg";
+  static const String qr = "$SVG_PATH/qr.svg";
 
 
 }

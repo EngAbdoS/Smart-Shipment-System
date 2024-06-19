@@ -103,7 +103,10 @@
   "cancel": "ملغي",
   "active_operation": "معاملة نشطة",
   "done_operation": "معاملة منتهية",
-
+  "weight": "الوزن",
+  "things_count": "الأغراض",
+  "delivery_cost": "تكلفة المندوب",
+  "scan_to_accept": "امسح رمز الاستجابة السريعة ضوئيًا لقبول التسليم\n",
 
 
 

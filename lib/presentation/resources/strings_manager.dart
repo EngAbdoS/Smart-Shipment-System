@@ -146,6 +146,13 @@ static const safe_logout=  "safe_logout";
  static const cancel= "cancel";
   static const   active_operation="active_operation";
   static const   done_operation  ="done_operation";
+
+  static const  weight         ="weight";
+  static const  things_count   ="things_count";
+  static const  delivery_cost  ="delivery_cost";
+  static const  scan_to_accept ="scan_to_accept";
+
+
   // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";
   static const loading = "loading";
