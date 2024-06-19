@@ -75,4 +75,9 @@ class MainClientViewModel {
     inputMainStream.add(widgetList()[widget]);
     inputMainIndexStream.add(widget);
   }
+
+  void dispose() {
+    _mainStream.close();
+    _mainIndexStream.close();
+  }
 }

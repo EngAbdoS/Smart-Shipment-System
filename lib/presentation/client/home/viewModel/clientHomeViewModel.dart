@@ -61,4 +61,12 @@ class ClientHomeViewModel extends MainClientViewModel {
           inputActiveShipmentList.add(activeShipmentList.length),
           isActiveShipmentListExpanded = true,
         };
+
+  void dispose()
+  {
+    _activeShipmentListStreamController.close();
+    _deliveredShipmentListStreamController.close();
+
+
+  }
 }

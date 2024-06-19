@@ -89,4 +89,10 @@ class _MainClientViewState extends State<MainClientView> {
           }),
     );
   }
+
+
+  @override
+  void dispose() {
+_viewModel.dispose();    super.dispose();
+  }
 }

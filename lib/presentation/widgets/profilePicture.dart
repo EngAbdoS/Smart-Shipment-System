@@ -15,7 +15,7 @@ class StudentProfileCirclerImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed:()=>navigate(),
+      onPressed:navigate,
       icon: CachedNetworkImage(
           height: size,
           width: size,
