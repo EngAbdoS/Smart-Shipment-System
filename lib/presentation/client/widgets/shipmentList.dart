@@ -58,9 +58,12 @@ Widget shipmentList(
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: snapshot.data ?? 0,
                       itemBuilder: (context, index) {
-                        return isActiveShipmentList && !isDetailedCard
-                            ? activeShipmentCard(
-                                context, viewModel.activeShipmentList[index])
+                        return isActiveShipmentList
+                            ? !isDetailedCard
+                                ? activeShipmentCard(context,
+                                    viewModel.activeShipmentList[index])
+                                : detailedShipmentCard(context,
+                                    viewModel.activeShipmentList[index])
                             : detailedShipmentCard(context,
                                 viewModel.deliveredShipmentList[index]);
                       })

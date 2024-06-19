@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
+import 'package:smart_shipment_system/presentation/client/widgets/shipmentListStatusBar.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/shipmentSearch.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
@@ -12,12 +13,13 @@ import 'package:smart_shipment_system/presentation/widgets/profilePicture.dart';
 
 SliverAppBar buildSliverAppBar(
     {required BuildContext context,
-      required ClientHomeViewModel clientViewModel,
-      required MainClientViewModel mainClientViewModel,bool isHome=true}) {
+    required ClientHomeViewModel clientViewModel,
+    required MainClientViewModel mainClientViewModel,
+    bool isHome = true}) {
   return SliverAppBar(
     pinned: false,
-    expandedHeight: 491.w,
-    collapsedHeight: 100,
+    expandedHeight: isHome ? 491.w : 300.w,
+    collapsedHeight: 110.h,
     stretch: true,
     snap: true,
     floating: true,
@@ -65,7 +67,7 @@ SliverAppBar buildSliverAppBar(
         ],
       ),
     ),
-    toolbarHeight: 100,
+    toolbarHeight: 110.h,
     flexibleSpace: FlexibleSpaceBar(
       background: Container(
         decoration: BoxDecoration(
@@ -78,31 +80,40 @@ SliverAppBar buildSliverAppBar(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                AppStrings.track_your_shipment,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge!
-                    .copyWith(fontSize: 20),
-              ).tr(),
-              Text(
-                AppStrings.track_your_shipment_hint,
-                style: Theme.of(context).textTheme.titleSmall,
-              ).tr(),
+              isHome
+                  ? Text(
+                      AppStrings.track_your_shipment,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(fontSize: 20),
+                    ).tr()
+                  : Container(),
+              isHome
+                  ? Text(
+                      AppStrings.track_your_shipment_hint,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ).tr()
+                  : Container(),
               shipmentSearch(),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: Lottie.asset(
-                    JsonAssets.ch,
-                    alignment: Alignment.bottomCenter,
-                    width: double.maxFinite,
-                    height: 300.h,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              )
+              isHome
+                  ? Align(
+                      alignment: Alignment.bottomCenter,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Lottie.asset(
+                          JsonAssets.ch,
+                          alignment: Alignment.bottomCenter,
+                          width: double.maxFinite,
+                          height: 300.h,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    )
+                  : shipmentListStatusBar(
+                      context,
+                      clientViewModel.changeShipmentListStatusBar,
+                      clientViewModel.outputIsShipmentListStatusBarActive),
             ],
           ),
         ),

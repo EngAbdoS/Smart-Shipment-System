@@ -18,21 +18,40 @@ class ClientHomeViewModel extends MainClientViewModel {
   final Repository _repository;
   List<ShipmentModel> activeShipmentList = [];
   List<ShipmentModel> deliveredShipmentList = [];
-
+  bool isShipmentListStatusBarActive = true;
   bool isActiveShipmentListExpanded = true;
   final StreamController _activeShipmentListStreamController =
-  BehaviorSubject<int?>();
+      BehaviorSubject<int?>();
   final StreamController _deliveredShipmentListStreamController =
-  BehaviorSubject<int?>();
+      BehaviorSubject<int?>();
+  final StreamController _shipmentListStatusBarStreamController =
+      BehaviorSubject<bool?>();
 
   Stream<int?> get outputActiveShipmentList =>
       _activeShipmentListStreamController.stream
           .map((activeShipmentList) => activeShipmentList);
+
   Stream<int?> get outputDeliveredShipmentList =>
       _deliveredShipmentListStreamController.stream
           .map((deliveredShipmentList) => deliveredShipmentList);
 
+  Stream<bool?> get outputIsShipmentListStatusBarActive =>
+      _shipmentListStatusBarStreamController.stream.map((status) => status);
+
   Sink get inputActiveShipmentList => _activeShipmentListStreamController.sink;
+
+  Sink get inputIsShipmentListStatusBarActive =>
+      _shipmentListStatusBarStreamController.sink;
+
+  changeShipmentListStatusBar(bool status) {
+    isShipmentListStatusBarActive != status
+        ? {
+            isShipmentListStatusBarActive = status,
+            inputIsShipmentListStatusBarActive.add(status)
+          }
+        : {};
+    print(isShipmentListStatusBarActive);
+  }
 
   startHomeView(dynamic context) async {
     await getAllShipments(context);
@@ -62,11 +81,8 @@ class ClientHomeViewModel extends MainClientViewModel {
           isActiveShipmentListExpanded = true,
         };
 
-  void dispose()
-  {
+  void dispose() {
     _activeShipmentListStreamController.close();
     _deliveredShipmentListStreamController.close();
-
-
   }
 }

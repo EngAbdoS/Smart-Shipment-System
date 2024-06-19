@@ -144,7 +144,8 @@ static const safe_logout=  "safe_logout";
  static const coming= "coming";
  static const delivered=  "delivered";
  static const cancel= "cancel";
-
+  static const   active_operation="active_operation";
+  static const   done_operation  ="done_operation";
   // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";
   static const loading = "loading";
