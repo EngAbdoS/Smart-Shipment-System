@@ -108,6 +108,24 @@
   "delivery_cost": "تكلفة المندوب",
   "scan_to_accept": "امسح رمز الاستجابة السريعة ضوئيًا لقبول التسليم\n",
 
+   "add_shipment":             "إضافة شحنة",
+   "shipping_address":              "عنوان التسليم",
+   "delivery_address":   "عنوان الاستلام"     ,
+   "shipment_weight":                   "وزن الشحنة",
+   "shipment_type":                   "نوع الشحنة",
+   "product_type":               "اكتب هنا نوع المنتج",
+   "shipment_weight_kg":         "ادخل وزن الشحنة بالكيلو جرام",
+   "recipient_address":             "اكتب هنا عنوان المستلم",
+   "delivery_address_details":         "اكتب هنا عنوان تسليم الشحنة",
+"confirm_shipment":   " تأكيد الطلب",
+  "recipient_name":      "اسم المستلم",
+  "recipient_phone":      "رقم تليفون المستلم",
+  "recipient_name_hint": "ادخل اسم المستلم",
+  "recipient_phone_hint": "ادخل رقم تيليفون المستلم",
+
+  "input_valid_details": "ادخل تفاصيل مناسبة",
+  "input_valid_weight": "ادخل وزن مناسب بالكيلو جرام",
+
 
 
   "hello": "مرحبا !!",

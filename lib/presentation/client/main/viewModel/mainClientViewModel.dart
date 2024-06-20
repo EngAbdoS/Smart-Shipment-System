@@ -5,6 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
+import 'package:smart_shipment_system/presentation/client/createOrder/view/clientCreateOrderMainView.dart';
 import 'package:smart_shipment_system/presentation/client/home/view/clientHomeView.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/shipment/shipmentView.dart';
@@ -37,27 +38,24 @@ class MainClientViewModel {
     await changeWidget(context, pageViewIndex);
   }
 
-  List<Widget> widgetList() => [
-        const ClientHomeView(),
-        ShipmentView(),
-        // Container(
-        //   color: Colors.red,
-        //   child: Center(child: Text("حمرا")),
-        // ),
-        Container(
-          color: Colors.red,
-          child: Center(child: Text("حمرا")),
-        ),
-        //Container(color: Colors.red),
-        ClientUserProfileView()
-      ];
+  // List<Widget> widgetList() => [
+  //       const ClientHomeView(),
+  //       ShipmentView(),
+  //       Container(
+  //         color: Colors.red,
+  //         child: Center(child: Text("حمرا")),
+  //       ),
+  //       ClientUserProfileView(),
+  //       ClientCreateOrderMainView(),
+  //     ];
 
-  List<Function> widgetInitialization = [
-    initClientHomeModule,
-    initClientHomeModule,
-    initClientHomeModule,
-    initClientProfileModule,
-  ];
+  // List<Function> widgetInitialization = [
+  //   initClientHomeModule,
+  //   initClientHomeModule,
+  //   initClientHomeModule,
+  //   initClientProfileModule,
+  //   initClientAddShipmentModule,
+  // ];
 
   Future getUserData(dynamic context) async {
     loadingState(context: context);
@@ -71,11 +69,68 @@ class MainClientViewModel {
   }
 
   changeWidget(dynamic context, int widget) async {
-    pageViewIndex = widget;
-    await getUserData(context);
-    widgetInitialization[widget](userModel!);
-    inputMainStream.add(widgetList()[widget]);
-    inputMainIndexStream.add(widget);
+    if (pageViewIndex != widget|| widget == 0) {
+      switch (widget) {
+        case 0:
+          {
+            pageViewIndex = widget;
+            await getUserData(context);
+            initClientHomeModule(userModel!);
+            inputMainStream.add(ClientHomeView());
+            inputMainIndexStream.add(widget);
+            break;
+          }
+        case 1:
+          {
+            pageViewIndex = widget;
+            initClientHomeModule(userModel!);
+            inputMainStream.add(ShipmentView());
+            inputMainIndexStream.add(widget);
+            break;
+          }
+        case 2:
+          {
+            pageViewIndex = widget;
+            initClientHomeModule(userModel!);
+            inputMainStream.add(Container(
+              color: Colors.red,
+              child: Center(child: Text("حمرا")),
+            ));
+            inputMainIndexStream.add(widget);
+            break;
+          }
+        case 3:
+          {
+            pageViewIndex = widget;
+            initClientProfileModule(userModel!);
+            inputMainStream.add(ClientUserProfileView());
+            inputMainIndexStream.add(widget);
+            break;
+          }
+        case 4:
+          {
+            pageViewIndex = widget;
+            initClientAddShipmentModule(userModel!);
+            inputMainStream.add(ClientCreateOrderMainView());
+            inputMainIndexStream.add(widget);
+            break;
+          }
+      }
+    }
+
+    // (widget != pageViewIndex || widget == 0)&&widget<=3
+    //     ? {
+    //         pageViewIndex = widget,
+    //         await getUserData(context),
+    //         widgetInitialization[widget](userModel!),
+    //         inputMainStream.add(widgetList()[widget]),
+    //         inputMainIndexStream.add(widget),
+    //       }
+    //     : widget>3?{
+    //   widgetInitialization[widget](userModel!),
+    //   inputMainStream.add(widgetList()[widget]),
+    //
+    // }:{};
   }
 
   void dispose() {

@@ -8,7 +8,6 @@ import 'package:smart_shipment_system/data/data_sourse/local_data_sourse.dart';
 import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
 import 'package:smart_shipment_system/data/network/app_api.dart';
 import 'package:smart_shipment_system/data/network/dio_factory.dart';
-import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/data/repository/repository_implementation.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
@@ -24,7 +23,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegis
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/viewModel/forgetPasswordViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/ViewModel/loginViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/verification/viewModel/verificationViewModel.dart';
-import 'package:smart_shipment_system/presentation/client/home/view/clientHomeView.dart';
+import 'package:smart_shipment_system/presentation/client/createOrder/viewModel/clientCreateOrderViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/userProfile/viewModel/clientUserProfileViewModel.dart';
@@ -60,38 +59,34 @@ Future<void> initAppModule() async {
 reInitializeDio() async {
   Dio dio = await instance<DioFactory>().getDio();
   instance.unregister<AppServiceClient>();
-  // instance.unregister<RemoteDataSource>();
-  // instance.unregister<LocalDataSource>();
-  // instance.unregister<Repository>();
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
-  // instance.registerLazySingleton<RemoteDataSource>(
-  //         () => RemoteDataSourceImplementation(instance(), instance()));
-  // instance.registerLazySingleton<LocalDataSource>(
-  //         () => LocalDataSourceImplementation(instance(), instance(), instance()));
-  // instance.registerLazySingleton<Repository>(
-  //         () => RepositoryImplementation(instance(), instance()));
-
 }
-
-
-
 
 initClientHomeModule(UserModel userModel) {
   if (!GetIt.I.isRegistered<ClientHomeViewModel>()) {
     instance.registerLazySingleton<ClientHomeViewModel>(
-            () => ClientHomeViewModel(instance(),userModel));
-
-  }
-}initClientProfileModule(UserModel userModel) {
-  if (!GetIt.I.isRegistered<ClientUserProfileViewModel>()) {
-    instance.registerLazySingleton<ClientUserProfileViewModel>(
-            () => ClientUserProfileViewModel(instance(),userModel));
+        () => ClientHomeViewModel(instance(), userModel));
   }
 }
+initClientAddShipmentModule(UserModel userModel) {
+  print("in shipmennt kafnns");
+  if (!GetIt.I.isRegistered<ClientCreateOrderViewModel>()) {
+    instance.registerLazySingleton<ClientCreateOrderViewModel>(
+            () => ClientCreateOrderViewModel(instance()));
+  }
+}
+
+initClientProfileModule(UserModel userModel) {
+  if (!GetIt.I.isRegistered<ClientUserProfileViewModel>()) {
+    instance.registerLazySingleton<ClientUserProfileViewModel>(
+        () => ClientUserProfileViewModel(instance(), userModel));
+  }
+}
+
 initMainClientModule() {
   if (!GetIt.I.isRegistered<MainClientViewModel>()) {
     instance.registerLazySingleton<MainClientViewModel>(
-            () => MainClientViewModel(instance()));
+        () => MainClientViewModel(instance()));
   }
 }
 
@@ -121,11 +116,11 @@ initClientRegistrationModule() {
 initDeliveryRegistrationModule() {
   if (!GetIt.I.isRegistered<DeliveryRegistrationViewModel>()) {
     instance.registerFactory<UnorganizedDeliveryRegistrationUseCase>(
-            () => UnorganizedDeliveryRegistrationUseCase(instance()));
+        () => UnorganizedDeliveryRegistrationUseCase(instance()));
     instance.registerFactory<FixedDeliveryRegistrationUseCase>(
-            () => FixedDeliveryRegistrationUseCase(instance()));
+        () => FixedDeliveryRegistrationUseCase(instance()));
     instance.registerLazySingleton<DeliveryRegistrationViewModel>(
-        () => DeliveryRegistrationViewModel(instance(),instance()));
+        () => DeliveryRegistrationViewModel(instance(), instance()));
   }
 }
 
