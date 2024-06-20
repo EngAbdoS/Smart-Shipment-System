@@ -11,6 +11,7 @@ abstract class Repository {
 
   Future<Either<Failure, UserModel>> getUserData();
   Future<Either<Failure, List<ShipmentModel>>> getAllShipment();
+  Future<Either<Failure, ShipmentModel>> getShipmentById(String id);
 
   Future<Either<Failure, bool>> login(LoginRequest loginRequest);
 

@@ -11,7 +11,10 @@ import 'package:smart_shipment_system/data/response/response.dart';
 
 abstract class RemoteDataSource {
   Future<Either<Failure, MeDataResponse>> getUserData();
+
   Future<Either<Failure, OrdersResponse>> getAllShipments();
+
+  Future<Either<Failure, SearchOrderResponse>> getShipmentById(String id);
 
   Future<Either<Failure, AuthenticationResponse>> login(
       LoginRequest loginRequest);
@@ -21,10 +24,10 @@ abstract class RemoteDataSource {
 
   Future<Either<Failure, RegistrationResponse>> unorganizedDeliveryRegistration(
       UnorganizedDeliveryRegistrationRequest
-      unorganizedDeliveryRegistrationRequest);
+          unorganizedDeliveryRegistrationRequest);
+
   Future<Either<Failure, RegistrationResponse>> fixedDeliveryRegistration(
-      FixedDeliveryRegistrationRequest
-      fixedDeliveryRegistrationRequest);
+      FixedDeliveryRegistrationRequest fixedDeliveryRegistrationRequest);
 
   Future<Either<Failure, EmailVerificationResponse>> emailVerification(
       EmailVerificationRequest emailVerificationRequest);
@@ -36,6 +39,7 @@ abstract class RemoteDataSource {
 
   Future<Either<Failure, String>> uploadPhoto(
       String imagePath, String refPath, String userEmail);
+
   reInitAppServiceClient();
 }
 
@@ -46,7 +50,7 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   final FirebaseStorage _firebaseStorage;
 
   @override
-  reInitAppServiceClient() async{
+  reInitAppServiceClient() async {
     _appServiceClient = instance<AppServiceClient>();
   }
 
@@ -59,18 +63,28 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
+
   @override
-  Future<Either<Failure, OrdersResponse>> getAllShipments()async {
+  Future<Either<Failure, OrdersResponse>> getAllShipments() async {
     try {
-      print("heerr");
       var result = await _appServiceClient.getAllOrders();
-      print(result);
       return Right(result);
     } catch (error) {
-      print(error);
       return Left(ErrorHandler.handle(error).failure);
     }
   }
+
+  @override
+  Future<Either<Failure, SearchOrderResponse>> getShipmentById(String id) async {
+    try {
+      var result = await _appServiceClient.getOrderById(id);
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+
   @override
   Future<Either<Failure, AuthenticationResponse>> login(
       LoginRequest loginRequest) async {
@@ -152,11 +166,13 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
+
   @override
-  Future<Either<Failure, RegistrationResponse>> fixedDeliveryRegistration(FixedDeliveryRegistrationRequest fixedDeliveryRegistrationRequest)async {
+  Future<Either<Failure, RegistrationResponse>> fixedDeliveryRegistration(
+      FixedDeliveryRegistrationRequest fixedDeliveryRegistrationRequest) async {
     try {
-      var result = await _appServiceClient.fixedDeliveryRegistration(
-          fixedDeliveryRegistrationRequest);
+      var result = await _appServiceClient
+          .fixedDeliveryRegistration(fixedDeliveryRegistrationRequest);
       return Right(result);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
@@ -176,7 +192,4 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
-
-
-
 }

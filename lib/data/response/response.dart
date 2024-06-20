@@ -62,6 +62,37 @@ class UserResponse {
       _$UserResponseFromJson(json); //why factory
   Map<String, dynamic> toJson() => _$UserResponseToJson(this);
 }
+@JsonSerializable()
+class SearchOrderResponse extends BaseResponse {
+
+  @JsonKey(name: "data")
+  SearchOrderDataResponse? data;
+
+  SearchOrderResponse(this.data);
+
+  factory SearchOrderResponse.fromJson(Map<String, dynamic> json) =>
+      _$SearchOrderResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SearchOrderResponseToJson(this);
+}
+
+@JsonSerializable()
+class SearchOrderDataResponse  {
+
+  @JsonKey(name: "order")
+  OrderResponse? order;
+
+  SearchOrderDataResponse(this.order);
+
+  factory SearchOrderDataResponse.fromJson(Map<String, dynamic> json) =>
+      _$SearchOrderDataResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SearchOrderDataResponseToJson(this);
+}
+
+
+
+
 
 @JsonSerializable()
 class OrdersResponse extends BaseResponse {

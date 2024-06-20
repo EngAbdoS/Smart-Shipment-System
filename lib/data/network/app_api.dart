@@ -20,7 +20,8 @@ abstract class AppServiceClient {
   // Future<Post> getPostFromId(@Path("id") int postId);
   // @GET("/comments?postId={id}")
   // Future<Comment> getCommentFromPostId(@Path("id") int postId);
-
+  @GET("client/order/{id}")
+  Future<SearchOrderResponse> getOrderById(@Path("id") String id);
 
 
 

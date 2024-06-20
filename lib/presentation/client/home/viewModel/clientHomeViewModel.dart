@@ -17,6 +17,9 @@ class ClientHomeViewModel extends MainClientViewModel {
   List<ShipmentModel> deliveredShipmentList = [];
   bool isShipmentListStatusBarActive = false;
   bool isActiveShipmentListExpanded = true;
+  String searchId = '';
+  bool isActiveShipment = true;
+
   final StreamController _activeShipmentListStreamController =
       BehaviorSubject<int?>();
   final StreamController _deliveredShipmentListStreamController =
@@ -65,20 +68,40 @@ class ClientHomeViewModel extends MainClientViewModel {
     await getHomeActiveShipmentList(context);
   }
 
+  setSearchId(String id) =>
+      id == "" || id == " " ? onSearchClose() : searchId = id;
+
+  Future<void> searchShipmentById(dynamic context) async {
+    loadingState(context: context);
+    (await _repository.getShipmentById(searchId)).fold(
+        (failure) => {
+              errorState(context: context, message: failure.message),
+            }, (data) async {
+      inputShipmentList.add([data]);
+      hideState(context: context);
+    });
+  }
+
+  void onSearchClose() => inputShipmentList
+      .add(isActiveShipment ? activeShipmentList : deliveredShipmentList);
+
   getHomeActiveShipmentList(dynamic context) async {
     await getAllShipments(context);
     seeMore(10000);
+    isActiveShipment = true;
   }
 
   getActiveShipmentList(dynamic context) async {
     await getAllShipments(context);
     changeShipmentListStatusBar(true);
     inputShipmentList.add(activeShipmentList);
+    isActiveShipment = true;
   }
 
   getDeliveredShipmentList(dynamic context) async {
     await getAllShipments(context);
     inputShipmentList.add(deliveredShipmentList);
+    isActiveShipment = false;
   }
 
   Future getAllShipments(dynamic context) async {

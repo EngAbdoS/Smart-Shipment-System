@@ -95,7 +95,7 @@ SliverAppBar buildSliverAppBar(
                       style: Theme.of(context).textTheme.titleSmall,
                     ).tr()
                   : Container(),
-              shipmentSearch(),
+              shipmentSearch(context,clientViewModel.setSearchId,()=>clientViewModel.searchShipmentById(context)),
               isHome
                   ? Align(
                       alignment: Alignment.bottomCenter,

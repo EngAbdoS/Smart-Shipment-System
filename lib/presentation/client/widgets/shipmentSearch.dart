@@ -4,7 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 
-Widget shipmentSearch() {
+Widget shipmentSearch(
+    BuildContext context, Function setSearchId, GestureTapCallback search) {
   TextEditingController shipmentTextEditing = TextEditingController();
 
   return Padding(
@@ -23,14 +24,19 @@ Widget shipmentSearch() {
         ],
       ),
       child: TextFormField(
-        onChanged: (password) => {},
-        keyboardType: TextInputType.number,
+        onChanged: (id) => setSearchId(id),
+        onEditingComplete:search ,
+
+        keyboardType: TextInputType.text,
         controller: shipmentTextEditing,
         decoration: InputDecoration(
-            prefixIcon: const Icon(
-              Icons.search_sharp,
-              weight: 100,
-              color: ColorManager.black,
+            prefixIcon: IconButton(
+              icon: const Icon(
+                Icons.search_sharp,
+                weight: 100,
+                color: ColorManager.black,
+              ),
+              onPressed: search,
             ),
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: ColorManager.inputField, width: 0),

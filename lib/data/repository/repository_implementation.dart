@@ -122,6 +122,19 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
+  Future<Either<Failure, ShipmentModel>> getShipmentById(String id) async {
+    return await (await _remoteDataSource.getShipmentById(id)).fold((error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        return Right(response.data!.order!.toDomain());
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+  @override
   Future<Either<Failure, bool>> clientRegistration(
       ClientRegistrationRequest clientRegistrationRequest) async {
     return await (await _remoteDataSource

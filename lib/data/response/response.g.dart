@@ -68,6 +68,40 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
       'confirmedEmail': instance.isEmailConfirmed,
     };
 
+SearchOrderResponse _$SearchOrderResponseFromJson(Map<String, dynamic> json) =>
+    SearchOrderResponse(
+      json['data'] == null
+          ? null
+          : SearchOrderDataResponse.fromJson(
+              json['data'] as Map<String, dynamic>),
+    )
+      ..statusCode = (json['statusCode'] as num?)?.toInt()
+      ..status = json['status'] as String?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$SearchOrderResponseToJson(
+        SearchOrderResponse instance) =>
+    <String, dynamic>{
+      'statusCode': instance.statusCode,
+      'status': instance.status,
+      'message': instance.message,
+      'data': instance.data,
+    };
+
+SearchOrderDataResponse _$SearchOrderDataResponseFromJson(
+        Map<String, dynamic> json) =>
+    SearchOrderDataResponse(
+      json['order'] == null
+          ? null
+          : OrderResponse.fromJson(json['order'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$SearchOrderDataResponseToJson(
+        SearchOrderDataResponse instance) =>
+    <String, dynamic>{
+      'order': instance.order,
+    };
+
 OrdersResponse _$OrdersResponseFromJson(Map<String, dynamic> json) =>
     OrdersResponse(
       (json['results'] as num?)?.toInt(),
