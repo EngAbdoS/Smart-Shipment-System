@@ -50,11 +50,11 @@ Widget activeShipmentStatusBarSectionDetailsCountry(
       Text(
         startLocation,
         style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 8),
-      ).tr(),
+      ),
       Text(
         endLocation,
         style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 8),
-      ).tr(),
+      ),
     ],
   );
 }

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/activeShipmentStatusBar.dart';
+import 'package:smart_shipment_system/presentation/client/widgets/shipmentCardId.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 
@@ -26,25 +27,13 @@ Widget activeShipmentCard(BuildContext context, ShipmentModel shipment) {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('#${shipment.id}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(fontSize: 14))
-                      .tr(),
-                  Text(shipment.date,
-                      style: Theme.of(context).textTheme.titleSmall)
-                      .tr(),
-                ],
-              ),
+              Text(shipment.date,
+                  style: Theme.of(context).textTheme.titleSmall),
               Container(
                 height: 50.h,
                 width: 100.h,
@@ -64,25 +53,30 @@ Widget activeShipmentCard(BuildContext context, ShipmentModel shipment) {
                   shipment.status == AppConstants.activeShipmentStatusUnPicked
                       ? AppStrings.unPicked
                       : shipment.status ==
-                      AppConstants.activeShipmentStatusPickedUp
-                      ? AppStrings.pickedUp
-                      : shipment.status ==
-                      AppConstants.activeShipmentStatusComing
-                      ? AppStrings.coming
-                      : shipment.status ==
-                      AppConstants
-                          .activeShipmentStatusDelivered
-                      ? AppStrings.delivered
-                      : "",
+                              AppConstants.activeShipmentStatusPickedUp
+                          ? AppStrings.pickedUp
+                          : shipment.status ==
+                                  AppConstants.activeShipmentStatusComing
+                              ? AppStrings.coming
+                              : shipment.status ==
+                                      AppConstants.activeShipmentStatusDelivered
+                                  ? AppStrings.delivered
+                                  : "",
                   style: Theme.of(context)
                       .textTheme
                       .titleSmall!
-                      .copyWith(fontSize:12),
+                      .copyWith(fontSize: 12),
                 ).tr(),
               ),
             ],
           ),
-          const SizedBox(height: 4,),
+          const SizedBox(
+            height: 4,
+          ),
+          shipmentCardId(context, shipment.id),
+          const SizedBox(
+            height: 4,
+          ),
           activeShipmentStatusBar(context: context, shipment: shipment),
         ],
       ),

@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/activeShipmentStatusBar.dart';
+import 'package:smart_shipment_system/presentation/client/widgets/shipmentCardId.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -55,17 +56,17 @@ Widget detailedShipmentCard(BuildContext context, ShipmentModel shipment) {
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Flexible(
-                      child: Text(
-                        '#${shipment.id}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall!
-                            .copyWith(fontSize: 14),
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
-                      ),
-                    ),
+                    // Flexible(
+                    //   child: Text(
+                    //     '#${shipment.id}',
+                    //     style: Theme.of(context)
+                    //         .textTheme
+                    //         .titleSmall!
+                    //         .copyWith(fontSize: 14),
+                    //     overflow: TextOverflow.ellipsis,
+                    //     softWrap: true,
+                    //   ),
+                    // ),
                     Text(shipment.date,
                         style: Theme.of(context).textTheme.titleSmall),
                   ],
@@ -106,6 +107,13 @@ Widget detailedShipmentCard(BuildContext context, ShipmentModel shipment) {
                 ).tr(),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          shipmentCardId(context, shipment.id),
+          const SizedBox(
+            height: 10,
           ),
           const Divider(
             color: ColorManager.black,
