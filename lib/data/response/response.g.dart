@@ -130,7 +130,6 @@ OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) =>
       (json['delivery'] as List<dynamic>?)
           ?.map((e) => UserResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      json['client'] as String?,
     );
 
 Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
@@ -155,7 +154,6 @@ Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
       'quantity': instance.quantity,
       'description': instance.description,
       'delivery': instance.delivery,
-      'client': instance.client,
     };
 
 LatLonResponse _$LatLonResponseFromJson(Map<String, dynamic> json) =>

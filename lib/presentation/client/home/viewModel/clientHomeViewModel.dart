@@ -1,7 +1,4 @@
 import 'dart:async';
-
-import 'package:go_router/go_router.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
@@ -89,16 +86,20 @@ class ClientHomeViewModel extends MainClientViewModel {
     (await _repository.getAllShipment()).fold(
         (failure) => {
               errorState(context: context, message: failure.message),
-            }, (data) {
-      deliveredShipmentList = [];
-      activeShipmentList = [];
-      for (var shipment in data) {
-        shipment.delivered
-            ? deliveredShipmentList.add(shipment)
-            : activeShipmentList.add(shipment);
-      }
+            }, (data) async {
+      await dataFiltration(data);
       hideState(context: context);
     });
+  }
+
+  dataFiltration(List<ShipmentModel> shipmentList) {
+    deliveredShipmentList = [];
+    activeShipmentList = [];
+    for (var shipment in shipmentList) {
+      shipment.delivered
+          ? deliveredShipmentList.add(shipment)
+          : activeShipmentList.add(shipment);
+    }
   }
 
   void seeMore(int length) => length > 3

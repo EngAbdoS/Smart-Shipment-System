@@ -44,7 +44,8 @@ extension OrdersResponseMapper on OrderResponse? {
       coming: this?.coming ?? false,
       delivery:
           this?.delivery?.map((delivery) => delivery.toDomain()).toList() ?? [],
-      client: this?.client ?? "noClient",
+     // client: this?.client ?? "noClient",
+      client: "noClient",
     );
   }
 }

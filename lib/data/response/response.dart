@@ -133,8 +133,8 @@ class OrderResponse {
   String? description;
   @JsonKey(name: "delivery")
   List<UserResponse>? delivery;
-  @JsonKey(name: "client")
-  String? client;
+ // @JsonKey(name: "client")
+ // String? client;
 
   OrderResponse(
     this.type,
@@ -157,7 +157,7 @@ class OrderResponse {
     this.quantity,
     this.description,
     this.delivery,
-    this.client,
+   // this.client,
   );
 
   factory OrderResponse.fromJson(Map<String, dynamic> json) =>
