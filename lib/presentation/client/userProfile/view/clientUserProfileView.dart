@@ -63,7 +63,7 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
             AppStrings.general,
             style: Theme.of(context).textTheme.headlineMedium,
           ).tr(),
-        ),
+        ), 
         generalSetting(
           () {},
           AppStrings.edit_profile,

@@ -13,6 +13,7 @@ extension UserResponseMapper on UserResponse? {
       isEmailConfirmed: this?.isEmailConfirmed ?? false,
       isDeliveryApproved: this?.isDeliveryApproved ?? false,
       userId: this?.userId ?? "noId",
+      profileImage: this?.profileImage ?? "noImage",
     );
   }
 }
@@ -51,7 +52,7 @@ extension OrdersResponseMapper on OrderResponse? {
           userName: "noName",
           email: "noEmail",
           phoneNumber: "noPhone",
-          userId: "noId"),);
+          userId: "noId",profileImage: "noImage"),);
 
 
   }

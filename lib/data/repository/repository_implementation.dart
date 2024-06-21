@@ -82,6 +82,29 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
+  Future<Either<Failure, bool>> updateUserProfileImage(
+      String profileImage, String email) async {
+    String? imgUrlNew;
+    return await (await _remoteDataSource.uploadPhoto(
+            profileImage, AppConstants.profilePhotosStorageRef, email))
+        .fold((error) {
+      return Left(error);
+    }, (imgUrl) async {
+      imgUrlNew = imgUrl;
+      return await (await _remoteDataSource.updateUserProfileImage(imgUrlNew!))
+          .fold((error) {
+        return Left(error);
+      }, (response) async {
+        if (response.status == ResponseMessage.SUCCESS) {
+          return const Right(true);
+        } else {
+          return Left(ErrorHandler.handle(response).failure);
+        }
+      });
+    });
+  }
+
+  @override
   Future<Either<Failure, UserModel>> getUserData() async {
     return await (await _localDataSource.getUserData()).fold(
         (noLocalData) async {
@@ -100,6 +123,35 @@ class RepositoryImplementation implements Repository {
         }
       });
     }, (data) => right(data));
+  }
+
+  @override
+  Future<Either<Failure, UserModel>> updateUserData(
+      Map<String, dynamic> data) async {
+    String? emailOld;
+    (await getUserData()).fold((error) {
+      return Left(error);
+    }, (data) {
+      emailOld = data.email;
+    });
+    await data['profileImage'] != null
+        ? (await updateUserProfileImage(
+                data['profileImage'], data['email'] ?? emailOld))
+            .fold((error) {
+            return Left(error);
+          }, (imgUrl) => data.remove('profileImage'))
+        : null;
+    return await (await _remoteDataSource.updateUserData(data)).fold((error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        var userData = response.dataResponse?.userResponse.toDomain();
+        _localDataSource.saveUserDataToCache(userData!);
+        return Right(userData);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
   }
 
   @override

@@ -7,7 +7,7 @@ class UserModel {
   String phoneNumber;
   String role;
   bool isEmailConfirmed;
-
+ String profileImage;
   UserModel(
       {required this.isDeliveryApproved,
        this.tripPeriod,
@@ -16,5 +16,7 @@ class UserModel {
       required this.email,
       required this.phoneNumber,
       required this.role,
-      required this.isEmailConfirmed});
+      required this.isEmailConfirmed,
+      required this.profileImage,
+      });
 }

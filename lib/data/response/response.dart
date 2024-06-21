@@ -54,9 +54,10 @@ class UserResponse {
   String? role;
   @JsonKey(name: "confirmedEmail")
   bool? isEmailConfirmed;
-
+  @JsonKey(name: "profileImage")
+  String? profileImage;
   UserResponse(this.isDeliveryApproved, this.userId, this.userName, this.email,
-      this.phoneNumber, this.role, this.isEmailConfirmed);
+      this.phoneNumber, this.role, this.isEmailConfirmed,this.profileImage);
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
       _$UserResponseFromJson(json); //why factory

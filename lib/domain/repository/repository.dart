@@ -8,8 +8,10 @@ abstract class Repository {
   Future<Either<Failure, String>> getSplashNextNavigationRoute();
 
   Future<Either<Failure, String>> getLoginNextNavigationRoute();
-
   Future<Either<Failure, UserModel>> getUserData();
+  Future<Either<Failure, bool>> updateUserProfileImage(String profileImage, String email);
+
+  Future<Either<Failure, UserModel>> updateUserData(Map<String, dynamic> data);
   Future<Either<Failure, List<ShipmentModel>>> getAllShipment();
   Future<Either<Failure, ShipmentModel>> getShipmentById(String id);
 

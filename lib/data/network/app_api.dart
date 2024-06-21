@@ -23,8 +23,11 @@ abstract class AppServiceClient {
   @GET("client/order/{id}")
   Future<SearchOrderResponse> getOrderById(@Path("id") String id);
 
+  @PATCH('users/updateMe')
+  Future<MeDataResponse> updateUserData(@Body() Map<String, dynamic> data);
 
-
+  @PATCH('users/updateImg')
+  Future<RegistrationResponse> updateUserProfileImage(@Field("profileImage") String profileImage);
 
   @POST("users/login")
   Future<AuthenticationResponse> login(
@@ -55,13 +58,12 @@ abstract class AppServiceClient {
   Future<RegistrationResponse> unorganizedDeliveryRegistration(
       @Body()
       UnorganizedDeliveryRegistrationRequest
-      unorganizedDeliveryRegistrationRequest);
+          unorganizedDeliveryRegistrationRequest);
+
   @POST("users/signup")
   Future<RegistrationResponse> fixedDeliveryRegistration(
       @Body()
-      FixedDeliveryRegistrationRequest
-      fixedDeliveryRegistrationRequest);
-
+      FixedDeliveryRegistrationRequest fixedDeliveryRegistrationRequest);
 
   @PATCH("users/resetPassword")
   Future<ForgetPasswordResponse> resetPassword(

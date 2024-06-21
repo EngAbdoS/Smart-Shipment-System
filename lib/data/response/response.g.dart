@@ -55,6 +55,7 @@ UserResponse _$UserResponseFromJson(Map<String, dynamic> json) => UserResponse(
       json['phone'] as String?,
       json['role'] as String?,
       json['confirmedEmail'] as bool?,
+      json['profileImage'] as String?,
     );
 
 Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
@@ -66,6 +67,7 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
       'phone': instance.phoneNumber,
       'role': instance.role,
       'confirmedEmail': instance.isEmailConfirmed,
+      'profileImage': instance.profileImage,
     };
 
 SearchOrderResponse _$SearchOrderResponseFromJson(Map<String, dynamic> json) =>
