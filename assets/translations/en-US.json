@@ -141,8 +141,6 @@
   "things_count"           : "الأغراض",
   "delivery_cost"           : "تكلفة المندوب",
   "scan_to_accept"           : "امسح رمز الاستجابة السريعة ضوئيًا لقبول التسليم\n",
-
-
   "add_shipment":             "إضافة شحنة",
   "shipping_address":              "عنوان التسليم",
   "delivery_address":             "عنوان الاستلام"     ,
@@ -153,6 +151,8 @@
   "recipient_address":             "اكتب هنا عنوان المستلم",
   "delivery_address_details":         "اكتب هنا عنوان تسليم الشحنة",
   "confirm_shipment":          " تأكيد الطلب",
+  "see_less": "رؤية اقل",
+  "search_result": "نتائج البحث",
 
   "recipient_name":      "اسم المستلم",
   "recipient_phone":      "رقم تليفون المستلم",

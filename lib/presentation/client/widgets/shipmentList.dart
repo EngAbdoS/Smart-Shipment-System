@@ -21,34 +21,63 @@ Widget shipmentList(
       !isDetailedCard
           ? Padding(
               padding: const EdgeInsets.only(right: 16, left: 10, top: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    AppStrings.active_shipments,
-                    style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                          color: ColorManager.black,
-                          fontSize: 14,
-                        ),
-                  ).tr(),
-                  StreamBuilder<List<ShipmentModel>?>(
-                      stream: viewModel.outputShipmentList,
-                      builder: (context, snapshot) {
-                        //  print(snapshot.data?.length??"7");
-                        return TextButton(
-                          onPressed: () =>
-                              viewModel.seeMore(snapshot.data?.length ?? 0),
-                          child: Text(
-                            AppStrings.see_more,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(color: ColorManager.black),
-                          ).tr(),
-                        );
-                      })
-                ],
-              ),
+              child: StreamBuilder<bool?>(
+                  stream: viewModel.outputIsHomeActiveShipmentOrSearchStream,
+                  builder: (context, snapshot) {
+                    return (snapshot.data ?? true)
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                AppStrings.active_shipments,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelSmall!
+                                    .copyWith(
+                                      color: ColorManager.black,
+                                      fontSize: 14,
+                                    ),
+                              ).tr(),
+                              StreamBuilder<List<ShipmentModel>?>(
+                                  stream: viewModel.outputShipmentList,
+                                  builder: (context, snapshot) {
+                                    //  print(snapshot.data?.length??"7");
+                                    return TextButton(
+                                      onPressed: () => viewModel
+                                          .seeMore(snapshot.data?.length ?? 0),
+                                      child: Text(
+                                        (snapshot.data?.length ?? 0) <= 3
+                                            ? AppStrings.see_more
+                                            : AppStrings.see_less,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                color: ColorManager.black),
+                                      ).tr(),
+                                    );
+                                  })
+                            ],
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                                Text(
+                                  AppStrings.search_result,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall!
+                                      .copyWith(
+                                        color: ColorManager.black,
+                                        fontSize: 14,
+                                      ),
+                                ).tr(),
+                                const Icon(
+                                  Icons.manage_search,
+                                  color: ColorManager.primary,
+                                )
+                              ]);
+                  }),
             )
           : Container(),
       Container(
@@ -56,7 +85,7 @@ Widget shipmentList(
         child: StreamBuilder<List<ShipmentModel>?>(
             stream: viewModel.outputShipmentList,
             builder: (context, snapshot) {
-              return (snapshot.hasData && snapshot.data!.length > 0)
+              return (snapshot.hasData && snapshot.data!.isNotEmpty)
                   ? ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),

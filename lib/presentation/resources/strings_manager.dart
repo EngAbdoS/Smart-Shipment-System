@@ -117,6 +117,9 @@ class AppStrings {
   static const shipment_not_found = "shipment_not_found";
   static const active_shipments = "active_shipments";
   static const see_more = "see_more";
+  static const see_less = "see_less";
+  static const search_result = "search_result";
+
   static const profile_settings = "profile_settings";
   static const general = "general";
   static const edit_profile = "edit_profile";

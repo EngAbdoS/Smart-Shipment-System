@@ -75,6 +75,7 @@
 "shipment_not_found": "شحنة غير موجودة",
   "active_shipments": "المعاملات النشطة",
   "see_more": "رؤية المزيد",
+  "see_less": "رؤية اقل",
 
   "profile_settings":"اعدادات الملف الشخصي",
   "general":"عام",
@@ -125,7 +126,7 @@
 
   "input_valid_details": "ادخل تفاصيل مناسبة",
   "input_valid_weight": "ادخل وزن مناسب بالكيلو جرام",
-
+"search_result": "نتائج البحث",
 
 
   "hello": "مرحبا !!",

@@ -28,6 +28,8 @@ class ClientHomeViewModel extends MainClientViewModel {
       BehaviorSubject<bool?>();
   final StreamController _shipmentListStreamController =
       BehaviorSubject<List<ShipmentModel>?>();
+  final StreamController _isHomeActiveShipmentOrSearchStream =
+      BehaviorSubject<bool?>();
 
   Stream<List<ShipmentModel>?> get outputShipmentList =>
       _shipmentListStreamController.stream.map((shipmentList) => shipmentList);
@@ -43,6 +45,9 @@ class ClientHomeViewModel extends MainClientViewModel {
   Stream<bool?> get outputIsShipmentListStatusBarActive =>
       _shipmentListStatusBarStreamController.stream.map((status) => status);
 
+  Stream<bool?> get outputIsHomeActiveShipmentOrSearchStream =>
+      _isHomeActiveShipmentOrSearchStream.stream.map((widget) => widget);
+
   Sink get inputShipmentList => _shipmentListStreamController.sink;
 
   Sink get inputActiveShipmentList => _activeShipmentListStreamController.sink;
@@ -52,6 +57,12 @@ class ClientHomeViewModel extends MainClientViewModel {
 
   Sink get inputIsShipmentListStatusBarActive =>
       _shipmentListStatusBarStreamController.sink;
+
+  Sink get inputIsHomeActiveShipmentOrSearchStream =>
+      _isHomeActiveShipmentOrSearchStream.sink;
+
+  changeHomeActiveShipmentOrSearchState(bool state) =>
+      inputIsHomeActiveShipmentOrSearchStream.add(state);
 
   changeShipmentListStatusBar(bool status) {
     isShipmentListStatusBarActive != status
@@ -65,6 +76,7 @@ class ClientHomeViewModel extends MainClientViewModel {
   }
 
   startHomeView(dynamic context) async {
+    changeHomeActiveShipmentOrSearchState(true);
     await getHomeActiveShipmentList(context);
   }
 
@@ -73,6 +85,7 @@ class ClientHomeViewModel extends MainClientViewModel {
 
   Future<void> searchShipmentById(dynamic context) async {
     loadingState(context: context);
+    changeHomeActiveShipmentOrSearchState(false);
     (await _repository.getShipmentById(searchId)).fold(
         (failure) => {
               errorState(context: context, message: failure.message),
@@ -82,8 +95,11 @@ class ClientHomeViewModel extends MainClientViewModel {
     });
   }
 
-  void onSearchClose() => inputShipmentList
-      .add(isActiveShipment ? activeShipmentList : deliveredShipmentList);
+  void onSearchClose() => {
+        changeHomeActiveShipmentOrSearchState(true),
+        inputShipmentList
+            .add(isActiveShipment ? activeShipmentList : deliveredShipmentList)
+      };
 
   getHomeActiveShipmentList(dynamic context) async {
     await getAllShipments(context);
