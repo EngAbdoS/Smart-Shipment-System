@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
+import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/userProfile/viewModel/clientUserProfileViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
@@ -21,7 +22,7 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
   final ClientUserProfileViewModel _viewModel =
       instance<ClientUserProfileViewModel>();
 
-  // final MainClientViewModel _mainClientViewMode = instance<MainClientViewModel>();
+   final MainClientViewModel _mainClientViewMode = instance<MainClientViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +66,7 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
           ).tr(),
         ), 
         generalSetting(
-          () {},
+          () =>_mainClientViewMode.changeWidget(context,5),
           AppStrings.edit_profile,
           AppStrings.profile_edits,
           Icons.edit,

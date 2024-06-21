@@ -9,6 +9,7 @@ import 'package:smart_shipment_system/presentation/client/createOrder/view/clien
 import 'package:smart_shipment_system/presentation/client/home/view/clientHomeView.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/shipment/shipmentView.dart';
+import 'package:smart_shipment_system/presentation/client/userProfile/editProfileData/view/editProfileDataView.dart';
 import 'package:smart_shipment_system/presentation/client/userProfile/view/clientUserProfileView.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
@@ -38,25 +39,6 @@ class MainClientViewModel {
     await changeWidget(context, pageViewIndex);
   }
 
-  // List<Widget> widgetList() => [
-  //       const ClientHomeView(),
-  //       ShipmentView(),
-  //       Container(
-  //         color: Colors.red,
-  //         child: Center(child: Text("حمرا")),
-  //       ),
-  //       ClientUserProfileView(),
-  //       ClientCreateOrderMainView(),
-  //     ];
-
-  // List<Function> widgetInitialization = [
-  //   initClientHomeModule,
-  //   initClientHomeModule,
-  //   initClientHomeModule,
-  //   initClientProfileModule,
-  //   initClientAddShipmentModule,
-  // ];
-
   Future getUserData(dynamic context) async {
     loadingState(context: context);
     (await _repository.getUserData()).fold(
@@ -69,14 +51,14 @@ class MainClientViewModel {
   }
 
   changeWidget(dynamic context, int widget) async {
-    if (pageViewIndex != widget|| widget == 0) {
+    if (pageViewIndex != widget || widget == 0) {
       switch (widget) {
         case 0:
           {
             pageViewIndex = widget;
             await getUserData(context);
             initClientHomeModule(userModel!);
-            inputMainStream.add(ClientHomeView());
+            inputMainStream.add(const ClientHomeView());
             inputMainIndexStream.add(widget);
             break;
           }
@@ -94,7 +76,7 @@ class MainClientViewModel {
             initClientHomeModule(userModel!);
             inputMainStream.add(Container(
               color: Colors.red,
-              child: Center(child: Text("حمرا")),
+              child: const Center(child: Text("حمرا")),
             ));
             inputMainIndexStream.add(widget);
             break;
@@ -103,7 +85,7 @@ class MainClientViewModel {
           {
             pageViewIndex = widget;
             initClientProfileModule(userModel!);
-            inputMainStream.add(ClientUserProfileView());
+            inputMainStream.add(const ClientUserProfileView());
             inputMainIndexStream.add(widget);
             break;
           }
@@ -112,6 +94,14 @@ class MainClientViewModel {
             pageViewIndex = widget;
             initClientAddShipmentModule(userModel!);
             inputMainStream.add(ClientCreateOrderMainView());
+            inputMainIndexStream.add(widget);
+            break;
+          }
+        case 5:
+          {
+            pageViewIndex = widget;
+            initEditProfileModule(userModel!);
+            inputMainStream.add(const EditProfileView());
             inputMainIndexStream.add(widget);
             break;
           }
