@@ -146,6 +146,8 @@ class OrderResponse {
   LatLonResponse? endLoc;
   @JsonKey(name: "endLocation")
   String? endLocation;
+  @JsonKey(name: "startLocation")
+  String? startLocation;
   @JsonKey(name: "status")
   String? status;
   @JsonKey(name: "unPicked")
@@ -164,8 +166,8 @@ class OrderResponse {
   String? description;
   @JsonKey(name: "delivery")
   List<UserResponse>? delivery;
- // @JsonKey(name: "client")
- // String? client;
+ @JsonKey(name: "client")
+ UserResponse? client;
 
   OrderResponse(
     this.type,
@@ -179,6 +181,7 @@ class OrderResponse {
     this.currentLoc,
     this.endLoc,
     this.endLocation,
+    this.startLocation,
     this.status,
     this.unPicked,
     this.pickedUp,
@@ -188,7 +191,7 @@ class OrderResponse {
     this.quantity,
     this.description,
     this.delivery,
-   // this.client,
+    this.client,
   );
 
   factory OrderResponse.fromJson(Map<String, dynamic> json) =>

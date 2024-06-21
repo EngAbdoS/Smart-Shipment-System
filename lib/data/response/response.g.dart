@@ -153,6 +153,7 @@ OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) =>
           ? null
           : LatLonResponse.fromJson(json['endLoc'] as Map<String, dynamic>),
       json['endLocation'] as String?,
+      json['startLocation'] as String?,
       json['status'] as String?,
       json['unPicked'] as bool?,
       json['pickedUp'] as bool?,
@@ -164,6 +165,9 @@ OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) =>
       (json['delivery'] as List<dynamic>?)
           ?.map((e) => UserResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
+      json['client'] == null
+          ? null
+          : UserResponse.fromJson(json['client'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
@@ -179,6 +183,7 @@ Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
       'currentLoc': instance.currentLoc,
       'endLoc': instance.endLoc,
       'endLocation': instance.endLocation,
+      'startLocation': instance.startLocation,
       'status': instance.status,
       'unPicked': instance.unPicked,
       'pickedUp': instance.pickedUp,
@@ -188,6 +193,7 @@ Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
       'quantity': instance.quantity,
       'description': instance.description,
       'delivery': instance.delivery,
+      'client': instance.client,
     };
 
 LatLonResponse _$LatLonResponseFromJson(Map<String, dynamic> json) =>

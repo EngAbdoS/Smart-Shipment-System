@@ -34,6 +34,7 @@ extension OrdersResponseMapper on OrderResponse? {
       endLoc: LatLng(this?.startLoc?.coordinates?[0] ?? 0,
           this?.startLoc?.coordinates?[1] ?? 0),
       endLocation: this?.endLocation ?? "",
+      startLocation: this?.startLocation ?? "",
       weight: this?.weight ?? "",
       quantity: this?.quantity ?? 0,
       description: this?.description ?? "",
@@ -43,9 +44,15 @@ extension OrdersResponseMapper on OrderResponse? {
       delivered: this?.delivered ?? false,
       coming: this?.coming ?? false,
       delivery:
-          this?.delivery?.map((delivery) => delivery.toDomain()).toList() ?? [],
-     // client: this?.client ?? "noClient",
-      client: "noClient",
-    );
+      this?.delivery?.map((delivery) => delivery.toDomain()).toList() ?? [],
+      client: this?.client?.toDomain() ?? UserModel(isDeliveryApproved: false,
+          isEmailConfirmed: false,
+          role: "noRole",
+          userName: "noName",
+          email: "noEmail",
+          phoneNumber: "noPhone",
+          userId: "noId"),);
+
+
   }
 }

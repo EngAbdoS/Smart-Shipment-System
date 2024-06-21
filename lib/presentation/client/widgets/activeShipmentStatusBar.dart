@@ -36,7 +36,7 @@ Widget activeShipmentStatusBar(
           height: 4,
         ),
         activeShipmentStatusBarSectionDetailsCountry(
-            context, shipment.type, shipment.endLocation),
+            context, shipment.startLocation, shipment.endLocation),
       ],
     ),
   );

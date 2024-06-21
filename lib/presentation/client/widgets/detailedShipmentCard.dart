@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/activeShipmentStatusBar.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/shipmentCardId.dart';
+import 'package:smart_shipment_system/presentation/client/widgets/shipmentStatusWidget.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -72,40 +73,7 @@ Widget detailedShipmentCard(BuildContext context, ShipmentModel shipment) {
                   ],
                 ),
               ),
-              Container(
-                height: 50.h,
-                width: 100.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
-                  color: ColorManager.primary,
-                  boxShadow: [
-                    BoxShadow(
-                      color: ColorManager.black.withOpacity(0.15),
-                      blurRadius: 25,
-                      offset: const Offset(2, 8),
-                    ),
-                  ],
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  shipment.status == AppConstants.activeShipmentStatusUnPicked
-                      ? AppStrings.unPicked
-                      : shipment.status ==
-                              AppConstants.activeShipmentStatusPickedUp
-                          ? AppStrings.pickedUp
-                          : shipment.status ==
-                                  AppConstants.activeShipmentStatusComing
-                              ? AppStrings.coming
-                              : shipment.status ==
-                                      AppConstants.activeShipmentStatusDelivered
-                                  ? AppStrings.delivered
-                                  : "",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall!
-                      .copyWith(fontSize: 12),
-                ).tr(),
-              ),
+              shipmentStatusWidget(context, shipment.status),
             ],
           ),
           const SizedBox(

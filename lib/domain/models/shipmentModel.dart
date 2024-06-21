@@ -13,6 +13,7 @@ class ShipmentModel {
   LatLng currentLoc;
   LatLng endLoc;
   String endLocation;
+  String startLocation;
   String weight;
   int quantity;
   String description;
@@ -22,7 +23,7 @@ class ShipmentModel {
   bool coming;
   bool delivered;
   List<UserModel> delivery;
-  String client;
+  UserModel client;
 
   ShipmentModel(
       {required this.id,
@@ -36,6 +37,7 @@ class ShipmentModel {
       required this.currentLoc,
       required this.endLoc,
       required this.endLocation,
+      required this.startLocation,
       required this.weight,
       required this.quantity,
       required this.description,
