@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
@@ -17,6 +18,12 @@ class StudentProfileCirclerImage extends StatelessWidget {
     return IconButton(
       onPressed:navigate,
       icon: CachedNetworkImage(
+          cacheManager: CacheManager(
+            Config(
+              'cacheKey',
+              stalePeriod: Duration(minutes: 1),
+            ),
+          ),
           height: size,
           width: size,
           imageBuilder: (context, imageProvider) => FittedBox(
