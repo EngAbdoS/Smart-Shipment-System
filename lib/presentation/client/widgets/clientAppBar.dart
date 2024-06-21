@@ -35,7 +35,7 @@ SliverAppBar buildSliverAppBar(
       child: Row(
         children: [
           StudentProfileCirclerImage(
-            imageUrl: clientViewModel.userHomeData.email,
+            imageUrl: clientViewModel.userHomeData.profileImage,
             navigate: () => mainClientViewModel.changeWidget(context, 3),
           ),
           Column(

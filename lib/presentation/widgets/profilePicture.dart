@@ -41,8 +41,8 @@ class StudentProfileCirclerImage extends StatelessWidget {
                 ),
               ),
           imageUrl:
-          //imageUrl,
-          "https://static3.bigstockphoto.com/9/1/3/large1500/31903202.jpg",
+          imageUrl,
+         // "https://static3.bigstockphoto.com/9/1/3/large1500/31903202.jpg",
           //Uri.parse("https://static3.bigstockphoto.com/9/1/3/large1500/31903202.jpg").toString(),
           errorWidget: (context, url, error) {
             return Container(

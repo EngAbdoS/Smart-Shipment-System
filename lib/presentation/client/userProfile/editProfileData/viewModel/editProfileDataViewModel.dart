@@ -27,6 +27,8 @@ class EditUserProfileViewModel //extends MainClientViewModel
   final StreamController _phoneStreamController = BehaviorSubject<String?>();
   final StreamController _profileImageStreamController =
       BehaviorSubject<String?>();
+  final StreamController _isProfileImageEditingStreamController =
+      BehaviorSubject<bool?>();
 
   Stream<String?> get outputNameStream =>
       _nameStreamController.stream.map((value) => value);
@@ -40,6 +42,9 @@ class EditUserProfileViewModel //extends MainClientViewModel
   Stream<String?> get outputProfileImageStream =>
       _profileImageStreamController.stream.map((value) => value);
 
+  Stream<bool?> get outputIsProfileImageEditingStream =>
+      _isProfileImageEditingStreamController.stream.map((value) => value);
+
   Sink get inputNameStream => _nameStreamController.sink;
 
   Sink get inputEmailStream => _emailStreamController.sink;
@@ -47,6 +52,9 @@ class EditUserProfileViewModel //extends MainClientViewModel
   Sink get inputPhoneStream => _phoneStreamController.sink;
 
   Sink get inputProfileImageStream => _profileImageStreamController.sink;
+
+  Sink get inputIsProfileImageEditingStream =>
+      _isProfileImageEditingStreamController.sink;
 
   void start() {
     reSetProfileData();
@@ -93,9 +101,10 @@ class EditUserProfileViewModel //extends MainClientViewModel
     this.phone = phone;
   }
 
-  setProfilePicture(File profilePic) {
-    inputProfileImageStream.add(profilePic.path);
-    profileImage = profilePic.path;
+  setProfilePicture(String profilePic) {
+    inputProfileImageStream.add(profilePic);
+    inputIsProfileImageEditingStream.add(true);
+    profileImage = profilePic;
   }
 
   reSetProfileData() {
@@ -103,30 +112,62 @@ class EditUserProfileViewModel //extends MainClientViewModel
     inputNameStream.add(userProfileData.userName);
     inputPhoneStream.add(userProfileData.phoneNumber);
     inputProfileImageStream.add(userProfileData.profileImage);
+    inputIsProfileImageEditingStream.add(false);
+  }
+  isAllEditedDataValid()
+  {
+    print("gvwekjfvldfbgjldsf");
+    print(  editedDataObject['profileImage']);
+    return ((email != null
+        ? (email != userProfileData.email &&
+        isEmailValid(email!))
+        : true) &&
+        (name != null
+            ? (name != userProfileData.userName &&
+            isNameValid(name!))
+            : true) &&
+        (phone!= null
+            ? (phone !=
+            userProfileData.phoneNumber &&
+            isPhoneNumberValid(phone!))
+            : true) &&
+        (profileImage != null
+            ? (profileImage !=
+            userProfileData.profileImage &&
+            isProfilePictureValid(profileImage!))
+            : true)) &&
+        (editedDataObject['email'] != null ||
+            editedDataObject['name'] != null ||
+            phone != null ||
+            profileImage != null);
   }
 
-  isAllEditedDataValid() =>
-      ((editedDataObject['email'] != null
-              ? (editedDataObject['email'] != userProfileData.email &&
-                  isEmailValid(editedDataObject['email']))
-              : true) &&
-          (editedDataObject['name'] != null
-              ? (editedDataObject['name'] != userProfileData.userName &&
-                  isNameValid(editedDataObject['name']))
-              : true) &&
-          (editedDataObject['phone'] != null
-              ? (editedDataObject['phone'] != userProfileData.phoneNumber &&
-                  isPhoneNumberValid(editedDataObject['phone']))
-              : true) &&
-          (editedDataObject['profileImage'] != null
-              ? (editedDataObject['profileImage'] !=
-                      userProfileData.profileImage &&
-                  isProfilePictureValid(editedDataObject['profileImage']))
-              : true)) &&
-      (editedDataObject['email'] != null ||
-          editedDataObject['name'] != null ||
-          editedDataObject['phone'] != null ||
-          editedDataObject['profileImage'] != null);
+  // isAllEditedDataValid()
+  //     {
+  //
+  //      return ((editedDataObject['email'] != null
+  //                   ? (editedDataObject['email'] != userProfileData.email &&
+  //                       isEmailValid(editedDataObject['email']))
+  //                   : true) &&
+  //               (editedDataObject['name'] != null
+  //                   ? (editedDataObject['name'] != userProfileData.userName &&
+  //                       isNameValid(editedDataObject['name']))
+  //                   : true) &&
+  //               (editedDataObject['phone'] != null
+  //                   ? (editedDataObject['phone'] !=
+  //                           userProfileData.phoneNumber &&
+  //                       isPhoneNumberValid(editedDataObject['phone']))
+  //                   : true) &&
+  //               (editedDataObject['profileImage'] != null
+  //                   ? (editedDataObject['profileImage'] !=
+  //                           userProfileData.profileImage &&
+  //                       isProfilePictureValid(editedDataObject['profileImage']))
+  //                   : true)) &&
+  //           (editedDataObject['email'] != null ||
+  //               editedDataObject['name'] != null ||
+  //               editedDataObject['phone'] != null ||
+  //               editedDataObject['profileImage'] != null);
+  //     }
 
   bool isEmailValid(String email) => isEmailValidGlobal(email);
 

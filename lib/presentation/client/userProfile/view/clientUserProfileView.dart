@@ -394,7 +394,7 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         StudentProfileCirclerImage(
-          imageUrl: _viewModel.userProfileData.email,
+          imageUrl: _viewModel.userProfileData.profileImage,
           navigate: () {},
         ),
         Column(

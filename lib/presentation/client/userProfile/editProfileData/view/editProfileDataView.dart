@@ -4,6 +4,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/client/userProfile/editProfileData/viewModel/editProfileDataViewModel.dart';
+import 'package:smart_shipment_system/presentation/client/userProfile/editProfileData/widgets.dart';
+import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/regular_button.dart';
 import 'package:smart_shipment_system/presentation/widgets/toast.dart';
@@ -45,13 +47,10 @@ class _EditProfileViewState extends State<EditProfileView> {
               ).tr().animate(delay: 300.milliseconds).fade(
                   duration: 300.milliseconds,
                   curve: Curves.fastEaseInToSlowEaseOut),
-
-
-
-
-
-
-
+              userEditProfileImage(context,
+                  _viewModel.setProfilePicture,
+                  _viewModel.outputProfileImageStream,
+                  _viewModel.outputIsProfileImageEditingStream),
               RegularButton(
                 buttonAction: () => (_viewModel.isAllEditedDataValid())
                     ? _viewModel.editProfileData(context)
