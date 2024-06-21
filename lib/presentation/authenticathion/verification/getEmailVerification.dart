@@ -4,9 +4,11 @@ import 'package:smart_shipment_system/presentation/resources/router_manager.dart
 
 void getEmailVerification(
     {dynamic context,
-      required String email,
-      required String nextActionRoute,
+    required String email,
+    required String nextActionRoute,
     bool executeOrRouteOnly = true}) {
-  initEmailVerificationModule(email,nextActionRoute,executeOrRouteOnly);
-  GoRouter.of(context).pushReplacement(Routes.emilVerificationViewRoute);
+  initEmailVerificationModule(email, nextActionRoute, executeOrRouteOnly);
+  executeOrRouteOnly
+      ? GoRouter.of(context).pushReplacement(Routes.emilVerificationViewRoute)
+      : GoRouter.of(context).push(Routes.emilVerificationViewRoute);
 }

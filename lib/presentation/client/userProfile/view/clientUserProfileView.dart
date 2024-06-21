@@ -71,7 +71,7 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
           Icons.edit,
         ),
         generalSetting(
-          () {},
+          () => _viewModel.forgotPassword(context),
           AppStrings.changePassword,
           AppStrings.profile_safety,
           Icons.lock,
@@ -95,7 +95,7 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
   Widget generalSetting(
       GestureTapCallback onTap, String title, String hint, IconData icon) {
     return GestureDetector(
-      onTap:  onTap,
+      onTap: onTap,
       child: Container(
         width: double.maxFinite,
         padding: const EdgeInsets.all(14),
@@ -221,20 +221,27 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
             AppStrings.notifications,
             AppStrings.edit_notifications,
             Icons.notifications),
-        faverSetting(changeLanguage(),
-            AppStrings.language, AppStrings.choose_language, Icons.language),
-        generalSetting(ratingWidget, AppStrings.rate, AppStrings.how_rate, Icons.star),
+        faverSetting(changeLanguage(), AppStrings.language,
+            AppStrings.choose_language, Icons.language),
+        generalSetting(
+            ratingWidget, AppStrings.rate, AppStrings.how_rate, Icons.star),
         logoutWidget(),
       ],
     );
   }
- ratingWidget() {
-     showDialog<String>(
+
+  ratingWidget() {
+    showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-
-        title:  Text(AppStrings.rate,style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: ColorManager.primary),).tr(),
-        content:    AnimatedRatingStars(
+        title: Text(
+          AppStrings.rate,
+          style: Theme.of(context)
+              .textTheme
+              .headlineSmall!
+              .copyWith(color: ColorManager.primary),
+        ).tr(),
+        content: AnimatedRatingStars(
           initialRating: 3.5,
           minRating: 0.0,
           maxRating: 5.0,
@@ -258,33 +265,30 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
           readOnly: false,
         ),
         actions: <Widget>[
-
           TextButton(
             onPressed: () => Navigator.pop(context, 'OK'),
-            child:  const Text(AppStrings.ok).tr(),
+            child: const Text(AppStrings.ok).tr(),
           ),
         ],
       ),
     );
+  }
 
-
-
-}
   Widget changeLanguage() {
     bool isArabic = context.locale == ARABIC_LOCAL ? true : false;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        languageWidget( isArabic, AppStrings.arabic),
+        languageWidget(isArabic, AppStrings.arabic),
         SizedBox(
           width: 5.w,
         ),
-        languageWidget( !isArabic, AppStrings.english),
+        languageWidget(!isArabic, AppStrings.english),
       ],
     );
   }
 
-  Widget languageWidget( bool isLang, String lang) {
+  Widget languageWidget(bool isLang, String lang) {
     return GestureDetector(
       onTap: () => isLang ? {} : _viewModel.changeLanguage(context),
       child: Container(

@@ -119,6 +119,7 @@ class AppStrings {
   static const see_more = "see_more";
   static const see_less = "see_less";
   static const search_result = "search_result";
+  static const otp_sent = "otp_sent";
 
   static const profile_settings = "profile_settings";
   static const general = "general";
