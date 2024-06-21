@@ -47,10 +47,21 @@ class _EditProfileViewState extends State<EditProfileView> {
               ).tr().animate(delay: 300.milliseconds).fade(
                   duration: 300.milliseconds,
                   curve: Curves.fastEaseInToSlowEaseOut),
-              userEditProfileImage(context,
+              userEditProfileImage(
+                  context,
                   _viewModel.setProfilePicture,
                   _viewModel.outputProfileImageStream,
                   _viewModel.outputIsProfileImageEditingStream),
+              SizedBox(height: 20.h),
+              nameEditInputWidget(context, _viewModel.outputNameStream,
+                  _viewModel.setName, _viewModel.isNameValid),
+              SizedBox(height: 20.h),
+              emailEditInputWidget(context, _viewModel.outputEmailStream,
+                  _viewModel.setEmail, _viewModel.isEmailValid),
+              SizedBox(height: 20.h),
+              phoneNumberEditInputWidget(context, _viewModel.outputPhoneStream,
+                  _viewModel.setPhone, _viewModel.isPhoneNumberValid),
+              SizedBox(height: 20.h),
               RegularButton(
                 buttonAction: () => (_viewModel.isAllEditedDataValid())
                     ? _viewModel.editProfileData(context)
