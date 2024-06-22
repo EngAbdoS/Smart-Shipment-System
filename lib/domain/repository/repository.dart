@@ -14,7 +14,8 @@ abstract class Repository {
   Future<Either<Failure, UserModel>> updateUserData(Map<String, dynamic> data);
   Future<Either<Failure, List<ShipmentModel>>> getAllShipment();
   Future<Either<Failure, ShipmentModel>> getShipmentById(String id);
-
+  Future<Either<Failure, ShipmentModel>>createShipment(CreateShipmentRequest createShipmentRequest);
+  Future<Either<Failure, List<ShipmentModel>>> getAllComingOrders();
   Future<Either<Failure, bool>> login(LoginRequest loginRequest);
 
   Future<Either<Failure, bool>> clientRegistration(

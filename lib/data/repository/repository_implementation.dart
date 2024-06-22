@@ -174,6 +174,37 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
+  Future<Either<Failure, ShipmentModel>> createShipment(
+      CreateShipmentRequest createShipmentRequest) async {
+    return await (await _remoteDataSource.createShipment(createShipmentRequest))
+        .fold((error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        return Right(response.data!.order!.toDomain());
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+  @override
+  Future<Either<Failure, List<ShipmentModel>>> getAllComingOrders() async {
+    return await (await _remoteDataSource.getAllComingOrders()).fold((error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        var shipmentList =
+            response.data?.orders?.map((order) => order.toDomain()).toList();
+
+        return Right(shipmentList ?? []);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+  @override
   Future<Either<Failure, ShipmentModel>> getShipmentById(String id) async {
     return await (await _remoteDataSource.getShipmentById(id)).fold((error) {
       return Left(error);

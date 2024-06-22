@@ -11,8 +11,17 @@ import 'package:smart_shipment_system/data/response/response.dart';
 
 abstract class RemoteDataSource {
   Future<Either<Failure, MeDataResponse>> getUserData();
-  Future<Either<Failure, MeDataResponse>> updateUserData(Map<String,dynamic>data);
-  Future<Either<Failure, BaseResponse>> updateUserProfileImage(String profileImage);
+
+  Future<Either<Failure, MeDataResponse>> updateUserData(
+      Map<String, dynamic> data);
+
+  Future<Either<Failure, BaseResponse>> updateUserProfileImage(
+      String profileImage);
+
+  Future<Either<Failure, SearchOrderResponse>> createShipment(
+      CreateShipmentRequest createShipmentRequest);
+
+  Future<Either<Failure, OrdersResponse>> getAllComingOrders();
 
   Future<Either<Failure, OrdersResponse>> getAllShipments();
 
@@ -65,8 +74,10 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
+
   @override
-  Future<Either<Failure, MeDataResponse>> updateUserData(Map<String, dynamic> data) async{
+  Future<Either<Failure, MeDataResponse>> updateUserData(
+      Map<String, dynamic> data) async {
     try {
       var result = await _appServiceClient.updateUserData(data);
       return Right(result);
@@ -76,7 +87,8 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, BaseResponse>> updateUserProfileImage(String profileImage)async {
+  Future<Either<Failure, BaseResponse>> updateUserProfileImage(
+      String profileImage) async {
     try {
       var result = await _appServiceClient.updateUserProfileImage(profileImage);
       return Right(result);
@@ -84,7 +96,6 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
-
 
   @override
   Future<Either<Failure, OrdersResponse>> getAllShipments() async {
@@ -97,7 +108,30 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, SearchOrderResponse>> getShipmentById(String id) async {
+  Future<Either<Failure, SearchOrderResponse>> createShipment(
+      CreateShipmentRequest createShipmentRequest) async {
+    try {
+      var result =
+          await _appServiceClient.createShipment(createShipmentRequest);
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, OrdersResponse>> getAllComingOrders() async {
+    try {
+      var result = await _appServiceClient.getAllComingOrders();
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, SearchOrderResponse>> getShipmentById(
+      String id) async {
     try {
       var result = await _appServiceClient.getOrderById(id);
       return Right(result);
@@ -105,7 +139,6 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
-
 
   @override
   Future<Either<Failure, AuthenticationResponse>> login(
@@ -214,5 +247,4 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
-
 }
