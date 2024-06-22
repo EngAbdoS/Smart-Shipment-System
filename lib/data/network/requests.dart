@@ -1,3 +1,55 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+class CreateShipmentRequest {
+  String type;
+  String recipentName;
+  String reciepentPhone;
+  String senderName;
+  String senderPhone;
+  CurrentStateRequest startLoc;
+  CurrentStateRequest currentLoc;
+  CurrentStateRequest endLoc;
+  String endLocation;
+  String startLocation;
+  String weight;
+  int quantity;
+  String description;
+
+  CreateShipmentRequest({
+    required this.type,
+    required this.recipentName,
+    required this.reciepentPhone,
+    required this.senderName,
+    required this.senderPhone,
+    required this.startLoc,
+    required this.currentLoc,
+    required this.endLoc,
+    required this.endLocation,
+    required this.startLocation,
+    required this.weight,
+    required this.quantity,
+    required this.description,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'type': type,
+      'recipentName': recipentName,
+      'reciepentPhone': reciepentPhone,
+      'senderName': senderName,
+      'senderPhone': senderPhone,
+      'startLoc': startLoc.toJson(),
+      'currentLoc': currentLoc.toJson(),
+      'endLoc': endLoc.toJson(),
+      'endLocation': endLocation,
+      'startLocation': startLocation,
+      'weight': weight,
+      'quantity': quantity,
+      'description': description,
+    };
+  }
+}
+
 class LoginRequest {
   String email;
   String password;

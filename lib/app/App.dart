@@ -33,7 +33,6 @@ class _MyAppState extends State<MyApp> {
         designSize: AppConstants.appDesignSize,
         minTextAdapt: true,
         splitScreenMode: true,
-
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
           localizationsDelegates: context.localizationDelegates,

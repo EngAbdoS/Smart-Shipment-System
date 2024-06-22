@@ -23,6 +23,9 @@ abstract class AppServiceClient {
   @GET("client/order/{id}")
   Future<SearchOrderResponse> getOrderById(@Path("id") String id);
 
+
+
+
   @PATCH('users/updateMe')
   Future<MeDataResponse> updateUserData(@Body() Map<String, dynamic> data);
 
