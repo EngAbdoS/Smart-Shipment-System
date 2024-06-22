@@ -9,8 +9,8 @@ import 'package:smart_shipment_system/presentation/client/createOrder/view/clien
 import 'package:smart_shipment_system/presentation/client/home/view/clientHomeView.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/shipment/shipmentView.dart';
-import 'package:smart_shipment_system/presentation/client/userProfile/editProfileData/view/editProfileDataView.dart';
-import 'package:smart_shipment_system/presentation/client/userProfile/view/clientUserProfileView.dart';
+import 'package:smart_shipment_system/presentation/userProfile/editProfileData/view/editProfileDataView.dart';
+import 'package:smart_shipment_system/presentation/userProfile/view/userProfileView.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
 import '../../../widgets/loadingState.dart';
@@ -85,7 +85,7 @@ class MainClientViewModel {
           {
             pageViewIndex = widget;
             initClientProfileModule(userModel!);
-            inputMainStream.add(const ClientUserProfileView());
+            inputMainStream.add(const UserProfileView());
             inputMainIndexStream.add(widget);
             break;
           }

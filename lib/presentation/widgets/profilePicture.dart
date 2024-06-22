@@ -5,8 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 
-class StudentProfileCirclerImage extends StatelessWidget {
-   const StudentProfileCirclerImage(
+class ProfileCirclerImage extends StatelessWidget {
+   const ProfileCirclerImage(
       {super.key, this.size = 64, required this.imageUrl,required this.navigate});
 
   final double size;

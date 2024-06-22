@@ -5,22 +5,22 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
-import 'package:smart_shipment_system/presentation/client/userProfile/viewModel/clientUserProfileViewModel.dart';
+import 'package:smart_shipment_system/presentation/userProfile/viewModel/clientUserProfileViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/profilePicture.dart';
 
-class ClientUserProfileView extends StatefulWidget {
-  const ClientUserProfileView({super.key});
+class UserProfileView extends StatefulWidget {
+  const UserProfileView({super.key});
 
   @override
-  State<ClientUserProfileView> createState() => _ClientUserProfileViewState();
+  State<UserProfileView> createState() => _UserProfileViewState();
 }
 
-class _ClientUserProfileViewState extends State<ClientUserProfileView> {
-  final ClientUserProfileViewModel _viewModel =
-      instance<ClientUserProfileViewModel>();
+class _UserProfileViewState extends State<UserProfileView> {
+  final UserProfileViewModel _viewModel =
+      instance<UserProfileViewModel>();
 
    final MainClientViewModel _mainClientViewMode = instance<MainClientViewModel>();
 
@@ -393,7 +393,7 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        StudentProfileCirclerImage(
+        ProfileCirclerImage(
           imageUrl: _viewModel.userProfileData.profileImage,
           navigate: () {},
         ),

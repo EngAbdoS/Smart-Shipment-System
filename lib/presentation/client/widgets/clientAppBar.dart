@@ -34,7 +34,7 @@ SliverAppBar buildSliverAppBar(
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         children: [
-          StudentProfileCirclerImage(
+          ProfileCirclerImage(
             imageUrl: clientViewModel.userHomeData.profileImage,
             navigate: () => mainClientViewModel.changeWidget(context, 3),
           ),
