@@ -23,14 +23,22 @@ abstract class AppServiceClient {
   @GET("client/order/{id}")
   Future<SearchOrderResponse> getOrderById(@Path("id") String id);
 
+  @POST("client/order/createOrder")
+  Future<SearchOrderResponse> createShipment(
+      @Body() CreateShipmentRequest createShipmentRequest);
 
+  @GET("client/order/getAllOrders?coming=true")
+  Future<OrdersResponse> getAllComingOrders();
 
+  @DELETE("client/order/{id}")
+  Future<RegistrationResponse> deleteOrderById(@Path("id") String id);
 
   @PATCH('users/updateMe')
   Future<MeDataResponse> updateUserData(@Body() Map<String, dynamic> data);
 
   @PATCH('users/updateImg')
-  Future<RegistrationResponse> updateUserProfileImage(@Field("profileImage") String profileImage);
+  Future<RegistrationResponse> updateUserProfileImage(
+      @Field("profileImage") String profileImage);
 
   @POST("users/login")
   Future<AuthenticationResponse> login(
