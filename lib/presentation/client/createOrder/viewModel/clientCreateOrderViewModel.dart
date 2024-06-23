@@ -2,15 +2,22 @@ import 'dart:async';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/app/functions.dart';
+import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/domain/entities/ShipmentEntity.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
+import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
+import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
+import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
+import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
 
 class ClientCreateOrderViewModel {
   final Repository _repository;
+  UserModel userProfileData;
 
-  ClientCreateOrderViewModel(this._repository);
+  ClientCreateOrderViewModel(this._repository, this.userProfileData);
 
   final StreamController _weightValidationStream = BehaviorSubject<int>();
   final StreamController _recipientNameValidationStream =
@@ -62,10 +69,55 @@ class ClientCreateOrderViewModel {
 
   Sink get inputIsCurrentShipmentValid =>
       _currentIsShipmentValidStreamController.sink;
-addShipment(dynamic context)
-{
 
-}
+  addShipment(dynamic context) async {
+    loadingState(context: context);
+    (await _repository.createShipment(
+      CreateShipmentRequest(
+        type: shipment.type,
+        recipentName: shipment.recipentName,
+        reciepentPhone: shipment.reciepentPhone,
+        senderName: userProfileData.userName,
+        senderPhone: userProfileData.phoneNumber,
+        startLoc: CurrentStateRequest(
+          type: AppConstants.currentStateTypePoint,
+          coordinates: [
+            shipment.startLoc.longitude,
+            shipment.startLoc.latitude
+          ],
+        ),
+        currentLoc: CurrentStateRequest(
+          type: AppConstants.currentStateTypePoint,
+          coordinates: [
+            shipment.startLoc.longitude,
+            shipment.startLoc.latitude
+          ],
+        ),
+        endLoc: CurrentStateRequest(
+          type: AppConstants.currentStateTypePoint,
+          coordinates: [shipment.endLoc.longitude, shipment.endLoc.latitude],
+        ),
+        endLocation: shipment.endLocation,
+        startLocation: shipment.startLocation,
+        weight: shipment.weight,
+        quantity: shipment.quantity,
+        description: shipment.description,
+      ),
+    ))
+        .fold(
+            (failure) => {
+                  errorState(context: context, message: failure.message),
+                }, (data) async {
+
+
+
+
+
+
+      hideState(context: context);
+    });
+  }
+
   setCurrentFromLocationAndGov(LatLng currentFromLocation,
       String currentFromGovernment, String addressName) {
     shipment.startLoc = currentFromLocation;
@@ -109,7 +161,11 @@ addShipment(dynamic context)
         shipment.recipentName != '' &&
         shipment.reciepentPhone != '' &&
         shipment.weight != '0 kg' &&
-        shipment.weight != ''&&shipment.endLocation!='' && shipment.startLocation!=''&&shipment.endLoc!= const LatLng(0, 0) && shipment.startLoc!= const LatLng(0, 0);
+        shipment.weight != '' &&
+        shipment.endLocation != '' &&
+        shipment.startLocation != '' &&
+        shipment.endLoc != const LatLng(0, 0) &&
+        shipment.startLoc != const LatLng(0, 0);
   }
 
   dispose() {

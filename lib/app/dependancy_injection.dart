@@ -26,8 +26,8 @@ import 'package:smart_shipment_system/presentation/authenticathion/verification/
 import 'package:smart_shipment_system/presentation/client/createOrder/viewModel/clientCreateOrderViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
-import 'package:smart_shipment_system/presentation/client/userProfile/editProfileData/viewModel/editProfileDataViewModel.dart';
-import 'package:smart_shipment_system/presentation/client/userProfile/viewModel/clientUserProfileViewModel.dart';
+import 'package:smart_shipment_system/presentation/userProfile/editProfileData/viewModel/editProfileDataViewModel.dart';
+import 'package:smart_shipment_system/presentation/userProfile/viewModel/clientUserProfileViewModel.dart';
 
 final instance = GetIt.instance;
 
@@ -69,24 +69,25 @@ initClientHomeModule(UserModel userModel) {
         () => ClientHomeViewModel(instance(), userModel));
   }
 }
+
 initClientAddShipmentModule(UserModel userModel) {
-  print("in shipmennt kafnns");
   if (!GetIt.I.isRegistered<ClientCreateOrderViewModel>()) {
     instance.registerLazySingleton<ClientCreateOrderViewModel>(
-            () => ClientCreateOrderViewModel(instance()));
+        () => ClientCreateOrderViewModel(instance(),userModel));
   }
 }
 
 initClientProfileModule(UserModel userModel) {
-  if (!GetIt.I.isRegistered<ClientUserProfileViewModel>()) {
-    instance.registerLazySingleton<ClientUserProfileViewModel>(
-        () => ClientUserProfileViewModel(instance(), userModel));
+  if (!GetIt.I.isRegistered<UserProfileViewModel>()) {
+    instance.registerLazySingleton<UserProfileViewModel>(
+        () => UserProfileViewModel(instance(), userModel));
   }
 }
+
 initEditProfileModule(UserModel userModel) {
   if (!GetIt.I.isRegistered<EditUserProfileViewModel>()) {
     instance.registerLazySingleton<EditUserProfileViewModel>(
-            () => EditUserProfileViewModel(instance(), userModel));
+        () => EditUserProfileViewModel(instance(), userModel));
   }
 }
 

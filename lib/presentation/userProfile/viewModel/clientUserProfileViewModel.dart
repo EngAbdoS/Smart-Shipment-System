@@ -15,9 +15,9 @@ import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
 import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
 import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 
-class ClientUserProfileViewModel //extends MainClientViewModel
+class UserProfileViewModel //extends MainClientViewModel
 {
-  ClientUserProfileViewModel(
+  UserProfileViewModel(
       this._repository, this.userProfileData); //: super(_repository) ;
 
   final Repository _repository;
