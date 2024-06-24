@@ -10,54 +10,49 @@ Widget shipmentWeightInputWidget(
   Function setWeight,
 ) {
   TextEditingController weightTextEditingController = TextEditingController();
-  return Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Expanded(
-        child: StreamBuilder<bool>(
-            stream: outputWeightValid,
-            //_viewModel.outputIsFirstNameValid,
-            builder: (context, snapshot) {
-              return TextFormField(
-                onChanged: (weight) => setWeight(weight),
-                keyboardType: TextInputType.number,
-                controller: weightTextEditingController,
-                decoration: InputDecoration(
-                  hintText: AppStrings.shipment_weight_kg.tr(),
-                  labelText: AppStrings.shipment_weight.tr(),
-                  errorText: (snapshot.data ?? true)
-                      ? null
-                      : AppStrings.input_valid_weight.tr(),
-                ),
-              );
-            }),
-      ),
-      SizedBox(
-        width: 18.w,
-      ),
-      Container(
-        alignment: Alignment.center,
-        width: 60,
-        height: 50,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            color: ColorManager.offWhite,
-            border: Border.all(
-              color: ColorManager.primary,
-              width: 1,
-            )),
-        child: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text(
-            'Kg',
-            style: TextStyle(color: ColorManager.primary),
+  return StreamBuilder<bool>(
+      stream: outputWeightValid,
+      //_viewModel.outputIsFirstNameValid,
+      builder: (context, snapshot) {
+        return TextFormField(
+          onChanged: (weight) => setWeight(weight),
+          keyboardType: TextInputType.number,
+          controller: weightTextEditingController,
+          decoration: InputDecoration(
+            hintText: AppStrings.shipment_weight_kg.tr(),
+            labelText: AppStrings.shipment_weight.tr(),
+            errorText: (snapshot.data ?? true)
+                ? null
+                : AppStrings.input_valid_weight.tr(),
           ),
-        ),
-      ),
-    ],
-  );
+        );
+      });
 }
 
+Widget shipmentQuantityInputWidget(
+    Stream<bool> outputShipmentQuantityValid,
+    Function setShipmentQuantity,
+    ) {
+  TextEditingController shipmentQuantityTextEditingController =
+  TextEditingController();
+
+  return StreamBuilder<bool>(
+      stream: outputShipmentQuantityValid,
+      builder: (context, snapshot) {
+        return TextFormField(
+          onChanged: (quantity) => setShipmentQuantity(quantity),
+          keyboardType: TextInputType.number,
+          controller: shipmentQuantityTextEditingController,
+          decoration: InputDecoration(
+            hintText: AppStrings.shipment_quantity_hint.tr(),
+            labelText: AppStrings.shipment_quantity.tr(),
+            errorText: (snapshot.data ?? true)
+                ? null
+                : AppStrings.shipment_quantity_hint.tr(),
+          ),
+        );
+      });
+}
 Widget shipmentTypeInputWidget(
   Stream<bool> outputShipmentTypeValid,
   Function setShipmentType,
@@ -110,6 +105,31 @@ Widget recipientNameInputWidget(
       });
 }
 
+Widget descriptionInputWidget(
+  Stream<bool> outputIsDescriptionValid,
+  Function setShipmentDescription,
+) {
+  TextEditingController descriptionTextEditingController =
+      TextEditingController();
+  return StreamBuilder<bool>(
+      stream: outputIsDescriptionValid,
+      //_viewModel.outputIsFirstNameValid,
+      builder: (context, snapshot) {
+        return TextFormField(
+          onChanged: (description) => setShipmentDescription(description),
+          keyboardType: TextInputType.name,
+          controller: descriptionTextEditingController,
+          decoration: InputDecoration(
+            hintText: AppStrings.shipment_description_hint.tr(),
+            labelText: AppStrings.shipment_description.tr(),
+            errorText: (snapshot.data ?? true)
+                ? null
+                : AppStrings.shipment_description_hint.tr(),
+          ),
+        );
+      });
+}
+
 Widget recipientPhoneNumberInputWidget(
   Stream<bool> outputIsPhoneNumberValid,
   Function setPhoneNumber,
@@ -133,28 +153,29 @@ Widget recipientPhoneNumberInputWidget(
         );
       });
 }
-Widget locationWidget()=>const Column(
-  children: [
-    Icon(
-      Icons.my_location,
-      color: ColorManager.primary,
-    ),
-    SizedBox(
-      height: 42,
-      child: DottedLine(
-        direction: Axis.vertical,
-        dashColor: ColorManager.primary,
-        dashGapLength: 2,
-        dashLength: 2,
-        dashGapRadius: 5,
-      ),
-    ),
-    Icon(
-      Icons.location_on_outlined,
-      color: ColorManager.primary,
-    ),
-    SizedBox(
-      height: 5,
-    ),
-  ],
-);
+
+Widget locationWidget() => const Column(
+      children: [
+        Icon(
+          Icons.my_location,
+          color: ColorManager.primary,
+        ),
+        SizedBox(
+          height: 42,
+          child: DottedLine(
+            direction: Axis.vertical,
+            dashColor: ColorManager.primary,
+            dashGapLength: 2,
+            dashLength: 2,
+            dashGapRadius: 5,
+          ),
+        ),
+        Icon(
+          Icons.location_on_outlined,
+          color: ColorManager.primary,
+        ),
+        SizedBox(
+          height: 5,
+        ),
+      ],
+    );

@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/widgets/registrationSlider.dart';
 import 'package:smart_shipment_system/presentation/client/createOrder/viewModel/clientCreateOrderViewModel.dart';
+import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/shipmentWidgets.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -21,6 +22,8 @@ class ClientCreateOrderMainView extends StatelessWidget {
 
   final ClientCreateOrderViewModel _viewModel =
       instance<ClientCreateOrderViewModel>();
+  final MainClientViewModel _mainClientViewMode =
+      instance<MainClientViewModel>();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -81,11 +84,27 @@ class ClientCreateOrderMainView extends StatelessWidget {
                 ),
               ]),
               SizedBox(height: 25.h),
-              shipmentWeightInputWidget(
-                  _viewModel.outputIsWeightValid, _viewModel.setShipmentWeight),
+              Row(
+                children: [
+                  Expanded(
+                    child: shipmentWeightInputWidget(
+                        _viewModel.outputIsWeightValid,
+                        _viewModel.setShipmentWeight),
+                  ),
+                  SizedBox(width: 20.w),
+                  Expanded(
+                    child: shipmentQuantityInputWidget(
+                        _viewModel.outputIsQuantityValid,
+                        _viewModel.setShipmentQuantity),
+                  ),
+                ],
+              ),
               SizedBox(height: 25.h),
               shipmentTypeInputWidget(_viewModel.outputIsShipmentTypeValid,
                   _viewModel.setShipmentType),
+              SizedBox(height: 25.h),
+              descriptionInputWidget(_viewModel.outputIsDescriptionValid,
+                  _viewModel.setShipmentDescription),
               SizedBox(height: 25.h),
               recipientNameInputWidget(_viewModel.outputIsRecipientNameValid,
                   _viewModel.setRecipientName),
@@ -93,10 +112,11 @@ class ClientCreateOrderMainView extends StatelessWidget {
               recipientPhoneNumberInputWidget(
                   _viewModel.outputRecipientPhoneValid,
                   _viewModel.setRecipientPhone),
-              SizedBox(height: 25.h),
+              SizedBox(height: 40.h),
               RegularButton(
                 buttonAction: () => (_viewModel.isAllShipmentDataValid())
-                    ? _viewModel.addShipment(context)
+                    ? _viewModel.addShipment(context,
+                        () => _mainClientViewMode.changeWidget(context, 6))
                     : toastWidget(AppStrings.validateDeliveryTripInputToast),
                 buttonWidget: Text(
                   AppStrings.confirm_shipment,
@@ -105,6 +125,7 @@ class ClientCreateOrderMainView extends StatelessWidget {
               ).animate(delay: 600.milliseconds).fade(
                   duration: 300.milliseconds,
                   curve: Curves.fastEaseInToSlowEaseOut),
+              SizedBox(height: 25.h),
             ],
           ),
         ),

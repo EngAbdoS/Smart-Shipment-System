@@ -18,7 +18,7 @@ abstract class RemoteDataSource {
   Future<Either<Failure, BaseResponse>> updateUserProfileImage(
       String profileImage);
 
-  Future<Either<Failure, SearchOrderResponse>> createShipment(
+  Future<Either<Failure, RegistrationResponse>> createShipment(
       CreateShipmentRequest createShipmentRequest);
 
   Future<Either<Failure, OrdersResponse>> getAllComingOrders();
@@ -108,11 +108,12 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, SearchOrderResponse>> createShipment(
+  Future<Either<Failure, RegistrationResponse>> createShipment(
       CreateShipmentRequest createShipmentRequest) async {
     try {
       var result =
           await _appServiceClient.createShipment(createShipmentRequest);
+
       return Right(result);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);

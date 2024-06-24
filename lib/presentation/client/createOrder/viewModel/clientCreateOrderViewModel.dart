@@ -1,12 +1,11 @@
 import 'dart:async';
-
+import 'package:flutter/gestures.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/app/functions.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/domain/entities/ShipmentEntity.dart';
-import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
@@ -26,17 +25,19 @@ class ClientCreateOrderViewModel {
       BehaviorSubject<String>();
   final StreamController _shipmentTypeValidationStream =
       BehaviorSubject<String>();
+  final StreamController _shipmentDescriptionValidationStream =
+      BehaviorSubject<String>();
+  final StreamController _shipmentQuantityValidationStream =
+      BehaviorSubject<int>();
   final StreamController _currentIsShipmentValidStreamController =
       StreamController<bool>.broadcast();
   ShipmentEntity shipment = ShipmentEntity(
     date: DateTime.now().toString(),
     type: '',
-    recipentName: 'recipentName',
-    //TODO input
-    reciepentPhone: 'reciepentPhone',
-    //TODO input
-    senderName: 'senderName',
-    senderPhone: 'senderPhone',
+    recipentName: '',
+    reciepentPhone: '',
+    senderName: '',
+    senderPhone: '',
     startLoc: const LatLng(0, 0),
     endLoc: const LatLng(0, 0),
     endLocation: '',
@@ -52,8 +53,15 @@ class ClientCreateOrderViewModel {
   Stream<bool> get outputIsRecipientNameValid =>
       _recipientNameValidationStream.stream.map((name) => name != '');
 
+  Stream<bool> get outputIsDescriptionValid =>
+      _shipmentDescriptionValidationStream.stream
+          .map((description) => description != '');
+
   Stream<bool> get outputIsWeightValid =>
       _weightValidationStream.stream.map((weight) => weight != 0);
+
+  Stream<bool> get outputIsQuantityValid =>
+      _shipmentQuantityValidationStream.stream.map((quantity) => quantity != 0);
 
   Stream<bool> get outputRecipientPhoneValid =>
       _recipientPhoneValidationStream.stream
@@ -65,12 +73,16 @@ class ClientCreateOrderViewModel {
 
   Sink get inputRecipientName => _recipientNameValidationStream.sink;
 
+  Sink get inputQuantity => _shipmentQuantityValidationStream.sink;
+
+  Sink get inputDescription => _shipmentDescriptionValidationStream.sink;
+
   Sink get inputWightValidation => _weightValidationStream.sink;
 
   Sink get inputIsCurrentShipmentValid =>
       _currentIsShipmentValidStreamController.sink;
 
-  addShipment(dynamic context) async {
+  addShipment(dynamic context, GestureTapCallback navigate) async {
     loadingState(context: context);
     (await _repository.createShipment(
       CreateShipmentRequest(
@@ -108,12 +120,7 @@ class ClientCreateOrderViewModel {
             (failure) => {
                   errorState(context: context, message: failure.message),
                 }, (data) async {
-
-
-
-
-
-
+      navigate();
       hideState(context: context);
     });
   }
@@ -122,14 +129,12 @@ class ClientCreateOrderViewModel {
       String currentFromGovernment, String addressName) {
     shipment.startLoc = currentFromLocation;
     shipment.startLocation = currentFromGovernment;
-    print(addressName);
   }
 
   setCurrentToLocationAndGov(LatLng currentToLocation,
       String currentToGovernment, String addressName) {
     shipment.endLoc = currentToLocation;
     shipment.endLocation = currentToGovernment;
-    print(addressName);
   }
 
   setRecipientName(String recipient) {
@@ -153,6 +158,18 @@ class ClientCreateOrderViewModel {
     shipment.type = type;
   }
 
+  setShipmentDescription(String description) {
+    inputDescription.add(description);
+    shipment.description = description;
+  }
+
+  setShipmentQuantity(String quantity) {
+    int quantityInt = int.tryParse(quantity) ?? 0;
+    inputQuantity.add(quantityInt);
+    print(quantityInt);
+    shipment.quantity = quantityInt;
+  }
+
   bool isPhoneNumberValid(String phoneNumber) =>
       isEgyptionPhoneNumberValid(phoneNumber);
 
@@ -164,6 +181,8 @@ class ClientCreateOrderViewModel {
         shipment.weight != '' &&
         shipment.endLocation != '' &&
         shipment.startLocation != '' &&
+        shipment.description != "" &&
+        shipment.quantity != 0 &&
         shipment.endLoc != const LatLng(0, 0) &&
         shipment.startLoc != const LatLng(0, 0);
   }

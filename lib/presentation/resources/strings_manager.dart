@@ -173,7 +173,10 @@ static const  recipient_phone_hint= "recipient_phone_hint";
   static const   input_valid_details="input_valid_details";
   static const   input_valid_weight ="input_valid_weight";
 
-
+ static const shipment_description= "shipment_description";
+ static const shipment_description_hint= "shipment_description_hint";
+ static const shipment_quantity= "shipment_quantity";
+ static const shipment_quantity_hint= "shipment_quantity_hint";
 
   // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";

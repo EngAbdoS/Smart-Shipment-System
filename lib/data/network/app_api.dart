@@ -24,7 +24,7 @@ abstract class AppServiceClient {
   Future<SearchOrderResponse> getOrderById(@Path("id") String id);
 
   @POST("client/order/createOrder")
-  Future<SearchOrderResponse> createShipment(
+  Future<RegistrationResponse> createShipment(
       @Body() CreateShipmentRequest createShipmentRequest);
 
   @GET("client/order/getAllOrders?coming=true")

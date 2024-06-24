@@ -129,6 +129,10 @@
 "search_result": "نتائج البحث",
 "otp_sent":"تم ارسال رمز التحقق الي بريدك الإلكتروني ",
 "data_saved": "تم تعديل و حفظ بياناتك بنجاح ",
+  "shipment_description": "وصف الشحنة",
+  "shipment_description_hint": "ادخل وصف الشحنة",
+  "shipment_quantity": "الكمية",
+  "shipment_quantity_hint": "ادخل عدد الوحدات المشحونة",
 
 
 

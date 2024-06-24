@@ -105,6 +105,19 @@ class MainClientViewModel {
             inputMainIndexStream.add(widget);
             break;
           }
+        case 6:
+          {
+            pageViewIndex = widget;
+            initEditProfileModule(userModel!);
+            inputMainStream.add(Container(
+              height: double.maxFinite,
+              width: double.maxFinite,
+              color: Colors.red,
+              child: const Center(child: Text("حمرا")),
+            ));
+            inputMainIndexStream.add(widget);
+            break;
+          }
       }
     }
 

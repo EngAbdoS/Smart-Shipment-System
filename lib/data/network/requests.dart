@@ -50,6 +50,20 @@ class CreateShipmentRequest {
   }
 }
 
+class CurrentStateRequest {
+  String type;
+  List<double> coordinates;
+
+  CurrentStateRequest({required this.type, required this.coordinates});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'type': type,
+      'coordinates': coordinates,
+    };
+  }
+}
+
 class LoginRequest {
   String email;
   String password;
@@ -183,20 +197,6 @@ class UnorganizedDeliveryRegistrationRequest {
       'vehicleLicenseImg': vehicleLicenseImg,
       'deliveryApprovalImg': deliveryApprovalImg,
       'role': role,
-    };
-  }
-}
-
-class CurrentStateRequest {
-  String type;
-  List<double> coordinates;
-
-  CurrentStateRequest({required this.type, required this.coordinates});
-
-  Map<String, dynamic> toJson() {
-    return {
-      'type': type,
-      'coordinates': coordinates,
     };
   }
 }

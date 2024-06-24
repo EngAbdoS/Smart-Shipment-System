@@ -162,6 +162,11 @@
   "input_valid_details": "ادخل تفاصيل مناسبة",
   "input_valid_weight"  : "ادخل وزن مناسب بالكيلو جرام",
   "otp_sent":"تم ارسال رمز التحقق الي بريدك الإلكتروني ",
+  "shipment_description": "وصف الشحنة",
+  "shipment_description_hint": "ادخل وصف الشحنة",
+  "shipment_quantity": "الكمية",
+  "shipment_quantity_hint": "ادخل عدد الوحدات المشحونة",
+
 
 
 
