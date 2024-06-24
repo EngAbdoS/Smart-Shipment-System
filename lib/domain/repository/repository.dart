@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
+import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 
@@ -8,14 +9,26 @@ abstract class Repository {
   Future<Either<Failure, String>> getSplashNextNavigationRoute();
 
   Future<Either<Failure, String>> getLoginNextNavigationRoute();
+
   Future<Either<Failure, UserModel>> getUserData();
-  Future<Either<Failure, bool>> updateUserProfileImage(String profileImage, String email);
+
+  Future<Either<Failure, bool>> updateUserProfileImage(
+      String profileImage, String email);
 
   Future<Either<Failure, UserModel>> updateUserData(Map<String, dynamic> data);
+
   Future<Either<Failure, List<ShipmentModel>>> getAllShipment();
+
   Future<Either<Failure, ShipmentModel>> getShipmentById(String id);
-  Future<Either<Failure, bool>>createShipment(CreateShipmentRequest createShipmentRequest);
+
+  Future<Either<Failure, bool>> createShipment(
+      CreateShipmentRequest createShipmentRequest);
+
+  Future<Either<Failure, List<RecommendedDeliveryEntity>>>
+      getRecommendedDeliveries(GetDeliveriesRequest getDeliveriesRequest);
+
   Future<Either<Failure, List<ShipmentModel>>> getAllComingOrders();
+
   Future<Either<Failure, bool>> login(LoginRequest loginRequest);
 
   Future<Either<Failure, bool>> clientRegistration(
@@ -28,10 +41,10 @@ abstract class Repository {
 
   Future<Either<Failure, bool>> unorganizedDeliveryRegistration(
       UnorganizedDeliveryRegistrationRequest
-      unorganizedDeliveryRegistrationRequest);
+          unorganizedDeliveryRegistrationRequest);
+
   Future<Either<Failure, bool>> fixedDeliveryRegistration(
-      FixedDeliveryRegistrationRequest
-      fixedDeliveryRegistrationRequest);
+      FixedDeliveryRegistrationRequest fixedDeliveryRegistrationRequest);
 
   Future<Either<Failure, bool>> resetPassword(
       ResetPasswordRequest resetPasswordRequest);

@@ -6,6 +6,7 @@ import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
 import 'package:smart_shipment_system/data/mappers/mappers.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
+import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
@@ -198,6 +199,26 @@ class RepositoryImplementation implements Repository {
             response.data?.orders?.map((order) => order.toDomain()).toList();
 
         return Right(shipmentList ?? []);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+  @override
+  Future<Either<Failure, List<RecommendedDeliveryEntity>>>
+      getRecommendedDeliveries(
+          GetDeliveriesRequest getDeliveriesRequest) async {
+    return await (await _remoteDataSource
+            .getRecommendedDeliveries(getDeliveriesRequest))
+        .fold((error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        var deliveriesList = response.data?.deliveries
+            ?.map((delivery) => delivery.toDomain())
+            .toList();
+        return Right(deliveriesList ?? []);
       } else {
         return Left(ErrorHandler.handle(response).failure);
       }

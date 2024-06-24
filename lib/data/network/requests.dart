@@ -64,6 +64,20 @@ class CurrentStateRequest {
   }
 }
 
+class GetDeliveriesRequest {
+  double startLocationLat;
+  double startLocationLng;
+  String endLocation;
+  int maxDis;
+  GetDeliveriesRequest({
+    required this.startLocationLat,required this.startLocationLng,required this.endLocation,required this.maxDis
+});
+}
+
+
+
+
+
 class LoginRequest {
   String email;
   String password;

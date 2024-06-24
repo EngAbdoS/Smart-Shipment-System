@@ -6,6 +6,7 @@ import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/app/functions.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/domain/entities/ShipmentEntity.dart';
+import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
@@ -31,6 +32,7 @@ class ClientCreateOrderViewModel {
       BehaviorSubject<int>();
   final StreamController _currentIsShipmentValidStreamController =
       StreamController<bool>.broadcast();
+  List<RecommendedDeliveryEntity> recommendedDeliveryList = [];
   ShipmentEntity shipment = ShipmentEntity(
     date: DateTime.now().toString(),
     type: '',
@@ -120,24 +122,27 @@ class ClientCreateOrderViewModel {
             (failure) => {
                   errorState(context: context, message: failure.message),
                 }, (data) async {
-              await getRecommendedDelivery();
+      await getRecommendedDelivery(context);
       navigate();
       hideState(context: context);
     });
   }
 
-getRecommendedDelivery()
-{
-
-
-  //TODO call get nearest delivery
-
-
-
-}
-
-
-
+  getRecommendedDelivery(dynamic context) async {
+    loadingState(context: context);
+    (await _repository.getRecommendedDeliveries(GetDeliveriesRequest(
+            startLocationLat: shipment.startLoc.latitude,
+            startLocationLng: shipment.startLoc.longitude,
+            endLocation: shipment.endLocation,
+            maxDis: AppConstants.maxDis)))
+        .fold(
+            (failure) => {
+                  errorState(context: context, message: failure.message),
+                }, (data) {
+      recommendedDeliveryList = data;
+      hideState(context: context);
+    });
+  }
 
   setCurrentFromLocationAndGov(LatLng currentFromLocation,
       String currentFromGovernment, String addressName) {

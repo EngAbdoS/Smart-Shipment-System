@@ -25,6 +25,6 @@ class AppConstants
 
   static const int transitionDurationMillySeconds=300;
   static const int confirmationPictureSizeByBytes=10240;
-
+static const int maxDis=1000000;
   static const Size appDesignSize=Size(348, 926);
 }

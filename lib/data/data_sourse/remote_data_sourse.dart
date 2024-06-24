@@ -24,8 +24,7 @@ abstract class RemoteDataSource {
   Future<Either<Failure, OrdersResponse>> getAllComingOrders();
 
   Future<Either<Failure, RecommendedDeliveriesResponse>>
-      getRecommendedDeliveries(
-          double lat, double long, String endLocation, int maxDis);
+      getRecommendedDeliveries(GetDeliveriesRequest getDeliveriesRequest);
 
   Future<Either<Failure, OrdersResponse>> getAllShipments();
 
@@ -127,10 +126,13 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   @override
   Future<Either<Failure, RecommendedDeliveriesResponse>>
       getRecommendedDeliveries(
-          double lat, double long, String endLocation, int maxDis) async {
+          GetDeliveriesRequest getDeliveriesRequest) async {
     try {
       var result = await _appServiceClient.getAllNearestDelivery(
-          lat, long, endLocation, maxDis);
+          getDeliveriesRequest.startLocationLat,
+          getDeliveriesRequest.startLocationLng,
+          getDeliveriesRequest.endLocation,
+          getDeliveriesRequest.maxDis);
 
       return Right(result);
     } catch (error) {

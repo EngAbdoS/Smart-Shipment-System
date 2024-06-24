@@ -1,5 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_shipment_system/data/response/response.dart';
+import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 
@@ -45,15 +46,54 @@ extension OrdersResponseMapper on OrderResponse? {
       delivered: this?.delivered ?? false,
       coming: this?.coming ?? false,
       delivery:
-      this?.delivery?.map((delivery) => delivery.toDomain()).toList() ?? [],
-      client: this?.client?.toDomain() ?? UserModel(isDeliveryApproved: false,
-          isEmailConfirmed: false,
-          role: "noRole",
-          userName: "noName",
-          email: "noEmail",
-          phoneNumber: "noPhone",
-          userId: "noId",profileImage: "noImage"),);
+          this?.delivery?.map((delivery) => delivery.toDomain()).toList() ?? [],
+      client: this?.client?.toDomain() ??
+          UserModel(
+              isDeliveryApproved: false,
+              isEmailConfirmed: false,
+              role: "noRole",
+              userName: "noName",
+              email: "noEmail",
+              phoneNumber: "noPhone",
+              userId: "noId",
+              profileImage: "noImage"),
+    );
+  }
+}
 
+extension RecommmendedDeliveryeMapper on RecommendedDeliveryResponse? {
+  RecommendedDeliveryEntity toDomain() {
+    return RecommendedDeliveryEntity(
+      userName: this?.userName ?? "noName",
+      email: this?.email ?? "noEmail",
+      phoneNumber: this?.phoneNumber ?? "noPhone",
+      role: this?.role ?? "noRole",
+      userId: this?.userId ?? "noId",
+      vehicleType: this?.vehicleType ?? "noType",
+      vehicleLicenseImg: this?.vehicleLicenseImg ?? "noImage",
+      deliveryApprovalImg: this?.deliveryApprovalImg ?? "noImage",
+      profileImage: this?.profileImage ?? "noImage",
+      deliveryApproved: this?.deliveryApproved ?? false,
+      trips: this?.trips?.map((trip) => trip.toDomain()).toList() ?? [],
+      otpResetExpires: this?.otpResetExpires ?? 'noTime',
+      confirmedEmail: this?.confirmedEmail ?? false,
+    );
+  }
+}
 
+extension RecommmendedDeliveryTripMapper on DeliveryTripResponse? {
+  RecommendedDeliveryTripEntity toDomain() {
+    return RecommendedDeliveryTripEntity(
+      startLoc: LatLng(this?.startLoc?.coordinates?[0] ?? 0,
+          this?.startLoc?.coordinates?[1] ?? 0),
+      endLoc: LatLng(this?.endLoc?.coordinates?[0] ?? 0,
+          this?.endLoc?.coordinates?[1] ?? 0),
+      startState: this?.startState ?? "noState",
+      endState: this?.endState ?? "noState",
+      time: this?.time ?? "noTime",
+      duration: this?.duration ?? "noDuration",
+      day: this?.day ?? "noDay",
+      id: this?.id ?? "noId",
+    );
   }
 }
