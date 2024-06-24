@@ -6,8 +6,8 @@ import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/client/createOrder/view/clientCreateOrderMainView.dart';
+import 'package:smart_shipment_system/presentation/client/createOrder/view/recommendedDeliveries.dart';
 import 'package:smart_shipment_system/presentation/client/home/view/clientHomeView.dart';
-import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/shipment/shipmentView.dart';
 import 'package:smart_shipment_system/presentation/userProfile/editProfileData/view/editProfileDataView.dart';
 import 'package:smart_shipment_system/presentation/userProfile/view/userProfileView.dart';
@@ -108,32 +108,13 @@ class MainClientViewModel {
         case 6:
           {
             pageViewIndex = widget;
-            initEditProfileModule(userModel!);
-            inputMainStream.add(Container(
-              height: double.maxFinite,
-              width: double.maxFinite,
-              color: Colors.red,
-              child: const Center(child: Text("حمرا")),
-            ));
+            inputMainStream
+                .add(ClientCreateOrderRecommendedDeliveriesMainView());
             inputMainIndexStream.add(widget);
             break;
           }
       }
     }
-
-    // (widget != pageViewIndex || widget == 0)&&widget<=3
-    //     ? {
-    //         pageViewIndex = widget,
-    //         await getUserData(context),
-    //         widgetInitialization[widget](userModel!),
-    //         inputMainStream.add(widgetList()[widget]),
-    //         inputMainIndexStream.add(widget),
-    //       }
-    //     : widget>3?{
-    //   widgetInitialization[widget](userModel!),
-    //   inputMainStream.add(widgetList()[widget]),
-    //
-    // }:{};
   }
 
   void dispose() {
