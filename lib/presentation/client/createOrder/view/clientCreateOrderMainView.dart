@@ -29,11 +29,7 @@ class ClientCreateOrderMainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: mainDeliveryRegistrationWidget(context));
-  }
-
-  SingleChildScrollView mainDeliveryRegistrationWidget(BuildContext context) {
-    return SingleChildScrollView(
+    return Scaffold(body: SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.h, vertical: 84.h),
@@ -130,6 +126,8 @@ class ClientCreateOrderMainView extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
+
+
 }
