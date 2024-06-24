@@ -56,16 +56,17 @@ class UserResponse {
   bool? isEmailConfirmed;
   @JsonKey(name: "profileImage")
   String? profileImage;
+
   UserResponse(this.isDeliveryApproved, this.userId, this.userName, this.email,
-      this.phoneNumber, this.role, this.isEmailConfirmed,this.profileImage);
+      this.phoneNumber, this.role, this.isEmailConfirmed, this.profileImage);
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
       _$UserResponseFromJson(json); //why factory
   Map<String, dynamic> toJson() => _$UserResponseToJson(this);
 }
+
 @JsonSerializable()
 class SearchOrderResponse extends BaseResponse {
-
   @JsonKey(name: "data")
   SearchOrderDataResponse? data;
 
@@ -78,8 +79,7 @@ class SearchOrderResponse extends BaseResponse {
 }
 
 @JsonSerializable()
-class SearchOrderDataResponse  {
-
+class SearchOrderDataResponse {
   @JsonKey(name: "order")
   OrderResponse? order;
 
@@ -90,10 +90,6 @@ class SearchOrderDataResponse  {
 
   Map<String, dynamic> toJson() => _$SearchOrderDataResponseToJson(this);
 }
-
-
-
-
 
 @JsonSerializable()
 class OrdersResponse extends BaseResponse {
@@ -167,8 +163,8 @@ class OrderResponse {
   String? description;
   @JsonKey(name: "delivery")
   List<UserResponse>? delivery;
- @JsonKey(name: "client")
- UserResponse? client;
+  @JsonKey(name: "client")
+  UserResponse? client;
 
   OrderResponse(
     this.type,
@@ -202,13 +198,122 @@ class OrderResponse {
 }
 
 @JsonSerializable()
+class RecommendedDeliveriesResponse extends BaseResponse {
+  @JsonKey(name: "results")
+  int? resultsNumber;
+  @JsonKey(name: "data")
+  RecommendedDeliveriesDataResponse? data;
+
+  RecommendedDeliveriesResponse(this.resultsNumber, this.data);
+
+  factory RecommendedDeliveriesResponse.fromJson(Map<String, dynamic> json) =>
+      _$RecommendedDeliveriesResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RecommendedDeliveriesResponseToJson(this);
+}
+
+@JsonSerializable()
+class RecommendedDeliveriesDataResponse {
+  @JsonKey(name: "deliveries")
+  List<RecommendedDeliveryResponse>? deliveries;
+
+  RecommendedDeliveriesDataResponse(this.deliveries);
+
+  factory RecommendedDeliveriesDataResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$RecommendedDeliveriesDataResponseFromJson(json);
+
+  Map<String, dynamic> toJson() =>
+      _$RecommendedDeliveriesDataResponseToJson(this);
+}
+
+@JsonSerializable()
+class RecommendedDeliveryResponse {
+  @JsonKey(name: "_id")
+  String? userId;
+  @JsonKey(name: "name")
+  String? userName;
+  @JsonKey(name: "email")
+  String? email;
+  @JsonKey(name: "phone")
+  String? phoneNumber;
+  @JsonKey(name: "role")
+  String? role;
+  @JsonKey(name: "vehicleType")
+  String? vehicleType;
+  @JsonKey(name: "vehicleLicenseImg")
+  String? vehicleLicenseImg;
+  @JsonKey(name: "deliveryApprovalImg")
+  String? deliveryApprovalImg;
+  @JsonKey(name: "deliveryApproved")
+  bool? deliveryApproved;
+  @JsonKey(name: "profileImage")
+  String? profileImage;
+  @JsonKey(name: "trip")
+  List<DeliveryTripResponse>? trips;
+  @JsonKey(name: "confirmedEmail")
+  bool? confirmedEmail;
+  @JsonKey(name: "otpResetExpires")
+  String? otpResetExpires;
+
+  RecommendedDeliveryResponse(
+      this.userId,
+      this.userName,
+      this.email,
+      this.phoneNumber,
+      this.role,
+      this.vehicleType,
+      this.vehicleLicenseImg,
+      this.deliveryApprovalImg,
+      this.deliveryApproved,
+      this.profileImage,
+      this.trips,
+      this.confirmedEmail,
+      this.otpResetExpires);
+
+  factory RecommendedDeliveryResponse.fromJson(Map<String, dynamic> json) =>
+      _$RecommendedDeliveryResponseFromJson(json); //why factory
+  Map<String, dynamic> toJson() => _$RecommendedDeliveryResponseToJson(this);
+}
+
+@JsonSerializable()
+class DeliveryTripResponse {
+  @JsonKey(name: "startLoc")
+  LatLonResponse? startLoc;
+  @JsonKey(name: "endLoc")
+  LatLonResponse? endLoc;
+  @JsonKey(name: "startState")
+  String? startState;
+  @JsonKey(name: "endState")
+  String? endState;
+  @JsonKey(name: "time")
+  String? time;
+  @JsonKey(name: "duration")
+  String? duration;
+  @JsonKey(name: "day")
+  String? day;
+  @JsonKey(name: "_id")
+  String? id;
+
+  DeliveryTripResponse(this.startLoc, this.endLoc, this.startState,
+      this.endState, this.time, this.duration, this.day, this.id);
+
+  factory DeliveryTripResponse.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryTripResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DeliveryTripResponseToJson(this);
+}
+
+@JsonSerializable()
 class LatLonResponse {
   @JsonKey(name: "type")
   String? type;
   @JsonKey(name: "coordinates")
   List<double>? coordinates;
+  @JsonKey(name: "_id")
+  String? id;
 
-  LatLonResponse(this.type, this.coordinates);
+  LatLonResponse(this.type, this.coordinates, this.id);
 
   factory LatLonResponse.fromJson(Map<String, dynamic> json) =>
       _$LatLonResponseFromJson(json);

@@ -198,18 +198,126 @@ Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
       'client': instance.client,
     };
 
+RecommendedDeliveriesResponse _$RecommendedDeliveriesResponseFromJson(
+        Map<String, dynamic> json) =>
+    RecommendedDeliveriesResponse(
+      (json['results'] as num?)?.toInt(),
+      json['data'] == null
+          ? null
+          : RecommendedDeliveriesDataResponse.fromJson(
+              json['data'] as Map<String, dynamic>),
+    )
+      ..statusCode = (json['statusCode'] as num?)?.toInt()
+      ..status = json['status'] as String?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$RecommendedDeliveriesResponseToJson(
+        RecommendedDeliveriesResponse instance) =>
+    <String, dynamic>{
+      'statusCode': instance.statusCode,
+      'status': instance.status,
+      'message': instance.message,
+      'results': instance.resultsNumber,
+      'data': instance.data,
+    };
+
+RecommendedDeliveriesDataResponse _$RecommendedDeliveriesDataResponseFromJson(
+        Map<String, dynamic> json) =>
+    RecommendedDeliveriesDataResponse(
+      (json['deliveries'] as List<dynamic>?)
+          ?.map((e) =>
+              RecommendedDeliveryResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$RecommendedDeliveriesDataResponseToJson(
+        RecommendedDeliveriesDataResponse instance) =>
+    <String, dynamic>{
+      'deliveries': instance.deliveries,
+    };
+
+RecommendedDeliveryResponse _$RecommendedDeliveryResponseFromJson(
+        Map<String, dynamic> json) =>
+    RecommendedDeliveryResponse(
+      json['_id'] as String?,
+      json['name'] as String?,
+      json['email'] as String?,
+      json['phone'] as String?,
+      json['role'] as String?,
+      json['vehicleType'] as String?,
+      json['vehicleLicenseImg'] as String?,
+      json['deliveryApprovalImg'] as String?,
+      json['deliveryApproved'] as bool?,
+      json['profileImage'] as String?,
+      (json['trip'] as List<dynamic>?)
+          ?.map((e) => DeliveryTripResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      json['confirmedEmail'] as bool?,
+      json['otpResetExpires'] as String?,
+    );
+
+Map<String, dynamic> _$RecommendedDeliveryResponseToJson(
+        RecommendedDeliveryResponse instance) =>
+    <String, dynamic>{
+      '_id': instance.userId,
+      'name': instance.userName,
+      'email': instance.email,
+      'phone': instance.phoneNumber,
+      'role': instance.role,
+      'vehicleType': instance.vehicleType,
+      'vehicleLicenseImg': instance.vehicleLicenseImg,
+      'deliveryApprovalImg': instance.deliveryApprovalImg,
+      'deliveryApproved': instance.deliveryApproved,
+      'profileImage': instance.profileImage,
+      'trip': instance.trips,
+      'confirmedEmail': instance.confirmedEmail,
+      'otpResetExpires': instance.otpResetExpires,
+    };
+
+DeliveryTripResponse _$DeliveryTripResponseFromJson(
+        Map<String, dynamic> json) =>
+    DeliveryTripResponse(
+      json['startLoc'] == null
+          ? null
+          : LatLonResponse.fromJson(json['startLoc'] as Map<String, dynamic>),
+      json['endLoc'] == null
+          ? null
+          : LatLonResponse.fromJson(json['endLoc'] as Map<String, dynamic>),
+      json['startState'] as String?,
+      json['endState'] as String?,
+      json['time'] as String?,
+      json['duration'] as String?,
+      json['day'] as String?,
+      json['_id'] as String?,
+    );
+
+Map<String, dynamic> _$DeliveryTripResponseToJson(
+        DeliveryTripResponse instance) =>
+    <String, dynamic>{
+      'startLoc': instance.startLoc,
+      'endLoc': instance.endLoc,
+      'startState': instance.startState,
+      'endState': instance.endState,
+      'time': instance.time,
+      'duration': instance.duration,
+      'day': instance.day,
+      '_id': instance.id,
+    };
+
 LatLonResponse _$LatLonResponseFromJson(Map<String, dynamic> json) =>
     LatLonResponse(
       json['type'] as String?,
       (json['coordinates'] as List<dynamic>?)
           ?.map((e) => (e as num).toDouble())
           .toList(),
+      json['_id'] as String?,
     );
 
 Map<String, dynamic> _$LatLonResponseToJson(LatLonResponse instance) =>
     <String, dynamic>{
       'type': instance.type,
       'coordinates': instance.coordinates,
+      '_id': instance.id,
     };
 
 DataUserResponse _$DataUserResponseFromJson(Map<String, dynamic> json) =>

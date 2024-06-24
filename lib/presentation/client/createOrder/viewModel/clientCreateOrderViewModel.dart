@@ -120,10 +120,24 @@ class ClientCreateOrderViewModel {
             (failure) => {
                   errorState(context: context, message: failure.message),
                 }, (data) async {
+              await getRecommendedDelivery();
       navigate();
       hideState(context: context);
     });
   }
+
+getRecommendedDelivery()
+{
+
+
+  //TODO call get nearest delivery
+
+
+
+}
+
+
+
 
   setCurrentFromLocationAndGov(LatLng currentFromLocation,
       String currentFromGovernment, String addressName) {

@@ -30,6 +30,14 @@ abstract class AppServiceClient {
   @GET("client/order/getAllOrders?coming=true")
   Future<OrdersResponse> getAllComingOrders();
 
+  @GET(
+      "client/order/nearestDelivery?startLocation={startLocationLat},{startLocationLng}&endLocation={endLocation}&maxDis={maxDis}")
+  Future<RecommendedDeliveriesResponse> getAllNearestDelivery(
+      @Path("startLocationLat") double startLocationLat,
+      @Path("startLocationLng") double startLocationLng,
+      @Path("endLocation") String endLocation,
+      @Path("maxDis") int maxDis);
+
   @DELETE("client/order/{id}")
   Future<RegistrationResponse> deleteOrderById(@Path("id") String id);
 

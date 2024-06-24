@@ -158,6 +158,38 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
+  Future<RecommendedDeliveriesResponse> getAllNearestDelivery(
+    double startLocationLat,
+    double startLocationLng,
+    String endLocation,
+    int maxDis,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<RecommendedDeliveriesResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'client/order/nearestDelivery?startLocation=${startLocationLat},${startLocationLng}&endLocation=${endLocation}&maxDis=${maxDis}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = RecommendedDeliveriesResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<RegistrationResponse> deleteOrderById(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
