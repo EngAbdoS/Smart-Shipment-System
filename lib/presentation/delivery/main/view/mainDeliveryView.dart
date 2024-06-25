@@ -57,7 +57,7 @@ class _MainDeliveryViewState extends State<MainDeliveryView> {
                     Icons.wallet_outlined,
                     Icons.person,
                   ][index],
-                  size: 24,
+                  size: 30,
                   color: isActive ? ColorManager.primary : ColorManager.black,
                 );
               },
@@ -65,8 +65,8 @@ class _MainDeliveryViewState extends State<MainDeliveryView> {
                gapLocation: GapLocation.center,
               notchSmoothness: NotchSmoothness.verySmoothEdge,
                 gapWidth:0,
-              leftCornerRadius: 16,
-              rightCornerRadius: 16,
+              leftCornerRadius: 24,
+              rightCornerRadius: 24,
               onTap: (index) => _viewModel.changeWidget(context, index),
             );
           }),

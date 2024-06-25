@@ -36,9 +36,10 @@ class MainDeliveryViewModel {
   Future getUserData(dynamic context) async {
     loadingState(context: context);
     (await _repository.getUserData()).fold(
-        (failure) => {
-              errorState(context: context, message: failure.message),
-            }, (data) {
+            (failure) =>
+        {
+          errorState(context: context, message: failure.message),
+        }, (data) {
       userModel = data;
 
       hideState(context: context);
@@ -48,29 +49,12 @@ class MainDeliveryViewModel {
   changeWidget(dynamic context, int widget) async {
     if (pageViewIndex != widget || widget == 0) {
       switch (widget) {
-        // case 0:
-        //   {
-        //     pageViewIndex = widget;
-        //     await getUserData(context);
-        //     initClientHomeModule(userModel!);
-        //     inputMainStream.add(const ClientHomeView());
-        //     inputMainIndexStream.add(widget);
-        //     break;
-        //   }
-        // case 1:
-        //   {
-        //     pageViewIndex = widget;
-        //     initClientHomeModule(userModel!);
-        //     inputMainStream.add(ShipmentView());
-        //     inputMainIndexStream.add(widget);
-        //     break;
-        //   }
         case 0:
           {
             await getUserData(context);
             pageViewIndex = widget;
             initDeliveryHomeModule(userModel!);
-            inputMainStream.add(DeliveryHomeView());
+            inputMainStream.add(const DeliveryHomeView());
             inputMainIndexStream.add(widget);
             break;
           }

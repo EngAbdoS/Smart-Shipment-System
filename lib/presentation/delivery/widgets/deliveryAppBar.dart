@@ -63,9 +63,9 @@ Widget buildDeliverySliverAppBar(
       ),
     ),
     toolbarHeight: 90.h,
-    flexibleSpace: FlexibleSpaceBar(
+    flexibleSpace: const FlexibleSpaceBar(
 
-      stretchModes: const <StretchMode>[
+      stretchModes: <StretchMode>[
         StretchMode.zoomBackground,
         StretchMode.blurBackground,
         StretchMode.fadeTitle,
