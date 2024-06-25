@@ -54,8 +54,13 @@ UserResponse _$UserResponseFromJson(Map<String, dynamic> json) => UserResponse(
       json['email'] as String?,
       json['phone'] as String?,
       json['role'] as String?,
+      json['vehicleType'] as String?,
+      json['vehicleLicenseImg'] as String?,
       json['confirmedEmail'] as bool?,
       json['profileImage'] as String?,
+      (json['trip'] as List<dynamic>?)
+          ?.map((e) => DeliveryTripResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
@@ -66,8 +71,11 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
       'email': instance.email,
       'phone': instance.phoneNumber,
       'role': instance.role,
+      'vehicleType': instance.vehicleType,
+      'vehicleLicenseImg': instance.vehicleLicenseImg,
       'confirmedEmail': instance.isEmailConfirmed,
       'profileImage': instance.profileImage,
+      'trip': instance.trips,
     };
 
 SearchOrderResponse _$SearchOrderResponseFromJson(Map<String, dynamic> json) =>

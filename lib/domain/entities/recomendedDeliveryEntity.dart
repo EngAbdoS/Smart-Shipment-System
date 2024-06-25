@@ -11,7 +11,7 @@ class RecommendedDeliveryEntity {
   String deliveryApprovalImg;
   String profileImage;
   bool deliveryApproved;
-  List<RecommendedDeliveryTripEntity> trips;
+  List<DeliveryTripEntity> trips;
   String otpResetExpires;
   bool confirmedEmail;
 
@@ -31,7 +31,7 @@ class RecommendedDeliveryEntity {
       required this.confirmedEmail});
 }
 
-class RecommendedDeliveryTripEntity {
+class DeliveryTripEntity {
   LatLng startLoc;
   LatLng endLoc;
   String startState;
@@ -41,7 +41,7 @@ class RecommendedDeliveryTripEntity {
   String day;
   String id;
 
-  RecommendedDeliveryTripEntity(
+  DeliveryTripEntity(
       {required this.startLoc,
       required this.endLoc,
       required this.startState,

@@ -74,6 +74,14 @@ class _UserProfileViewState extends State<UserProfileView> {
           Icons.history_edu,
         )
             : Container(),
+       _viewModel.userProfileData.role==AppConstants.deliveryRoleExternal
+            ? generalSetting(
+              () {},
+          AppStrings.trips,
+          AppStrings.edit_trip_list,
+          Icons.transfer_within_a_station_outlined,
+        )
+            : Container(),
         !widget.isClientOrDelivery
             ? generalSetting(
               () {},

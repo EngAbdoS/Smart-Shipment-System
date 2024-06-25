@@ -52,13 +52,18 @@ class UserResponse {
   String? phoneNumber;
   @JsonKey(name: "role")
   String? role;
+  @JsonKey(name: "vehicleType")
+  String? vehicleType;
+  @JsonKey(name: "vehicleLicenseImg")
+  String? vehicleLicenseImg;
   @JsonKey(name: "confirmedEmail")
   bool? isEmailConfirmed;
   @JsonKey(name: "profileImage")
   String? profileImage;
-
+  @JsonKey(name: "trip")
+  List<DeliveryTripResponse>? trips;
   UserResponse(this.isDeliveryApproved, this.userId, this.userName, this.email,
-      this.phoneNumber, this.role, this.isEmailConfirmed, this.profileImage);
+      this.phoneNumber, this.role,this.vehicleType, this.vehicleLicenseImg, this.isEmailConfirmed, this.profileImage,this.trips);
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
       _$UserResponseFromJson(json); //why factory

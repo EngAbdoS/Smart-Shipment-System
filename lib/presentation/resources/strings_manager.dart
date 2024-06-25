@@ -182,7 +182,8 @@ static const  recipient_phone_hint= "recipient_phone_hint";
  static const active_history_hint= "active_history_hint";
  static const my_rating= "my_rating";
  static const my_rating_hint= "my_rating_hint";
-
+ static const  trips= "trips";
+ static const  edit_trip_list= "edit_trip_list";
 
   // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";

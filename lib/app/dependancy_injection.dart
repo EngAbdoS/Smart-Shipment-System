@@ -9,6 +9,8 @@ import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
 import 'package:smart_shipment_system/data/network/app_api.dart';
 import 'package:smart_shipment_system/data/network/dio_factory.dart';
 import 'package:smart_shipment_system/data/repository/repository_implementation.dart';
+import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
+import 'package:smart_shipment_system/domain/models/deliveryTripModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/domain/use_cases/client_registration_usecase.dart';
@@ -28,6 +30,7 @@ import 'package:smart_shipment_system/presentation/client/home/viewModel/clientH
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
 import 'package:smart_shipment_system/presentation/delivery/home/viewModel/deliveryViewModel.dart';
 import 'package:smart_shipment_system/presentation/delivery/main/viewModel/mainDeliveryViewModel.dart';
+import 'package:smart_shipment_system/presentation/delivery/tripList/viewModel/tripListViewModel.dart';
 import 'package:smart_shipment_system/presentation/userProfile/editProfileData/viewModel/editProfileDataViewModel.dart';
 import 'package:smart_shipment_system/presentation/userProfile/viewModel/clientUserProfileViewModel.dart';
 
@@ -109,6 +112,12 @@ initMainDeliveryModule() {
   if (!GetIt.I.isRegistered<MainDeliveryViewModel>()) {
     instance.registerLazySingleton<MainDeliveryViewModel>(
             () => MainDeliveryViewModel(instance()));
+  }
+}
+initDeliveryTripListModule(List<DeliveryTripEntity> tripList) {
+  if (!GetIt.I.isRegistered<TripListViewModel>()) {
+    instance.registerLazySingleton<TripListViewModel>(
+            () => TripListViewModel(instance(),tripList));
   }
 }
 initLoginModule() {

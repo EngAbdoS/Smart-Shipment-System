@@ -5,6 +5,7 @@ import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/delivery/home/view/deliveryView.dart';
+import 'package:smart_shipment_system/presentation/delivery/tripList/view/tripListView.dart';
 import 'package:smart_shipment_system/presentation/userProfile/editProfileData/view/editProfileDataView.dart';
 import 'package:smart_shipment_system/presentation/userProfile/view/userProfileView.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
@@ -43,7 +44,6 @@ class MainDeliveryViewModel {
           errorState(context: context, message: failure.message),
         }, (data) {
       userModel = data;
-
       hideState(context: context);
     });
   }
@@ -76,6 +76,14 @@ class MainDeliveryViewModel {
             inputMainIndexStream.add(widget);
             break;
           }
+          case 6:
+        {
+          pageViewIndex = widget;
+          initDeliveryTripListModule(userModel!.tripList??[]);
+          inputMainStream.add( TripListView());
+          inputMainIndexStream.add(widget);
+          break;
+        }
       }
     }
   }

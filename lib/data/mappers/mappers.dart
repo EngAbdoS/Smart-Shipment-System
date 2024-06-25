@@ -15,6 +15,9 @@ extension UserResponseMapper on UserResponse? {
       isDeliveryApproved: this?.isDeliveryApproved ?? false,
       userId: this?.userId ?? "noId",
       profileImage: this?.profileImage ?? "noImage",
+      vehicleType: this?.vehicleType ?? "noType",
+      vehicleLicenseImg: this?.vehicleLicenseImg ?? "noImage",
+      tripList: this?.trips?.map((trip) => trip.toDomain()).toList() ?? [],
     );
   }
 }
@@ -56,7 +59,10 @@ extension OrdersResponseMapper on OrderResponse? {
               email: "noEmail",
               phoneNumber: "noPhone",
               userId: "noId",
-              profileImage: "noImage"),
+              profileImage: "noImage",
+              vehicleType: '',
+              vehicleLicenseImg: '',
+              tripList: []),
     );
   }
 }
@@ -82,8 +88,8 @@ extension RecommmendedDeliveryeMapper on RecommendedDeliveryResponse? {
 }
 
 extension RecommmendedDeliveryTripMapper on DeliveryTripResponse? {
-  RecommendedDeliveryTripEntity toDomain() {
-    return RecommendedDeliveryTripEntity(
+  DeliveryTripEntity toDomain() {
+    return DeliveryTripEntity(
       startLoc: LatLng(this?.startLoc?.coordinates?[0] ?? 0,
           this?.startLoc?.coordinates?[1] ?? 0),
       endLoc: LatLng(this?.endLoc?.coordinates?[0] ?? 0,
