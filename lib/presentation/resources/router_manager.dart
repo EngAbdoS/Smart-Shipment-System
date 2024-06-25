@@ -17,6 +17,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/login/view/lo
 import 'package:smart_shipment_system/presentation/authenticathion/verification/view/verificationView.dart';
 import 'package:smart_shipment_system/presentation/client/home/view/clientHomeView.dart';
 import 'package:smart_shipment_system/presentation/client/main/view/mainClientView.dart';
+import 'package:smart_shipment_system/presentation/delivery/main/view/mainDeliveryView.dart';
 import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
 import 'package:smart_shipment_system/presentation/resources/page_transition_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -25,9 +26,10 @@ import 'package:smart_shipment_system/presentation/splachScreen/splash_screen_vi
 class Routes {
   static const String splashRoute = "/";
   static const String noRoute = "/noRoute";
-  static const String deliveryHomeRoute = "/deliveryHome";
-  static const String clientHomeRoute = "/clientHome";
+  // static const String deliveryHomeRoute = "/deliveryHome";
+  // static const String clientHomeRoute = "/clientHome";
   static const String mainClientViewRoute = "/mainClientView";
+  static const String mainDeliveryViewRoute = "/mainDeliveryView";
   static const String onBoardingViewRoute = "/onBoardingView";
   static const String loginViewRoute = "/loginView";
   static const String authViewRoute = "/authView";
@@ -67,6 +69,14 @@ abstract class AppRouter {
           initMainClientModule();
           return customPageTransition(
               state.pageKey,const MainClientView(), fadeTransitionGlobal);
+        },
+      ),
+      GoRoute(
+        path: Routes.mainDeliveryViewRoute,
+        pageBuilder: (context, state) {
+          initMainDeliveryModule();
+          return customPageTransition(
+              state.pageKey,const MainDeliveryView(), fadeTransitionGlobal);
         },
       ),
       GoRoute(

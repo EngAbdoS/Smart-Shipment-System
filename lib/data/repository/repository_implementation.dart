@@ -58,9 +58,9 @@ class RepositoryImplementation implements Repository {
       if (data.role == AppConstants.userRoleClient) {
         return const Right(Routes.mainClientViewRoute);
       } else if (data.role == AppConstants.deliveryRoleExternal) {
-        return const Right(Routes.deliveryHomeRoute);
+        return const Right(Routes.mainDeliveryViewRoute);
       } else if (data.role == AppConstants.deliveryRoleInternal) {
-        return const Right(Routes.deliveryHomeRoute);
+        return const Right(Routes.mainDeliveryViewRoute);
       }
       return const Right(Routes.loginViewRoute);
     });
