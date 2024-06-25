@@ -26,6 +26,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/verification/
 import 'package:smart_shipment_system/presentation/client/createOrder/viewModel/clientCreateOrderViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
+import 'package:smart_shipment_system/presentation/delivery/home/viewModel/deliveryViewModel.dart';
 import 'package:smart_shipment_system/presentation/delivery/main/viewModel/mainDeliveryViewModel.dart';
 import 'package:smart_shipment_system/presentation/userProfile/editProfileData/viewModel/editProfileDataViewModel.dart';
 import 'package:smart_shipment_system/presentation/userProfile/viewModel/clientUserProfileViewModel.dart';
@@ -68,6 +69,12 @@ initClientHomeModule(UserModel userModel) {
   if (!GetIt.I.isRegistered<ClientHomeViewModel>()) {
     instance.registerLazySingleton<ClientHomeViewModel>(
         () => ClientHomeViewModel(instance(), userModel));
+  }
+}
+initDeliveryHomeModule(UserModel userModel) {
+  if (!GetIt.I.isRegistered<DeliveryHomeViewModel>()) {
+    instance.registerLazySingleton<DeliveryHomeViewModel>(
+            () => DeliveryHomeViewModel(instance(), userModel));
   }
 }
 

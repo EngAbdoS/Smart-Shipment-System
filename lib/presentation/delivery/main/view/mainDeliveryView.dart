@@ -1,8 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
-import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
 import 'package:smart_shipment_system/presentation/delivery/main/viewModel/mainDeliveryViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
@@ -46,22 +44,6 @@ class _MainDeliveryViewState extends State<MainDeliveryView> {
           }
         },
       ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed:()=>_viewModel.changeWidget(context, 4),
-      //   shape: RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.circular(100),
-      //   ),
-      //   backgroundColor: ColorManager.primary,
-      //   child: const Align(
-      //     alignment: Alignment.center,
-      //     child: Icon(
-      //       Icons.add,
-      //       color: ColorManager.white,
-      //       size: 40,
-      //     ),
-      //   ),
-      // ),
       bottomNavigationBar: StreamBuilder<int?>(
           stream: _viewModel.outputMainIndexStream,
           builder: (context, snapshot) {
@@ -71,8 +53,8 @@ class _MainDeliveryViewState extends State<MainDeliveryView> {
                 return Icon(
                   <IconData>[
                     Icons.home,
-                    Icons.checklist_sharp,
                     Icons.chat,
+                    Icons.wallet_outlined,
                     Icons.person,
                   ][index],
                   size: 24,
@@ -80,19 +62,20 @@ class _MainDeliveryViewState extends State<MainDeliveryView> {
                 );
               },
               activeIndex: snapshot.data ?? 0,
-              gapLocation: GapLocation.center,
+               gapLocation: GapLocation.center,
               notchSmoothness: NotchSmoothness.verySmoothEdge,
-              leftCornerRadius: 32,
-              rightCornerRadius: 32,
+                gapWidth:0,
+              leftCornerRadius: 16,
+              rightCornerRadius: 16,
               onTap: (index) => _viewModel.changeWidget(context, index),
             );
           }),
     );
   }
 
-
   @override
   void dispose() {
-    _viewModel.dispose();    super.dispose();
+    _viewModel.dispose();
+    super.dispose();
   }
 }

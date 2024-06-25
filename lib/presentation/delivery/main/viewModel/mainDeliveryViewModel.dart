@@ -4,6 +4,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
+import 'package:smart_shipment_system/presentation/delivery/home/view/deliveryView.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
 import '../../../widgets/loadingState.dart';
@@ -68,17 +69,8 @@ class MainDeliveryViewModel {
           {
             await getUserData(context);
             pageViewIndex = widget;
-            //  initClientHomeModule(userModel!);
-            inputMainStream.add(Container(
-              color: Colors.red,
-              child: Center(
-                  child: Column(
-                children: [
-                  Text("حمرا"),
-                  Text(userModel!.userName),
-                ],
-              )),
-            ));
+            initDeliveryHomeModule(userModel!);
+            inputMainStream.add(DeliveryHomeView());
             inputMainIndexStream.add(widget);
             break;
           }
