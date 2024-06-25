@@ -178,6 +178,12 @@ static const  recipient_phone_hint= "recipient_phone_hint";
  static const shipment_quantity= "shipment_quantity";
  static const shipment_quantity_hint= "shipment_quantity_hint";
 
+ static const active_history= "active_history";
+ static const active_history_hint= "active_history_hint";
+ static const my_rating= "my_rating";
+ static const my_rating_hint= "my_rating_hint";
+
+
   // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";
   static const loading = "loading";

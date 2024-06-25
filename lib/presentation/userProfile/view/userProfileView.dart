@@ -66,6 +66,31 @@ class _UserProfileViewState extends State<UserProfileView> {
             style: Theme.of(context).textTheme.headlineMedium,
           ).tr(),
         ),
+        !widget.isClientOrDelivery
+            ? generalSetting(
+              () {},
+          AppStrings.active_history,
+          AppStrings.active_history_hint,
+          Icons.history_edu,
+        )
+            : Container(),
+        !widget.isClientOrDelivery
+            ? generalSetting(
+              () {},
+          AppStrings.add_card,
+          AppStrings.add_card_method,
+          Icons.credit_card_rounded,
+        )
+            : Container(),
+        !widget.isClientOrDelivery
+            ? generalSetting(
+              () {},
+          AppStrings.my_rating,
+          AppStrings.my_rating_hint,
+          Icons.star_rate_rounded,
+        )
+            : Container(),
+
         generalSetting(
           () => widget.mainViewModel.changeWidget(context, 5),
           AppStrings.edit_profile,

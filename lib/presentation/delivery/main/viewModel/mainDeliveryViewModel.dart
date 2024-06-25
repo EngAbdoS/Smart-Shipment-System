@@ -5,6 +5,7 @@ import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/delivery/home/view/deliveryView.dart';
+import 'package:smart_shipment_system/presentation/userProfile/editProfileData/view/editProfileDataView.dart';
 import 'package:smart_shipment_system/presentation/userProfile/view/userProfileView.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
@@ -67,7 +68,14 @@ class MainDeliveryViewModel {
             inputMainIndexStream.add(widget);
             break;
           }
-
+        case 5:
+          {
+            pageViewIndex = widget;
+            initEditProfileModule(userModel!);
+            inputMainStream.add(const EditProfileView());
+            inputMainIndexStream.add(widget);
+            break;
+          }
       }
     }
   }

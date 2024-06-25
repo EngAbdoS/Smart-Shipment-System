@@ -134,6 +134,11 @@
   "shipment_quantity": "الكمية",
   "shipment_quantity_hint": "ادخل عدد الوحدات المشحونة",
 
+  "active_history": "سجل الأنشطة",
+  "active_history_hint": "سجل الأنشطة الأخيرة",
+  "my_rating": "تقييمي",
+  "my_rating_hint": "تقييم المستخدمين لتوصيلي",
+
 
 
   "hello": "مرحبا !!",
