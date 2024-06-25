@@ -76,7 +76,7 @@ class _UserProfileViewState extends State<UserProfileView> {
             : Container(),
        _viewModel.userProfileData.role==AppConstants.deliveryRoleExternal
             ? generalSetting(
-              () {},
+             () => widget.mainViewModel.changeWidget(context, 6),
           AppStrings.trips,
           AppStrings.edit_trip_list,
           Icons.transfer_within_a_station_outlined,

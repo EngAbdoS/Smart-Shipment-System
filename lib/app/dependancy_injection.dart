@@ -117,7 +117,7 @@ initMainDeliveryModule() {
 initDeliveryTripListModule(List<DeliveryTripEntity> tripList) {
   if (!GetIt.I.isRegistered<TripListViewModel>()) {
     instance.registerLazySingleton<TripListViewModel>(
-            () => TripListViewModel(instance(),tripList));
+            () => TripListViewModel(instance(),tripList)..start());
   }
 }
 initLoginModule() {

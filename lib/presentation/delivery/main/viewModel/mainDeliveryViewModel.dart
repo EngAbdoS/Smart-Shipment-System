@@ -79,6 +79,8 @@ class MainDeliveryViewModel {
           case 6:
         {
           pageViewIndex = widget;
+          print(userModel!.tripList?.length );
+          print(userModel!.tripList?[0].startState );
           initDeliveryTripListModule(userModel!.tripList??[]);
           inputMainStream.add( TripListView());
           inputMainIndexStream.add(widget);
