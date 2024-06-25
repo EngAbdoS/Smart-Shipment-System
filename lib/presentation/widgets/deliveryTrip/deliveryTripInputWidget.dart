@@ -14,7 +14,7 @@ import 'package:smart_shipment_system/presentation/widgets/cirular_button.dart';
 import 'package:smart_shipment_system/presentation/widgets/inputLocationWidget.dart';
 import 'package:smart_shipment_system/presentation/widgets/select_week_days.dart';
 import 'package:smart_shipment_system/presentation/widgets/toast.dart';
-import '../authenticathion/deliveryRegistration/viewModel/deliveryRegisterationViewModel.dart';
+import '../../authenticathion/deliveryRegistration/viewModel/deliveryRegisterationViewModel.dart';
 
 class DeliveryTripInputWidget extends StatelessWidget {
   final DeliveryRegistrationViewModel viewModel;
@@ -343,99 +343,4 @@ class DeliveryTripInputWidget extends StatelessWidget {
   }
 }
 
-Widget deliveryAddedTripList(
-    BuildContext context,
-    Stream<List<DeliveryTripModel>> outputDeliveryTripList,
-    Function deleteTrip) {
-  return StreamBuilder<List<DeliveryTripModel>>(
-      stream: outputDeliveryTripList,
-      builder: (context, snapshot) {
-        return Container(
-          // height: 200,
-          padding: EdgeInsets.only(bottom: 25.sp),
-          child: ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) => deliveryTripWidget(
-                    context, snapshot.data![index], index, deleteTrip)
-                .animate()
-                .slideY(duration: 300.milliseconds, curve: Curves.bounceInOut),
-            itemCount: snapshot.data?.length ?? 0,
-          ).animate().shake(curve: Curves.bounceInOut),
-        );
-      });
-}
 
-Widget deliveryTripWidget(BuildContext context, DeliveryTripModel deliveryTrip,
-    int index, Function deleteTrip) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(
-        horizontal: AppPadding.p8 * 0.6, vertical: AppPadding.p8),
-    child: Container(
-      width: double.maxFinite,
-      padding: const EdgeInsets.all(AppPadding.p8),
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(color: ColorManager.primary.withOpacity(0.1), blurRadius: 40)
-      ], color: ColorManager.offWhite, borderRadius: BorderRadius.circular(20)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                  child: tripTextWidget(
-                      context,
-                      (deliveryTrip.isOneTime ?? true)
-                          ? "${AppStrings.tripDays.tr()}: ${deliveryTrip.tripDay}"
-                          : "${AppStrings.tripDays.tr()}: ${deliveryTrip.tripWeekDays}")),
-              IconButton(
-                  onPressed: () => deleteTrip(index),
-                  icon: const Icon(
-                    Icons.delete,
-                    color: ColorManager.primary,
-                  ))
-            ],
-          ),
-          tripTextWidget(
-              context, "${AppStrings.tripTime.tr()}: ${deliveryTrip.tripTime}"),
-          SizedBox(
-            height: 14.sp,
-          ),
-          tripTextWidget(context,
-              "${AppStrings.fromLocation.tr()}: ${deliveryTrip.fromAddressName}"),
-          SizedBox(
-            height: 14.sp,
-          ),
-          tripTextWidget(context,
-              "${AppStrings.toLocation.tr()}: ${deliveryTrip.toAddressName}"),
-          SizedBox(
-            height: 14.sp,
-          ),
-          tripTextWidget(context,
-              "${AppStrings.tripDetails.tr()}: ${deliveryTrip.tripDetails}"),
-          SizedBox(
-            height: 14.sp,
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-Widget tripTextWidget(BuildContext context, String text) {
-  return Container(
-    padding: const EdgeInsets.symmetric(
-        horizontal: AppPadding.p8, vertical: AppPadding.p8),
-    decoration: BoxDecoration(
-      border: Border.all(color: ColorManager.lightGray),
-      borderRadius: BorderRadius.circular(24),
-    ),
-    child: Text(
-      text,
-      overflow: TextOverflow.ellipsis,
-      softWrap: true,
-      style: Theme.of(context).textTheme.titleSmall,
-    ),
-  );
-}

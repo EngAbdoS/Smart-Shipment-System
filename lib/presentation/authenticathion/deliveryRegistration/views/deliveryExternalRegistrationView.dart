@@ -7,7 +7,8 @@ import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegis
 import 'package:smart_shipment_system/presentation/authenticathion/widgets/registrationSlider.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/auth_logo_widget.dart';
-import 'package:smart_shipment_system/presentation/widgets/deliveryTripInputWidget.dart';
+import 'package:smart_shipment_system/presentation/widgets/deliveryTrip/deliveryAddedTripList.dart';
+import 'package:smart_shipment_system/presentation/widgets/deliveryTrip/deliveryTripInputWidget.dart';
 import 'package:smart_shipment_system/presentation/widgets/regular_button.dart';
 import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 import '../../../resources/values_manager.dart';
