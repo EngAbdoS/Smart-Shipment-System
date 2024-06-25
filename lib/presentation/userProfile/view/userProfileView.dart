@@ -3,8 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
+import 'package:smart_shipment_system/presentation/delivery/main/viewModel/mainDeliveryViewModel.dart';
 import 'package:smart_shipment_system/presentation/userProfile/viewModel/clientUserProfileViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
@@ -12,17 +14,16 @@ import 'package:smart_shipment_system/presentation/resources/strings_manager.dar
 import 'package:smart_shipment_system/presentation/widgets/profilePicture.dart';
 
 class UserProfileView extends StatefulWidget {
-  const UserProfileView({super.key});
+  const UserProfileView({super.key, required this.isClientOrDelivery,required this.mainViewModel});
 
+  final bool isClientOrDelivery;
+final dynamic mainViewModel;
   @override
   State<UserProfileView> createState() => _UserProfileViewState();
 }
 
 class _UserProfileViewState extends State<UserProfileView> {
-  final UserProfileViewModel _viewModel =
-      instance<UserProfileViewModel>();
-
-   final MainClientViewModel _mainClientViewMode = instance<MainClientViewModel>();
+  final UserProfileViewModel _viewModel = instance<UserProfileViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +65,9 @@ class _UserProfileViewState extends State<UserProfileView> {
             AppStrings.general,
             style: Theme.of(context).textTheme.headlineMedium,
           ).tr(),
-        ), 
+        ),
         generalSetting(
-          () =>_mainClientViewMode.changeWidget(context,5),
+          () => widget.mainViewModel.changeWidget(context, 5),
           AppStrings.edit_profile,
           AppStrings.profile_edits,
           Icons.edit,
@@ -77,18 +78,22 @@ class _UserProfileViewState extends State<UserProfileView> {
           AppStrings.profile_safety,
           Icons.lock,
         ),
-        generalSetting(
-          () {},
-          AppStrings.my_locations,
-          AppStrings.profile_safety,
-          Icons.location_on,
-        ),
-        generalSetting(
-          () {},
-          AppStrings.add_card,
-          AppStrings.add_card_method,
-          Icons.credit_card_rounded,
-        ),
+        widget.isClientOrDelivery
+            ? generalSetting(
+                () {},
+                AppStrings.my_locations,
+                AppStrings.profile_safety,
+                Icons.location_on,
+              )
+            : Container(),
+        widget.isClientOrDelivery
+            ? generalSetting(
+                () {},
+                AppStrings.add_card,
+                AppStrings.add_card_method,
+                Icons.credit_card_rounded,
+              )
+            : Container(),
       ],
     );
   }
@@ -224,8 +229,10 @@ class _UserProfileViewState extends State<UserProfileView> {
             Icons.notifications),
         faverSetting(changeLanguage(), AppStrings.language,
             AppStrings.choose_language, Icons.language),
-        generalSetting(
-            ratingWidget, AppStrings.rate, AppStrings.how_rate, Icons.star),
+        widget.isClientOrDelivery
+            ? generalSetting(
+                ratingWidget, AppStrings.rate, AppStrings.how_rate, Icons.star)
+            : Container(),
         logoutWidget(),
       ],
     );
@@ -417,4 +424,13 @@ class _UserProfileViewState extends State<UserProfileView> {
       ],
     );
   }
+
+
+
+
+  dispose() {
+    //widget.mainViewModel.dispose();
+    super.dispose();
+  }
+
 }

@@ -5,6 +5,7 @@ import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/delivery/home/view/deliveryView.dart';
+import 'package:smart_shipment_system/presentation/userProfile/view/userProfileView.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
 import '../../../widgets/loadingState.dart';
@@ -58,6 +59,15 @@ class MainDeliveryViewModel {
             inputMainIndexStream.add(widget);
             break;
           }
+        case 3:
+          {
+            pageViewIndex = widget;
+            initClientProfileModule(userModel!);
+            inputMainStream.add( UserProfileView(isClientOrDelivery: false,mainViewModel: instance<MainDeliveryViewModel>(),));
+            inputMainIndexStream.add(widget);
+            break;
+          }
+
       }
     }
   }

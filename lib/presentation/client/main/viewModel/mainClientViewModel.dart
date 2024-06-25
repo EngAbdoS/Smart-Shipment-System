@@ -85,7 +85,7 @@ class MainClientViewModel {
           {
             pageViewIndex = widget;
             initClientProfileModule(userModel!);
-            inputMainStream.add(const UserProfileView());
+            inputMainStream.add( UserProfileView(isClientOrDelivery: true,mainViewModel: instance<MainClientViewModel>(),));
             inputMainIndexStream.add(widget);
             break;
           }
