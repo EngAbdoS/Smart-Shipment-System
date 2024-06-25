@@ -2,9 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:open_street_map_search_and_pick/open_street_map_search_and_pick.dart';
-import 'package:smart_shipment_system/domain/models/deliveryTripModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -14,10 +11,9 @@ import 'package:smart_shipment_system/presentation/widgets/cirular_button.dart';
 import 'package:smart_shipment_system/presentation/widgets/inputLocationWidget.dart';
 import 'package:smart_shipment_system/presentation/widgets/select_week_days.dart';
 import 'package:smart_shipment_system/presentation/widgets/toast.dart';
-import '../../authenticathion/deliveryRegistration/viewModel/deliveryRegisterationViewModel.dart';
 
 class DeliveryTripInputWidget extends StatelessWidget {
-  final DeliveryRegistrationViewModel viewModel;
+  final dynamic viewModel;
 
   DeliveryTripInputWidget({
     super.key,
