@@ -1,10 +1,5 @@
-
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -12,6 +7,7 @@ import 'package:smart_shipment_system/app/app_preferances.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
+import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
@@ -37,6 +33,11 @@ class OnBoardingView extends StatelessWidget {
     SVGAssets.onBoardingBK1,
     SVGAssets.onBoardingBK2,
     SVGAssets.onBoardingBK3,
+  ];
+  static final List<String> onBoardingBKsArabic = [
+    SVGAssets.onBoardingBK3,
+    SVGAssets.onBoardingBK2,
+    SVGAssets.onBoardingBK1,
   ];
   static final List<String> onBoardingPics = [
     JsonAssets.a,
@@ -77,6 +78,7 @@ class OnBoardingView extends StatelessWidget {
               child: PageView.builder(
                 // physics: NeverScrollableScrollPhysics()
                 allowImplicitScrolling: true,
+                reverse: context.locale == ARABIC_LOCAL,
                 clipBehavior: Clip.antiAlias,
                 //  allowImplicitScrolling: true,
                 controller: onBoardingPageController,
@@ -93,20 +95,6 @@ class OnBoardingView extends StatelessWidget {
       ),
     );
   }
-
-  // Widget floatingWidgets() {
-  //   return Column(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     children: [
-  //       const Align(
-  //         alignment: Alignment.topRight,
-  //         child: SkipButton(),
-  //       ),
-  //       const Spacer(),
-  //       Align(alignment: Alignment.bottomCenter, child: dotsIndicatorWidget()),
-  //     ],
-  //   );
-  // }
 
   Widget dotsIndicatorWidget() {
     return Padding(
@@ -149,9 +137,10 @@ class OnBoardingView extends StatelessWidget {
                         : width + 20,
               ),
               Container(
-                  padding: const EdgeInsets.only(right: AppPadding.p20),
+                  //  padding: const EdgeInsets.only(right: AppPadding.p20),
                   height: 280,
                   width: 280,
+                  alignment: Alignment.center,
                   child: Lottie.asset(onBoardingPics[index],
                       fit: BoxFit.cover, alignment: Alignment.topLeft))
             ],
@@ -179,9 +168,12 @@ class OnBoardingView extends StatelessWidget {
           child: index != 2
               ? CircularButton(
                   buttonAction: _nextPage,
-                  buttonWidget: SvgPicture.asset(
-                    IconAssets.arrowRight,
-                    color: ColorManager.black,
+                  buttonWidget: Transform.flip(
+                    flipX: context.locale == ARABIC_LOCAL,
+                    child: SvgPicture.asset(
+                      IconAssets.arrowRight,
+                      color: ColorManager.black,
+                    ),
                   ))
               : SizedBox(
                   width: WidgetsValues.regularButtonWidthMedium,
@@ -214,22 +206,3 @@ class OnBoardingView extends StatelessWidget {
     );
   }
 }
-
-// class SkipButton extends StatelessWidget {
-//   const SkipButton({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding:
-//           const EdgeInsets.only(right: AppPadding.p22, top: AppPadding.p22 * 3),
-//       child: TextButton(
-//           onPressed: () =>_navigate(),
-//           child: Text(
-//             AppStrings.skip,
-//             style: Theme.of(context).textTheme.bodySmall,
-//           ).tr()),
-//     );
-//     ;
-//   }
-// }
