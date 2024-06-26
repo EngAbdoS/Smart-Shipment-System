@@ -402,3 +402,13 @@ Map<String, dynamic> _$ForgetPasswordResponseToJson(
       'status': instance.status,
       'message': instance.message,
     };
+
+ChatBotResponse _$ChatBotResponseFromJson(Map<String, dynamic> json) =>
+    ChatBotResponse(
+      json['answer'] as String?,
+    );
+
+Map<String, dynamic> _$ChatBotResponseToJson(ChatBotResponse instance) =>
+    <String, dynamic>{
+      'answer': instance.answer,
+    };

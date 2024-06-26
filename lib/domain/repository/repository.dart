@@ -11,6 +11,7 @@ abstract class Repository {
   Future<Either<Failure, String>> getLoginNextNavigationRoute();
 
   Future<Either<Failure, UserModel>> getUserData();
+  Future<Either<Failure, String>> chatBot(String message);
 
   Future<Either<Failure, bool>> updateUserProfileImage(
       String profileImage, String email);

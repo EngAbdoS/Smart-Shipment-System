@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppConstants
 {
   static const String baseUrl="https://smart-shipment-system.vercel.app/api/v1/";
+  static const String chatBotBaseUrl="https://api.dify.ai/v1";
   static const String empty="";
   static const String nullValue="NULL";
   static const String token="SEND TOKEN HERE";

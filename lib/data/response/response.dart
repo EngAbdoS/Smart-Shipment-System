@@ -382,4 +382,21 @@ class ForgetPasswordResponse extends BaseResponse {
       _$ForgetPasswordResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$ForgetPasswordResponseToJson(this);
+
+
+
+
+}
+
+@JsonSerializable()
+class ChatBotResponse  {
+  @JsonKey(name: "answer")
+ String? answer;
+
+  ChatBotResponse(this.answer);
+
+  factory ChatBotResponse.fromJson(Map<String, dynamic> json) =>
+      _$ChatBotResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ChatBotResponseToJson(this);
 }

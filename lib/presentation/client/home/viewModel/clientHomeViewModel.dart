@@ -76,6 +76,10 @@ class ClientHomeViewModel extends MainClientViewModel {
   }
 
   startHomeView(dynamic context) async {
+
+
+    await chat(context);
+
     changeHomeActiveShipmentOrSearchState(true);
     await getHomeActiveShipmentList(context);
   }
@@ -91,6 +95,19 @@ class ClientHomeViewModel extends MainClientViewModel {
               errorState(context: context, message: failure.message),
             }, (data) async {
       inputShipmentList.add([data]);
+      hideState(context: context);
+    });
+  }
+
+  chat(dynamic context) async {
+    loadingState(context: context);
+
+    (await _repository.chatBot("hi")).fold(
+            (failure) => {
+          errorState(context: context, message: failure.message),
+        }, (data) async {
+              print("atuihgpiushgpsdbgkjsbdk;jgb;sdkfgb;ksbd;");
+   print( data);
       hideState(context: context);
     });
   }

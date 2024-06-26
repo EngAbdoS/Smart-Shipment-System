@@ -1,9 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
+import 'package:smart_shipment_system/app/app_preferances.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/data/data_sourse/local_data_sourse.dart';
 import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
 import 'package:smart_shipment_system/data/mappers/mappers.dart';
+import 'package:smart_shipment_system/data/network/chatBotAppService.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
@@ -16,8 +18,11 @@ import '../network/error_handler.dart';
 class RepositoryImplementation implements Repository {
   final LocalDataSource _localDataSource;
   final RemoteDataSource _remoteDataSource;
+  final ChatBotAppServiceClient _chatBotAppServiceClient;
+  final AppPreferences _appPreferences;
 
-  RepositoryImplementation(this._localDataSource, this._remoteDataSource);
+  RepositoryImplementation(this._localDataSource, this._remoteDataSource,
+      this._chatBotAppServiceClient, this._appPreferences);
 
   @override
   Future<Either<Failure, String>> getSplashNextNavigationRoute() async {
@@ -227,6 +232,20 @@ class RepositoryImplementation implements Repository {
         return Left(ErrorHandler.handle(response).failure);
       }
     });
+  }
+
+  @override
+  Future<Either<Failure, String>> chatBot(String message) async {
+    String userToken = _appPreferences.getUserToken();
+    String answer = '';
+    try {
+      var res = await _chatBotAppServiceClient
+          .deleteOrderById(userToken, message, {});
+      answer = res.answer ?? "";
+      return Right(answer);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
   }
 
   @override
