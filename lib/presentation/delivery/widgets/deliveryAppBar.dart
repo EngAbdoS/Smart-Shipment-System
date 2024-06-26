@@ -28,29 +28,37 @@ Widget buildDeliverySliverAppBar(
     title: Container(
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ProfileCirclerImage(
             imageUrl: viewModel.userHomeData.profileImage,
             navigate: () => mainDeliveryViewModel.changeWidget(context, 3),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                AppStrings.goodMorning,
-                style: Theme.of(context).textTheme.titleSmall,
-              ).tr(),
-              Text(
-                viewModel.userHomeData.userName,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelSmall!
-                    .copyWith(color: ColorManager.black, fontSize: 17),
-              ).tr(),
-            ],
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppStrings.goodMorning,
+                  style: Theme.of(context).textTheme.titleSmall,
+                ).tr(),
+                Flexible(
+                  child: Text(
+                    viewModel.userHomeData.userName,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall!
+                        .copyWith(color: ColorManager.black, fontSize: 17),
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: true,
+                  ).tr(),
+                ),
+              ],
+            ),
           ),
-          const Spacer(),
           IconButton(
             onPressed: () {},
             icon: Icon(
@@ -64,15 +72,11 @@ Widget buildDeliverySliverAppBar(
     ),
     toolbarHeight: 90.h,
     flexibleSpace: const FlexibleSpaceBar(
-
       stretchModes: <StretchMode>[
         StretchMode.zoomBackground,
         StretchMode.blurBackground,
         StretchMode.fadeTitle,
       ],
     ),
-
-
-
-
-  );}
+  );
+}

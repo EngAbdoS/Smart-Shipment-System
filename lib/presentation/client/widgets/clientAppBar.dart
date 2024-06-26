@@ -33,29 +33,37 @@ SliverAppBar buildSliverAppBar(
     title: Container(
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ProfileCirclerImage(
             imageUrl: clientViewModel.userHomeData.profileImage,
             navigate: () => mainClientViewModel.changeWidget(context, 3),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                AppStrings.goodMorning,
-                style: Theme.of(context).textTheme.titleSmall,
-              ).tr(),
-              Text(
-                clientViewModel.userHomeData.userName,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelSmall!
-                    .copyWith(color: ColorManager.black, fontSize: 17),
-              ).tr(),
-            ],
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppStrings.goodMorning,
+                  style: Theme.of(context).textTheme.titleSmall,
+                ).tr(),
+                Flexible(
+                  child: Text(
+                    clientViewModel.userHomeData.userName,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall!
+                        .copyWith(color: ColorManager.black, fontSize: 17),
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: true,
+                  ).tr(),
+                ),
+              ],
+            ),
           ),
-          const Spacer(),
           IconButton(
             onPressed: () {},
             icon: Icon(
@@ -95,7 +103,8 @@ SliverAppBar buildSliverAppBar(
                       style: Theme.of(context).textTheme.titleSmall,
                     ).tr()
                   : Container(),
-              shipmentSearch(context,clientViewModel.setSearchId,()=>clientViewModel.searchShipmentById(context)),
+              shipmentSearch(context, clientViewModel.setSearchId,
+                  () => clientViewModel.searchShipmentById(context)),
               isHome
                   ? Align(
                       alignment: Alignment.bottomCenter,
