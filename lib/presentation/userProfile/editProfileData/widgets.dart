@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/optWidget/pickImage.dart';
+import 'package:smart_shipment_system/presentation/widgets/profilePicture.dart';
 
 Widget userEditProfileImage(
     BuildContext context,
@@ -25,26 +26,30 @@ Widget userEditProfileImage(
                 return StreamBuilder<bool?>(
                     stream: outputIsProfileImageEditingStream,
                     builder: (context, editingSnapshot) {
-                      return Container(
-                        height: 200.h,
-                        width: 200.h,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: (editingSnapshot.data ?? false)
-                                    ? Image.file(
-                                        File(snapshot.data ?? ""),
-                                        fit: BoxFit.cover,
-                                      ).image
-                                    : Image.network(
-                                        snapshot.data ?? "",
-                                        fit: BoxFit.fill,
-                                      ).image)),
+                      return (editingSnapshot.data ?? false)?Padding(
+                        padding: EdgeInsets.all(15.h),
+                        child: Container(
+                          height: 200.h,
+                          width: 200.h,
+
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image:
+                                       Image.file(
+                                          File(snapshot.data ?? ""),
+                                          fit: BoxFit.cover,
+                                        ).image
+                                      )),
+                        ),
+                      ):  ProfileCirclerImage(
+                        imageUrl: snapshot.data ?? "",
+                        navigate: () {},size: 220.h,
                       );
                     });
               }),
           Padding(
-            padding: EdgeInsets.all(5.h),
+            padding: EdgeInsets.all(20.h),
             child: Container(
               width: 50.h,
               height: 50.h,
