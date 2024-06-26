@@ -4,7 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
-import 'package:smart_shipment_system/presentation/userProfile/viewModel/clientUserProfileViewModel.dart';
+import 'package:smart_shipment_system/presentation/userProfile/viewModel/userProfileViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/userProfile/widgets/faverSettingSection.dart';

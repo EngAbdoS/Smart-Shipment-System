@@ -21,10 +21,8 @@ class RepositoryImplementation implements Repository {
 
   @override
   Future<Either<Failure, String>> getSplashNextNavigationRoute() async {
-    //TODO check if logged in from backend 🤨
     //return const Right(Routes.onBoardingViewRoute);
 
-//handle in local domain
     //   return const Right(Routes.loginViewRoute);
 
     if (!_localDataSource.isOnBoardingViewed()) {
@@ -36,13 +34,6 @@ class RepositoryImplementation implements Repository {
         }, (route) {
           return Right(route);
         });
-        //TODO getHomeRoute
-        // if (_localDataSource.getUserRole() == AppConstants.userRoleClient) {
-        //   return const Right(Routes.clientHomeRoute);
-        // } else if (_localDataSource.getUserRole() ==
-        //     AppConstants.userRoleDelivery) {
-        //   return const Right(Routes.deliveryHomeRoute);
-        // }
       } else {
         return const Right(Routes.loginViewRoute);
       }

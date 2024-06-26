@@ -32,7 +32,7 @@ import 'package:smart_shipment_system/presentation/delivery/home/viewModel/deliv
 import 'package:smart_shipment_system/presentation/delivery/main/viewModel/mainDeliveryViewModel.dart';
 import 'package:smart_shipment_system/presentation/delivery/tripList/viewModel/tripListViewModel.dart';
 import 'package:smart_shipment_system/presentation/userProfile/editProfileData/viewModel/editProfileDataViewModel.dart';
-import 'package:smart_shipment_system/presentation/userProfile/viewModel/clientUserProfileViewModel.dart';
+import 'package:smart_shipment_system/presentation/userProfile/viewModel/userProfileViewModel.dart';
 
 final instance = GetIt.instance;
 

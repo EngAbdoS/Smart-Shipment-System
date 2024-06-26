@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
-import 'package:smart_shipment_system/presentation/userProfile/viewModel/clientUserProfileViewModel.dart';
+import 'package:smart_shipment_system/presentation/userProfile/viewModel/userProfileViewModel.dart';
 import 'package:smart_shipment_system/presentation/widgets/profilePicture.dart';
 
 Widget mainSettingSection(

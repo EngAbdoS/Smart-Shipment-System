@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
-import 'package:smart_shipment_system/presentation/userProfile/viewModel/clientUserProfileViewModel.dart';
+import 'package:smart_shipment_system/presentation/userProfile/viewModel/userProfileViewModel.dart';
 import 'package:smart_shipment_system/presentation/userProfile/widgets/changeLanguage.dart';
 import 'package:smart_shipment_system/presentation/userProfile/widgets/faverSetting.dart';
 import 'package:smart_shipment_system/presentation/userProfile/widgets/generalSetting.dart';

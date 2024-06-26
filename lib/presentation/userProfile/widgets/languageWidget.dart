@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
-import 'package:smart_shipment_system/presentation/userProfile/viewModel/clientUserProfileViewModel.dart';
+import 'package:smart_shipment_system/presentation/userProfile/viewModel/userProfileViewModel.dart';
 
 Widget languageWidget(BuildContext context, bool isLang, String lang,
     UserProfileViewModel viewModel) {
