@@ -7,7 +7,7 @@ import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/delivery/home/view/deliveryView.dart';
 import 'package:smart_shipment_system/presentation/delivery/tripList/view/tripListView.dart';
 import 'package:smart_shipment_system/presentation/userProfile/editProfileData/view/editProfileDataView.dart';
-import 'package:smart_shipment_system/presentation/userProfile/view/userProfileView.dart';
+import 'package:smart_shipment_system/presentation/userProfile/view/deliveryUserProfile.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
 import '../../../widgets/loadingState.dart';
@@ -39,21 +39,21 @@ class MainDeliveryViewModel {
   Future getUserData(dynamic context) async {
     loadingState(context: context);
     (await _repository.getUserData()).fold(
-            (failure) =>
-        {
-          errorState(context: context, message: failure.message),
-        }, (data) {
+        (failure) => {
+              errorState(context: context, message: failure.message),
+            }, (data) {
       userModel = data;
       hideState(context: context);
     });
   }
 
   changeWidget(dynamic context, int widget) async {
+    await getUserData(context);
+
     if (pageViewIndex != widget || widget == 0) {
       switch (widget) {
         case 0:
           {
-            await getUserData(context);
             pageViewIndex = widget;
             initDeliveryHomeModule(userModel!);
             inputMainStream.add(const DeliveryHomeView());
@@ -64,7 +64,7 @@ class MainDeliveryViewModel {
           {
             pageViewIndex = widget;
             initClientProfileModule(userModel!);
-            inputMainStream.add( UserProfileView(isClientOrDelivery: false,mainViewModel: instance<MainDeliveryViewModel>(),));
+            inputMainStream.add(const DeliveryUserProfileView());
             inputMainIndexStream.add(widget);
             break;
           }
@@ -76,16 +76,14 @@ class MainDeliveryViewModel {
             inputMainIndexStream.add(widget);
             break;
           }
-          case 6:
-        {
-          pageViewIndex = widget;
-          print(userModel!.tripList?.length );
-          print(userModel!.tripList?[0].startState );
-          initDeliveryTripListModule(userModel!.tripList??[]);
-          inputMainStream.add( TripListView());
-          inputMainIndexStream.add(widget);
-          break;
-        }
+        case 6:
+          {
+            pageViewIndex = widget;
+            initDeliveryTripListModule(userModel!.tripList ?? []);
+            inputMainStream.add(TripListView());
+            inputMainIndexStream.add(widget);
+            break;
+          }
       }
     }
   }

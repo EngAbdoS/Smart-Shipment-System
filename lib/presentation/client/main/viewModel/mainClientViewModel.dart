@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
@@ -10,7 +9,7 @@ import 'package:smart_shipment_system/presentation/client/createOrder/view/recom
 import 'package:smart_shipment_system/presentation/client/home/view/clientHomeView.dart';
 import 'package:smart_shipment_system/presentation/client/shipment/shipmentView.dart';
 import 'package:smart_shipment_system/presentation/userProfile/editProfileData/view/editProfileDataView.dart';
-import 'package:smart_shipment_system/presentation/userProfile/view/userProfileView.dart';
+import 'package:smart_shipment_system/presentation/userProfile/view/clientUserProfile.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
 import '../../../widgets/loadingState.dart';
@@ -51,12 +50,13 @@ class MainClientViewModel {
   }
 
   changeWidget(dynamic context, int widget) async {
+    await getUserData(context);
+
     if (pageViewIndex != widget || widget == 0) {
       switch (widget) {
         case 0:
           {
             pageViewIndex = widget;
-            await getUserData(context);
             initClientHomeModule(userModel!);
             inputMainStream.add(const ClientHomeView());
             inputMainIndexStream.add(widget);
@@ -85,7 +85,7 @@ class MainClientViewModel {
           {
             pageViewIndex = widget;
             initClientProfileModule(userModel!);
-            inputMainStream.add( UserProfileView(isClientOrDelivery: true,mainViewModel: instance<MainClientViewModel>(),));
+            inputMainStream.add(const ClientUserProfileView());
             inputMainIndexStream.add(widget);
             break;
           }
