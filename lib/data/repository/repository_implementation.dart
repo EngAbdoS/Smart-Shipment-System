@@ -239,6 +239,36 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
+  Future<Either<Failure, bool>> deleteDeliveryTripList(int index) async {
+    return await (await _remoteDataSource.deleteDeliveryTripList(index)).fold(
+        (error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        return const Right(true);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateDeliveryTripList(
+      UpdateDeliveryTripListRequest updateDeliveryTripListRequest) async {
+    return await (await _remoteDataSource
+            .updateDeliveryTripList(updateDeliveryTripListRequest))
+        .fold((error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        return const Right(true);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+  @override
   Future<Either<Failure, bool>> clientRegistration(
       ClientRegistrationRequest clientRegistrationRequest) async {
     return await (await _remoteDataSource

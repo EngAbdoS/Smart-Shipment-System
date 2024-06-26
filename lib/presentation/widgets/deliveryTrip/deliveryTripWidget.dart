@@ -31,7 +31,7 @@ Widget deliveryTripWidget(BuildContext context, DeliveryTripModel deliveryTrip,
                           ? "${AppStrings.tripDays.tr()}: ${deliveryTrip.tripDay}"
                           : "${AppStrings.tripDays.tr()}: ${deliveryTrip.tripWeekDays}")),
               IconButton(
-                  onPressed: () => deleteTrip(index),
+                  onPressed: () => deleteTrip(context, index),
                   icon: const Icon(
                     Icons.delete,
                     color: ColorManager.primary,

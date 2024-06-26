@@ -26,6 +26,12 @@ abstract class RemoteDataSource {
   Future<Either<Failure, RecommendedDeliveriesResponse>>
       getRecommendedDeliveries(GetDeliveriesRequest getDeliveriesRequest);
 
+  Future<Either<Failure, RegistrationResponse>> updateDeliveryTripList(
+      UpdateDeliveryTripListRequest updateDeliveryTripListRequest);
+
+  Future<Either<Failure, RegistrationResponse>> deleteDeliveryTripList(
+      int index);
+
   Future<Either<Failure, OrdersResponse>> getAllShipments();
 
   Future<Either<Failure, SearchOrderResponse>> getShipmentById(String id);
@@ -155,6 +161,29 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       String id) async {
     try {
       var result = await _appServiceClient.getOrderById(id);
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, RegistrationResponse>> deleteDeliveryTripList(
+      int index) async {
+    try {
+      var result = await _appServiceClient.deleteDeliveryTripList(index);
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, RegistrationResponse>> updateDeliveryTripList(
+      UpdateDeliveryTripListRequest updateDeliveryTripListRequest) async {
+    try {
+      var result = await _appServiceClient
+          .updateDeliveryTripList(updateDeliveryTripListRequest);
       return Right(result);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);

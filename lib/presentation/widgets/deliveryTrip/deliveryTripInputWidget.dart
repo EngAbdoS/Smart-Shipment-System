@@ -64,7 +64,6 @@ class DeliveryTripInputWidget extends StatelessWidget {
             SizedBox(
               height: 15.sp,
             ),
-
             inputLocationWidget(
                 context,
                 viewModel.setCurrentToLocationAndGov,
@@ -162,7 +161,6 @@ class DeliveryTripInputWidget extends StatelessWidget {
                 ),
               ],
             ),
-
             SizedBox(
               height: 15.sp,
             ),
@@ -193,7 +191,6 @@ class DeliveryTripInputWidget extends StatelessWidget {
                     }),
               ],
             ),
-
             SizedBox(
               height: 15.sp,
             ),
@@ -219,7 +216,7 @@ class DeliveryTripInputWidget extends StatelessWidget {
                           ? ColorManager.primary
                           : ColorManager.primary.withOpacity(0.2),
                       buttonAction: (snapshot.data ?? false)
-                          ? () => setDeliveryTrip()
+                          ? () => setDeliveryTrip(context)
                           : () => toastWidget(
                               AppStrings.validateDeliveryTripInputToast),
                       buttonWidget: const Icon(
@@ -233,15 +230,14 @@ class DeliveryTripInputWidget extends StatelessWidget {
             SizedBox(
               height: 15.sp,
             ),
-            // eliveryTripInputWidget()
           ],
         ),
       ),
     );
   }
 
-  void setDeliveryTrip() {
-    viewModel.setNewDeliveryTrip();
+  void setDeliveryTrip(BuildContext context) {
+    viewModel.setNewDeliveryTrip(context);
     fromLocationTextEditingController.text = "";
     toLocationTextEditingController.text = "";
     startTimeLocationTextEditingController.text = "";
@@ -338,5 +334,3 @@ class DeliveryTripInputWidget extends StatelessWidget {
     );
   }
 }
-
-

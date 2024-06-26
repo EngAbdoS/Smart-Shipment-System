@@ -69,14 +69,13 @@ class GetDeliveriesRequest {
   double startLocationLng;
   String endLocation;
   int maxDis;
-  GetDeliveriesRequest({
-    required this.startLocationLat,required this.startLocationLng,required this.endLocation,required this.maxDis
-});
+
+  GetDeliveriesRequest(
+      {required this.startLocationLat,
+      required this.startLocationLng,
+      required this.endLocation,
+      required this.maxDis});
 }
-
-
-
-
 
 class LoginRequest {
   String email;
@@ -171,6 +170,18 @@ class DeliveryTripRequest {
       'time': time,
       'duration': duration,
       'day': day,
+    };
+  }
+}
+
+class UpdateDeliveryTripListRequest {
+  List<DeliveryTripRequest> trip;
+
+  UpdateDeliveryTripListRequest({required this.trip});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'trip': trip.map((trip) => trip.toJson()).toList(),
     };
   }
 }

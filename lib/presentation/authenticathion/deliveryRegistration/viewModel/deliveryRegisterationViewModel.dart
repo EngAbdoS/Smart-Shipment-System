@@ -422,7 +422,7 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
     inputIsCurrentDeliveryTripValid.add(false);
   }
 
-  setNewDeliveryTrip() {
+  setNewDeliveryTrip(dynamic context) {
     externalDeliveryTripList.add(deliveryTrip);
     inputDeliveryTrip.add(externalDeliveryTripList);
     setCurrentTripDataEmpty();

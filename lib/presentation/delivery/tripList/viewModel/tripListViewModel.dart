@@ -2,9 +2,14 @@ import 'dart:async';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:smart_shipment_system/app/app_constants.dart';
+import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/domain/models/deliveryTripModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
+import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
+import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
+import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
 
 class TripListViewModel {
   TripListViewModel(this._repository, this.tripList);
@@ -26,15 +31,12 @@ class TripListViewModel {
       tripDay: "",
       tripWeekDays: []);
 
-start()
-{inputDeliveryTrip.add(tripList);
-print( tripList.length);
-print( "in start");
+  start() {
+    inputDeliveryTrip.add(tripList);
+  }
 
-
-}
   final StreamController _externalDeliveryTripListStreamController =
-  BehaviorSubject<List<DeliveryTripEntity>>();
+      BehaviorSubject<List<DeliveryTripEntity>>();
 
   final StreamController _currentIsDeliveryTripValidStreamController =
       StreamController<bool>.broadcast();
@@ -58,8 +60,6 @@ print( "in start");
       _externalDeliveryTripListStreamController.stream
           .map((externalDeliveryTripList) => externalDeliveryTripList);
 
-
-
   Stream<String> get outputCurrentFromLocation =>
       _currentDeliveryTripFromLocationValidStreamController.stream
           .map((location) => location);
@@ -79,7 +79,6 @@ print( "in start");
   Stream<bool> get outputCurrentTripExpectedDuration =>
       _currentDeliveryTripExpectedDurationValidStreamController.stream
           .map((duration) => duration != 0);
-
 
   Stream<bool> get outputCurrentDeliveryIsTripOneTime =>
       _currentDeliveryIsTripOneTimeStreamController.stream
@@ -192,14 +191,87 @@ print( "in start");
     inputIsCurrentDeliveryTripValid.add(false);
   }
 
-  setNewDeliveryTrip() {
-    //TODO call backend
-  //  and add to list
-
-    //   externalDeliveryTripList.add(deliveryTrip);
-    //   inputDeliveryTrip.add(externalDeliveryTripList);
-    setCurrentTripDataEmpty();
+  setNewDeliveryTrip(dynamic context) async {
+    loadingState(context: context);
+    (await _repository.updateDeliveryTripList(
+            UpdateDeliveryTripListRequest(trip: createUpdateRequest())))
+        .fold(
+            (failure) => {
+                  errorState(context: context, message: failure.message),
+                }, (data) {
+      setToTripList();
+      inputDeliveryTrip.add(tripList);
+      setCurrentTripDataEmpty();
+      hideState(context: context);
+    });
   }
+
+  setToTripList() {
+    tripList.add(
+      DeliveryTripEntity(
+        startLoc: deliveryTrip.fromLocation!,
+        endLoc: deliveryTrip.toLocation!,
+        startState: deliveryTrip.fromGovernment!,
+        endState: deliveryTrip.toGovernment!,
+        time: deliveryTrip.tripTime!,
+        duration: (deliveryTrip.expectedDurationByMin! / 60).toString(),
+        day: deliveryTrip.tripDay!,
+        id: "0",
+      ),
+    );
+  }
+
+  List<DeliveryTripRequest> createUpdateRequest() {
+    List<DeliveryTripRequest> list = tripList
+        .map(
+          (trip) => DeliveryTripRequest(
+            endLoc: CurrentStateRequest(
+              type: AppConstants.currentStateTypePoint,
+              coordinates: [
+                trip.endLoc.latitude,
+                trip.endLoc.longitude,
+              ],
+            ),
+            startLoc: CurrentStateRequest(
+              type: AppConstants.currentStateTypePoint,
+              coordinates: [
+                trip.startLoc.latitude,
+                trip.startLoc.longitude,
+              ],
+            ),
+            startState: trip.startState,
+            endState: trip.endState,
+            time: trip.time,
+            day: trip.day,
+            duration: trip.duration,
+          ),
+        )
+        .toList();
+
+    list.add(DeliveryTripRequest(
+      endLoc: CurrentStateRequest(
+        type: AppConstants.currentStateTypePoint,
+        coordinates: [
+          deliveryTrip.toLocation?.latitude ?? 0,
+          deliveryTrip.toLocation?.longitude ?? 0,
+        ],
+      ),
+      startLoc: CurrentStateRequest(
+        type: AppConstants.currentStateTypePoint,
+        coordinates: [
+          deliveryTrip.fromLocation?.latitude ?? 0,
+          deliveryTrip.fromLocation?.longitude ?? 0,
+        ],
+      ),
+      startState: deliveryTrip.fromGovernment ?? "",
+      endState: deliveryTrip.toGovernment ?? "",
+      time: deliveryTrip.tripTime ?? "",
+      day: deliveryTrip.tripDay ?? "",
+      duration: (deliveryTrip.expectedDurationByMin ?? 1 / 60).toString(),
+    ));
+    return list;
+  }
+
   setCurrentTripDataEmpty() {
     deliveryTrip = DeliveryTripModel(
         fromLocation: const LatLng(0, 0),
@@ -224,8 +296,20 @@ print( "in start");
     inputCurrentTripDays.add(deliveryTrip.tripWeekDays);
   }
 
-  deleteTrip(int index) {
-    //  externalDeliveryTripList.removeAt(index);
-    // inputDeliveryTrip.add(externalDeliveryTripList);
+  deleteFromTripList(int index) {
+    tripList.removeAt(index);
+  }
+
+  deleteTrip(dynamic context, int index) async {
+    loadingState(context: context);
+    (await _repository.deleteDeliveryTripList(index)).fold(
+        (failure) => {
+              errorState(context: context, message: failure.message),
+            }, (data) {
+      deleteFromTripList(index);
+      inputDeliveryTrip.add(tripList);
+      setCurrentTripDataEmpty();
+      hideState(context: context);
+    });
   }
 }

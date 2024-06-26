@@ -29,7 +29,7 @@ Widget deliveryTripEntityWidget(BuildContext context,
                   child: tripTextWidget(context,
                       "${AppStrings.tripDays.tr()}: ${deliveryTrip.day}")),
               IconButton(
-                  onPressed: () => deleteTrip(index),
+                  onPressed: () => deleteTrip(context, index),
                   icon: const Icon(
                     Icons.delete,
                     color: ColorManager.primary,

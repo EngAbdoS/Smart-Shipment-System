@@ -26,6 +26,11 @@ abstract class Repository {
 
   Future<Either<Failure, List<RecommendedDeliveryEntity>>>
       getRecommendedDeliveries(GetDeliveriesRequest getDeliveriesRequest);
+  Future<Either<Failure, bool>> updateDeliveryTripList(
+      UpdateDeliveryTripListRequest updateDeliveryTripListRequest);
+
+  Future<Either<Failure, bool>> deleteDeliveryTripList(
+      int index);
 
   Future<Either<Failure, List<ShipmentModel>>> getAllComingOrders();
 

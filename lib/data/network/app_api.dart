@@ -48,6 +48,13 @@ abstract class AppServiceClient {
   Future<RegistrationResponse> updateUserProfileImage(
       @Field("profileImage") String profileImage);
 
+  @PATCH('delivery/addTrip')
+  Future<RegistrationResponse> updateDeliveryTripList(
+      @Body() UpdateDeliveryTripListRequest updateDeliveryTripListRequest);
+
+  @DELETE('delivery/deleteTrip/{index}')
+  Future<RegistrationResponse> deleteDeliveryTripList(@Path("index") int index);
+
   @POST("users/login")
   Future<AuthenticationResponse> login(
       @Field("email") String email, @Field("password") String password);
