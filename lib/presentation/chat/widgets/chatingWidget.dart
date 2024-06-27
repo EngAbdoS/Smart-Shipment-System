@@ -17,6 +17,7 @@ Widget chattingWidget(BuildContext context, ChatBotViewModel viewModel) {
             // top: 70.h,
             ),
         child: Container(
+
           color: ColorManager.offWhite,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
