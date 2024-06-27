@@ -4,6 +4,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
+import 'package:smart_shipment_system/presentation/chat/view/chatBotView.dart';
 import 'package:smart_shipment_system/presentation/delivery/home/view/deliveryView.dart';
 import 'package:smart_shipment_system/presentation/delivery/tripList/view/tripListView.dart';
 import 'package:smart_shipment_system/presentation/userProfile/editProfileData/view/editProfileDataView.dart';
@@ -57,6 +58,14 @@ class MainDeliveryViewModel {
             pageViewIndex = widget;
             initDeliveryHomeModule(userModel!);
             inputMainStream.add(const DeliveryHomeView());
+            inputMainIndexStream.add(widget);
+            break;
+          }
+        case 2:
+          {
+            pageViewIndex = widget;
+            initChatModule();
+            inputMainStream.add(const ChatBotView());
             inputMainIndexStream.add(widget);
             break;
           }

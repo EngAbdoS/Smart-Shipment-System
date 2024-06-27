@@ -75,7 +75,7 @@ class MainClientViewModel {
           {
             pageViewIndex = widget;
             initChatModule();
-            inputMainStream.add(ChatBotView());
+            inputMainStream.add(const ChatBotView());
             inputMainIndexStream.add(widget);
             break;
           }
