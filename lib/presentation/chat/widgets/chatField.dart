@@ -6,6 +6,7 @@ import 'package:smart_shipment_system/presentation/resources/strings_manager.dar
 
 Widget chatField(BuildContext context, ChatBotViewModel viewModel) {
   final TextEditingController messageController = TextEditingController();
+  final focusNode = FocusNode();
 
   return Container(
     alignment: Alignment.topCenter,
@@ -17,7 +18,9 @@ Widget chatField(BuildContext context, ChatBotViewModel viewModel) {
           topLeft: Radius.circular(24), topRight: Radius.circular(24)),
     ),
     child: TextFormField(
+      focusNode: focusNode,
       onFieldSubmitted: (message) => {
+        focusNode.unfocus(),
         viewModel.sendMessage(context, message.trim()),
         messageController.text = '',
       },
@@ -43,6 +46,7 @@ Widget chatField(BuildContext context, ChatBotViewModel viewModel) {
             color: ColorManager.black,
           ),
           onPressed: () => {
+            focusNode.unfocus(),
             viewModel.sendMessage(context, messageController.text.trim()),
             messageController.text = '',
           },

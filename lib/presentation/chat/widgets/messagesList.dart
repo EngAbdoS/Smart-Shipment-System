@@ -12,6 +12,7 @@ Widget messagesList(BuildContext context, ChatBotViewModel viewModel) {
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: ListView.builder(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: snapshot.data?.length ?? 0,
               itemBuilder: (context, index) {
                 return messageWidget(context, snapshot.data![index], viewModel);

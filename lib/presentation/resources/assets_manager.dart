@@ -13,6 +13,7 @@ class ImageAssets {
   static const String clientHappy = "$IMAGE_PATH/client_happy.png";
   static const String changePassword = "$IMAGE_PATH/change_password.png";
   static const String forgetPassword = "$IMAGE_PATH/forget_password.png";
+  static const String robot = "$IMAGE_PATH/robot.png";
 }
 
 class SVGAssets {
@@ -55,6 +56,8 @@ class JsonAssets {
   static const String clientMain = "$JSON_PATH/clientMain.json";
   static const String noData = "$JSON_PATH/noData.json";
   static const String ch = "$JSON_PATH/ch.json";
+  static const String loadingDots = "$JSON_PATH/loadingDots.json";
+  static const String robot = "$JSON_PATH/robot.json";
 
 
 }

@@ -22,13 +22,16 @@ class ChatBotViewModel {
   sendMessage(dynamic context, String message) async {
     if (message.isNotEmpty) {
       setMessage(Message(message: message, isUserOrBot: true));
-      setMessage(Message(message: message, isUserOrBot: true, isLoading: true));
+      setMessage(
+          Message(message: message, isUserOrBot: false, isLoading: true));
 
       (await _repository.chatBot(message)).fold(
           (failure) => {
+                removeLastMessage(),
                 setMessage(Message(
                     message: message, isUserOrBot: false, isFailure: true))
               }, (data) {
+        removeLastMessage();
         setMessage(data);
       });
     }
@@ -41,6 +44,11 @@ class ChatBotViewModel {
 
   removeMessage(Message message) {
     messages.remove(message);
+    inputMessageList.add(messages);
+  }
+
+  removeLastMessage() {
+    messages.removeLast();
     inputMessageList.add(messages);
   }
 }
