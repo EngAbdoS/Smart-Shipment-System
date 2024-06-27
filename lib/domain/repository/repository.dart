@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
+import 'package:smart_shipment_system/domain/models/message.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 
@@ -11,7 +12,7 @@ abstract class Repository {
   Future<Either<Failure, String>> getLoginNextNavigationRoute();
 
   Future<Either<Failure, UserModel>> getUserData();
-  Future<Either<Failure, String>> chatBot(String message);
+  Future<Either<Failure, Message>> chatBot(String message);
 
   Future<Either<Failure, bool>> updateUserProfileImage(
       String profileImage, String email);

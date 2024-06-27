@@ -12,6 +12,7 @@ import 'package:smart_shipment_system/presentation/userProfile/editProfileData/v
 import 'package:smart_shipment_system/presentation/userProfile/view/clientUserProfile.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
+import '../../../chat/view/chatBotView.dart';
 import '../../../widgets/loadingState.dart';
 
 class MainClientViewModel {
@@ -73,11 +74,8 @@ class MainClientViewModel {
         case 2:
           {
             pageViewIndex = widget;
-            initClientHomeModule(userModel!);
-            inputMainStream.add(Container(
-              color: Colors.red,
-              child: const Center(child: Text("حمرا")),
-            ));
+            initChatModule();
+            inputMainStream.add(ChatBotView());
             inputMainIndexStream.add(widget);
             break;
           }

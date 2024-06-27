@@ -184,6 +184,7 @@ static const  recipient_phone_hint= "recipient_phone_hint";
  static const my_rating_hint= "my_rating_hint";
  static const  trips= "trips";
  static const  edit_trip_list= "edit_trip_list";
+  static const  message_hint= "message_hint";
 
   // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";

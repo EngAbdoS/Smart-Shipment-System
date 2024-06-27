@@ -26,6 +26,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegis
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/viewModel/forgetPasswordViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/ViewModel/loginViewModel.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/verification/viewModel/verificationViewModel.dart';
+import 'package:smart_shipment_system/presentation/chat/viewModel/ChatBotViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/createOrder/viewModel/clientCreateOrderViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
@@ -62,6 +63,7 @@ Future<void> initAppModule() async {
       RepositoryImplementation(instance(), instance(), instance(), instance()));
   instance.registerLazySingleton<SplashNavigationUseCase>(
           () => SplashNavigationUseCase(instance()));
+
 }
 
 reInitializeDio() async {
@@ -104,7 +106,12 @@ initEditProfileModule(UserModel userModel) {
             () => EditUserProfileViewModel(instance(), userModel));
   }
 }
-
+initChatModule() {
+  if (!GetIt.I.isRegistered<ChatBotViewModel>()) {
+    instance.registerLazySingleton<ChatBotViewModel>(
+            () => ChatBotViewModel(instance()));
+  }
+}
 initMainClientModule() {
   if (!GetIt.I.isRegistered<MainClientViewModel>()) {
     instance.registerLazySingleton<MainClientViewModel>(

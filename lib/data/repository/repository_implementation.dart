@@ -9,6 +9,7 @@ import 'package:smart_shipment_system/data/network/chatBotAppService.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
+import 'package:smart_shipment_system/domain/models/message.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
@@ -235,14 +236,14 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
-  Future<Either<Failure, String>> chatBot(String message) async {
+  Future<Either<Failure, Message>> chatBot(String message) async {
     String userToken = _appPreferences.getUserToken();
     String answer = '';
     try {
       var res = await _chatBotAppServiceClient
           .deleteOrderById(userToken, message, {});
       answer = res.answer ?? "";
-      return Right(answer);
+      return Right(Message(message: answer,isUserOrBot: false));
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
     }
