@@ -22,7 +22,7 @@ class LoginViewModel extends BaseLoginViewModel {
       },
       (data) async => data
           ? {
-              await (await _repository.getLoginNextNavigationRoute()).fold(
+              await (await _repository.getLoginNextNavigationRoute(context)).fold(
                   (error) =>
                       errorState(context: context, message: error.message),
                   (route) => {

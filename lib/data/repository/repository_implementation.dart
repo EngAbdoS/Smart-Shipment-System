@@ -13,6 +13,7 @@ import 'package:smart_shipment_system/domain/models/message.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/verification/getEmailVerification.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import '../network/error_handler.dart';
 
@@ -26,7 +27,8 @@ class RepositoryImplementation implements Repository {
       this._chatBotAppServiceClient, this._appPreferences);
 
   @override
-  Future<Either<Failure, String>> getSplashNextNavigationRoute() async {
+  Future<Either<Failure, String>> getSplashNextNavigationRoute(
+      dynamic context) async {
     //return const Right(Routes.onBoardingViewRoute);
 
     //   return const Right(Routes.loginViewRoute);
@@ -35,7 +37,7 @@ class RepositoryImplementation implements Repository {
       return const Right(Routes.onBoardingViewRoute);
     } else {
       if (_localDataSource.isUserLoggedIn()) {
-        return await (await getLoginNextNavigationRoute()).fold((error) {
+        return await (await getLoginNextNavigationRoute(context)).fold((error) {
           return Left(error);
         }, (route) {
           return Right(route);
@@ -48,16 +50,25 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
-  Future<Either<Failure, String>> getLoginNextNavigationRoute() async {
+  Future<Either<Failure, String>> getLoginNextNavigationRoute(
+      dynamic context) async {
     return await (await getUserData()).fold((error) {
       return Left(error);
     }, (data) {
-      if (data.role == AppConstants.userRoleClient) {
-        return const Right(Routes.mainClientViewRoute);
-      } else if (data.role == AppConstants.deliveryRoleExternal) {
-        return const Right(Routes.mainDeliveryViewRoute);
-      } else if (data.role == AppConstants.deliveryRoleInternal) {
-        return const Right(Routes.mainDeliveryViewRoute);
+      if (data.isEmailConfirmed) {
+        if (data.role == AppConstants.userRoleClient) {
+          return const Right(Routes.mainClientViewRoute);
+        } else if (data.role == AppConstants.deliveryRoleExternal) {
+          return const Right(Routes.mainDeliveryViewRoute);
+        } else if (data.role == AppConstants.deliveryRoleInternal) {
+          return const Right(Routes.mainDeliveryViewRoute);
+        }
+      } else {
+        getEmailVerification(
+            context: context,
+            executeOrRouteOnly: true,
+            email: data.email,
+            nextActionRoute: Routes.loginViewRoute);
       }
       return const Right(Routes.loginViewRoute);
     });

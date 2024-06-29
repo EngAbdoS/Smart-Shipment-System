@@ -7,6 +7,11 @@ void getEmailVerification(
     required String email,
     required String nextActionRoute,
     bool executeOrRouteOnly = true}) {
+
+  //execute call verification endPoint
+  //navigateOnly navigates to changePassword screen only
+
+
   initEmailVerificationModule(email, nextActionRoute, executeOrRouteOnly);
   executeOrRouteOnly
       ? GoRouter.of(context).pushReplacement(Routes.emilVerificationViewRoute)

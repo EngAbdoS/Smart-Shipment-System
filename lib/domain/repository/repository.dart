@@ -7,9 +7,9 @@ import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 
 abstract class Repository {
-  Future<Either<Failure, String>> getSplashNextNavigationRoute();
+  Future<Either<Failure, String>> getSplashNextNavigationRoute(dynamic context);
 
-  Future<Either<Failure, String>> getLoginNextNavigationRoute();
+  Future<Either<Failure, String>> getLoginNextNavigationRoute(dynamic context);
 
   Future<Either<Failure, UserModel>> getUserData();
   Future<Either<Failure, Message>> chatBot(String message);

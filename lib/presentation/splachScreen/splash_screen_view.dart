@@ -43,7 +43,7 @@ class SplashScreenView extends StatelessWidget {
   }
 
   nextNavigation(BuildContext context) async {
-    (await _splashNavigationUseCase.execute()).fold(
+    (await _splashNavigationUseCase.execute(context)).fold(
         (l) => moreThanThereSeconds
             ? GoRouter.of(context).pushReplacement(Routes.noRoute)
             : Future.delayed(const Duration(seconds: 2),
