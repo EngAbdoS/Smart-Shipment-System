@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
@@ -27,7 +28,14 @@ Widget robotWidget(BuildContext context) {
       ),
       child: Padding(
         padding: const EdgeInsets.only(top: 20),
-        child: Lottie.asset(JsonAssets.robot),
+        child: Animate(
+          //delay: 100.microseconds,
+
+            effects: [
+              ShakeEffect(duration:900.milliseconds, curve: Curves.fastEaseInToSlowEaseOut)
+            ],
+
+            child: Lottie.asset(JsonAssets.robot)),
       ),
     ),
   );

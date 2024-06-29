@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smart_shipment_system/domain/models/message.dart';
 import 'package:smart_shipment_system/presentation/chat/viewModel/ChatBotViewModel.dart';
@@ -10,7 +11,8 @@ import 'package:smart_shipment_system/presentation/resources/strings_manager.dar
 Widget messageWidget(
     BuildContext context, Message message, ChatBotViewModel viewModel) {
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 10),
+    padding: EdgeInsets.only(
+        top: 10, bottom: 10, left: message.isUserOrBot ? 45 : 0),
     child: Container(
       width: double.minPositive,
       padding: const EdgeInsets.all(10),
@@ -18,7 +20,7 @@ Widget messageWidget(
           color: message.isFailure ? ColorManager.error : ColorManager.primary,
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(30),
-            topLeft: Radius.circular(30),
+            topLeft: Radius.circular(20),
             bottomLeft: Radius.circular(30),
             bottomRight: Radius.zero,
           )),
@@ -51,7 +53,11 @@ Widget messageWidget(
                               .textTheme
                               .titleLarge
                               ?.copyWith(color: ColorManager.white),
-                        ),
+                        ).animate().blur(
+                            end: Offset(0, 0),
+                            begin: Offset(0.5, 0.5),
+                            duration: 300.microseconds,
+                            curve: Curves.fastEaseInToSlowEaseOut),
                       )
                     : Flexible(
                         child: SizedBox(

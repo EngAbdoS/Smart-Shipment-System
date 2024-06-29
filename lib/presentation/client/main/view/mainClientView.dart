@@ -48,7 +48,7 @@ class _MainClientViewState extends State<MainClientView> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed:()=>_viewModel.changeWidget(context, 4),
+        onPressed:()=>_viewModel.changeWidget(context,7),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(100),
         ),

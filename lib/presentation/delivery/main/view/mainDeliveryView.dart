@@ -53,8 +53,8 @@ class _MainDeliveryViewState extends State<MainDeliveryView> {
                 return Icon(
                   <IconData>[
                     Icons.home,
-                    Icons.chat,
                     Icons.wallet_outlined,
+                    Icons.chat,
                     Icons.person,
                   ][index],
                   size: 30,
@@ -62,9 +62,9 @@ class _MainDeliveryViewState extends State<MainDeliveryView> {
                 );
               },
               activeIndex: snapshot.data ?? 0,
-               gapLocation: GapLocation.center,
+              gapLocation: GapLocation.center,
               notchSmoothness: NotchSmoothness.verySmoothEdge,
-                gapWidth:0,
+              gapWidth: 0,
               leftCornerRadius: 24,
               rightCornerRadius: 24,
               onTap: (index) => _viewModel.changeWidget(context, index),

@@ -5,6 +5,7 @@ import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/client/createOrder/view/clientCreateOrderMainView.dart';
+import 'package:smart_shipment_system/presentation/client/createOrder/view/orderPaymentView.dart';
 import 'package:smart_shipment_system/presentation/client/createOrder/view/recommendedDeliveries.dart';
 import 'package:smart_shipment_system/presentation/client/home/view/clientHomeView.dart';
 import 'package:smart_shipment_system/presentation/client/shipment/shipmentView.dart';
@@ -111,6 +112,14 @@ class MainClientViewModel {
             inputMainIndexStream.add(widget);
             break;
           }
+          case 7:
+        {
+          pageViewIndex = widget;
+          inputMainStream
+              .add(OrderPaymentView());
+          inputMainIndexStream.add(widget);
+          break;
+        }
       }
     }
   }
