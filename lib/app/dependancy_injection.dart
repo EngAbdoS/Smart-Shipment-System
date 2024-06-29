@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_shipment_system/app/app_preferances.dart';
 import 'package:smart_shipment_system/app/secure_storage.dart';
@@ -11,6 +12,7 @@ import 'package:smart_shipment_system/data/network/app_api.dart';
 import 'package:smart_shipment_system/data/network/chatBotAppService.dart';
 import 'package:smart_shipment_system/data/network/chatBotDio.dart';
 import 'package:smart_shipment_system/data/network/dio_factory.dart';
+import 'package:smart_shipment_system/data/network/network_info.dart';
 import 'package:smart_shipment_system/data/repository/repository_implementation.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
@@ -42,10 +44,12 @@ final instance = GetIt.instance;
 Future<void> initAppModule() async {
   final sharedPrefs = await SharedPreferences.getInstance();
   instance.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
+  instance.registerLazySingleton<InternetConnectionChecker>(() => InternetConnectionChecker());
 
   instance
       .registerLazySingleton<AppPreferences>(() => AppPreferences(instance()));
   instance.registerLazySingleton<SecureStorage>(() => SecureStorage());
+  instance.registerLazySingleton<NetworkInfo>(() => NetworkInfoImp(instance()));
 
   instance.registerLazySingleton<DioFactory>(() => DioFactory(instance()));
   instance.registerLazySingleton<ChatBotDioFactory>(() => ChatBotDioFactory());

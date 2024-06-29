@@ -8,10 +8,6 @@ class SecureStorage {
     encryptedSharedPreferences: true,
   ));
 
-
-
-
-
   setUserTokenEncrypted(String token) async {
     await secureStorage.write(key: SECURE_KEY_USER_TOKEN, value: token);
   }

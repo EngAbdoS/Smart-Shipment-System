@@ -8,11 +8,8 @@ const String APPLICATION_JSON = "application/json";
 const String CONTENT_TYPE = "content-type";
 const String ACCEPT = "accept";
 const String AUTHORIZATION = "Authorization";
-const String DEAFUL_LANGAUGE = "langauge";
 
 class ChatBotDioFactory {
-
-
 
   Future<Dio> getDio() async {
     Dio dio = Dio();
@@ -22,8 +19,6 @@ class ChatBotDioFactory {
       ACCEPT: APPLICATION_JSON,
       //Bearer $token
       AUTHORIZATION: 'Bearer $chatBotToken',
-
-      // DEAFUL_LANGAUGE: langauge,
     };
     dio.options = BaseOptions(
       baseUrl: AppConstants.baseUrl,
