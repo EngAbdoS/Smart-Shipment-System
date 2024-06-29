@@ -43,8 +43,7 @@ Widget userEditProfileImage(
                                       )),
                         ),
                       ):  ProfileCirclerImage(
-                        imageUrl: snapshot.data ?? "",
-                        navigate: () {},size: 220.h,
+                        imageUrl: snapshot.data ?? "",size: 220.h,
                       );
                     });
               }),

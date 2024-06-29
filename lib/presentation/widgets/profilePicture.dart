@@ -4,10 +4,11 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
+import 'package:smart_shipment_system/app/functions.dart';
 
 class ProfileCirclerImage extends StatelessWidget {
    const ProfileCirclerImage(
-      {super.key, this.size = 64, required this.imageUrl,required this.navigate});
+      {super.key, this.size = 64, required this.imageUrl, this.navigate =noFun});
 
   final double size;
   final String imageUrl;
@@ -21,7 +22,7 @@ class ProfileCirclerImage extends StatelessWidget {
           cacheManager: CacheManager(
             Config(
               'cacheKey',
-              stalePeriod: Duration(minutes: 1),
+              stalePeriod: const Duration(minutes: 1),
             ),
           ),
           height: size,

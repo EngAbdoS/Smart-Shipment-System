@@ -11,7 +11,7 @@ Widget mainSettingSection(
     children: [
       ProfileCirclerImage(
         imageUrl: viewModel.userProfileData.profileImage,
-        navigate: () {},
+
       ),
       Column(
         mainAxisAlignment: MainAxisAlignment.start,
