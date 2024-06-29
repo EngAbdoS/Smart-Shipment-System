@@ -8,7 +8,7 @@ const String PREFS_KEY_ONBOARDING_SCREEN_VIEWED =
     "PREFS_KEY_ONBOARDING_SCREEN_VIEWED";
 const String PREFS_KEY_IS_USER_LOGGED_IN = "PREFS_KEY_IS_USER_LOGGED_IN";
 const String PREFS_KEY_USER_ROLE = "PREFS_KEY_USER_ROLE";
-const String PREFS_KEY_USER_TOKEN = "PREFS_KEY_USER_TOKEN";
+//const String PREFS_KEY_USER_TOKEN = "PREFS_KEY_USER_TOKEN";
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
@@ -43,7 +43,7 @@ class AppPreferences {
   logout() {
     _sharedPreferences.remove(PREFS_KEY_IS_USER_LOGGED_IN);
     _sharedPreferences.remove(PREFS_KEY_USER_ROLE);
-    _sharedPreferences.remove(PREFS_KEY_USER_TOKEN);
+   // _sharedPreferences.remove(PREFS_KEY_USER_TOKEN);
   }
 
 ///////////////////on boarding////////////////////////
@@ -58,16 +58,16 @@ class AppPreferences {
   }
 
 ///////////////////user data////////////////////////
-  setUserToken(String token) {
-    _sharedPreferences.setString(PREFS_KEY_USER_TOKEN, token);
-  }
-
- String  getUserToken() {
-    return _sharedPreferences.getString(PREFS_KEY_USER_TOKEN)??"";
-  }
-  removeUserToken() {
-    _sharedPreferences.remove(PREFS_KEY_USER_TOKEN);
-  }
+//   setUserToken(String token) {
+//     _sharedPreferences.setString(PREFS_KEY_USER_TOKEN, token);
+//   }
+//
+//  String  getUserToken() {
+//     return _sharedPreferences.getString(PREFS_KEY_USER_TOKEN)??"";
+//   }
+//   removeUserToken() {
+//     _sharedPreferences.remove(PREFS_KEY_USER_TOKEN);
+//   }
 
 
 

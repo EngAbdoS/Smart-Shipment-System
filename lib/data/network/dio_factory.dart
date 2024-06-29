@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/app/app_preferances.dart';
+import 'package:smart_shipment_system/app/secure_storage.dart';
 import 'package:smart_shipment_system/data/data_sourse/local_data_sourse.dart';
 
 const String APPLICATION_JSON = "application/json";
@@ -12,15 +13,17 @@ const String AUTHORIZATION = "Authorization";
 const String DEAFUL_LANGAUGE = "langauge";
 
 class DioFactory {
-  final AppPreferences _appPreferences;
+ // final AppPreferences _appPreferences;
   //final LocalDataSource _localDataSource;
-
-  DioFactory(this._appPreferences);
+final SecureStorage _secureStorage;
+  DioFactory(this._secureStorage);
 
   Future<Dio> getDio() async {
     Dio dio = Dio();
     // String langauge = await _appPreferences.getAppLangauge();
-    String token = _appPreferences.getUserToken();
+   // String token = _appPreferences.getUserToken();
+
+    String token =await _secureStorage.getUserToken();
     print(token);
     Map<String, String> headers = {
       CONTENT_TYPE: APPLICATION_JSON,

@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_shipment_system/app/app_preferances.dart';
+import 'package:smart_shipment_system/app/secure_storage.dart';
 import 'package:smart_shipment_system/data/data_sourse/cache_data_sourse.dart';
 import 'package:smart_shipment_system/data/data_sourse/local_data_sourse.dart';
 import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
@@ -41,29 +42,30 @@ final instance = GetIt.instance;
 Future<void> initAppModule() async {
   final sharedPrefs = await SharedPreferences.getInstance();
   instance.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
+
   instance
       .registerLazySingleton<AppPreferences>(() => AppPreferences(instance()));
+  instance.registerLazySingleton<SecureStorage>(() => SecureStorage());
+
   instance.registerLazySingleton<DioFactory>(() => DioFactory(instance()));
   instance.registerLazySingleton<ChatBotDioFactory>(() => ChatBotDioFactory());
   Dio dio = await instance<DioFactory>().getDio();
   Dio chatBotDio = await instance<ChatBotDioFactory>().getDio();
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
   instance.registerLazySingleton<ChatBotAppServiceClient>(
-          () => ChatBotAppServiceClient(chatBotDio));
+      () => ChatBotAppServiceClient(chatBotDio));
   instance
       .registerLazySingleton<FirebaseStorage>(() => FirebaseStorage.instance);
   instance.registerLazySingleton<RemoteDataSource>(
-          () => RemoteDataSourceImplementation(instance(), instance()));
+      () => RemoteDataSourceImplementation(instance(), instance()));
   instance.registerLazySingleton<CacheDataSource>(
-          () => CacheDataSourceImplementation());
+      () => CacheDataSourceImplementation());
   instance.registerLazySingleton<LocalDataSource>(
-          () =>
-          LocalDataSourceImplementation(instance(), instance(), instance()));
+      () => LocalDataSourceImplementation(instance(), instance(), instance(), instance()));
   instance.registerLazySingleton<Repository>(() =>
       RepositoryImplementation(instance(), instance(), instance(), instance()));
   instance.registerLazySingleton<SplashNavigationUseCase>(
-          () => SplashNavigationUseCase(instance()));
-
+      () => SplashNavigationUseCase(instance()));
 }
 
 reInitializeDio() async {
@@ -75,63 +77,63 @@ reInitializeDio() async {
 initClientHomeModule(UserModel userModel) {
   if (!GetIt.I.isRegistered<ClientHomeViewModel>()) {
     instance.registerLazySingleton<ClientHomeViewModel>(
-            () => ClientHomeViewModel(instance(), userModel));
+        () => ClientHomeViewModel(instance(), userModel));
   }
 }
 
 initDeliveryHomeModule(UserModel userModel) {
   if (!GetIt.I.isRegistered<DeliveryHomeViewModel>()) {
     instance.registerLazySingleton<DeliveryHomeViewModel>(
-            () => DeliveryHomeViewModel(instance(), userModel));
+        () => DeliveryHomeViewModel(instance(), userModel));
   }
 }
 
 initClientAddShipmentModule(UserModel userModel) {
   if (!GetIt.I.isRegistered<ClientCreateOrderViewModel>()) {
     instance.registerLazySingleton<ClientCreateOrderViewModel>(
-            () => ClientCreateOrderViewModel(instance(), userModel));
+        () => ClientCreateOrderViewModel(instance(), userModel));
   }
 }
 
 initClientProfileModule(UserModel userModel) {
   if (!GetIt.I.isRegistered<UserProfileViewModel>()) {
     instance.registerLazySingleton<UserProfileViewModel>(
-            () => UserProfileViewModel(instance(), userModel));
+        () => UserProfileViewModel(instance(), userModel));
   }
 }
 
 initEditProfileModule(UserModel userModel) {
   if (!GetIt.I.isRegistered<EditUserProfileViewModel>()) {
     instance.registerLazySingleton<EditUserProfileViewModel>(
-            () => EditUserProfileViewModel(instance(), userModel));
+        () => EditUserProfileViewModel(instance(), userModel));
   }
 }
+
 initChatModule() {
   if (!GetIt.I.isRegistered<ChatBotViewModel>()) {
     instance.registerLazySingleton<ChatBotViewModel>(
-            () => ChatBotViewModel(instance()));
+        () => ChatBotViewModel(instance()));
   }
 }
+
 initMainClientModule() {
   if (!GetIt.I.isRegistered<MainClientViewModel>()) {
     instance.registerLazySingleton<MainClientViewModel>(
-            () => MainClientViewModel(instance()));
+        () => MainClientViewModel(instance()));
   }
 }
 
 initMainDeliveryModule() {
   if (!GetIt.I.isRegistered<MainDeliveryViewModel>()) {
     instance.registerLazySingleton<MainDeliveryViewModel>(
-            () => MainDeliveryViewModel(instance()));
+        () => MainDeliveryViewModel(instance()));
   }
 }
 
 initDeliveryTripListModule(List<DeliveryTripEntity> tripList) {
   if (!GetIt.I.isRegistered<TripListViewModel>()) {
     instance.registerLazySingleton<TripListViewModel>(
-            () =>
-        TripListViewModel(instance(), tripList)
-          ..start());
+        () => TripListViewModel(instance(), tripList)..start());
   }
 }
 
@@ -144,47 +146,47 @@ initLoginModule() {
     instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
 
     instance.registerLazySingleton<LoginViewModel>(
-            () => LoginViewModel(instance(), instance()));
+        () => LoginViewModel(instance(), instance()));
   }
 }
 
 initClientRegistrationModule() {
   if (!GetIt.I.isRegistered<ClientRegistrationViewModel>()) {
     instance.registerFactory<ClientRegistrationUseCase>(
-            () => ClientRegistrationUseCase(instance()));
+        () => ClientRegistrationUseCase(instance()));
 
     instance.registerLazySingleton<ClientRegistrationViewModel>(
-            () => ClientRegistrationViewModel(instance()));
+        () => ClientRegistrationViewModel(instance()));
   }
 }
 
 initDeliveryRegistrationModule() {
   if (!GetIt.I.isRegistered<DeliveryRegistrationViewModel>()) {
     instance.registerFactory<UnorganizedDeliveryRegistrationUseCase>(
-            () => UnorganizedDeliveryRegistrationUseCase(instance()));
+        () => UnorganizedDeliveryRegistrationUseCase(instance()));
     instance.registerFactory<FixedDeliveryRegistrationUseCase>(
-            () => FixedDeliveryRegistrationUseCase(instance()));
+        () => FixedDeliveryRegistrationUseCase(instance()));
     instance.registerLazySingleton<DeliveryRegistrationViewModel>(
-            () => DeliveryRegistrationViewModel(instance(), instance()));
+        () => DeliveryRegistrationViewModel(instance(), instance()));
   }
 }
 
 initForgotPasswordModule() {
   if (!GetIt.I.isRegistered<ForgotPasswordViewModel>()) {
     instance.registerLazySingleton<ForgotPasswordViewModel>(
-            () => ForgotPasswordViewModel(instance()));
+        () => ForgotPasswordViewModel(instance()));
   }
 }
 
 initChangePasswordModule(String otp) {
   if (!GetIt.I.isRegistered<ChangePasswordViewModel>()) {
     instance.registerLazySingleton<ChangePasswordViewModel>(
-            () => ChangePasswordViewModel(instance(), otp));
+        () => ChangePasswordViewModel(instance(), otp));
   }
 }
 
-initEmailVerificationModule(String email, String nextActionRoute,
-    bool executeOrRouteOnly) {
+initEmailVerificationModule(
+    String email, String nextActionRoute, bool executeOrRouteOnly) {
   if (!GetIt.I.isRegistered<EmailVerificationViewModel>()) {
     instance.registerLazySingleton<EmailVerificationViewModel>(() =>
         EmailVerificationViewModel(

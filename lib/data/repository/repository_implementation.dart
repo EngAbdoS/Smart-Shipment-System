@@ -237,13 +237,15 @@ class RepositoryImplementation implements Repository {
 
   @override
   Future<Either<Failure, Message>> chatBot(String message) async {
-    String userToken = _appPreferences.getUserToken();
+    // String userToken = _appPreferences.getUserToken();
+
+    String userToken = await _localDataSource.getUserToken();
     String answer = '';
     try {
       var res = await _chatBotAppServiceClient
           .deleteOrderById(userToken, message, {});
       answer = res.answer ?? "";
-      return Right(Message(message: answer,isUserOrBot: false));
+      return Right(Message(message: answer, isUserOrBot: false));
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
     }

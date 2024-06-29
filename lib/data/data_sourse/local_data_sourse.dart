@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:smart_shipment_system/app/app_preferances.dart';
+import 'package:smart_shipment_system/app/secure_storage.dart';
 import 'package:smart_shipment_system/data/data_sourse/cache_data_sourse.dart';
 import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
@@ -11,7 +12,7 @@ abstract class LocalDataSource {
 
   String getUserRole();
 
-  String getUserToken();
+  Future<String> getUserToken();
 
   bool isOnBoardingViewed();
 
@@ -30,6 +31,7 @@ abstract class LocalDataSource {
   void logout();
 
   Future<Either<bool, UserModel>> getUserData();
+
   Future<Either<bool, List<ShipmentModel>>> getShipmentList();
 //TODO get user data
 // checks is cache data valid if not call remote data source
@@ -40,9 +42,10 @@ class LocalDataSourceImplementation implements LocalDataSource {
 
   final CacheDataSource _cacheDataSource;
   final RemoteDataSource _remoteDataSource;
+  final SecureStorage _secureStorage;
 
-  LocalDataSourceImplementation(
-      this._appPreferences, this._cacheDataSource, this._remoteDataSource);
+  LocalDataSourceImplementation(this._appPreferences, this._cacheDataSource,
+      this._remoteDataSource, this._secureStorage);
 
   @override
   bool isOnBoardingViewed() {
@@ -79,7 +82,9 @@ class LocalDataSourceImplementation implements LocalDataSource {
 
   @override
   void setUserToken(String token) {
-    _appPreferences.setUserToken(token);
+    _secureStorage.setUserTokenEncrypted(token);
+
+    //_appPreferences.setUserToken(token);
   }
 
   @override
@@ -88,8 +93,9 @@ class LocalDataSourceImplementation implements LocalDataSource {
   }
 
   @override
-  String getUserToken() {
-    return _appPreferences.getUserToken();
+  Future<String> getUserToken() async {
+    return await _secureStorage.getUserToken();
+    //  return _appPreferences.getUserToken();
   }
 
   @override
@@ -103,10 +109,11 @@ class LocalDataSourceImplementation implements LocalDataSource {
   void logout() {
     _appPreferences.logout();
     _cacheDataSource.removeFromCache(CACHE_USER_DATA_KEY);
+    _secureStorage.removeUserToken();
   }
 
   @override
-  Future<Either<bool, List<ShipmentModel>>> getShipmentList()async {
+  Future<Either<bool, List<ShipmentModel>>> getShipmentList() async {
     CachedItem data =
         await _cacheDataSource.getDataFromCache(CACHE_ALL_SHIPMENT_LIST);
     return data.isValid() ? Right(data.data) : const Left(false);
