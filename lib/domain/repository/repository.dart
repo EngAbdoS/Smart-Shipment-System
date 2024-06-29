@@ -27,7 +27,7 @@ abstract class Repository {
       CreateShipmentRequest createShipmentRequest);
 
   Future<Either<Failure, List<RecommendedDeliveryEntity>>>
-      getRecommendedDeliveries(GetDeliveriesRequest getDeliveriesRequest);
+      getRecommendedDeliveries(String orderStartState,String orderEndState);
   Future<Either<Failure, bool>> updateDeliveryTripList(
       UpdateDeliveryTripListRequest updateDeliveryTripListRequest);
 

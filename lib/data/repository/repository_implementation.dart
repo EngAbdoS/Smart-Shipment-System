@@ -27,7 +27,7 @@ class RepositoryImplementation implements Repository {
   final AppPreferences _appPreferences;
 
   RepositoryImplementation(this._localDataSource, this._remoteDataSource,
-      this._chatBotAppServiceClient, this._appPreferences,this._networkInfo);
+      this._chatBotAppServiceClient, this._appPreferences, this._networkInfo);
 
   @override
   Future<Either<Failure, String>> getSplashNextNavigationRoute(
@@ -76,11 +76,9 @@ class RepositoryImplementation implements Repository {
         }
         return const Right(Routes.loginViewRoute);
       });
-    }
-    else {
+    } else {
       return const Right(Routes.noNetworkView);
     }
-
   }
 
   @override
@@ -225,9 +223,9 @@ class RepositoryImplementation implements Repository {
   @override
   Future<Either<Failure, List<RecommendedDeliveryEntity>>>
       getRecommendedDeliveries(
-          GetDeliveriesRequest getDeliveriesRequest) async {
-    return await (await _remoteDataSource
-            .getRecommendedDeliveries(getDeliveriesRequest))
+          String orderStartState, String orderEndState) async {
+    return await (await _remoteDataSource.getRecommendedDeliveries(
+            orderStartState, orderEndState))
         .fold((error) {
       return Left(error);
     }, (response) {
