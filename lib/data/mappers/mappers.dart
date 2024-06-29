@@ -49,7 +49,7 @@ extension OrdersResponseMapper on OrderResponse? {
       delivered: this?.delivered ?? false,
       coming: this?.coming ?? false,
       paidStatus: this?.paidStatus ?? '',
-      price: this?.price ?? 0,
+      price: this?.price ?? '',
       delivery:
           this?.delivery?.map((delivery) => delivery.toDomain()).toList() ?? [],
       client: this?.client?.toDomain() ??
@@ -65,6 +65,41 @@ extension OrdersResponseMapper on OrderResponse? {
               vehicleType: '',
               vehicleLicenseImg: '',
               tripList: []),
+    );
+  }
+}
+
+extension OrderClientIdResponseMapper on OrderClientIdResponse? {
+  ShipmentModel toDomain() {
+    return ShipmentModel(
+      id: this?.id ?? "noId",
+      date: this?.date ?? "noDate",
+      type: this?.type ?? "noType",
+      recipentName: this?.recipentName ?? "",
+      reciepentPhone: this?.reciepentPhone ?? "",
+      senderName: this?.senderName ?? "",
+      senderPhone: this?.senderPhone ?? "",
+      startLoc: LatLng(this?.startLoc?.coordinates?[0] ?? 0,
+          this?.startLoc?.coordinates?[1] ?? 0),
+      currentLoc: LatLng(this?.startLoc?.coordinates?[0] ?? 0,
+          this?.startLoc?.coordinates?[1] ?? 0),
+      endLoc: LatLng(this?.startLoc?.coordinates?[0] ?? 0,
+          this?.startLoc?.coordinates?[1] ?? 0),
+      endLocation: this?.endLocation ?? "",
+      startLocation: this?.startLocation ?? "",
+      weight: this?.weight ?? "",
+      quantity: this?.quantity ?? 0,
+      description: this?.description ?? "",
+      status: this?.status ?? "noStatus",
+      unPicked: this?.unPicked ?? false,
+      pickedUp: this?.pickedUp ?? false,
+      delivered: this?.delivered ?? false,
+      coming: this?.coming ?? false,
+      paidStatus: this?.paidStatus ?? '',
+      price: this?.price ?? '',
+      delivery:
+          this?.delivery?.map((delivery) => delivery.toDomain()).toList() ?? [],
+      clientId: this?.client ?? "",
     );
   }
 }

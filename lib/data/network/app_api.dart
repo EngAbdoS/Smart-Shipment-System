@@ -29,11 +29,12 @@ abstract class AppServiceClient {
   Future<RegistrationResponse> deleteOrderById(@Path("id") String id);
 
   @POST("client/order/createOrder")
-  Future<SearchOrderResponse> createShipment(
+  Future<CreatedOrderResponse> createShipment(
       @Body() CreateShipmentRequest createShipmentRequest);
 
   @PATCH("client/order/{id}/cancel")
   Future<RegistrationResponse> cancelOrderById(@Path("id") String id);
+
   @POST("client/order/{id}/checkout")
   Future<CheckoutResponse> checkoutOrderById(@Path("id") String id);
 

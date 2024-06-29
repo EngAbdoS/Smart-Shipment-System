@@ -159,7 +159,7 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<SearchOrderResponse> createShipment(
+  Future<CreatedOrderResponse> createShipment(
       CreateShipmentRequest createShipmentRequest) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -167,7 +167,7 @@ class _AppServiceClient implements AppServiceClient {
     final _data = <String, dynamic>{};
     _data.addAll(createShipmentRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<SearchOrderResponse>(Options(
+        _setStreamType<CreatedOrderResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -183,7 +183,7 @@ class _AppServiceClient implements AppServiceClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = SearchOrderResponse.fromJson(_result.data!);
+    final value = CreatedOrderResponse.fromJson(_result.data!);
     return value;
   }
 

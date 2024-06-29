@@ -23,8 +23,9 @@ class ShipmentModel {
   bool coming;
   bool delivered;
   List<UserModel> delivery;
-  UserModel client;
-  int price;
+  UserModel? client;
+  String?clientId;
+  String price;
   String paidStatus;
 
   ShipmentModel(
@@ -49,7 +50,8 @@ class ShipmentModel {
       required this.coming,
       required this.delivered,
       required this.delivery,
-      required this.client,
+       this.client,
+        this.clientId,
       required this.price,
         required this.paidStatus
 

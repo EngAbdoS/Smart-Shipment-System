@@ -82,6 +82,116 @@ class UserResponse {
 }
 
 @JsonSerializable()
+class CreatedOrderResponse extends BaseResponse {
+  @JsonKey(name: "data")
+  CreatedOrderDataResponse? data;
+
+  CreatedOrderResponse(this.data);
+
+  factory CreatedOrderResponse.fromJson(Map<String, dynamic> json) =>
+      _$CreatedOrderResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CreatedOrderResponseToJson(this);
+}
+
+@JsonSerializable()
+class CreatedOrderDataResponse {
+  @JsonKey(name: "order")
+  OrderClientIdResponse? order;
+
+  CreatedOrderDataResponse(this.order);
+
+  factory CreatedOrderDataResponse.fromJson(Map<String, dynamic> json) =>
+      _$CreatedOrderDataResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CreatedOrderDataResponseToJson(this);
+}
+
+@JsonSerializable()
+class OrderClientIdResponse {
+  @JsonKey(name: "_id")
+  String? id;
+  @JsonKey(name: "date") //not found
+  String? date;
+  @JsonKey(name: "type")
+  String? type;
+  @JsonKey(name: "recipentName")
+  String? recipentName;
+  @JsonKey(name: "reciepentPhone")
+  String? reciepentPhone;
+  @JsonKey(name: "senderName")
+  String? senderName;
+  @JsonKey(name: "senderPhone")
+  String? senderPhone;
+  @JsonKey(name: "startLoc")
+  LatLonResponse? startLoc;
+  @JsonKey(name: "currentLoc")
+  LatLonResponse? currentLoc;
+  @JsonKey(name: "endLoc")
+  LatLonResponse? endLoc;
+  @JsonKey(name: "endLocation")
+  String? endLocation;
+  @JsonKey(name: "startLocation")
+  String? startLocation;
+  @JsonKey(name: "status")
+  String? status;
+  @JsonKey(name: "unPicked")
+  bool? unPicked;
+  @JsonKey(name: "pickedUp")
+  bool? pickedUp;
+  @JsonKey(name: "coming")
+  bool? coming;
+  @JsonKey(name: "delivered")
+  bool? delivered;
+  @JsonKey(name: "weight")
+  String? weight;
+  @JsonKey(name: "quantity")
+  int? quantity;
+  @JsonKey(name: "description")
+  String? description;
+  @JsonKey(name: "paidStatus")
+  String? paidStatus;
+  @JsonKey(name: "delivery")
+  List<UserResponse>? delivery;
+  @JsonKey(name: "client")
+  String? client;
+
+  @JsonKey(name: "price")
+  String? price;
+
+  OrderClientIdResponse(
+      this.type,
+      this.id,
+      this.date,
+      this.recipentName,
+      this.reciepentPhone,
+      this.senderName,
+      this.senderPhone,
+      this.startLoc,
+      this.currentLoc,
+      this.endLoc,
+      this.endLocation,
+      this.startLocation,
+      this.status,
+      this.unPicked,
+      this.pickedUp,
+      this.coming,
+      this.delivered,
+      this.weight,
+      this.quantity,
+      this.description,
+      this.paidStatus,
+      this.delivery,
+      this.client,
+      this.price);
+
+  factory OrderClientIdResponse.fromJson(Map<String, dynamic> json) =>
+      _$OrderClientIdResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OrderClientIdResponseToJson(this);
+}
+
+@JsonSerializable()
 class SearchOrderResponse extends BaseResponse {
   @JsonKey(name: "data")
   SearchOrderDataResponse? data;
@@ -179,40 +289,39 @@ class OrderResponse {
   String? description;
   @JsonKey(name: "paidStatus")
   String? paidStatus;
-
   @JsonKey(name: "delivery")
   List<UserResponse>? delivery;
   @JsonKey(name: "client")
   UserResponse? client;
 
   @JsonKey(name: "price")
-  int? price;
+  String? price;
+
   OrderResponse(
-    this.type,
-    this.id,
-    this.date,
-    this.recipentName,
-    this.reciepentPhone,
-    this.senderName,
-    this.senderPhone,
-    this.startLoc,
-    this.currentLoc,
-    this.endLoc,
-    this.endLocation,
-    this.startLocation,
-    this.status,
-    this.unPicked,
-    this.pickedUp,
-    this.coming,
-    this.delivered,
-    this.weight,
-    this.quantity,
-    this.description,
-    this.paidStatus,
-    this.delivery,
-    this.client,
-      this.price
-  );
+      this.type,
+      this.id,
+      this.date,
+      this.recipentName,
+      this.reciepentPhone,
+      this.senderName,
+      this.senderPhone,
+      this.startLoc,
+      this.currentLoc,
+      this.endLoc,
+      this.endLocation,
+      this.startLocation,
+      this.status,
+      this.unPicked,
+      this.pickedUp,
+      this.coming,
+      this.delivered,
+      this.weight,
+      this.quantity,
+      this.description,
+      this.paidStatus,
+      this.delivery,
+      this.client,
+      this.price);
 
   factory OrderResponse.fromJson(Map<String, dynamic> json) =>
       _$OrderResponseFromJson(json);
@@ -298,6 +407,7 @@ class RecommendedDeliveryResponse {
       _$RecommendedDeliveryResponseFromJson(json); //why factory
   Map<String, dynamic> toJson() => _$RecommendedDeliveryResponseToJson(this);
 }
+
 @JsonSerializable()
 class CheckoutResponse extends BaseResponse {
   CheckoutResponse();
@@ -307,6 +417,7 @@ class CheckoutResponse extends BaseResponse {
 
   Map<String, dynamic> toJson() => _$CheckoutResponseToJson(this);
 }
+
 @JsonSerializable()
 class DeliveryTripResponse {
   @JsonKey(name: "startLoc")

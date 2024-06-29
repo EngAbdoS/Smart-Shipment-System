@@ -78,6 +78,108 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
       'trip': instance.trips,
     };
 
+CreatedOrderResponse _$CreatedOrderResponseFromJson(
+        Map<String, dynamic> json) =>
+    CreatedOrderResponse(
+      json['data'] == null
+          ? null
+          : CreatedOrderDataResponse.fromJson(
+              json['data'] as Map<String, dynamic>),
+    )
+      ..statusCode = (json['statusCode'] as num?)?.toInt()
+      ..status = json['status'] as String?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$CreatedOrderResponseToJson(
+        CreatedOrderResponse instance) =>
+    <String, dynamic>{
+      'statusCode': instance.statusCode,
+      'status': instance.status,
+      'message': instance.message,
+      'data': instance.data,
+    };
+
+CreatedOrderDataResponse _$CreatedOrderDataResponseFromJson(
+        Map<String, dynamic> json) =>
+    CreatedOrderDataResponse(
+      json['order'] == null
+          ? null
+          : OrderClientIdResponse.fromJson(
+              json['order'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$CreatedOrderDataResponseToJson(
+        CreatedOrderDataResponse instance) =>
+    <String, dynamic>{
+      'order': instance.order,
+    };
+
+OrderClientIdResponse _$OrderClientIdResponseFromJson(
+        Map<String, dynamic> json) =>
+    OrderClientIdResponse(
+      json['type'] as String?,
+      json['_id'] as String?,
+      json['date'] as String?,
+      json['recipentName'] as String?,
+      json['reciepentPhone'] as String?,
+      json['senderName'] as String?,
+      json['senderPhone'] as String?,
+      json['startLoc'] == null
+          ? null
+          : LatLonResponse.fromJson(json['startLoc'] as Map<String, dynamic>),
+      json['currentLoc'] == null
+          ? null
+          : LatLonResponse.fromJson(json['currentLoc'] as Map<String, dynamic>),
+      json['endLoc'] == null
+          ? null
+          : LatLonResponse.fromJson(json['endLoc'] as Map<String, dynamic>),
+      json['endLocation'] as String?,
+      json['startLocation'] as String?,
+      json['status'] as String?,
+      json['unPicked'] as bool?,
+      json['pickedUp'] as bool?,
+      json['coming'] as bool?,
+      json['delivered'] as bool?,
+      json['weight'] as String?,
+      (json['quantity'] as num?)?.toInt(),
+      json['description'] as String?,
+      json['paidStatus'] as String?,
+      (json['delivery'] as List<dynamic>?)
+          ?.map((e) => UserResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      json['client'] as String?,
+      json['price'] as String?,
+    );
+
+Map<String, dynamic> _$OrderClientIdResponseToJson(
+        OrderClientIdResponse instance) =>
+    <String, dynamic>{
+      '_id': instance.id,
+      'date': instance.date,
+      'type': instance.type,
+      'recipentName': instance.recipentName,
+      'reciepentPhone': instance.reciepentPhone,
+      'senderName': instance.senderName,
+      'senderPhone': instance.senderPhone,
+      'startLoc': instance.startLoc,
+      'currentLoc': instance.currentLoc,
+      'endLoc': instance.endLoc,
+      'endLocation': instance.endLocation,
+      'startLocation': instance.startLocation,
+      'status': instance.status,
+      'unPicked': instance.unPicked,
+      'pickedUp': instance.pickedUp,
+      'coming': instance.coming,
+      'delivered': instance.delivered,
+      'weight': instance.weight,
+      'quantity': instance.quantity,
+      'description': instance.description,
+      'paidStatus': instance.paidStatus,
+      'delivery': instance.delivery,
+      'client': instance.client,
+      'price': instance.price,
+    };
+
 SearchOrderResponse _$SearchOrderResponseFromJson(Map<String, dynamic> json) =>
     SearchOrderResponse(
       json['data'] == null
@@ -179,7 +281,7 @@ OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) =>
       json['client'] == null
           ? null
           : UserResponse.fromJson(json['client'] as Map<String, dynamic>),
-      (json['price'] as num?)?.toInt(),
+      json['price'] as String?,
     );
 
 Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
