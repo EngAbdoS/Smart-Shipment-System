@@ -410,12 +410,34 @@ class RecommendedDeliveryResponse {
 
 @JsonSerializable()
 class CheckoutResponse extends BaseResponse {
-  CheckoutResponse();
+  @JsonKey(name: "data")
+  CheckoutDataResponse? data;
+
+  CheckoutResponse(this.data);
 
   factory CheckoutResponse.fromJson(Map<String, dynamic> json) =>
       _$CheckoutResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$CheckoutResponseToJson(this);
+}
+
+@JsonSerializable()
+class CheckoutDataResponse extends BaseResponse {
+  @JsonKey(name: "id")
+  String? id;
+  @JsonKey(name: "url")
+  String? url;
+  @JsonKey(name: "success_url")
+  String? success_url;
+  @JsonKey(name: "cancel_url")
+  String? cancel_url;
+
+  CheckoutDataResponse(this.id, this.url, this.success_url, this.cancel_url);
+
+  factory CheckoutDataResponse.fromJson(Map<String, dynamic> json) =>
+      _$CheckoutDataResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CheckoutDataResponseToJson(this);
 }
 
 @JsonSerializable()

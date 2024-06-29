@@ -389,7 +389,11 @@ Map<String, dynamic> _$RecommendedDeliveryResponseToJson(
     };
 
 CheckoutResponse _$CheckoutResponseFromJson(Map<String, dynamic> json) =>
-    CheckoutResponse()
+    CheckoutResponse(
+      json['data'] == null
+          ? null
+          : CheckoutDataResponse.fromJson(json['data'] as Map<String, dynamic>),
+    )
       ..statusCode = (json['statusCode'] as num?)?.toInt()
       ..status = json['status'] as String?
       ..message = json['message'] as String?;
@@ -399,6 +403,31 @@ Map<String, dynamic> _$CheckoutResponseToJson(CheckoutResponse instance) =>
       'statusCode': instance.statusCode,
       'status': instance.status,
       'message': instance.message,
+      'data': instance.data,
+    };
+
+CheckoutDataResponse _$CheckoutDataResponseFromJson(
+        Map<String, dynamic> json) =>
+    CheckoutDataResponse(
+      json['id'] as String?,
+      json['url'] as String?,
+      json['success_url'] as String?,
+      json['cancel_url'] as String?,
+    )
+      ..statusCode = (json['statusCode'] as num?)?.toInt()
+      ..status = json['status'] as String?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$CheckoutDataResponseToJson(
+        CheckoutDataResponse instance) =>
+    <String, dynamic>{
+      'statusCode': instance.statusCode,
+      'status': instance.status,
+      'message': instance.message,
+      'id': instance.id,
+      'url': instance.url,
+      'success_url': instance.success_url,
+      'cancel_url': instance.cancel_url,
     };
 
 DeliveryTripResponse _$DeliveryTripResponseFromJson(
