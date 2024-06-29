@@ -41,21 +41,24 @@ Widget shipmentList(
                               StreamBuilder<List<ShipmentModel>?>(
                                   stream: viewModel.outputShipmentList,
                                   builder: (context, snapshot) {
-                                    //  print(snapshot.data?.length??"7");
-                                    return TextButton(
-                                      onPressed: () => viewModel
-                                          .seeMore(snapshot.data?.length ?? 0),
-                                      child: Text(
-                                        (snapshot.data?.length ?? 0) <= 3
-                                            ? AppStrings.see_more
-                                            : AppStrings.see_less,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(
-                                                color: ColorManager.black),
-                                      ).tr(),
-                                    );
+                                    return (snapshot.hasData &&
+                                            snapshot.data!.isNotEmpty)
+                                        ? TextButton(
+                                            onPressed: () => viewModel.seeMore(
+                                                snapshot.data?.length ?? 0),
+                                            child: Text(
+                                              (snapshot.data?.length ?? 0) <= 3
+                                                  ? AppStrings.see_more
+                                                  : AppStrings.see_less,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                      color:
+                                                          ColorManager.black),
+                                            ).tr(),
+                                          )
+                                        : Container();
                                   })
                             ],
                           )
