@@ -193,7 +193,7 @@ abstract class AppRouter {
         path: Routes.noNetworkView,
         pageBuilder: (context, state) {
           return customPageTransition(
-              state.pageKey, const NoNetworkView(), fadeTransitionGlobal);
+              state.pageKey,  NoNetworkView(), fadeTransitionGlobal);
         },
       ),
       GoRoute(

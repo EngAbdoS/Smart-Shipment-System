@@ -25,3 +25,4 @@ bool isEgyptionNationalIdValid(String nationalId) {
 bool isEgyptionPhoneNumberValid(String phoneNumber) {
   return RegExp(r'^01[0125][0-9]{8}$').hasMatch(phoneNumber);
 }
+void noFun(){}
