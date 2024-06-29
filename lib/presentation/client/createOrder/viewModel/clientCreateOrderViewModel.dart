@@ -7,6 +7,7 @@ import 'package:smart_shipment_system/app/functions.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/domain/entities/ShipmentEntity.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
+import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
@@ -48,6 +49,7 @@ class ClientCreateOrderViewModel {
     quantity: 0,
     description: '',
   );
+  ShipmentModel? createdShipment;
 
   Stream<bool> get outputIsShipmentTypeValid =>
       _shipmentTypeValidationStream.stream.map((type) => type != '');
@@ -122,6 +124,8 @@ class ClientCreateOrderViewModel {
             (failure) => {
                   errorState(context: context, message: failure.message),
                 }, (data) async {
+      createdShipment = data;
+      print(createdShipment?.id ?? "noid");
       await getRecommendedDelivery(context);
       navigate();
       hideState(context: context);
@@ -131,9 +135,7 @@ class ClientCreateOrderViewModel {
   getRecommendedDelivery(dynamic context) async {
     loadingState(context: context);
     (await _repository.getRecommendedDeliveries(
-      shipment.startLocation,shipment.endLocation
-
-    ))
+            shipment.startLocation, shipment.endLocation))
         .fold(
             (failure) => {
                   errorState(context: context, message: failure.message),
@@ -142,6 +144,10 @@ class ClientCreateOrderViewModel {
       hideState(context: context);
     });
   }
+
+  confirmShipment(dynamic context, GestureTapCallback navigate) {}
+
+  cancelShipment(dynamic context, GestureTapCallback navigate) {}
 
   setCurrentFromLocationAndGov(LatLng currentFromLocation,
       String currentFromGovernment, String addressName) {

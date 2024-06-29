@@ -190,14 +190,14 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
-  Future<Either<Failure, bool>> createShipment(
+  Future<Either<Failure, ShipmentModel>> createShipment(
       CreateShipmentRequest createShipmentRequest) async {
     return await (await _remoteDataSource.createShipment(createShipmentRequest))
         .fold((error) {
       return Left(error);
     }, (response) {
       if (response.status == ResponseMessage.SUCCESS) {
-        return const Right(true);
+        return Right(response.data!.order!.toDomain());
       } else {
         return Left(ErrorHandler.handle(response).failure);
       }

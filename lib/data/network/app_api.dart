@@ -16,21 +16,26 @@ abstract class AppServiceClient {
   @GET("client/order/getAllOrders")
   Future<OrdersResponse> getAllOrders();
 
-  @GET("client/order/findPath?orderStartState={orderStartState}&orderEndState={orderEndState}")
+  @GET(
+      "client/order/findPath?orderStartState={orderStartState}&orderEndState={orderEndState}")
   Future<RecommendedDeliveriesResponse> getDeliveryPath(
       @Path("orderStartState") String orderStartState,
-      @Path("orderEndState") String orderEndState
-
-      );
-
-
+      @Path("orderEndState") String orderEndState);
 
   @GET("client/order/{id}")
   Future<SearchOrderResponse> getOrderById(@Path("id") String id);
 
+  @DELETE("client/order/{id}")
+  Future<RegistrationResponse> deleteOrderById(@Path("id") String id);
+
   @POST("client/order/createOrder")
-  Future<RegistrationResponse> createShipment(
+  Future<SearchOrderResponse> createShipment(
       @Body() CreateShipmentRequest createShipmentRequest);
+
+  @PATCH("client/order/{id}/cancel")
+  Future<RegistrationResponse> cancelOrderById(@Path("id") String id);
+  @POST("client/order/{id}/checkout")
+  Future<CheckoutResponse> checkoutOrderById(@Path("id") String id);
 
   @GET("client/order/getAllOrders?coming=true")
   Future<OrdersResponse> getAllComingOrders();
@@ -42,9 +47,6 @@ abstract class AppServiceClient {
       @Path("startLocationLng") double startLocationLng,
       @Path("endLocation") String endLocation,
       @Path("maxDis") int maxDis);
-
-  @DELETE("client/order/{id}")
-  Future<RegistrationResponse> deleteOrderById(@Path("id") String id);
 
   @PATCH('users/updateMe')
   Future<MeDataResponse> updateUserData(@Body() Map<String, dynamic> data);

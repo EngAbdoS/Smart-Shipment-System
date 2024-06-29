@@ -23,7 +23,7 @@ abstract class Repository {
 
   Future<Either<Failure, ShipmentModel>> getShipmentById(String id);
 
-  Future<Either<Failure, bool>> createShipment(
+  Future<Either<Failure, ShipmentModel>> createShipment(
       CreateShipmentRequest createShipmentRequest);
 
   Future<Either<Failure, List<RecommendedDeliveryEntity>>>

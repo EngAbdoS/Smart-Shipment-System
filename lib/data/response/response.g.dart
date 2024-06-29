@@ -172,12 +172,14 @@ OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) =>
       json['weight'] as String?,
       (json['quantity'] as num?)?.toInt(),
       json['description'] as String?,
+      json['paidStatus'] as String?,
       (json['delivery'] as List<dynamic>?)
           ?.map((e) => UserResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       json['client'] == null
           ? null
           : UserResponse.fromJson(json['client'] as Map<String, dynamic>),
+      (json['price'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
@@ -202,8 +204,10 @@ Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
       'weight': instance.weight,
       'quantity': instance.quantity,
       'description': instance.description,
+      'paidStatus': instance.paidStatus,
       'delivery': instance.delivery,
       'client': instance.client,
+      'price': instance.price,
     };
 
 RecommendedDeliveriesResponse _$RecommendedDeliveriesResponseFromJson(
@@ -280,6 +284,19 @@ Map<String, dynamic> _$RecommendedDeliveryResponseToJson(
       'trip': instance.trips,
       'confirmedEmail': instance.confirmedEmail,
       'otpResetExpires': instance.otpResetExpires,
+    };
+
+CheckoutResponse _$CheckoutResponseFromJson(Map<String, dynamic> json) =>
+    CheckoutResponse()
+      ..statusCode = (json['statusCode'] as num?)?.toInt()
+      ..status = json['status'] as String?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$CheckoutResponseToJson(CheckoutResponse instance) =>
+    <String, dynamic>{
+      'statusCode': instance.statusCode,
+      'status': instance.status,
+      'message': instance.message,
     };
 
 DeliveryTripResponse _$DeliveryTripResponseFromJson(

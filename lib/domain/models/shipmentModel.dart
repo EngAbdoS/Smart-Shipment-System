@@ -24,6 +24,8 @@ class ShipmentModel {
   bool delivered;
   List<UserModel> delivery;
   UserModel client;
+  int price;
+  String paidStatus;
 
   ShipmentModel(
       {required this.id,
@@ -47,5 +49,9 @@ class ShipmentModel {
       required this.coming,
       required this.delivered,
       required this.delivery,
-      required this.client});
+      required this.client,
+      required this.price,
+        required this.paidStatus
+
+      });
 }

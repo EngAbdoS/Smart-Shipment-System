@@ -62,8 +62,19 @@ class UserResponse {
   String? profileImage;
   @JsonKey(name: "trip")
   List<DeliveryTripResponse>? trips;
-  UserResponse(this.isDeliveryApproved, this.userId, this.userName, this.email,
-      this.phoneNumber, this.role,this.vehicleType, this.vehicleLicenseImg, this.isEmailConfirmed, this.profileImage,this.trips);
+
+  UserResponse(
+      this.isDeliveryApproved,
+      this.userId,
+      this.userName,
+      this.email,
+      this.phoneNumber,
+      this.role,
+      this.vehicleType,
+      this.vehicleLicenseImg,
+      this.isEmailConfirmed,
+      this.profileImage,
+      this.trips);
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
       _$UserResponseFromJson(json); //why factory
@@ -166,11 +177,16 @@ class OrderResponse {
   int? quantity;
   @JsonKey(name: "description")
   String? description;
+  @JsonKey(name: "paidStatus")
+  String? paidStatus;
+
   @JsonKey(name: "delivery")
   List<UserResponse>? delivery;
   @JsonKey(name: "client")
   UserResponse? client;
 
+  @JsonKey(name: "price")
+  int? price;
   OrderResponse(
     this.type,
     this.id,
@@ -192,8 +208,10 @@ class OrderResponse {
     this.weight,
     this.quantity,
     this.description,
+    this.paidStatus,
     this.delivery,
     this.client,
+      this.price
   );
 
   factory OrderResponse.fromJson(Map<String, dynamic> json) =>
@@ -280,7 +298,15 @@ class RecommendedDeliveryResponse {
       _$RecommendedDeliveryResponseFromJson(json); //why factory
   Map<String, dynamic> toJson() => _$RecommendedDeliveryResponseToJson(this);
 }
+@JsonSerializable()
+class CheckoutResponse extends BaseResponse {
+  CheckoutResponse();
 
+  factory CheckoutResponse.fromJson(Map<String, dynamic> json) =>
+      _$CheckoutResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CheckoutResponseToJson(this);
+}
 @JsonSerializable()
 class DeliveryTripResponse {
   @JsonKey(name: "startLoc")
@@ -382,16 +408,12 @@ class ForgetPasswordResponse extends BaseResponse {
       _$ForgetPasswordResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$ForgetPasswordResponseToJson(this);
-
-
-
-
 }
 
 @JsonSerializable()
-class ChatBotResponse  {
+class ChatBotResponse {
   @JsonKey(name: "answer")
- String? answer;
+  String? answer;
 
   ChatBotResponse(this.answer);
 

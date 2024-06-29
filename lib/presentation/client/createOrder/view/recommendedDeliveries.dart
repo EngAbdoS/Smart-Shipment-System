@@ -1,4 +1,3 @@
-import 'package:dotted_line/dotted_line.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -8,15 +7,8 @@ import 'package:smart_shipment_system/presentation/authenticathion/widgets/regis
 import 'package:smart_shipment_system/presentation/client/createOrder/viewModel/clientCreateOrderViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/recommendedDeliveryList.dart';
-import 'package:smart_shipment_system/presentation/client/widgets/shipmentWidgets.dart';
-import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
-import 'package:smart_shipment_system/presentation/widgets/auth_logo_widget.dart';
-import 'package:smart_shipment_system/presentation/widgets/inputLocationWidget.dart';
 import 'package:smart_shipment_system/presentation/widgets/regular_button.dart';
-import 'package:smart_shipment_system/presentation/widgets/toast.dart';
-
-import '../../../resources/values_manager.dart';
 
 class ClientCreateOrderRecommendedDeliveriesMainView extends StatelessWidget {
   ClientCreateOrderRecommendedDeliveriesMainView({super.key});
@@ -55,6 +47,34 @@ class ClientCreateOrderRecommendedDeliveriesMainView extends StatelessWidget {
                     recommendedDeliveryList(
                         context, _viewModel.recommendedDeliveryList),
                     SizedBox(height: 25.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: RegularButton(
+                              buttonAction: () => _viewModel.confirmShipment(
+                                  context,
+                                  () => _mainClientViewMode.changeWidget(
+                                      context, 7)),
+                              buttonWidget: Text(
+                                AppStrings.confirm_shipment,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ).tr()),
+                        ),
+                        SizedBox(width: 10.w),
+                        Expanded(
+                          child: RegularButton(
+                              buttonAction: () => _viewModel.cancelShipment(
+                                  context,
+                                  () => _mainClientViewMode.changeWidget(
+                                      context, 0)),
+                              buttonWidget: Text(
+                                AppStrings.cancel_order,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ).tr()),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ],

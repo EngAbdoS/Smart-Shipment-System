@@ -48,6 +48,8 @@ extension OrdersResponseMapper on OrderResponse? {
       pickedUp: this?.pickedUp ?? false,
       delivered: this?.delivered ?? false,
       coming: this?.coming ?? false,
+      paidStatus: this?.paidStatus ?? '',
+      price: this?.price ?? 0,
       delivery:
           this?.delivery?.map((delivery) => delivery.toDomain()).toList() ?? [],
       client: this?.client?.toDomain() ??
