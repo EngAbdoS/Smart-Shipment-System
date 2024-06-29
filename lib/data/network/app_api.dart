@@ -16,10 +16,15 @@ abstract class AppServiceClient {
   @GET("client/order/getAllOrders")
   Future<OrdersResponse> getAllOrders();
 
-  // @GET("/posts/{id}")
-  // Future<Post> getPostFromId(@Path("id") int postId);
-  // @GET("/comments?postId={id}")
-  // Future<Comment> getCommentFromPostId(@Path("id") int postId);
+  @GET("client/order/findPath?orderStartState={orderStartState}&orderEndState={orderEndState}")
+  Future<RecommendedDeliveriesResponse> getDeliveryPath(
+      @Path("orderStartState") String orderStartState,
+      @Path("orderEndState") String orderEndState
+
+      );
+
+
+
   @GET("client/order/{id}")
   Future<SearchOrderResponse> getOrderById(@Path("id") String id);
 
