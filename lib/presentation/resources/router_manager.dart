@@ -22,10 +22,13 @@ import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingVie
 import 'package:smart_shipment_system/presentation/resources/page_transition_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/splachScreen/splash_screen_view.dart';
+import 'package:smart_shipment_system/presentation/widgets/noNetworkView.dart';
 
 class Routes {
   static const String splashRoute = "/";
   static const String noRoute = "/noRoute";
+  static const String noNetworkView = "/noNetworkView";
+
   // static const String deliveryHomeRoute = "/deliveryHome";
   // static const String clientHomeRoute = "/clientHome";
   static const String mainClientViewRoute = "/mainClientView";
@@ -68,7 +71,7 @@ abstract class AppRouter {
         pageBuilder: (context, state) {
           initMainClientModule();
           return customPageTransition(
-              state.pageKey,const MainClientView(), fadeTransitionGlobal);
+              state.pageKey, const MainClientView(), fadeTransitionGlobal);
         },
       ),
       GoRoute(
@@ -76,39 +79,33 @@ abstract class AppRouter {
         pageBuilder: (context, state) {
           initMainDeliveryModule();
           return customPageTransition(
-              state.pageKey,const MainDeliveryView(), fadeTransitionGlobal);
+              state.pageKey, const MainDeliveryView(), fadeTransitionGlobal);
         },
       ),
       GoRoute(
         path: Routes.splashRoute,
-        pageBuilder: (context, state) =>
-            customPageTransition(
-                state.pageKey, SplashScreenView(), fadeTransitionGlobal),
+        pageBuilder: (context, state) => customPageTransition(
+            state.pageKey, SplashScreenView(), fadeTransitionGlobal),
       ),
       GoRoute(
         path: Routes.onBoardingViewRoute,
-        pageBuilder: (context, state) =>
-            customPageTransition(
-                state.pageKey, OnBoardingView(), fadeTransitionGlobal),
+        pageBuilder: (context, state) => customPageTransition(
+            state.pageKey, OnBoardingView(), fadeTransitionGlobal),
       ),
       GoRoute(
         path: Routes.authViewRoute,
-        pageBuilder: (context, state) =>
-            customPageTransition(
-                state.pageKey, const AuthenticationView(),
-                fadeTransitionGlobal),
+        pageBuilder: (context, state) => customPageTransition(
+            state.pageKey, const AuthenticationView(), fadeTransitionGlobal),
       ),
       GoRoute(
         path: Routes.deliveryAuthViewRoute,
-        pageBuilder: (context, state) =>
-            customPageTransition(
-                state.pageKey, const DeliveryAuthView(), fadeTransitionGlobal),
+        pageBuilder: (context, state) => customPageTransition(
+            state.pageKey, const DeliveryAuthView(), fadeTransitionGlobal),
       ),
       GoRoute(
         path: Routes.clientAuthViewRoute,
-        pageBuilder: (context, state) =>
-            customPageTransition(
-                state.pageKey, const ClientAuthView(), fadeTransitionGlobal),
+        pageBuilder: (context, state) => customPageTransition(
+            state.pageKey, const ClientAuthView(), fadeTransitionGlobal),
       ),
       GoRoute(
         path: Routes.loginViewRoute,
@@ -193,24 +190,29 @@ abstract class AppRouter {
         },
       ),
       GoRoute(
+        path: Routes.noNetworkView,
+        pageBuilder: (context, state) {
+          return customPageTransition(
+              state.pageKey, const NoNetworkView(), fadeTransitionGlobal);
+        },
+      ),
+      GoRoute(
         path: Routes.noRoute,
-        pageBuilder: (context, state) =>
-            CustomTransitionPage<void>(
-              transitionDuration: const Duration(
-                  milliseconds: AppConstants.transitionDurationMillySeconds),
-              key: state.pageKey,
-              child: Scaffold(
-                appBar: AppBar(
-                  title: const Text(AppStrings.noRouteFound),
-                ),
-                body: const Center(
-                  child: Text(AppStrings.noRouteFound),
-                ),
-              ),
-              transitionsBuilder: (context, animation, secondaryAnimation,
-                  child) =>
-                  FadeTransition(opacity: animation, child: child),
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
+          transitionDuration: const Duration(
+              milliseconds: AppConstants.transitionDurationMillySeconds),
+          key: state.pageKey,
+          child: Scaffold(
+            appBar: AppBar(
+              title: const Text(AppStrings.noRouteFound),
             ),
+            body: const Center(
+              child: Text(AppStrings.noRouteFound),
+            ),
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              FadeTransition(opacity: animation, child: child),
+        ),
       ),
     ],
   );
