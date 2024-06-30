@@ -1,13 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/activeShipmentCard.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/detailedShipmentCard.dart';
-import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
+import 'package:smart_shipment_system/presentation/widgets/emptyListWidget.dart';
 
 Widget shipmentList(
     {required BuildContext context,
@@ -103,13 +102,15 @@ Widget shipmentList(
                             : detailedShipmentCard(
                                 context, snapshot.data![index]);
                       })
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: SvgPicture.asset(
-                        SVGAssets.noData,
-                        height: 200,
-                      ),
-                    );
+                  : isActiveShipmentList
+                      ? emptyListWidget(context,
+                          message: AppStrings.on_data,
+                          actionButton: () =>
+                              viewModel.getActiveShipmentList(context))
+                      : emptyListWidget(context,
+                          message: AppStrings.on_data,
+                          actionButton: () =>
+                              viewModel.getDeliveredShipmentList(context));
             }),
       ),
       const SizedBox(

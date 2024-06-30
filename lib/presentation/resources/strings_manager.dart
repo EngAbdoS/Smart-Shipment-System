@@ -186,6 +186,7 @@ static const  recipient_phone_hint= "recipient_phone_hint";
  static const  edit_trip_list= "edit_trip_list";
   static const  message_hint= "message_hint";
   static const  cancel_order= "cancel_order";
+  static const  on_data= "on_data";
 
   // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";

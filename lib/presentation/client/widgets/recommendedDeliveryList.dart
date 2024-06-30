@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
-import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
+import 'package:smart_shipment_system/presentation/widgets/emptyListWidget.dart';
 
 Widget recommendedDeliveryList(
     BuildContext context, List<RecommendedDeliveryEntity> deliveryList) {
@@ -13,13 +12,7 @@ Widget recommendedDeliveryList(
           itemBuilder: (context, index) {
             return recommendedDeliveryCard(deliveryList[index]);
           })
-      : Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: SvgPicture.asset(
-            SVGAssets.noData,
-            height: 200,
-          ),
-        );
+      : emptyListWidget(context,);
 }
 
 Widget recommendedDeliveryCard(RecommendedDeliveryEntity delivery) {
