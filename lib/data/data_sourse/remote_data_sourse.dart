@@ -28,6 +28,14 @@ abstract class RemoteDataSource {
   Future<Either<Failure, RegistrationResponse>> updateDeliveryTripList(
       UpdateDeliveryTripListRequest updateDeliveryTripListRequest);
 
+  Future<Either<Failure, RegistrationResponse>> deliveryChangeOrderState(
+      String id, String status);
+
+  Future<Either<Failure, RegistrationResponse>> deliveryAssignOrderToMe(
+      String id);
+
+  Future<Either<Failure, OrdersResponse>> deliveryGetOrders(int pageIndex);
+
   Future<Either<Failure, RegistrationResponse>> deleteDeliveryTripList(
       int index);
 
@@ -192,6 +200,39 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
+  Future<Either<Failure, RegistrationResponse>> deliveryAssignOrderToMe(
+      String id) async {
+    try {
+      var result = await _appServiceClient.deliveryAssignOrderToMe(id);
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, RegistrationResponse>> deliveryChangeOrderState(
+      String id, String status) async {
+    try {
+      var result = await _appServiceClient.deliveryChangeOrderState(id, status);
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, OrdersResponse>> deliveryGetOrders(
+      int pageIndex) async {
+    try {
+      var result = await _appServiceClient.deliveryGetOrders(pageIndex);
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
   Future<Either<Failure, RegistrationResponse>> deleteDeliveryTripList(
       int index) async {
     try {
@@ -321,4 +362,6 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
+
+
 }
