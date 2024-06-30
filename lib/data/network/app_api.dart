@@ -56,6 +56,16 @@ abstract class AppServiceClient {
   Future<RegistrationResponse> updateUserProfileImage(
       @Field("profileImage") String profileImage);
 
+  @PATCH('delivery/order/{id}?status={status}')
+  Future<RegistrationResponse> deliveryChangeOrderState(
+      @Path("id") String id, @Path("status") String status);
+
+  @PATCH('delivery/order/{id}/assignToMe')
+  Future<RegistrationResponse> deliveryAssignOrderToMe(@Path("id") String id);
+
+  @GET('delivery/order/summary?limit=10&page={pageIndex}')
+  Future<OrdersResponse> deliveryGetOrders(@Path("pageIndex") int pageIndex);
+
   @PATCH('delivery/addTrip')
   Future<RegistrationResponse> updateDeliveryTripList(
       @Body() UpdateDeliveryTripListRequest updateDeliveryTripListRequest);

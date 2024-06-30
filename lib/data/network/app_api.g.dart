@@ -357,6 +357,90 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
+  Future<RegistrationResponse> deliveryChangeOrderState(
+    String id,
+    String status,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<RegistrationResponse>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'delivery/order/${id}?status=${status}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = RegistrationResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<RegistrationResponse> deliveryAssignOrderToMe(String id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<RegistrationResponse>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'delivery/order/${id}/assignToMe',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = RegistrationResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<OrdersResponse> deliveryGetOrders(int pageIndex) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<OrdersResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'delivery/order/summary?limit=10&page=${pageIndex}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = OrdersResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<RegistrationResponse> updateDeliveryTripList(
       UpdateDeliveryTripListRequest updateDeliveryTripListRequest) async {
     final _extra = <String, dynamic>{};
