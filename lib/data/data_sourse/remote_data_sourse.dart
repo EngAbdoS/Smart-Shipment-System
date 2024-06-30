@@ -35,6 +35,10 @@ abstract class RemoteDataSource {
 
   Future<Either<Failure, SearchOrderResponse>> getShipmentById(String id);
 
+  Future<Either<Failure, CheckoutResponse>> confirmShipmentById(String id);
+
+  Future<Either<Failure, RegistrationResponse>> cancelOrderById(String id);
+
   Future<Either<Failure, AuthenticationResponse>> login(
       LoginRequest loginRequest);
 
@@ -135,6 +139,30 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
     try {
       var result = await _appServiceClient.getDeliveryPath(
           orderStartState, orderEndState);
+
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, RegistrationResponse>> cancelOrderById(
+      String id) async {
+    try {
+      var result = await _appServiceClient.cancelOrderById(id);
+
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, CheckoutResponse>> confirmShipmentById(
+      String id) async {
+    try {
+      var result = await _appServiceClient.checkoutOrderById(id);
 
       return Right(result);
     } catch (error) {

@@ -9,6 +9,7 @@ import 'package:smart_shipment_system/data/network/chatBotAppService.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/data/network/network_info.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
+import 'package:smart_shipment_system/data/response/response.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/domain/models/message.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
@@ -198,6 +199,35 @@ class RepositoryImplementation implements Repository {
     }, (response) {
       if (response.status == ResponseMessage.SUCCESS) {
         return Right(response.data!.order!.toDomain());
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+  @override
+  Future<Either<Failure, RegistrationResponse>> cancelOrderById(
+      String id) async {
+    return await (await _remoteDataSource.cancelOrderById(id)).fold((error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        return Right(response);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+  @override
+  Future<Either<Failure, CheckoutResponse>> confirmShipmentById(
+      String id) async {
+    return await (await _remoteDataSource.confirmShipmentById(id)).fold(
+        (error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        return Right(response);
       } else {
         return Left(ErrorHandler.handle(response).failure);
       }

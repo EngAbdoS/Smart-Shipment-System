@@ -295,7 +295,7 @@ class OrderResponse {
   UserResponse? client;
 
   @JsonKey(name: "price")
-  String? price;
+  int? price;
 
   OrderResponse(
       this.type,

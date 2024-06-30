@@ -281,7 +281,7 @@ OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) =>
       json['client'] == null
           ? null
           : UserResponse.fromJson(json['client'] as Map<String, dynamic>),
-      json['price'] as String?,
+      (json['price'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>

@@ -103,7 +103,7 @@ class ClientHomeViewModel extends MainClientViewModel {
 
   getHomeActiveShipmentList(dynamic context) async {
     await getAllShipments(context);
-    seeMore(10000);
+    seeMore(activeShipmentList.length);
     isActiveShipment = true;
   }
 

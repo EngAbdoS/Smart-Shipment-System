@@ -145,9 +145,35 @@ class ClientCreateOrderViewModel {
     });
   }
 
-  confirmShipment(dynamic context, GestureTapCallback navigate) {}
+  confirmShipment(dynamic context, GestureTapCallback navigate) async{
+    loadingState(context: context);
+    (await _repository.confirmShipmentById(
+    createdShipment?.id??"noid"))
+        .fold(
+    (failure) => {
+    errorState(context: context, message: failure.message),
+    }, (data) {
+      navigate();
+    hideState(context: context);
+    });
 
-  cancelShipment(dynamic context, GestureTapCallback navigate) {}
+
+
+  }
+
+  cancelShipment(dynamic context, GestureTapCallback navigate) async{
+    loadingState(context: context);
+    (await _repository.cancelOrderById(
+    createdShipment?.id??"noid"))
+        .fold(
+    (failure) => {
+    errorState(context: context, message: failure.message),
+    }, (data) {
+    navigate();
+    hideState(context: context);
+    });
+
+  }
 
   setCurrentFromLocationAndGov(LatLng currentFromLocation,
       String currentFromGovernment, String addressName) {

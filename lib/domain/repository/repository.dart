@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
+import 'package:smart_shipment_system/data/response/response.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/domain/models/message.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
@@ -25,7 +26,9 @@ abstract class Repository {
 
   Future<Either<Failure, ShipmentModel>> createShipment(
       CreateShipmentRequest createShipmentRequest);
+  Future<Either<Failure, CheckoutResponse>> confirmShipmentById(String id);
 
+  Future<Either<Failure, RegistrationResponse>> cancelOrderById(String id);
   Future<Either<Failure, List<RecommendedDeliveryEntity>>>
       getRecommendedDeliveries(String orderStartState,String orderEndState);
   Future<Either<Failure, bool>> updateDeliveryTripList(

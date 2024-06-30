@@ -50,18 +50,25 @@ class ClientCreateOrderRecommendedDeliveriesMainView extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Expanded(
-                          child: RegularButton(
-                              buttonAction: () => _viewModel.confirmShipment(
-                                  context,
-                                  () => _mainClientViewMode.changeWidget(
-                                      context, 7)),
-                              buttonWidget: Text(
-                                AppStrings.confirm_shipment,
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ).tr()),
-                        ),
-                        SizedBox(width: 10.w),
+                        _viewModel.recommendedDeliveryList.isNotEmpty
+                            ? Expanded(
+                                child: RegularButton(
+                                    buttonAction: () =>
+                                        _viewModel.confirmShipment(
+                                            context,
+                                            () => _mainClientViewMode
+                                                .changeWidget(context, 7)),
+                                    buttonWidget: Text(
+                                      AppStrings.confirm_shipment,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                    ).tr()),
+                              )
+                            : Container(),
+                        _viewModel.recommendedDeliveryList.isNotEmpty
+                            ? SizedBox(width: 10.w)
+                            : Container(),
                         Expanded(
                           child: RegularButton(
                               buttonAction: () => _viewModel.cancelShipment(

@@ -49,7 +49,7 @@ extension OrdersResponseMapper on OrderResponse? {
       delivered: this?.delivered ?? false,
       coming: this?.coming ?? false,
       paidStatus: this?.paidStatus ?? '',
-      price: this?.price ?? '',
+      price: this?.price.toString() ?? '',
       delivery:
           this?.delivery?.map((delivery) => delivery.toDomain()).toList() ?? [],
       client: this?.client?.toDomain() ??
@@ -96,7 +96,7 @@ extension OrderClientIdResponseMapper on OrderClientIdResponse? {
       delivered: this?.delivered ?? false,
       coming: this?.coming ?? false,
       paidStatus: this?.paidStatus ?? '',
-      price: this?.price ?? '',
+      price: this?.price.toString() ?? '',
       delivery:
           this?.delivery?.map((delivery) => delivery.toDomain()).toList() ?? [],
       clientId: this?.client ?? "",
