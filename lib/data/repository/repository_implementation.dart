@@ -191,6 +191,53 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
+  Future<Either<Failure, bool>> deliveryAssignOrderToMe(String id) async {
+    return await (await _remoteDataSource.deliveryAssignOrderToMe(id)).fold(
+        (error) {
+      return Left(error);
+    }, (response) async {
+      if (response.status == ResponseMessage.SUCCESS) {
+        return const Right(true);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+  @override
+  Future<Either<Failure, bool>> deliveryChangeOrderState(
+      String id, String status) async {
+    return await (await _remoteDataSource.deliveryChangeOrderState(id, status))
+        .fold((error) {
+      return Left(error);
+    }, (response) async {
+      if (response.status == ResponseMessage.SUCCESS) {
+        return const Right(true);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+  @override
+  Future<Either<Failure, List<ShipmentModel>>> deliveryGetOrders(
+      int pageIndex) async {
+    return await (await _remoteDataSource.deliveryGetOrders(pageIndex)).fold(
+        (error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        var ordersList =
+            response.data?.orders?.map((order) => order.toDomain()).toList();
+        _localDataSource.saveShipmentListToCache(ordersList ?? []);
+        return Right(ordersList ?? []);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+  @override
   Future<Either<Failure, ShipmentModel>> createShipment(
       CreateShipmentRequest createShipmentRequest) async {
     return await (await _remoteDataSource.createShipment(createShipmentRequest))

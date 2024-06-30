@@ -13,6 +13,7 @@ abstract class Repository {
   Future<Either<Failure, String>> getLoginNextNavigationRoute(dynamic context);
 
   Future<Either<Failure, UserModel>> getUserData();
+
   Future<Either<Failure, Message>> chatBot(String message);
 
   Future<Either<Failure, bool>> updateUserProfileImage(
@@ -26,16 +27,25 @@ abstract class Repository {
 
   Future<Either<Failure, ShipmentModel>> createShipment(
       CreateShipmentRequest createShipmentRequest);
+
   Future<Either<Failure, CheckoutResponse>> confirmShipmentById(String id);
 
   Future<Either<Failure, RegistrationResponse>> cancelOrderById(String id);
+
   Future<Either<Failure, List<RecommendedDeliveryEntity>>>
-      getRecommendedDeliveries(String orderStartState,String orderEndState);
+      getRecommendedDeliveries(String orderStartState, String orderEndState);
+
+  Future<Either<Failure, bool>> deliveryChangeOrderState(
+      String id, String status);
+
+  Future<Either<Failure, bool>> deliveryAssignOrderToMe(String id);
+
+  Future<Either<Failure, List<ShipmentModel>>> deliveryGetOrders(int pageIndex);
+
   Future<Either<Failure, bool>> updateDeliveryTripList(
       UpdateDeliveryTripListRequest updateDeliveryTripListRequest);
 
-  Future<Either<Failure, bool>> deleteDeliveryTripList(
-      int index);
+  Future<Either<Failure, bool>> deleteDeliveryTripList(int index);
 
   Future<Either<Failure, List<ShipmentModel>>> getAllComingOrders();
 
