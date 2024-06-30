@@ -16,6 +16,8 @@ class DeliveryHomeViewModel extends MainDeliveryViewModel {
   int fetchPageIndex = 1;
   List<ShipmentModel> ordersList = [];
   final Repository _repository;
+  bool isPaginationLoading = false;
+
   final StreamController _ordersListStreamController =
       BehaviorSubject<List<ShipmentModel>?>();
 
@@ -31,6 +33,7 @@ class DeliveryHomeViewModel extends MainDeliveryViewModel {
 
   Future getAllShipments(dynamic context) async {
     loadingState(context: context);
+    isPaginationLoading = true;
     (await _repository.deliveryGetOrders(fetchPageIndex)).fold(
         (failure) => {
               errorState(context: context, message: failure.message),
@@ -38,11 +41,15 @@ class DeliveryHomeViewModel extends MainDeliveryViewModel {
       ordersList.addAll(data);
       data.isNotEmpty ? fetchPageIndex++ : null;
       inputOrdersList.add(ordersList);
+      isPaginationLoading = false;
       hideState(context: context);
     });
   }
 
+assignOrderToMe(dynamic context,String orderId)
+{
 
+}
 
 
 
