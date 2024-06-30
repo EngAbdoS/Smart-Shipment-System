@@ -107,15 +107,18 @@ extension OrderClientIdResponseMapper on OrderClientIdResponse? {
 extension RecommmendedDeliveryeMapper on RecommendedDeliveryResponse? {
   RecommendedDeliveryEntity toDomain() {
     return RecommendedDeliveryEntity(
-      userName: this?.userName ?? "noName",
+      userName: this?.userName ?? this?.deliveryPerson?.userName ?? "noName",
       email: this?.email ?? "noEmail",
-      phoneNumber: this?.phoneNumber ?? "noPhone",
+      phoneNumber:
+          this?.phoneNumber ?? this?.deliveryPerson?.phoneNumber ?? "noPhone",
       role: this?.role ?? "noRole",
       userId: this?.userId ?? "noId",
-      vehicleType: this?.vehicleType ?? "noType",
+      vehicleType:
+          this?.vehicleType ?? this?.deliveryPerson?.vehicleType ?? "noType",
       vehicleLicenseImg: this?.vehicleLicenseImg ?? "noImage",
       deliveryApprovalImg: this?.deliveryApprovalImg ?? "noImage",
-      profileImage: this?.profileImage ?? "noImage",
+      profileImage:
+          this?.profileImage ?? this?.deliveryPerson?.profileImage ?? "noImage",
       deliveryApproved: this?.deliveryApproved ?? false,
       trips: this?.trips?.map((trip) => trip.toDomain()).toList() ?? [],
       otpResetExpires: this?.otpResetExpires ?? 'noTime',

@@ -368,7 +368,10 @@ RecommendedDeliveryResponse _$RecommendedDeliveryResponseFromJson(
           .toList(),
       json['confirmedEmail'] as bool?,
       json['otpResetExpires'] as String?,
-    );
+    )..deliveryPerson = json['deliveryPerson'] == null
+        ? null
+        : DeliveryPersonResponse.fromJson(
+            json['deliveryPerson'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$RecommendedDeliveryResponseToJson(
         RecommendedDeliveryResponse instance) =>
@@ -386,6 +389,31 @@ Map<String, dynamic> _$RecommendedDeliveryResponseToJson(
       'trip': instance.trips,
       'confirmedEmail': instance.confirmedEmail,
       'otpResetExpires': instance.otpResetExpires,
+      'deliveryPerson': instance.deliveryPerson,
+    };
+
+DeliveryPersonResponse _$DeliveryPersonResponseFromJson(
+        Map<String, dynamic> json) =>
+    DeliveryPersonResponse(
+      json['name'] as String?,
+      json['phone'] as String?,
+      json['vehicleType'] as String?,
+      json['profileImage'] as String?,
+    )
+      ..statusCode = (json['statusCode'] as num?)?.toInt()
+      ..status = json['status'] as String?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$DeliveryPersonResponseToJson(
+        DeliveryPersonResponse instance) =>
+    <String, dynamic>{
+      'statusCode': instance.statusCode,
+      'status': instance.status,
+      'message': instance.message,
+      'name': instance.userName,
+      'phone': instance.phoneNumber,
+      'vehicleType': instance.vehicleType,
+      'profileImage': instance.profileImage,
     };
 
 CheckoutResponse _$CheckoutResponseFromJson(Map<String, dynamic> json) =>

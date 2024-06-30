@@ -387,7 +387,8 @@ class RecommendedDeliveryResponse {
   bool? confirmedEmail;
   @JsonKey(name: "otpResetExpires")
   String? otpResetExpires;
-
+  @JsonKey(name: "deliveryPerson")
+  DeliveryPersonResponse? deliveryPerson;
   RecommendedDeliveryResponse(
       this.userId,
       this.userName,
@@ -407,7 +408,24 @@ class RecommendedDeliveryResponse {
       _$RecommendedDeliveryResponseFromJson(json); //why factory
   Map<String, dynamic> toJson() => _$RecommendedDeliveryResponseToJson(this);
 }
+@JsonSerializable()
+class DeliveryPersonResponse extends BaseResponse {
+  @JsonKey(name: "name")
+  String? userName;
+  @JsonKey(name: "phone")
+  String? phoneNumber;
+  @JsonKey(name: "vehicleType")
+  String? vehicleType;
+  @JsonKey(name: "profileImage")
+  String? profileImage;
 
+  DeliveryPersonResponse(this.userName,this.phoneNumber,this.vehicleType,this.profileImage);
+
+  factory DeliveryPersonResponse.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryPersonResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DeliveryPersonResponseToJson(this);
+}
 @JsonSerializable()
 class CheckoutResponse extends BaseResponse {
   @JsonKey(name: "data")
@@ -420,6 +438,7 @@ class CheckoutResponse extends BaseResponse {
 
   Map<String, dynamic> toJson() => _$CheckoutResponseToJson(this);
 }
+
 
 @JsonSerializable()
 class CheckoutDataResponse extends BaseResponse {
