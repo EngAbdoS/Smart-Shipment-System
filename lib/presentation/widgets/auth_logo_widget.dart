@@ -8,9 +8,10 @@ import 'package:smart_shipment_system/presentation/resources/values_manager.dart
 Widget authLogoWidget({int height = 122, bool isAnimate = true}) => Animate(
       effects: isAnimate
           ? [
-              const ShakeEffect(curve: Curves.bounceInOut),
+               ShakeEffect(curve: Curves.bounceInOut,duration: 300.milliseconds),
             ]
           : [],
+
       child: Container(
         padding: const EdgeInsets.only(
             top: AppPadding.p22 * 2, bottom: AppPadding.p18),
