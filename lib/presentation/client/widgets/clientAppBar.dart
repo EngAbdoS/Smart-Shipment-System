@@ -24,6 +24,8 @@ SliverAppBar buildSliverAppBar(
     stretch: true,
     snap: true,
     floating: true,
+    leadingWidth: 0,
+    leading: Container(),
     shape: const ContinuousRectangleBorder(
       borderRadius: BorderRadius.only(
         bottomLeft: Radius.circular(80),
