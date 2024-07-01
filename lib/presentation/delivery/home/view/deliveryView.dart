@@ -15,20 +15,20 @@ class DeliveryHomeView extends StatefulWidget {
 class _DeliveryHomeViewState extends State<DeliveryHomeView> {
   final DeliveryHomeViewModel _viewModel = instance<DeliveryHomeViewModel>();
   final MainDeliveryViewModel mainClientViewModel =
-      instance<MainDeliveryViewModel>();
+  instance<MainDeliveryViewModel>();
   final ScrollController _scrollController = ScrollController();
-_binding()
-{
-  _scrollController.addListener(_onScroll);
 
+  _binding() {
+    _scrollController.addListener(_onScroll);
+  }
 
-
-}
   void _onScroll() {
-    if (!_viewModel.isPaginationLoading && _scrollController.position.pixels >= _scrollController.position.maxScrollExtent * 0.7) {
+    if (!_viewModel.isPaginationLoading && _scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent * 0.7) {
       _viewModel.getAllShipments(context);
     }
   }
+
   @override
   void initState() {
     _viewModel.startHomeView(context);

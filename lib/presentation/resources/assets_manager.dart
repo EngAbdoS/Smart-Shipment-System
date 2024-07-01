@@ -59,6 +59,7 @@ class JsonAssets {
   static const String loadingDots = "$JSON_PATH/loadingDots.json";
   static const String robot = "$JSON_PATH/robot.json";
   static const String mapCard = "$JSON_PATH/mapCard.json";
+  static const String notification = "$JSON_PATH/notification.json";
 
 
 }

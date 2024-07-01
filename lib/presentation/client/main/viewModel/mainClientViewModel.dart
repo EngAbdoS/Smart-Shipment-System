@@ -9,6 +9,7 @@ import 'package:smart_shipment_system/presentation/client/createOrder/view/order
 import 'package:smart_shipment_system/presentation/client/createOrder/view/recommendedDeliveries.dart';
 import 'package:smart_shipment_system/presentation/client/home/view/clientHomeView.dart';
 import 'package:smart_shipment_system/presentation/client/shipment/shipmentView.dart';
+import 'package:smart_shipment_system/presentation/notifications/notificationsScreen.dart';
 import 'package:smart_shipment_system/presentation/userProfile/editProfileData/view/editProfileDataView.dart';
 import 'package:smart_shipment_system/presentation/userProfile/view/clientUserProfile.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
@@ -112,14 +113,23 @@ class MainClientViewModel {
             inputMainIndexStream.add(widget);
             break;
           }
-          case 7:
-        {
-          pageViewIndex = widget;
-          inputMainStream
-              .add(OrderPaymentView());
-          inputMainIndexStream.add(widget);
-          break;
-        }
+        case 7:
+          {
+            pageViewIndex = widget;
+            inputMainStream.add(OrderPaymentView());
+            inputMainIndexStream.add(widget);
+            break;
+          }
+        case 8:
+          {
+            pageViewIndex = widget;
+            inputMainStream.add(NotificationsView(
+              user: userModel!,
+              profileNavigate: () => changeWidget(context, 3),
+            ));
+            inputMainIndexStream.add(widget);
+            break;
+          }
       }
     }
   }

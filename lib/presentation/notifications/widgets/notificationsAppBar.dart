@@ -1,20 +1,21 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_shipment_system/presentation/delivery/home/viewModel/deliveryViewModel.dart';
-import 'package:smart_shipment_system/presentation/delivery/main/viewModel/mainDeliveryViewModel.dart';
+import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/notificationIcon.dart';
 import 'package:smart_shipment_system/presentation/widgets/profilePicture.dart';
 
-Widget buildDeliverySliverAppBar(
-    {required BuildContext context,
-    required DeliveryHomeViewModel viewModel,
-    required MainDeliveryViewModel mainDeliveryViewModel}) {
+Widget notificationsSliverAppBar({
+  required BuildContext context,
+  required UserModel user,
+  required GestureTapCallback profileNavigate,
+}) {
   return SliverAppBar(
     pinned: true,
-    expandedHeight: 120.w,
+    expandedHeight: 90.w,
     collapsedHeight: 90.h,
     stretch: true,
     snap: true,
@@ -33,8 +34,8 @@ Widget buildDeliverySliverAppBar(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ProfileCirclerImage(
-            imageUrl: viewModel.userHomeData.profileImage,
-            navigate: () => mainDeliveryViewModel.changeWidget(context, 3),
+            imageUrl: user.profileImage,
+            navigate: profileNavigate,
           ),
           Expanded(
             child: Column(
@@ -48,7 +49,7 @@ Widget buildDeliverySliverAppBar(
                 ).tr(),
                 Flexible(
                   child: Text(
-                    viewModel.userHomeData.userName,
+                    user.userName,
                     style: Theme.of(context)
                         .textTheme
                         .labelSmall!
@@ -60,8 +61,7 @@ Widget buildDeliverySliverAppBar(
               ],
             ),
           ),
-          notificationIcon(
-              () => mainDeliveryViewModel.changeWidget(context, 8)),
+          notificationIcon(() {}),
         ],
       ),
     ),

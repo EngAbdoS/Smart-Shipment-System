@@ -7,6 +7,7 @@ import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/chat/view/chatBotView.dart';
 import 'package:smart_shipment_system/presentation/delivery/home/view/deliveryView.dart';
 import 'package:smart_shipment_system/presentation/delivery/tripList/view/tripListView.dart';
+import 'package:smart_shipment_system/presentation/notifications/notificationsScreen.dart';
 import 'package:smart_shipment_system/presentation/userProfile/editProfileData/view/editProfileDataView.dart';
 import 'package:smart_shipment_system/presentation/userProfile/view/deliveryUserProfile.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
@@ -90,6 +91,17 @@ class MainDeliveryViewModel {
             pageViewIndex = widget;
             initDeliveryTripListModule(userModel!.tripList ?? []);
             inputMainStream.add(TripListView());
+            inputMainIndexStream.add(widget);
+            break;
+          }
+
+        case 8:
+          {
+            pageViewIndex = widget;
+            inputMainStream.add(NotificationsView(
+              user: userModel!,
+              profileNavigate: () => changeWidget(context, 3),
+            ));
             inputMainIndexStream.add(widget);
             break;
           }

@@ -25,8 +25,7 @@ Widget shipmentSearch(
       ),
       child: TextFormField(
         onChanged: (id) => setSearchId(id),
-        onEditingComplete:search ,
-
+        onEditingComplete: search,
         keyboardType: TextInputType.text,
         controller: shipmentTextEditing,
         decoration: InputDecoration(

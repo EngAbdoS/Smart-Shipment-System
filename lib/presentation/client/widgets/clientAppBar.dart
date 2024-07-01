@@ -9,6 +9,7 @@ import 'package:smart_shipment_system/presentation/client/widgets/shipmentSearch
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
+import 'package:smart_shipment_system/presentation/widgets/notificationIcon.dart';
 import 'package:smart_shipment_system/presentation/widgets/profilePicture.dart';
 
 SliverAppBar buildSliverAppBar(
@@ -64,14 +65,7 @@ SliverAppBar buildSliverAppBar(
               ],
             ),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.circle_notifications_outlined,
-              size: 53.h,
-              color: ColorManager.black,
-            ),
-          ),
+          notificationIcon(() => mainClientViewModel.changeWidget(context, 8)),
         ],
       ),
     ),
