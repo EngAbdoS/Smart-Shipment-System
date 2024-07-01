@@ -33,12 +33,14 @@ class _MyAppState extends State<MyApp> {
         designSize: AppConstants.appDesignSize,
         minTextAdapt: true,
         splitScreenMode: true,
-        child: MaterialApp.router(
+        child: MaterialApp(
           debugShowCheckedModeBanner: false,
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
-          routerConfig: AppRouter.router,
+          onGenerateRoute: getRoute,
+          initialRoute: Routes.splashRoute,
+        //  routerConfig: AppRouter.router,
           theme: context.locale == ARABIC_LOCAL
               ? getArabicAppTheme()
               : getAppTheme(),

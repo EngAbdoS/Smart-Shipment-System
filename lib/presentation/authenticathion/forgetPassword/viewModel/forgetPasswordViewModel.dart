@@ -46,7 +46,7 @@ class ForgotPasswordViewModel
     );
   }
 
-  // GoRouter.of(context).push(Routes.changePasswordViewRoute);
+  // Navigator.of(context).pushNamed(Routes.changePasswordViewRoute);
 
   @override
   Sink get inputEmail => _emailStreamController.sink;

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
@@ -643,7 +643,7 @@ Widget signInWidget(BuildContext context) {
         ).tr(),
         TextButton(
           onPressed: () =>
-              GoRouter.of(context).pushReplacement(Routes.loginViewRoute),
+              Navigator.of(context).pushReplacementNamed(Routes.loginViewRoute),
           child: Text(
             AppStrings.signIn,
             style: Theme.of(context).textTheme.titleLarge!.copyWith(

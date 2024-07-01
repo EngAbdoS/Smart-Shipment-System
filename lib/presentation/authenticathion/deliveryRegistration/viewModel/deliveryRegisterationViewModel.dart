@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
@@ -293,15 +293,16 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
       case 1:
         {
           _pageOneValidation()
-              ? GoRouter.of(context).push(Routes.deliveryRegistrationView2Route)
+              ? Navigator.of(context)
+                  .pushNamed(Routes.deliveryRegistrationView2Route)
               : toastWidgetC(
                   context, AppStrings.validateDeliveryTripInputToast);
         }
       case 2:
         {
           _pageTwoValidation()
-              ? GoRouter.of(context)
-                  .push(Routes.deliveryRegistrationRoleViewRoute)
+              ? Navigator.of(context)
+                  .pushNamed(Routes.deliveryRegistrationRoleViewRoute)
               : toastWidgetC(
                   context, AppStrings.validateDeliveryTripInputToast);
         }
@@ -309,10 +310,10 @@ class DeliveryRegistrationViewModel extends BaseRegistrationViewModel {
         {
           _pageDeliveryRoleValidation()
               ? deliveryRole == AppConstants.deliveryRoleExternal
-                  ? GoRouter.of(context)
-                      .push(Routes.deliveryExternalRegistrationViewRoute)
-                  : GoRouter.of(context)
-                      .push(Routes.deliveryInteriorRegistrationViewRoute)
+                  ? Navigator.of(context)
+                      .pushNamed(Routes.deliveryExternalRegistrationViewRoute)
+                  : Navigator.of(context)
+                      .pushNamed(Routes.deliveryInteriorRegistrationViewRoute)
               : toastWidgetC(
                   context, AppStrings.validateDeliveryTripInputToast);
         }

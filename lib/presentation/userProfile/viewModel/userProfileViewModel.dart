@@ -1,6 +1,7 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/app/app_preferances.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
@@ -41,10 +42,10 @@ class UserProfileViewModel //extends MainClientViewModel
 
   void logout(dynamic context) {
     _repository.logout();
-    GoRouter.of(context).pushReplacement(Routes.loginViewRoute);
+    Navigator.of(context).pushReplacementNamed(Routes.loginViewRoute);
   }
 
-  Future<void>forgotPassword(dynamic context) async {
+  Future<void> forgotPassword(dynamic context) async {
     dynamic stateContext = context;
     loadingState(context: stateContext);
     (await _repository.forgetPassword(userProfileData.email)).fold(

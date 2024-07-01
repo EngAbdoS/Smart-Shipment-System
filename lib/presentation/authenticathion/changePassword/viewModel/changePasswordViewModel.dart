@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:go_router/go_router.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/app/functions.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
@@ -126,7 +125,7 @@ class ChangePasswordViewModel
       (data) => data
           ? {
               hideState(context: context),
-              GoRouter.of(context).pushReplacement(Routes.loginViewRoute),
+              Navigator.of(context).pushReplacementNamed(Routes.loginViewRoute),
               toastWidgetC(context, AppStrings.successVerified),
             }
           : {

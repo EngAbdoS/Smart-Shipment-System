@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/data/network/app_api.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/ViewModel/loginViewModel.dart';
@@ -81,8 +81,7 @@ class LoginView extends StatelessWidget {
                           .copyWith(color: ColorManager.black),
                     ).tr(),
                     TextButton(
-                      onPressed: () => GoRouter.of(context)
-                          .pushReplacement(Routes.forgotPasswordViewRoute),
+                      onPressed: () => Navigator.of(context).pushReplacementNamed(Routes.forgotPasswordViewRoute),
                       child: Text(
                         AppStrings.reset,
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -133,7 +132,7 @@ class LoginView extends StatelessWidget {
                     ).tr(),
                     TextButton(
                       onPressed: () =>
-                          GoRouter.of(context).push(Routes.authViewRoute),
+                          Navigator.of(context).pushNamed(Routes.authViewRoute),
                       child: Text(
                         AppStrings.signUn,
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(

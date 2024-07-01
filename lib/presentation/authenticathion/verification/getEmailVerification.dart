@@ -1,4 +1,5 @@
-import 'package:go_router/go_router.dart';
+
+import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 
@@ -14,6 +15,6 @@ void getEmailVerification(
 
   initEmailVerificationModule(email, nextActionRoute, executeOrRouteOnly);
   executeOrRouteOnly
-      ? GoRouter.of(context).pushReplacement(Routes.emilVerificationViewRoute)
-      : GoRouter.of(context).push(Routes.emilVerificationViewRoute);
+      ? Navigator.of(context).pushReplacementNamed(Routes.emilVerificationViewRoute)
+      : Navigator.of(context).pushNamed(Routes.emilVerificationViewRoute);
 }

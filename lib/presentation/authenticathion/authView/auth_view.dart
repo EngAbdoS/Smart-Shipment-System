@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
@@ -32,15 +32,15 @@ class AuthenticationView extends StatelessWidget {
             children: [
               roleButton(
                   ImageAssets.delivery,
-                  () => GoRouter.of(context).pushReplacement(Routes.deliveryRegistrationView1Route),
-                      //GoRouter.of(context).push(Routes.deliveryAuthViewRoute),
+                  () => Navigator.of(context).pushReplacementNamed(Routes.deliveryRegistrationView1Route),
+                      //Navigator.of(context).pushNamed(Routes.deliveryAuthViewRoute),
                   context,
                   AppStrings.delivery).animate()
                   .slideX(begin: 0.5, end: 0.0, curve: Curves.easeInOutBack),
               roleButton(
                   ImageAssets.client,
-                  () =>  GoRouter.of(context).pushReplacement(Routes.clientRegistrationViewRoute),
-                      //GoRouter.of(context).push(Routes.clientAuthViewRoute),
+                  () =>  Navigator.of(context).pushReplacementNamed(Routes.clientRegistrationViewRoute),
+                      //Navigator.of(context).pushNamed(Routes.clientAuthViewRoute),
                   context,
                   AppStrings.client).animate()
                   .slideX(begin:- 0.5, end: 0.0, curve: Curves.easeInOutBack),

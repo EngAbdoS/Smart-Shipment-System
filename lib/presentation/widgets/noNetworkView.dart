@@ -4,7 +4,7 @@ import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
 
 class NoNetworkView extends StatelessWidget {
@@ -26,7 +26,7 @@ class NoNetworkView extends StatelessWidget {
     loadingState(context: context);
     (
             await _repository.getSplashNextNavigationRoute(context))
-        .fold((error) => GoRouter.of(context).pushReplacement(Routes.noRoute),
-            (route) => GoRouter.of(context).pushReplacement(route));
+        .fold((error) => Navigator.of(context).pushReplacementNamed(Routes.noRoute),
+            (route) =>   Navigator.of(context).pushReplacementNamed(route));
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/domain/use_cases/splash_navigation_use_case.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
@@ -36,13 +36,13 @@ class _SplashScreenViewState extends State<SplashScreenView> {
   _nextNavigation(BuildContext context) async {
     (await _splashNavigationUseCase.execute(context)).fold(
         (l) => _moreThanThereSeconds
-            ? GoRouter.of(context).pushReplacement(Routes.noRoute)
+            ? Navigator.of(context).pushReplacementNamed(Routes.noRoute)
             : Future.delayed(const Duration(seconds: 2),
-                () => GoRouter.of(context).pushReplacement(Routes.noRoute)),
+                () => Navigator.of(context).pushReplacementNamed(Routes.noRoute)),
         (route) => _moreThanThereSeconds
-            ? GoRouter.of(context).pushReplacement(route)
+            ? Navigator.of(context).pushReplacementNamed(route)
             : Future.delayed(const Duration(seconds: 2),
-                () => GoRouter.of(context).pushReplacement(route)));
+                () => Navigator.of(context).pushReplacementNamed(route)));
   }
 
   _startTiming() async {

@@ -1,4 +1,5 @@
-import 'package:go_router/go_router.dart';
+
+import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/domain/use_cases/login_usecase.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseLoginViewModel.dart';
@@ -27,7 +28,7 @@ class LoginViewModel extends BaseLoginViewModel {
                       errorState(context: context, message: error.message),
                   (route) => {
                         hideState(context: context),
-                        GoRouter.of(context).pushReplacement(route),
+                        Navigator.of(context).pushReplacementNamed(route),
                       }),
 
               //TODO call me for getting data

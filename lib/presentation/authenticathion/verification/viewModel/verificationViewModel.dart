@@ -1,4 +1,4 @@
-import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/changePassword/getChangePassword.dart';
@@ -43,9 +43,9 @@ class EmailVerificationViewModel {
               (data) => data
                   ? {
                       hideState(context: context),
-                      GoRouter.of(context).pushReplacement(nextActionRoute),
+                      Navigator.of(context)
+                          .pushReplacementNamed(nextActionRoute),
                       toastWidgetC(context, AppStrings.successVerified),
-                      print(" verified"),
                     }
                   : {
                       errorState(

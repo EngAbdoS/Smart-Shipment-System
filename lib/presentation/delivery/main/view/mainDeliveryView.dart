@@ -75,7 +75,7 @@ class _MainDeliveryViewState extends State<MainDeliveryView> {
 
   @override
   void dispose() {
-    _viewModel.dispose();
+   // _viewModel.dispose();
     super.dispose();
   }
 }
