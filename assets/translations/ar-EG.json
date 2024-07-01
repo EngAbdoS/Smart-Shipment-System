@@ -143,7 +143,8 @@
   "edit_trip_list": "تعديل قائمة الرحلات الثابتة",
   "message_hint": "ادخل رسالتك",
   "on_data": "لا يوجد معلومات",
-
+"no_recommended_delivery": "لا يوجد مسار مناسب",
+  "cost": "التكلفة",
 
 "cancel_order": "الغاء الشحنة",
   "hello": "مرحبا !!",

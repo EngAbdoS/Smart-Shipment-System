@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/presentation/client/createOrder/widgets/recommendedDeliveryCard.dart';
+import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/emptyListWidget.dart';
 
 Widget recommendedDeliveryList(
@@ -13,6 +14,6 @@ Widget recommendedDeliveryList(
           itemBuilder: (context, index) {
             return recommendedDeliveryCard(context,deliveryList[index]);
           })
-      : emptyListWidget(context,);
+      : emptyListWidget(context,message:AppStrings.no_recommended_delivery );
 }
 
