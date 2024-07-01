@@ -107,22 +107,30 @@ extension OrderClientIdResponseMapper on OrderClientIdResponse? {
 extension RecommmendedDeliveryeMapper on RecommendedDeliveryResponse? {
   RecommendedDeliveryEntity toDomain() {
     return RecommendedDeliveryEntity(
-      userName: this?.userName ?? this?.deliveryPerson?.userName ?? "noName",
-      email: this?.email ?? "noEmail",
-      phoneNumber:
-          this?.phoneNumber ?? this?.deliveryPerson?.phoneNumber ?? "noPhone",
-      role: this?.role ?? "noRole",
-      userId: this?.userId ?? "noId",
-      vehicleType:
-          this?.vehicleType ?? this?.deliveryPerson?.vehicleType ?? "noType",
-      vehicleLicenseImg: this?.vehicleLicenseImg ?? "noImage",
-      deliveryApprovalImg: this?.deliveryApprovalImg ?? "noImage",
-      profileImage:
-          this?.profileImage ?? this?.deliveryPerson?.profileImage ?? "noImage",
-      deliveryApproved: this?.deliveryApproved ?? false,
-      trips: this?.trips?.map((trip) => trip.toDomain()).toList() ?? [],
-      otpResetExpires: this?.otpResetExpires ?? 'noTime',
-      confirmedEmail: this?.confirmedEmail ?? false,
+      userName: this?.deliveryPerson?.userName ?? "noName",
+      // email: this?.email ?? "noEmail",
+      phoneNumber: this?.deliveryPerson?.phoneNumber ?? "noPhone",
+      // role: this?.role ?? "noRole",
+      // userId: this?.userId ?? "noId",
+      vehicleType: this?.deliveryPerson?.vehicleType ?? "noType",
+      // vehicleLicenseImg: this?.vehicleLicenseImg ?? "noImage",
+      // deliveryApprovalImg: this?.deliveryApprovalImg ?? "noImage",
+      profileImage: this?.deliveryPerson?.profileImage ?? "noImage",
+
+      startLoc: LatLng(this?.startLoc?.coordinates?[0] ?? 0,
+          this?.startLoc?.coordinates?[1] ?? 0),
+      endLoc: LatLng(this?.endLoc?.coordinates?[0] ?? 0,
+          this?.endLoc?.coordinates?[1] ?? 0),
+      startState: this?.startState ?? "noState",
+      endState: this?.endState ?? "noState",
+      time: this?.time ?? "noTime",
+      duration: this?.duration ?? "noDuration",
+      day: this?.day ?? "noDay",
+      id: this?.userId ?? "noId",
+      // deliveryApproved: this?.deliveryApproved ?? false,
+      // trips: this?.trips?.map((trip) => trip.toDomain()).toList() ?? [],
+      // otpResetExpires: this?.otpResetExpires ?? 'noTime',
+      // confirmedEmail: this?.confirmedEmail ?? false,
     );
   }
 }
