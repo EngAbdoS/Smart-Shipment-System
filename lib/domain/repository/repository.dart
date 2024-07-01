@@ -28,7 +28,7 @@ abstract class Repository {
   Future<Either<Failure, ShipmentModel>> createShipment(
       CreateShipmentRequest createShipmentRequest);
 
-  Future<Either<Failure, CheckoutResponse>> confirmShipmentById(String id);
+  Future<Either<Failure, CheckoutResponse>> checkOutShipmentById(String id);
 
   Future<Either<Failure, RegistrationResponse>> cancelOrderById(String id);
 
@@ -38,7 +38,7 @@ abstract class Repository {
   Future<Either<Failure, bool>> deliveryChangeOrderState(
       String id, String status);
 
-  Future<Either<Failure, bool>> deliveryAssignOrderToDelivery(String orderId,List<String> deliveryId);
+  Future<Either<Failure, bool>> clientAssignOrderToDelivery(String orderId,List<String> deliveryId);
 
   Future<Either<Failure, List<ShipmentModel>>> deliveryGetOrders(int pageIndex);
 

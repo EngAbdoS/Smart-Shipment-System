@@ -8,7 +8,6 @@ import 'package:smart_shipment_system/presentation/client/createOrder/viewModel/
 import 'package:smart_shipment_system/presentation/client/createOrder/widgets/priceWidget.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/createOrder/widgets/recommendedDeliveryList.dart';
-import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/regular_button.dart';
 
@@ -57,7 +56,7 @@ class ClientCreateOrderRecommendedDeliveriesMainView extends StatelessWidget {
                             ? Expanded(
                                 child: RegularButton(
                                     buttonAction: () =>
-                                        _viewModel.confirmShipment(
+                                        _viewModel.confirmShipmentToDeliveries(
                                             context,
                                             () => _mainClientViewMode
                                                 .changeWidget(context, 7)),

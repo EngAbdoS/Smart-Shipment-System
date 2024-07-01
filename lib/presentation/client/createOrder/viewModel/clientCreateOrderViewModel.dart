@@ -10,6 +10,7 @@ import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.d
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
+import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
 import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
@@ -145,34 +146,32 @@ class ClientCreateOrderViewModel {
     });
   }
 
-  confirmShipment(dynamic context, GestureTapCallback navigate) async{
+  confirmShipmentToDeliveries(
+      dynamic context, GestureTapCallback navigate) async {
     loadingState(context: context);
-    (await _repository.confirmShipmentById(
-    createdShipment?.id??"noid"))
+    List<String> deliveryId =
+        recommendedDeliveryList.map((delivery) => delivery.id).toList();
+    (await _repository.clientAssignOrderToDelivery(
+            createdShipment?.id ?? "noid", deliveryId))
         .fold(
-    (failure) => {
-    errorState(context: context, message: failure.message),
-    }, (data) {
-      navigate();
-    hideState(context: context);
+            (failure) => {
+                  errorState(context: context, message: failure.message),
+                }, (data) {
+      data
+          ? {navigate(), hideState(context: context)}
+          : errorState(context: context, message: AppStrings.unknownError);
     });
-
-
-
   }
 
-  cancelShipment(dynamic context, GestureTapCallback navigate) async{
+  cancelShipment(dynamic context, GestureTapCallback navigate) async {
     loadingState(context: context);
-    (await _repository.cancelOrderById(
-    createdShipment?.id??"noid"))
-        .fold(
-    (failure) => {
-    errorState(context: context, message: failure.message),
-    }, (data) {
-    navigate();
-    hideState(context: context);
+    (await _repository.cancelOrderById(createdShipment?.id ?? "noid")).fold(
+        (failure) => {
+              errorState(context: context, message: failure.message),
+            }, (data) {
+      navigate();
+      hideState(context: context);
     });
-
   }
 
   setCurrentFromLocationAndGov(LatLng currentFromLocation,

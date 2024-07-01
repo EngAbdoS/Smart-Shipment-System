@@ -191,21 +191,26 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
-  Future<Either<Failure, bool>> deliveryAssignOrderToDelivery(
+  Future<Either<Failure, bool>> clientAssignOrderToDelivery(
       String orderId, List<String> deliveryId) async {
+    List<bool>responses=[];
     try {
       for (var id in deliveryId) {
-       (await _remoteDataSource.deliveryAssignOrderToMe(
+      (await _remoteDataSource.clientAssignOrderToDelivery(
                 orderId, id))
             .fold((error) {
           return Left(error);
         }, (response) async {
           if (response.status != ResponseMessage.SUCCESS) {
-            return Left(ErrorHandler.handle(response).failure);
+          responses.add(false);
           }
+         else
+           {
+             responses.add(true);
+           }
         });
       }
-      return const Right(true);
+      return  Right(responses.contains(false)?true:false);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
     }
@@ -274,9 +279,9 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
-  Future<Either<Failure, CheckoutResponse>> confirmShipmentById(
+  Future<Either<Failure, CheckoutResponse>> checkOutShipmentById(
       String id) async {
-    return await (await _remoteDataSource.confirmShipmentById(id)).fold(
+    return await (await _remoteDataSource.checkOutShipmentById(id)).fold(
         (error) {
       return Left(error);
     }, (response) {
