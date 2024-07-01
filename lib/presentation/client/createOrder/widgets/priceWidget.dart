@@ -24,11 +24,11 @@ Widget priceWidget(BuildContext context, String? price) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text("${AppStrings.cost} :   ",
+        Text("${AppStrings.cost.tr()} :   ",
                 style: Theme.of(context).textTheme.bodyLarge)
-            .tr(),
+            ,
         Text(price ?? "!!!", style: Theme.of(context).textTheme.titleSmall)
-            .tr(),
+            ,
       ],
     ),
   );

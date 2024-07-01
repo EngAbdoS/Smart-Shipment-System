@@ -191,17 +191,24 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
-  Future<Either<Failure, bool>> deliveryAssignOrderToMe(String orderId,String deliveryId) async {
-    return await (await _remoteDataSource.deliveryAssignOrderToMe(orderId,deliveryId)).fold(
-        (error) {
-      return Left(error);
-    }, (response) async {
-      if (response.status == ResponseMessage.SUCCESS) {
-        return const Right(true);
-      } else {
-        return Left(ErrorHandler.handle(response).failure);
+  Future<Either<Failure, bool>> deliveryAssignOrderToDelivery(
+      String orderId, List<String> deliveryId) async {
+    try {
+      for (var id in deliveryId) {
+       (await _remoteDataSource.deliveryAssignOrderToMe(
+                orderId, id))
+            .fold((error) {
+          return Left(error);
+        }, (response) async {
+          if (response.status != ResponseMessage.SUCCESS) {
+            return Left(ErrorHandler.handle(response).failure);
+          }
+        });
       }
-    });
+      return const Right(true);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
   }
 
   @override
