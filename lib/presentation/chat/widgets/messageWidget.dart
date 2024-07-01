@@ -6,6 +6,7 @@ import 'package:smart_shipment_system/domain/models/message.dart';
 import 'package:smart_shipment_system/presentation/chat/viewModel/ChatBotViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
+import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 
 Widget messageWidget(
@@ -47,17 +48,20 @@ Widget messageWidget(
                 ),
                 !message.isLoading
                     ? Flexible(
-                        child: Text(
-                          message.message,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(color: ColorManager.white),
-                        ).animate().blur(
-                            end: Offset(0, 0),
-                            begin: Offset(0.5, 0.5),
-                            duration: 300.microseconds,
-                            curve: Curves.fastEaseInToSlowEaseOut),
+                        child: Transform.flip(
+                          flipX: context.locale == ENGLISH_LOCAL,
+                          child: Text(
+                            message.message,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(color: ColorManager.white),
+                          ).animate().blur(
+                              end: Offset(0, 0),
+                              begin: Offset(0.5, 0.5),
+                              duration: 300.microseconds,
+                              curve: Curves.fastEaseInToSlowEaseOut),
+                        ),
                       )
                     : Flexible(
                         child: SizedBox(
@@ -70,13 +74,16 @@ Widget messageWidget(
                       )),
               ],
             )
-          : Text(
-              message.message,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: ColorManager.white),
-            ),
+          : Transform.flip(
+        flipX: context.locale == ENGLISH_LOCAL,
+            child: Text(
+                message.message,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(color: ColorManager.white),
+              ),
+          ),
     ),
   );
 }
