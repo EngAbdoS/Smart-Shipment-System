@@ -61,7 +61,7 @@ abstract class AppServiceClient {
       @Path("id") String id, @Path("status") String status);
 
   @PATCH('delivery/order/{id}/assignToMe')
-  Future<RegistrationResponse> deliveryAssignOrderToMe(@Path("id") String id);
+  Future<RegistrationResponse> deliveryAssignOrderDelivery(@Path("id") String id,@Field("delivery_id") String deliveryId);
 
   @GET('delivery/order/summary?limit=10&page={pageIndex}')
   Future<OrdersResponse> deliveryGetOrders(@Path("pageIndex") int pageIndex);

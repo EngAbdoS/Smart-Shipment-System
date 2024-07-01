@@ -57,8 +57,8 @@ Widget messageWidget(
                                 .titleLarge
                                 ?.copyWith(color: ColorManager.white),
                           ).animate().blur(
-                              end: Offset(0, 0),
-                              begin: Offset(0.5, 0.5),
+                              end: const Offset(0, 0),
+                              begin: const Offset(0.5, 0.5),
                               duration: 300.microseconds,
                               curve: Curves.fastEaseInToSlowEaseOut),
                         ),

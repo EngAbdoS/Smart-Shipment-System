@@ -38,7 +38,7 @@ abstract class Repository {
   Future<Either<Failure, bool>> deliveryChangeOrderState(
       String id, String status);
 
-  Future<Either<Failure, bool>> deliveryAssignOrderToMe(String id);
+  Future<Either<Failure, bool>> deliveryAssignOrderToMe(String orderId,String deliveryId);
 
   Future<Either<Failure, List<ShipmentModel>>> deliveryGetOrders(int pageIndex);
 

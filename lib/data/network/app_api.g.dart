@@ -387,11 +387,14 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<RegistrationResponse> deliveryAssignOrderToMe(String id) async {
+  Future<RegistrationResponse> deliveryAssignOrderDelivery(
+    String id,
+    String deliveryId,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = {'delivery_id': deliveryId};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RegistrationResponse>(Options(
       method: 'PATCH',

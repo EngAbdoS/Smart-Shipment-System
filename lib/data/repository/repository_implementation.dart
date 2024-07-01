@@ -191,8 +191,8 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
-  Future<Either<Failure, bool>> deliveryAssignOrderToMe(String id) async {
-    return await (await _remoteDataSource.deliveryAssignOrderToMe(id)).fold(
+  Future<Either<Failure, bool>> deliveryAssignOrderToMe(String orderId,String deliveryId) async {
+    return await (await _remoteDataSource.deliveryAssignOrderToMe(orderId,deliveryId)).fold(
         (error) {
       return Left(error);
     }, (response) async {

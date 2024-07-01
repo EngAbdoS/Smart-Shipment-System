@@ -32,7 +32,7 @@ abstract class RemoteDataSource {
       String id, String status);
 
   Future<Either<Failure, RegistrationResponse>> deliveryAssignOrderToMe(
-      String id);
+      String orderId,String deliveryId);
 
   Future<Either<Failure, OrdersResponse>> deliveryGetOrders(int pageIndex);
 
@@ -201,9 +201,9 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
 
   @override
   Future<Either<Failure, RegistrationResponse>> deliveryAssignOrderToMe(
-      String id) async {
+      String orderId,String deliveryId) async {
     try {
-      var result = await _appServiceClient.deliveryAssignOrderToMe(id);
+      var result = await _appServiceClient.deliveryAssignOrderDelivery(orderId,deliveryId);
       return Right(result);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
