@@ -363,51 +363,76 @@ class RecommendedDeliveriesDataResponse {
 class RecommendedDeliveryResponse {
   @JsonKey(name: "_id")
   String? userId;
-  @JsonKey(name: "name")
-  String? userName;
-  @JsonKey(name: "email")
-  String? email;
-  @JsonKey(name: "phone")
-  String? phoneNumber;
-  @JsonKey(name: "role")
-  String? role;
-  @JsonKey(name: "vehicleType")
-  String? vehicleType;
-  @JsonKey(name: "vehicleLicenseImg")
-  String? vehicleLicenseImg;
-  @JsonKey(name: "deliveryApprovalImg")
-  String? deliveryApprovalImg;
-  @JsonKey(name: "deliveryApproved")
-  bool? deliveryApproved;
-  @JsonKey(name: "profileImage")
-  String? profileImage;
-  @JsonKey(name: "trip")
-  List<DeliveryTripResponse>? trips;
-  @JsonKey(name: "confirmedEmail")
-  bool? confirmedEmail;
-  @JsonKey(name: "otpResetExpires")
-  String? otpResetExpires;
+  @JsonKey(name: "startLoc")
+  LatLonResponse? startLoc;
+  @JsonKey(name: "endLoc")
+  LatLonResponse? endLoc;
+  @JsonKey(name: "startState")
+  String? startState;
+  @JsonKey(name: "endState")
+  String? endState;
+  @JsonKey(name: "time")
+  String? time;
+  @JsonKey(name: "duration")
+  String? duration;
+  @JsonKey(name: "day")
+  String? day;
+
+  // @JsonKey(name: "name")
+  // String? userName;
+  // @JsonKey(name: "email")
+  // String? email;
+  // @JsonKey(name: "phone")
+  // String? phoneNumber;
+  // @JsonKey(name: "role")
+  // String? role;
+  // @JsonKey(name: "vehicleType")
+  // String? vehicleType;
+  // @JsonKey(name: "vehicleLicenseImg")
+  // String? vehicleLicenseImg;
+  // @JsonKey(name: "deliveryApprovalImg")
+  // String? deliveryApprovalImg;
+  // @JsonKey(name: "deliveryApproved")
+  // bool? deliveryApproved;
+  // @JsonKey(name: "profileImage")
+  // String? profileImage;
+  // @JsonKey(name: "trip")
+  // List<DeliveryTripResponse>? trips;
+  // @JsonKey(name: "confirmedEmail")
+  // bool? confirmedEmail;
+  // @JsonKey(name: "otpResetExpires")
+  // String? otpResetExpires;
   @JsonKey(name: "deliveryPerson")
   DeliveryPersonResponse? deliveryPerson;
+
   RecommendedDeliveryResponse(
       this.userId,
-      this.userName,
-      this.email,
-      this.phoneNumber,
-      this.role,
-      this.vehicleType,
-      this.vehicleLicenseImg,
-      this.deliveryApprovalImg,
-      this.deliveryApproved,
-      this.profileImage,
-      this.trips,
-      this.confirmedEmail,
-      this.otpResetExpires);
+      this.startLoc,
+      this.endLoc,
+      this.startState,
+      this.endState,
+      this.time,
+      this.duration,
+      this.day,
+      // this.userName,
+      // this.email,
+      // this.phoneNumber,
+      // this.role,
+      // this.vehicleType,
+      // this.vehicleLicenseImg,
+      // this.deliveryApprovalImg,
+      // this.deliveryApproved,
+      // this.profileImage,
+      // this.trips,
+      // this.confirmedEmail,
+      // this.otpResetExpires
+      this.deliveryPerson);
 
   factory RecommendedDeliveryResponse.fromJson(Map<String, dynamic> json) =>
       _$RecommendedDeliveryResponseFromJson(json); //why factory
   Map<String, dynamic> toJson() => _$RecommendedDeliveryResponseToJson(this);
 }
+
 @JsonSerializable()
 class DeliveryPersonResponse extends BaseResponse {
   @JsonKey(name: "name")
@@ -419,13 +444,15 @@ class DeliveryPersonResponse extends BaseResponse {
   @JsonKey(name: "profileImage")
   String? profileImage;
 
-  DeliveryPersonResponse(this.userName,this.phoneNumber,this.vehicleType,this.profileImage);
+  DeliveryPersonResponse(
+      this.userName, this.phoneNumber, this.vehicleType, this.profileImage);
 
   factory DeliveryPersonResponse.fromJson(Map<String, dynamic> json) =>
       _$DeliveryPersonResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$DeliveryPersonResponseToJson(this);
 }
+
 @JsonSerializable()
 class CheckoutResponse extends BaseResponse {
   @JsonKey(name: "data")
@@ -438,7 +465,6 @@ class CheckoutResponse extends BaseResponse {
 
   Map<String, dynamic> toJson() => _$CheckoutResponseToJson(this);
 }
-
 
 @JsonSerializable()
 class CheckoutDataResponse extends BaseResponse {
