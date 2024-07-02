@@ -28,7 +28,12 @@ class DeliveryHomeViewModel extends MainDeliveryViewModel {
   Sink get inputOrdersList => _ordersListStreamController.sink;
 
   startHomeView(dynamic context) async {
+    await reGetAllShipments(context);
+  }
+
+  reGetAllShipments(dynamic context) async {
     fetchPageIndex = 1;
+    ordersList = [];
     await getAllShipments(context);
   }
 
@@ -47,17 +52,15 @@ class DeliveryHomeViewModel extends MainDeliveryViewModel {
     });
   }
 
-changeOrderStatus(dynamic context,String orderId,String status) async {
-  loadingState(context: context);
-  fetchPageIndex = 1;
-  (await _repository.deliveryChangeOrderState(orderId, status)).fold(
-      (failure) => {
-            errorState(context: context, message: failure.message),
-          }, (data) async {
-    await getAllShipments(context);
-    hideState(context: context);
-  });
-}
-
-
+  changeOrderStatus(dynamic context, String orderId, String status) async {
+    loadingState(context: context);
+    fetchPageIndex = 1;
+    (await _repository.deliveryChangeOrderState(orderId, status)).fold(
+        (failure) => {
+              errorState(context: context, message: failure.message),
+            }, (data) async {
+      await reGetAllShipments(context);
+      hideState(context: context);
+    });
+  }
 }
