@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
@@ -90,7 +91,7 @@ Widget recommendedDeliveryCard(
                       height: 60, fit: BoxFit.fitHeight))),
 
           //  SizedBox(height: 10.h,),
-          Row(
+        delivery.role!=AppConstants.deliveryRoleInternal?  Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -123,7 +124,24 @@ Widget recommendedDeliveryCard(
                 ],
               ),
             ],
-          )
+          ):Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+children: [
+
+  const Icon(Icons.edit_location_alt_outlined,
+      color: ColorManager.primary),
+  SizedBox(width: 10.w,),
+  Text(delivery.currentGovState,
+      style: Theme.of(context)
+          .textTheme
+          .titleSmall!
+          .copyWith(fontSize: 10)),
+
+],
+
+
+
+        )
         ],
       ),
     ),

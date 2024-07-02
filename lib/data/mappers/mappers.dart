@@ -123,7 +123,7 @@ extension RecommmendedDeliveryeMapper on RecommendedDeliveryResponse? {
       duration: this?.duration ?? "noDuration",
       day: this?.day ?? "noDay",
       id: this?.deliveryPerson?.userId ?? "noId",      role: AppConstants.deliveryRoleExternal,
-
+      currentGovState: '',
     );
   }
 }
@@ -178,6 +178,7 @@ extension NearestRecommendedDeliveryMapper
       day: this?.day ?? "noDay",
       id: this?.deliveryId ?? "noId",
       role: this?.role ?? "noRole",
+      currentGovState: '',
     );
   }
 }

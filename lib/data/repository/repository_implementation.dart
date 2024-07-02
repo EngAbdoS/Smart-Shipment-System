@@ -329,15 +329,20 @@ class RepositoryImplementation implements Repository {
           return Left(error);
         }, (response) {
           if (response.status == ResponseMessage.SUCCESS) {
-            List<RecommendedDeliveryEntity>? resList = response.data?.deliveries
-                ?.map((delivery) => delivery.toDomain())
-                .toList();
-            RecommendedDeliveryEntity? startDelivery = resList?.firstWhere(
-                (delivery) =>
-                    delivery.role == AppConstants.deliveryRoleInternal);
-            startDelivery != null
-                ? deliveriesList?.insert(0, startDelivery)
-                : null;
+            if ((response.resultsNumber ?? 0) > 0) {
+              List<RecommendedDeliveryEntity>? resList = response
+                  .data?.deliveries
+                  ?.map((delivery) => delivery.toDomain())
+                  .toList();
+              RecommendedDeliveryEntity? startDelivery = resList?.firstWhere(
+                  (delivery) =>
+                      delivery.role == AppConstants.deliveryRoleInternal);
+              startDelivery?.currentGovState =
+                  getShippingPathRequest.startState;
+              startDelivery != null
+                  ? deliveriesList?.insert(0, startDelivery)
+                  : null;
+            }
           } else {
             return Left(ErrorHandler.handle(response).failure);
           }
@@ -353,13 +358,17 @@ class RepositoryImplementation implements Repository {
           return Left(error);
         }, (response) {
           if (response.status == ResponseMessage.SUCCESS) {
-            List<RecommendedDeliveryEntity>? resList = response.data?.deliveries
-                ?.map((delivery) => delivery.toDomain())
-                .toList();
-            RecommendedDeliveryEntity? endDelivery = resList?.firstWhere(
-                (delivery) =>
-                    delivery.role == AppConstants.deliveryRoleInternal);
-            endDelivery != null ? deliveriesList?.add(endDelivery) : null;
+            if ((response.resultsNumber ?? 0) > 0) {
+              List<RecommendedDeliveryEntity>? resList = response
+                  .data?.deliveries
+                  ?.map((delivery) => delivery.toDomain())
+                  .toList();
+              RecommendedDeliveryEntity? endDelivery = resList?.firstWhere(
+                  (delivery) =>
+                      delivery.role == AppConstants.deliveryRoleInternal);
+              endDelivery?.currentGovState = getShippingPathRequest.endState;
+              endDelivery != null ? deliveriesList?.add(endDelivery) : null;
+            }
           } else {
             return Left(ErrorHandler.handle(response).failure);
           }
