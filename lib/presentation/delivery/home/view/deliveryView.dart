@@ -55,9 +55,8 @@ class _DeliveryHomeViewState extends State<DeliveryHomeView> {
                 alignment: Alignment.topCenter,
                 child: deliveryOrdersList(
                   context: context,
-                  outputDeliveryOrdersList: _viewModel.outputOrdersList,
+                  viewModel: _viewModel,
                   scrollController: _scrollController,
-                  assignOrderToMe: _viewModel.assignOrderToMe,
                 ),
               ),
             ],

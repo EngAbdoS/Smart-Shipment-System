@@ -47,11 +47,17 @@ class DeliveryHomeViewModel extends MainDeliveryViewModel {
     });
   }
 
-assignOrderToMe(dynamic context,String orderId)
-{
-
+changeOrderStatus(dynamic context,String orderId,String status) async {
+  loadingState(context: context);
+  fetchPageIndex = 1;
+  (await _repository.deliveryChangeOrderState(orderId, status)).fold(
+      (failure) => {
+            errorState(context: context, message: failure.message),
+          }, (data) async {
+    await getAllShipments(context);
+    hideState(context: context);
+  });
 }
-
 
 
 }
