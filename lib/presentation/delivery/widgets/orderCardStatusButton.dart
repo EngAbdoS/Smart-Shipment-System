@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/regular_button.dart';
@@ -18,12 +19,33 @@ Widget orderCardStatusButton(BuildContext context, String status,
     buttonAction: () => changeStatus(context, orderId, nextStatus),
     buttonWidget: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Text(
-        '${nextStatus.tr()} ! ',
-        style: Theme.of(context)
-            .textTheme
-            .titleLarge!
-            .copyWith(color: ColorManager.black),
+      child: Row(
+        children: [
+          nextStatus != "noState"
+              ? Text(
+                  nextStatus,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(color: ColorManager.black),
+                ).tr()
+              : Container(),
+          nextStatus != "noState"
+              ? SizedBox(
+                  width: 10.w,
+                )
+              : Container(),
+          nextStatus != "noState"
+              ? const Icon(Icons.inventory_sharp)
+              : const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.done_outline_outlined,
+                    size: 30,
+                    color: ColorManager.darkGreen,
+                  ),
+                ),
+        ],
       ),
     ),
   );
