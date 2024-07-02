@@ -4,8 +4,6 @@ const String SVG_PATH = "assets/SVGs";
 const String ICON_PATH = "assets/icons";
 
 class ImageAssets {
-  // static const String splashLogo = "$IMAGE_PATH/splash_logo.png";
-  static const String empty = "$IMAGE_PATH/empty.png";
   static const String tripleS = "$IMAGE_PATH/ts.png";
   static const String delivery = "$IMAGE_PATH/delivery.png";
   static const String client = "$IMAGE_PATH/client.png";
@@ -17,8 +15,6 @@ class ImageAssets {
 }
 
 class SVGAssets {
-
-
   static const String logoSVG = "$SVG_PATH/logo.svg";
   static const String logoShadowSVG = "$SVG_PATH/logo_with_shadow.svg";
   static const String onBoardingPic1 = "$SVG_PATH/onB_pic_1.svg";
@@ -28,27 +24,18 @@ class SVGAssets {
   static const String onBoardingBK2 = "$SVG_PATH/onB_bk_2.svg";
   static const String onBoardingBK3 = "$SVG_PATH/onB_bk_3.svg";
   static const String tripleS = "$SVG_PATH/ts.svg";
-  static const String delivery = "$SVG_PATH/delivery.svg";
-  static const String client = "$SVG_PATH/client.svg";
   static const String authIll = "$SVG_PATH/auth_ill.svg";
-  static const String changePassword = "$SVG_PATH/change_password.svg";
-  static const String forgetPassword = "$SVG_PATH/forget_password.svg";
-  static const String notificationIcon = "$SVG_PATH/notification.svg";
   static const String noProfilePic = "$SVG_PATH/noProfile.svg";
   static const String noData = "$SVG_PATH/noData.svg";
   static const String qr = "$SVG_PATH/qr.svg";
-
-
 }
-class IconAssets{
+
+class IconAssets {
   static const String arrowRight = "$ICON_PATH/arrow_right.svg";
-
 }
-class JsonAssets {
 
-  static const String empty = "$JSON_PATH/empty.json";
+class JsonAssets {
   static const String a = "$JSON_PATH/1.json";
-  static const String map = "$JSON_PATH/map.json";
   static const String exDel = "$JSON_PATH/ex_del.json";
   static const String trac = "$JSON_PATH/trac.json";
   static const String error = "$JSON_PATH/erro.json";
@@ -60,6 +47,4 @@ class JsonAssets {
   static const String robot = "$JSON_PATH/robot.json";
   static const String mapCard = "$JSON_PATH/mapCard.json";
   static const String notification = "$JSON_PATH/notification.json";
-
-
 }
