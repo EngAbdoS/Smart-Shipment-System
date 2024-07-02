@@ -53,12 +53,12 @@ class MainClientViewModel {
   }
 
   changeWidget(dynamic context, int widget) async {
-    await getUserData(context);
-
     if (pageViewIndex != widget || widget == 0) {
       switch (widget) {
         case 0:
           {
+            await getUserData(context);
+
             pageViewIndex = widget;
             initClientHomeModule(userModel!);
             inputMainStream.add(const ClientHomeView());
@@ -67,6 +67,8 @@ class MainClientViewModel {
           }
         case 1:
           {
+            await getUserData(context);
+
             pageViewIndex = widget;
             initClientHomeModule(userModel!);
             inputMainStream.add(ShipmentView());
@@ -83,6 +85,8 @@ class MainClientViewModel {
           }
         case 3:
           {
+            await getUserData(context);
+
             pageViewIndex = widget;
             initClientProfileModule(userModel!);
             inputMainStream.add(const ClientUserProfileView());
@@ -91,6 +95,8 @@ class MainClientViewModel {
           }
         case 4:
           {
+            await getUserData(context);
+
             pageViewIndex = widget;
             initClientAddShipmentModule(userModel!);
             inputMainStream.add(ClientCreateOrderMainView());
@@ -99,6 +105,8 @@ class MainClientViewModel {
           }
         case 5:
           {
+            await getUserData(context);
+
             pageViewIndex = widget;
             initEditProfileModule(userModel!);
             inputMainStream.add(const EditProfileView());
