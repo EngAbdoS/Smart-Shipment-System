@@ -330,6 +330,67 @@ class OrderResponse {
 }
 
 @JsonSerializable()
+class DeliveryOrdersResponse extends BaseResponse {
+  @JsonKey(name: "results")
+  int? resultsNumber;
+  @JsonKey(name: "data")
+  DeliveryOrdersDateResponse? data;
+
+  DeliveryOrdersResponse(this.resultsNumber, this.data);
+
+  factory DeliveryOrdersResponse.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryOrdersResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DeliveryOrdersResponseToJson(this);
+}
+@JsonSerializable()
+class DeliveryOrdersDateResponse {
+  @JsonKey(name: "orders")
+  List<DeliveryOrderResponse>? orders;
+
+  DeliveryOrdersDateResponse(this.orders);
+
+  factory DeliveryOrdersDateResponse.fromJson(
+      Map<String, dynamic> json) =>
+      _$DeliveryOrdersDateResponseFromJson(json);
+
+  Map<String, dynamic> toJson() =>
+      _$DeliveryOrdersDateResponseToJson(this);
+}
+
+@JsonSerializable()
+class DeliveryOrderResponse {
+  @JsonKey(name: "client")
+  String? client;
+  @JsonKey(name: "type")
+  String? type;
+  @JsonKey(name: "description")
+  String? description;
+  @JsonKey(name: "status")
+  String? status;
+  @JsonKey(name: "weight")
+  String? weight;
+  @JsonKey(name: "quantity")
+  int? quantity;
+
+
+  DeliveryOrderResponse(
+      this.client, this.type, this.description, this.status, this.weight, this.quantity
+);
+
+  factory DeliveryOrderResponse.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryOrderResponseFromJson(json); //why factory
+  Map<String, dynamic> toJson() => _$DeliveryOrderResponseToJson(this);
+}
+
+
+
+
+
+
+
+
+@JsonSerializable()
 class RecommendedDeliveriesResponse extends BaseResponse {
   @JsonKey(name: "results")
   int? resultsNumber;
@@ -343,6 +404,10 @@ class RecommendedDeliveriesResponse extends BaseResponse {
 
   Map<String, dynamic> toJson() => _$RecommendedDeliveriesResponseToJson(this);
 }
+
+
+
+
 
 @JsonSerializable()
 class RecommendedDeliveriesDataResponse {

@@ -312,6 +312,66 @@ Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
       'price': instance.price,
     };
 
+DeliveryOrdersResponse _$DeliveryOrdersResponseFromJson(
+        Map<String, dynamic> json) =>
+    DeliveryOrdersResponse(
+      (json['results'] as num?)?.toInt(),
+      json['data'] == null
+          ? null
+          : DeliveryOrdersDateResponse.fromJson(
+              json['data'] as Map<String, dynamic>),
+    )
+      ..statusCode = (json['statusCode'] as num?)?.toInt()
+      ..status = json['status'] as String?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$DeliveryOrdersResponseToJson(
+        DeliveryOrdersResponse instance) =>
+    <String, dynamic>{
+      'statusCode': instance.statusCode,
+      'status': instance.status,
+      'message': instance.message,
+      'results': instance.resultsNumber,
+      'data': instance.data,
+    };
+
+DeliveryOrdersDateResponse _$DeliveryOrdersDateResponseFromJson(
+        Map<String, dynamic> json) =>
+    DeliveryOrdersDateResponse(
+      (json['orders'] as List<dynamic>?)
+          ?.map(
+              (e) => DeliveryOrderResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$DeliveryOrdersDateResponseToJson(
+        DeliveryOrdersDateResponse instance) =>
+    <String, dynamic>{
+      'orders': instance.orders,
+    };
+
+DeliveryOrderResponse _$DeliveryOrderResponseFromJson(
+        Map<String, dynamic> json) =>
+    DeliveryOrderResponse(
+      json['client'] as String?,
+      json['type'] as String?,
+      json['description'] as String?,
+      json['status'] as String?,
+      json['weight'] as String?,
+      (json['quantity'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$DeliveryOrderResponseToJson(
+        DeliveryOrderResponse instance) =>
+    <String, dynamic>{
+      'client': instance.client,
+      'type': instance.type,
+      'description': instance.description,
+      'status': instance.status,
+      'weight': instance.weight,
+      'quantity': instance.quantity,
+    };
+
 RecommendedDeliveriesResponse _$RecommendedDeliveriesResponseFromJson(
         Map<String, dynamic> json) =>
     RecommendedDeliveriesResponse(

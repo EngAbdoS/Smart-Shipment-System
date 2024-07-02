@@ -1,5 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_shipment_system/data/response/response.dart';
+import 'package:smart_shipment_system/domain/entities/deliveryOrderIntity.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
@@ -148,6 +149,19 @@ extension RecommmendedDeliveryTripMapper on DeliveryTripResponse? {
       duration: this?.duration ?? "noDuration",
       day: this?.day ?? "noDay",
       id: this?.id ?? "noId",
+    );
+  }
+}
+
+extension DeliveryOrdersResponseMapper on DeliveryOrderResponse? {
+  DeliveryOrderEntity toDomain() {
+    return DeliveryOrderEntity(
+      type: this?.type ?? "noType",
+      weight: this?.weight ?? "",
+      quantity: this?.quantity ?? 0,
+      description: this?.description ?? "",
+      status: this?.status ?? "noStatus",
+      client: this?.client ?? "noClient",
     );
   }
 }

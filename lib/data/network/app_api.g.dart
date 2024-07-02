@@ -417,13 +417,13 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<OrdersResponse> deliveryGetOrders(int pageIndex) async {
+  Future<DeliveryOrdersResponse> deliveryGetOrders(int pageIndex) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<OrdersResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<DeliveryOrdersResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -439,7 +439,7 @@ class _AppServiceClient implements AppServiceClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = OrdersResponse.fromJson(_result.data!);
+    final value = DeliveryOrdersResponse.fromJson(_result.data!);
     return value;
   }
 

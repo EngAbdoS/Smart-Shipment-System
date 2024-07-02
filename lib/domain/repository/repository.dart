@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/data/response/response.dart';
+import 'package:smart_shipment_system/domain/entities/deliveryOrderIntity.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/domain/models/message.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
@@ -40,7 +41,7 @@ abstract class Repository {
 
   Future<Either<Failure, bool>> clientAssignOrderToDelivery(String orderId,List<String> deliveryId);
 
-  Future<Either<Failure, List<ShipmentModel>>> deliveryGetOrders(int pageIndex);
+  Future<Either<Failure, List<DeliveryOrderEntity>>> deliveryGetOrders(int pageIndex);
 
   Future<Either<Failure, bool>> updateDeliveryTripList(
       UpdateDeliveryTripListRequest updateDeliveryTripListRequest);

@@ -64,7 +64,7 @@ abstract class AppServiceClient {
   Future<RegistrationResponse> deliveryAssignOrderDelivery(@Path("id") String id,@Field("delivery_id") String deliveryId);
 
   @GET('delivery/order/summary?limit=10&page={pageIndex}')
-  Future<OrdersResponse> deliveryGetOrders(@Path("pageIndex") int pageIndex);
+  Future<DeliveryOrdersResponse> deliveryGetOrders(@Path("pageIndex") int pageIndex);
 
   @PATCH('delivery/addTrip')
   Future<RegistrationResponse> updateDeliveryTripList(

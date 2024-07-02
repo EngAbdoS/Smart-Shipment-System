@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
+import 'package:smart_shipment_system/domain/entities/deliveryOrderIntity.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
@@ -14,14 +15,14 @@ class DeliveryHomeViewModel extends MainDeliveryViewModel {
 
   UserModel userHomeData;
   int fetchPageIndex = 1;
-  List<ShipmentModel> ordersList = [];
+  List<DeliveryOrderEntity> ordersList = [];
   final Repository _repository;
   bool isPaginationLoading = false;
 
   final StreamController _ordersListStreamController =
-      BehaviorSubject<List<ShipmentModel>?>();
+      BehaviorSubject<List<DeliveryOrderEntity>?>();
 
-  Stream<List<ShipmentModel>?> get outputOrdersList =>
+  Stream<List<DeliveryOrderEntity>?> get outputOrdersList =>
       _ordersListStreamController.stream.map((ordersList) => ordersList);
 
   Sink get inputOrdersList => _ordersListStreamController.sink;

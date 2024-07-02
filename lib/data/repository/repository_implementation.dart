@@ -10,6 +10,7 @@ import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/data/network/network_info.dart';
 import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/data/response/response.dart';
+import 'package:smart_shipment_system/domain/entities/deliveryOrderIntity.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/domain/models/message.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
@@ -232,7 +233,7 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
-  Future<Either<Failure, List<ShipmentModel>>> deliveryGetOrders(
+  Future<Either<Failure, List<DeliveryOrderEntity>>> deliveryGetOrders(
       int pageIndex) async {
     return await (await _remoteDataSource.deliveryGetOrders(pageIndex)).fold(
         (error) {
@@ -241,7 +242,6 @@ class RepositoryImplementation implements Repository {
       if (response.status == ResponseMessage.SUCCESS) {
         var ordersList =
             response.data?.orders?.map((order) => order.toDomain()).toList();
-        _localDataSource.saveShipmentListToCache(ordersList ?? []);
         return Right(ordersList ?? []);
       } else {
         return Left(ErrorHandler.handle(response).failure);
