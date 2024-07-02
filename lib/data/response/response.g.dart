@@ -312,6 +312,100 @@ Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
       'price': instance.price,
     };
 
+NearestDeliveryResponse _$NearestDeliveryResponseFromJson(
+        Map<String, dynamic> json) =>
+    NearestDeliveryResponse(
+      (json['results'] as num?)?.toInt(),
+      json['data'] == null
+          ? null
+          : DeliveryOrdersDateResponse.fromJson(
+              json['data'] as Map<String, dynamic>),
+    )
+      ..statusCode = (json['statusCode'] as num?)?.toInt()
+      ..status = json['status'] as String?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$NearestDeliveryResponseToJson(
+        NearestDeliveryResponse instance) =>
+    <String, dynamic>{
+      'statusCode': instance.statusCode,
+      'status': instance.status,
+      'message': instance.message,
+      'results': instance.resultsNumber,
+      'data': instance.data,
+    };
+
+NearestDeliveryDataResponse _$NearestDeliveryDataResponseFromJson(
+        Map<String, dynamic> json) =>
+    NearestDeliveryDataResponse(
+      (json['deliveries'] as List<dynamic>?)
+          ?.map((e) => NearestRecommendedDeliveryResponse.fromJson(
+              e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$NearestDeliveryDataResponseToJson(
+        NearestDeliveryDataResponse instance) =>
+    <String, dynamic>{
+      'deliveries': instance.deliveries,
+    };
+
+NearestRecommendedDeliveryResponse _$NearestRecommendedDeliveryResponseFromJson(
+        Map<String, dynamic> json) =>
+    NearestRecommendedDeliveryResponse(
+      json['_id'] as String?,
+      json['startLoc'] == null
+          ? null
+          : LatLonResponse.fromJson(json['startLoc'] as Map<String, dynamic>),
+      json['endLoc'] == null
+          ? null
+          : LatLonResponse.fromJson(json['endLoc'] as Map<String, dynamic>),
+      json['startState'] as String?,
+      json['endState'] as String?,
+      json['time'] as String?,
+      json['duration'] as String?,
+      json['day'] as String?,
+      json['name'] as String?,
+      json['email'] as String?,
+      json['phone'] as String?,
+      json['role'] as String?,
+      json['vehicleType'] as String?,
+      json['vehicleLicenseImg'] as String?,
+      json['deliveryApprovalImg'] as String?,
+      json['deliveryApproved'] as bool?,
+      json['profileImage'] as String?,
+      (json['trip'] as List<dynamic>?)
+          ?.map((e) => DeliveryTripResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      json['confirmedEmail'] as bool?,
+      json['otpResetExpires'] as String?,
+    );
+
+Map<String, dynamic> _$NearestRecommendedDeliveryResponseToJson(
+        NearestRecommendedDeliveryResponse instance) =>
+    <String, dynamic>{
+      '_id': instance.orderId,
+      'startLoc': instance.startLoc,
+      'endLoc': instance.endLoc,
+      'startState': instance.startState,
+      'endState': instance.endState,
+      'time': instance.time,
+      'duration': instance.duration,
+      'day': instance.day,
+      'name': instance.userName,
+      'email': instance.email,
+      'phone': instance.phoneNumber,
+      'role': instance.role,
+      'vehicleType': instance.vehicleType,
+      'vehicleLicenseImg': instance.vehicleLicenseImg,
+      'deliveryApprovalImg': instance.deliveryApprovalImg,
+      'deliveryApproved': instance.deliveryApproved,
+      'profileImage': instance.profileImage,
+      'trip': instance.trips,
+      'confirmedEmail': instance.confirmedEmail,
+      'otpResetExpires': instance.otpResetExpires,
+    };
+
 DeliveryOrdersResponse _$DeliveryOrdersResponseFromJson(
         Map<String, dynamic> json) =>
     DeliveryOrdersResponse(
@@ -359,6 +453,7 @@ DeliveryOrderResponse _$DeliveryOrderResponseFromJson(
       json['status'] as String?,
       json['weight'] as String?,
       (json['quantity'] as num?)?.toInt(),
+      json['_id'] as String?,
     );
 
 Map<String, dynamic> _$DeliveryOrderResponseToJson(
@@ -370,6 +465,7 @@ Map<String, dynamic> _$DeliveryOrderResponseToJson(
       'status': instance.status,
       'weight': instance.weight,
       'quantity': instance.quantity,
+      '_id': instance.orderId,
     };
 
 RecommendedDeliveriesResponse _$RecommendedDeliveriesResponseFromJson(
@@ -434,7 +530,7 @@ RecommendedDeliveryResponse _$RecommendedDeliveryResponseFromJson(
 Map<String, dynamic> _$RecommendedDeliveryResponseToJson(
         RecommendedDeliveryResponse instance) =>
     <String, dynamic>{
-      '_id': instance.userId,
+      '_id': instance.orderId,
       'startLoc': instance.startLoc,
       'endLoc': instance.endLoc,
       'startState': instance.startState,
@@ -452,6 +548,7 @@ DeliveryPersonResponse _$DeliveryPersonResponseFromJson(
       json['phone'] as String?,
       json['vehicleType'] as String?,
       json['profileImage'] as String?,
+      json['_id'] as String?,
     )
       ..statusCode = (json['statusCode'] as num?)?.toInt()
       ..status = json['status'] as String?
@@ -467,6 +564,7 @@ Map<String, dynamic> _$DeliveryPersonResponseToJson(
       'phone': instance.phoneNumber,
       'vehicleType': instance.vehicleType,
       'profileImage': instance.profileImage,
+      '_id': instance.userId,
     };
 
 CheckoutResponse _$CheckoutResponseFromJson(Map<String, dynamic> json) =>

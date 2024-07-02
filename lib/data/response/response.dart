@@ -330,6 +330,107 @@ class OrderResponse {
 }
 
 @JsonSerializable()
+class NearestDeliveryResponse extends BaseResponse {
+  @JsonKey(name: "results")
+  int? resultsNumber;
+  @JsonKey(name: "data")
+  DeliveryOrdersDateResponse? data;
+
+  NearestDeliveryResponse(this.resultsNumber, this.data);
+
+  factory NearestDeliveryResponse.fromJson(Map<String, dynamic> json) =>
+      _$NearestDeliveryResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NearestDeliveryResponseToJson(this);
+}
+
+@JsonSerializable()
+class NearestDeliveryDataResponse {
+  @JsonKey(name: "deliveries")
+  List<NearestRecommendedDeliveryResponse>? deliveries;
+
+  NearestDeliveryDataResponse(this.deliveries);
+
+  factory NearestDeliveryDataResponse.fromJson(Map<String, dynamic> json) =>
+      _$NearestDeliveryDataResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NearestDeliveryDataResponseToJson(this);
+}
+
+@JsonSerializable()
+class NearestRecommendedDeliveryResponse {
+  @JsonKey(name: "_id")
+  String? orderId;
+  @JsonKey(name: "startLoc")
+  LatLonResponse? startLoc;
+  @JsonKey(name: "endLoc")
+  LatLonResponse? endLoc;
+  @JsonKey(name: "startState")
+  String? startState;
+  @JsonKey(name: "endState")
+  String? endState;
+  @JsonKey(name: "time")
+  String? time;
+  @JsonKey(name: "duration")
+  String? duration;
+  @JsonKey(name: "day")
+  String? day;
+
+  @JsonKey(name: "name")
+  String? userName;
+  @JsonKey(name: "email")
+  String? email;
+  @JsonKey(name: "phone")
+  String? phoneNumber;
+  @JsonKey(name: "role")
+  String? role;
+  @JsonKey(name: "vehicleType")
+  String? vehicleType;
+  @JsonKey(name: "vehicleLicenseImg")
+  String? vehicleLicenseImg;
+  @JsonKey(name: "deliveryApprovalImg")
+  String? deliveryApprovalImg;
+  @JsonKey(name: "deliveryApproved")
+  bool? deliveryApproved;
+  @JsonKey(name: "profileImage")
+  String? profileImage;
+  @JsonKey(name: "trip")
+  List<DeliveryTripResponse>? trips;
+  @JsonKey(name: "confirmedEmail")
+  bool? confirmedEmail;
+  @JsonKey(name: "otpResetExpires")
+  String? otpResetExpires;
+
+  NearestRecommendedDeliveryResponse(
+      this.orderId,
+      this.startLoc,
+      this.endLoc,
+      this.startState,
+      this.endState,
+      this.time,
+      this.duration,
+      this.day,
+      this.userName,
+      this.email,
+      this.phoneNumber,
+      this.role,
+      this.vehicleType,
+      this.vehicleLicenseImg,
+      this.deliveryApprovalImg,
+      this.deliveryApproved,
+      this.profileImage,
+      this.trips,
+      this.confirmedEmail,
+      this.otpResetExpires);
+
+  factory NearestRecommendedDeliveryResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$NearestRecommendedDeliveryResponseFromJson(json); //why factory
+  Map<String, dynamic> toJson() =>
+      _$NearestRecommendedDeliveryResponseToJson(this);
+}
+
+@JsonSerializable()
 class DeliveryOrdersResponse extends BaseResponse {
   @JsonKey(name: "results")
   int? resultsNumber;
@@ -343,6 +444,7 @@ class DeliveryOrdersResponse extends BaseResponse {
 
   Map<String, dynamic> toJson() => _$DeliveryOrdersResponseToJson(this);
 }
+
 @JsonSerializable()
 class DeliveryOrdersDateResponse {
   @JsonKey(name: "orders")
@@ -350,12 +452,10 @@ class DeliveryOrdersDateResponse {
 
   DeliveryOrdersDateResponse(this.orders);
 
-  factory DeliveryOrdersDateResponse.fromJson(
-      Map<String, dynamic> json) =>
+  factory DeliveryOrdersDateResponse.fromJson(Map<String, dynamic> json) =>
       _$DeliveryOrdersDateResponseFromJson(json);
 
-  Map<String, dynamic> toJson() =>
-      _$DeliveryOrdersDateResponseToJson(this);
+  Map<String, dynamic> toJson() => _$DeliveryOrdersDateResponseToJson(this);
 }
 
 @JsonSerializable()
@@ -372,23 +472,16 @@ class DeliveryOrderResponse {
   String? weight;
   @JsonKey(name: "quantity")
   int? quantity;
+  @JsonKey(name: "_id")
+  String? orderId;
 
-
-  DeliveryOrderResponse(
-      this.client, this.type, this.description, this.status, this.weight, this.quantity
-);
+  DeliveryOrderResponse(this.client, this.type, this.description, this.status,
+      this.weight, this.quantity, this.orderId);
 
   factory DeliveryOrderResponse.fromJson(Map<String, dynamic> json) =>
       _$DeliveryOrderResponseFromJson(json); //why factory
   Map<String, dynamic> toJson() => _$DeliveryOrderResponseToJson(this);
 }
-
-
-
-
-
-
-
 
 @JsonSerializable()
 class RecommendedDeliveriesResponse extends BaseResponse {
@@ -404,10 +497,6 @@ class RecommendedDeliveriesResponse extends BaseResponse {
 
   Map<String, dynamic> toJson() => _$RecommendedDeliveriesResponseToJson(this);
 }
-
-
-
-
 
 @JsonSerializable()
 class RecommendedDeliveriesDataResponse {
@@ -427,7 +516,7 @@ class RecommendedDeliveriesDataResponse {
 @JsonSerializable()
 class RecommendedDeliveryResponse {
   @JsonKey(name: "_id")
-  String? userId;
+  String? orderId;
   @JsonKey(name: "startLoc")
   LatLonResponse? startLoc;
   @JsonKey(name: "endLoc")
@@ -471,7 +560,7 @@ class RecommendedDeliveryResponse {
   DeliveryPersonResponse? deliveryPerson;
 
   RecommendedDeliveryResponse(
-      this.userId,
+      this.orderId,
       this.startLoc,
       this.endLoc,
       this.startState,
@@ -508,9 +597,11 @@ class DeliveryPersonResponse extends BaseResponse {
   String? vehicleType;
   @JsonKey(name: "profileImage")
   String? profileImage;
+  @JsonKey(name: "_id")
+  String? userId;
 
-  DeliveryPersonResponse(
-      this.userName, this.phoneNumber, this.vehicleType, this.profileImage);
+  DeliveryPersonResponse(this.userName, this.phoneNumber, this.vehicleType,
+      this.profileImage, this.userId);
 
   factory DeliveryPersonResponse.fromJson(Map<String, dynamic> json) =>
       _$DeliveryPersonResponseFromJson(json);

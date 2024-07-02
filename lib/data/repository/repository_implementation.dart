@@ -211,7 +211,7 @@ class RepositoryImplementation implements Repository {
            }
         });
       }
-      return  Right(responses.contains(false)?true:false);
+      return  Right(responses.contains(false)?false:true);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
     }

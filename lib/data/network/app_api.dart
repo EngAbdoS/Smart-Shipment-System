@@ -16,12 +16,6 @@ abstract class AppServiceClient {
   @GET("client/order/getAllOrders")
   Future<OrdersResponse> getAllOrders();
 
-  @GET(
-      "client/order/findPath?orderStartState={orderStartState}&orderEndState={orderEndState}")
-  Future<RecommendedDeliveriesResponse> getDeliveryPath(
-      @Path("orderStartState") String orderStartState,
-      @Path("orderEndState") String orderEndState);
-
   @GET("client/order/{id}")
   Future<SearchOrderResponse> getOrderById(@Path("id") String id);
 
@@ -42,8 +36,14 @@ abstract class AppServiceClient {
   Future<OrdersResponse> getAllComingOrders();
 
   @GET(
+      "client/order/findPath?orderStartState={orderStartState}&orderEndState={orderEndState}")
+  Future<RecommendedDeliveriesResponse> getDeliveryPath(
+      @Path("orderStartState") String orderStartState,
+      @Path("orderEndState") String orderEndState);
+
+  @GET(
       "client/order/nearestDelivery?startLocation={startLocationLat},{startLocationLng}&endLocation={endLocation}&maxDis={maxDis}")
-  Future<RecommendedDeliveriesResponse> getAllNearestDelivery(
+  Future<NearestDeliveryResponse> getAllNearestDelivery(
       @Path("startLocationLat") double startLocationLat,
       @Path("startLocationLng") double startLocationLng,
       @Path("endLocation") String endLocation,
@@ -60,11 +60,13 @@ abstract class AppServiceClient {
   Future<RegistrationResponse> deliveryChangeOrderState(
       @Path("id") String id, @Path("status") String status);
 
-  @PATCH('delivery/order/{id}/assignToMe')
-  Future<RegistrationResponse> deliveryAssignOrderDelivery(@Path("id") String id,@Field("delivery_id") String deliveryId);
+  @PATCH('delivery/order/{order_id}/assignToMe?delivery={delivery_id}')
+  Future<RegistrationResponse> deliveryAssignOrderDelivery(
+      @Path("order_id") String orderId, @Path("delivery_id") String deliveryId);
 
   @GET('delivery/order/summary?limit=10&page={pageIndex}')
-  Future<DeliveryOrdersResponse> deliveryGetOrders(@Path("pageIndex") int pageIndex);
+  Future<DeliveryOrdersResponse> deliveryGetOrders(
+      @Path("pageIndex") int pageIndex);
 
   @PATCH('delivery/addTrip')
   Future<RegistrationResponse> updateDeliveryTripList(

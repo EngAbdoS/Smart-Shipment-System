@@ -5,6 +5,7 @@ class DeliveryOrderEntity {
   int quantity;
   String description;
   String status;
+  String orderId;
 
   DeliveryOrderEntity({
     required this.client,
@@ -13,5 +14,6 @@ class DeliveryOrderEntity {
     required this.weight,
     required this.quantity,
     required this.description,
+    required this.orderId,
   });
 }
