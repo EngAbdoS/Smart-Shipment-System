@@ -135,8 +135,21 @@ class ClientCreateOrderViewModel {
 
   getRecommendedDelivery(dynamic context) async {
     loadingState(context: context);
-    (await _repository.getRecommendedDeliveries(
-            shipment.startLocation, shipment.endLocation))
+    (await _repository.getRecommendedDeliveries(GetShippingPathRequest(
+            endLoc: CurrentStateRequest(
+                type: AppConstants.currentStateTypePoint,
+                coordinates: [
+                  shipment.endLoc.longitude,
+                  shipment.endLoc.latitude
+                ]),
+            startLoc: CurrentStateRequest(
+                type: AppConstants.currentStateTypePoint,
+                coordinates: [
+                  shipment.startLoc.longitude,
+                  shipment.startLoc.latitude
+                ]),
+            startState: shipment.startLocation,
+            endState: shipment.endLocation)))
         .fold(
             (failure) => {
                   errorState(context: context, message: failure.message),

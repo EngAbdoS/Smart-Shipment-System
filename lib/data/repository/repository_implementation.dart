@@ -360,7 +360,6 @@ class RepositoryImplementation implements Repository {
                 (delivery) =>
                     delivery.role == AppConstants.deliveryRoleInternal);
             endDelivery != null ? deliveriesList?.add(endDelivery) : null;
-
           } else {
             return Left(ErrorHandler.handle(response).failure);
           }
