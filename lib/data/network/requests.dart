@@ -1,5 +1,19 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+class GetShippingPathRequest {
+  CurrentStateRequest endLoc;
+  CurrentStateRequest startLoc;
+  String startState;
+  String endState;
+
+  GetShippingPathRequest({
+    required this.endLoc,
+    required this.startLoc,
+    required this.startState,
+    required this.endState,
+  });
+}
+
 class CreateShipmentRequest {
   String type;
   String recipentName;

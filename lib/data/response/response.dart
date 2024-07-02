@@ -334,7 +334,7 @@ class NearestDeliveryResponse extends BaseResponse {
   @JsonKey(name: "results")
   int? resultsNumber;
   @JsonKey(name: "data")
-  DeliveryOrdersDateResponse? data;
+  NearestDeliveryDataResponse? data;
 
   NearestDeliveryResponse(this.resultsNumber, this.data);
 
@@ -360,7 +360,7 @@ class NearestDeliveryDataResponse {
 @JsonSerializable()
 class NearestRecommendedDeliveryResponse {
   @JsonKey(name: "_id")
-  String? orderId;
+  String? deliveryId;
   @JsonKey(name: "startLoc")
   LatLonResponse? startLoc;
   @JsonKey(name: "endLoc")
@@ -402,7 +402,7 @@ class NearestRecommendedDeliveryResponse {
   String? otpResetExpires;
 
   NearestRecommendedDeliveryResponse(
-      this.orderId,
+      this.deliveryId,
       this.startLoc,
       this.endLoc,
       this.startState,

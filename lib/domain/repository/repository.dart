@@ -34,7 +34,7 @@ abstract class Repository {
   Future<Either<Failure, RegistrationResponse>> cancelOrderById(String id);
 
   Future<Either<Failure, List<RecommendedDeliveryEntity>>>
-      getRecommendedDeliveries(String orderStartState, String orderEndState);
+      getRecommendedDeliveries(GetShippingPathRequest getShippingPathRequest);
 
   Future<Either<Failure, bool>> deliveryChangeOrderState(
       String id, String status);

@@ -194,24 +194,21 @@ class RepositoryImplementation implements Repository {
   @override
   Future<Either<Failure, bool>> clientAssignOrderToDelivery(
       String orderId, List<String> deliveryId) async {
-    List<bool>responses=[];
+    List<bool> responses = [];
     try {
       for (var id in deliveryId) {
-      (await _remoteDataSource.clientAssignOrderToDelivery(
-                orderId, id))
-            .fold((error) {
+        (await _remoteDataSource.clientAssignOrderToDelivery(orderId, id)).fold(
+            (error) {
           return Left(error);
         }, (response) async {
           if (response.status != ResponseMessage.SUCCESS) {
-          responses.add(false);
+            responses.add(false);
+          } else {
+            responses.add(true);
           }
-         else
-           {
-             responses.add(true);
-           }
         });
       }
-      return  Right(responses.contains(false)?false:true);
+      return Right(responses.contains(false) ? false : true);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
     }
@@ -312,16 +309,63 @@ class RepositoryImplementation implements Repository {
   @override
   Future<Either<Failure, List<RecommendedDeliveryEntity>>>
       getRecommendedDeliveries(
-          String orderStartState, String orderEndState) async {
+          GetShippingPathRequest getShippingPathRequest) async {
     return await (await _remoteDataSource.getRecommendedDeliveries(
-            orderStartState, orderEndState))
+            getShippingPathRequest.startState, getShippingPathRequest.endState))
         .fold((error) {
       return Left(error);
-    }, (response) {
+    }, (response) async {
       if (response.status == ResponseMessage.SUCCESS) {
         var deliveriesList = response.data?.deliveries
             ?.map((delivery) => delivery.toDomain())
             .toList();
+        // delivery in start location
+        (await _remoteDataSource.getNearestDeliveries(
+                getShippingPathRequest.startLoc.coordinates[0],
+                getShippingPathRequest.startLoc.coordinates[1],
+                getShippingPathRequest.startState,
+                AppConstants.maxDis))
+            .fold((error) {
+          return Left(error);
+        }, (response) {
+          if (response.status == ResponseMessage.SUCCESS) {
+            List<RecommendedDeliveryEntity>? resList = response.data?.deliveries
+                ?.map((delivery) => delivery.toDomain())
+                .toList();
+            RecommendedDeliveryEntity? startDelivery = resList?.firstWhere(
+                (delivery) =>
+                    delivery.role == AppConstants.deliveryRoleInternal);
+            startDelivery != null
+                ? deliveriesList?.insert(0, startDelivery)
+                : null;
+          } else {
+            return Left(ErrorHandler.handle(response).failure);
+          }
+        });
+
+        // delivery in end location
+        (await _remoteDataSource.getNearestDeliveries(
+                getShippingPathRequest.endLoc.coordinates[0],
+                getShippingPathRequest.endLoc.coordinates[1],
+                getShippingPathRequest.endState,
+                AppConstants.maxDis))
+            .fold((error) {
+          return Left(error);
+        }, (response) {
+          if (response.status == ResponseMessage.SUCCESS) {
+            List<RecommendedDeliveryEntity>? resList = response.data?.deliveries
+                ?.map((delivery) => delivery.toDomain())
+                .toList();
+            RecommendedDeliveryEntity? endDelivery = resList?.firstWhere(
+                (delivery) =>
+                    delivery.role == AppConstants.deliveryRoleInternal);
+            endDelivery != null ? deliveriesList?.add(endDelivery) : null;
+
+          } else {
+            return Left(ErrorHandler.handle(response).failure);
+          }
+        });
+
         return Right(deliveriesList ?? []);
       } else {
         return Left(ErrorHandler.handle(response).failure);

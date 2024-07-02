@@ -9,6 +9,7 @@ class RecommendedDeliveryEntity {
   String duration;
   String day;
   String id;
+  String role;
    //String userId;
    String userName;
   // String email;
@@ -30,7 +31,7 @@ class RecommendedDeliveryEntity {
       required this.userName,
       // required this.email,
       required this.phoneNumber,
-      // required this.role,
+       required this.role,
       required this.vehicleType,
       // required this.vehicleLicenseImg,
       // required this.deliveryApprovalImg,

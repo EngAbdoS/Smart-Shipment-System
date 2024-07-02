@@ -318,7 +318,7 @@ NearestDeliveryResponse _$NearestDeliveryResponseFromJson(
       (json['results'] as num?)?.toInt(),
       json['data'] == null
           ? null
-          : DeliveryOrdersDateResponse.fromJson(
+          : NearestDeliveryDataResponse.fromJson(
               json['data'] as Map<String, dynamic>),
     )
       ..statusCode = (json['statusCode'] as num?)?.toInt()
@@ -384,7 +384,7 @@ NearestRecommendedDeliveryResponse _$NearestRecommendedDeliveryResponseFromJson(
 Map<String, dynamic> _$NearestRecommendedDeliveryResponseToJson(
         NearestRecommendedDeliveryResponse instance) =>
     <String, dynamic>{
-      '_id': instance.orderId,
+      '_id': instance.deliveryId,
       'startLoc': instance.startLoc,
       'endLoc': instance.endLoc,
       'startState': instance.startState,

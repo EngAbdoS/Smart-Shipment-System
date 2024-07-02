@@ -25,6 +25,12 @@ abstract class RemoteDataSource {
   Future<Either<Failure, RecommendedDeliveriesResponse>>
       getRecommendedDeliveries(String orderStartState, String orderEndState);
 
+  Future<Either<Failure, NearestDeliveryResponse>> getNearestDeliveries(
+      double startLocationLat,
+      double startLocationLng,
+      String endLocation,
+      int maxDis);
+
   Future<Either<Failure, RegistrationResponse>> updateDeliveryTripList(
       UpdateDeliveryTripListRequest updateDeliveryTripListRequest);
 
@@ -32,9 +38,10 @@ abstract class RemoteDataSource {
       String id, String status);
 
   Future<Either<Failure, RegistrationResponse>> clientAssignOrderToDelivery(
-      String orderId,String deliveryId);
+      String orderId, String deliveryId);
 
-  Future<Either<Failure, DeliveryOrdersResponse>> deliveryGetOrders(int pageIndex);
+  Future<Either<Failure, DeliveryOrdersResponse>> deliveryGetOrders(
+      int pageIndex);
 
   Future<Either<Failure, RegistrationResponse>> deleteDeliveryTripList(
       int index);
@@ -155,6 +162,17 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
+  Future<Either<Failure, NearestDeliveryResponse>> getNearestDeliveries(double startLocationLat, double startLocationLng, String endLocation, int maxDis)async {
+    try {
+      var result = await _appServiceClient.getAllNearestDelivery(
+          startLocationLat, startLocationLng, endLocation, maxDis);
+
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+  @override
   Future<Either<Failure, RegistrationResponse>> cancelOrderById(
       String id) async {
     try {
@@ -201,9 +219,10 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
 
   @override
   Future<Either<Failure, RegistrationResponse>> clientAssignOrderToDelivery(
-      String orderId,String deliveryId) async {
+      String orderId, String deliveryId) async {
     try {
-      var result = await _appServiceClient.deliveryAssignOrderDelivery(orderId,deliveryId);
+      var result = await _appServiceClient.deliveryAssignOrderDelivery(
+          orderId, deliveryId);
       return Right(result);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
@@ -362,6 +381,5 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
-
 
 }

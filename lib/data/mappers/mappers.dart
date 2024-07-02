@@ -1,4 +1,5 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/data/response/response.dart';
 import 'package:smart_shipment_system/domain/entities/deliveryOrderIntity.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
@@ -121,7 +122,8 @@ extension RecommmendedDeliveryeMapper on RecommendedDeliveryResponse? {
       time: this?.time ?? "noTime",
       duration: this?.duration ?? "noDuration",
       day: this?.day ?? "noDay",
-      id: this?.deliveryPerson?.userId ?? "noId",
+      id: this?.deliveryPerson?.userId ?? "noId",      role: AppConstants.deliveryRoleExternal,
+
     );
   }
 }
@@ -174,7 +176,8 @@ extension NearestRecommendedDeliveryMapper
       time: this?.time ?? "noTime",
       duration: this?.duration ?? "noDuration",
       day: this?.day ?? "noDay",
-      id: this?.orderId ?? "noId",
+      id: this?.deliveryId ?? "noId",
+      role: this?.role ?? "noRole",
     );
   }
 }
