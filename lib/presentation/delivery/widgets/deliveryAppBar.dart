@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_shipment_system/presentation/delivery/home/viewModel/deliveryViewModel.dart';
 import 'package:smart_shipment_system/presentation/delivery/main/viewModel/mainDeliveryViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -10,8 +9,9 @@ import 'package:smart_shipment_system/presentation/widgets/profilePicture.dart';
 
 Widget buildDeliverySliverAppBar(
     {required BuildContext context,
-    required DeliveryHomeViewModel viewModel,
-    required MainDeliveryViewModel mainDeliveryViewModel}) {
+    required dynamic viewModel,
+    required MainDeliveryViewModel mainDeliveryViewModel,
+    bool isHomeOrHistory = true}) {
   return SliverAppBar(
     pinned: true,
     expandedHeight: 120.w,
@@ -68,8 +68,21 @@ Widget buildDeliverySliverAppBar(
       ),
     ),
     toolbarHeight: 90.h,
-    flexibleSpace: const FlexibleSpaceBar(
-      stretchModes: <StretchMode>[
+    flexibleSpace: FlexibleSpaceBar(
+      background: !isHomeOrHistory
+          ? Container(
+              padding: EdgeInsets.only(bottom: 20.h),
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                AppStrings.active_history,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(fontSize: 16),
+              ).tr(),
+            )
+          : Container(),
+      stretchModes: const <StretchMode>[
         StretchMode.zoomBackground,
         StretchMode.blurBackground,
         StretchMode.fadeTitle,

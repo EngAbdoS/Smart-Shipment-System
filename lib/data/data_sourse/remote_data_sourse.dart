@@ -20,7 +20,8 @@ abstract class RemoteDataSource {
   Future<Either<Failure, CreatedOrderResponse>> createShipment(
       CreateShipmentRequest createShipmentRequest);
 
-  Future<Either<Failure, OrdersResponse>> getAllComingOrders();
+  Future<Either<Failure, DeliveryOrdersResponse>> getAllComingOrders();
+  Future<Either<Failure, DeliveryOrdersResponse>> getAllDeliveredOrders();
 
   Future<Either<Failure, RecommendedDeliveriesResponse>>
       getRecommendedDeliveries(String orderStartState, String orderEndState);
@@ -197,9 +198,19 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, OrdersResponse>> getAllComingOrders() async {
+  Future<Either<Failure, DeliveryOrdersResponse>> getAllComingOrders() async {
     try {
       var result = await _appServiceClient.getAllComingOrders();
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, DeliveryOrdersResponse>> getAllDeliveredOrders()async{
+    try {
+      var result = await _appServiceClient.getAllDeliveredOrders();
       return Right(result);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
@@ -221,7 +232,7 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   Future<Either<Failure, RegistrationResponse>> clientAssignOrderToDelivery(
       String orderId, String deliveryId) async {
     try {
-      var result = await _appServiceClient.deliveryAssignOrderDelivery(
+      var result = await _appServiceClient.clientAssignOrderDelivery(
           orderId, deliveryId);
       return Right(result);
     } catch (error) {
@@ -381,5 +392,6 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
+
 
 }

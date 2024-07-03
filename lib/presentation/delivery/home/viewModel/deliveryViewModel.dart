@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
+import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/domain/entities/deliveryOrderIntity.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
@@ -46,6 +47,8 @@ class DeliveryHomeViewModel extends MainDeliveryViewModel {
             }, (data) async {
       ordersList.addAll(data);
       data.isNotEmpty ? fetchPageIndex++ : null;
+      ordersList.removeWhere((order) =>
+          order.status == AppConstants.activeShipmentStatusDelivered);
       inputOrdersList.add(ordersList);
       isPaginationLoading = false;
       hideState(context: context);

@@ -229,22 +229,6 @@ class RepositoryImplementation implements Repository {
     });
   }
 
-  @override
-  Future<Either<Failure, List<DeliveryOrderEntity>>> deliveryGetOrders(
-      int pageIndex) async {
-    return await (await _remoteDataSource.deliveryGetOrders(pageIndex)).fold(
-        (error) {
-      return Left(error);
-    }, (response) {
-      if (response.status == ResponseMessage.SUCCESS) {
-        var ordersList =
-            response.data?.orders?.map((order) => order.toDomain()).toList();
-        return Right(ordersList ?? []);
-      } else {
-        return Left(ErrorHandler.handle(response).failure);
-      }
-    });
-  }
 
   @override
   Future<Either<Failure, ShipmentModel>> createShipment(
@@ -289,9 +273,25 @@ class RepositoryImplementation implements Repository {
       }
     });
   }
+  @override
+  Future<Either<Failure, List<DeliveryOrderEntity>>> deliveryGetOrders(
+      int pageIndex) async {
+    return await (await _remoteDataSource.deliveryGetOrders(pageIndex)).fold(
+            (error) {
+          return Left(error);
+        }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        var ordersList =
+        response.data?.orders?.map((order) => order.toDomain()).toList();
+        return Right(ordersList ?? []);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
 
   @override
-  Future<Either<Failure, List<ShipmentModel>>> getAllComingOrders() async {
+  Future<Either<Failure, List<DeliveryOrderEntity>>> getAllComingOrders() async {
     return await (await _remoteDataSource.getAllComingOrders()).fold((error) {
       return Left(error);
     }, (response) {
@@ -305,6 +305,24 @@ class RepositoryImplementation implements Repository {
       }
     });
   }
+
+  @override
+  Future<Either<Failure, List<DeliveryOrderEntity>>> getAllDeliveredOrders() async {
+    return await (await _remoteDataSource.getAllDeliveredOrders()).fold(
+        (error) {
+      return Left(error);
+    }, (response) {
+      if (response.status == ResponseMessage.SUCCESS) {
+        var shipmentList =
+            response.data?.orders?.map((order) => order.toDomain()).toList();
+        return Right(shipmentList ?? []);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
+
+
 
   @override
   Future<Either<Failure, List<RecommendedDeliveryEntity>>>

@@ -5,6 +5,7 @@ import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/chat/view/chatBotView.dart';
+import 'package:smart_shipment_system/presentation/delivery/activiesHistory/view/activiesHistoryView.dart';
 import 'package:smart_shipment_system/presentation/delivery/home/view/deliveryView.dart';
 import 'package:smart_shipment_system/presentation/delivery/tripList/view/tripListView.dart';
 import 'package:smart_shipment_system/presentation/notifications/notificationsScreen.dart';
@@ -100,7 +101,15 @@ class MainDeliveryViewModel {
             inputMainIndexStream.add(widget);
             break;
           }
-
+        case 7:
+          {
+            await getUserData(context);
+            pageViewIndex = widget;
+            initDeliveryActivitiesHistoryModule(userModel!);
+            inputMainStream.add(const ActivitiesHistoryView());
+            inputMainIndexStream.add(widget);
+            break;
+          }
         case 8:
           {
             pageViewIndex = widget;

@@ -32,8 +32,11 @@ abstract class AppServiceClient {
   @POST("client/order/{id}/checkout")
   Future<CheckoutResponse> checkoutOrderById(@Path("id") String id);
 
-  @GET("client/order/getAllOrders?coming=true")
-  Future<OrdersResponse> getAllComingOrders();
+  @GET("delivery/order/summary?coming=true")
+  Future<DeliveryOrdersResponse> getAllComingOrders();
+
+  @GET("delivery/order/summary?delivered=true")
+  Future<DeliveryOrdersResponse> getAllDeliveredOrders();
 
   @GET(
       "client/order/findPath?orderStartState={orderStartState}&orderEndState={orderEndState}")
@@ -61,7 +64,7 @@ abstract class AppServiceClient {
       @Path("id") String id, @Path("status") String status);
 
   @PATCH('delivery/order/{order_id}/assignToMe?delivery={delivery_id}')
-  Future<RegistrationResponse> deliveryAssignOrderDelivery(
+  Future<RegistrationResponse> clientAssignOrderDelivery(
       @Path("order_id") String orderId, @Path("delivery_id") String deliveryId);
 
   @GET('delivery/order/summary?limit=10&page={pageIndex}')

@@ -21,7 +21,7 @@ Widget generalSettingSection(BuildContext context, bool isClientOrDelivery,
       !isClientOrDelivery
           ? generalSetting(
               context,
-              () {},
+            () => mainViewModel.changeWidget(context, 7),
               AppStrings.active_history,
               AppStrings.active_history_hint,
               Icons.history_edu,

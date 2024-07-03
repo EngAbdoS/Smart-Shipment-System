@@ -48,7 +48,9 @@ abstract class Repository {
 
   Future<Either<Failure, bool>> deleteDeliveryTripList(int index);
 
-  Future<Either<Failure, List<ShipmentModel>>> getAllComingOrders();
+  Future<Either<Failure, List<DeliveryOrderEntity>>> getAllComingOrders();
+
+  Future<Either<Failure, List<DeliveryOrderEntity>>> getAllDeliveredOrders();
 
   Future<Either<Failure, bool>> login(LoginRequest loginRequest);
 

@@ -122,7 +122,8 @@ extension RecommmendedDeliveryeMapper on RecommendedDeliveryResponse? {
       time: this?.time ?? "noTime",
       duration: this?.duration ?? "noDuration",
       day: this?.day ?? "noDay",
-      id: this?.deliveryPerson?.userId ?? "noId",      role: AppConstants.deliveryRoleExternal,
+      id: this?.deliveryPerson?.userId ?? "noId",
+      role: AppConstants.deliveryRoleExternal,
       currentGovState: '',
     );
   }

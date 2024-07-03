@@ -212,20 +212,20 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<OrdersResponse> getAllComingOrders() async {
+  Future<DeliveryOrdersResponse> getAllComingOrders() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<OrdersResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<DeliveryOrdersResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              'client/order/getAllOrders?coming=true',
+              'delivery/order/summary?coming=true',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -234,7 +234,34 @@ class _AppServiceClient implements AppServiceClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = OrdersResponse.fromJson(_result.data!);
+    final value = DeliveryOrdersResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<DeliveryOrdersResponse> getAllDeliveredOrders() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<DeliveryOrdersResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'delivery/order/summary?delivered=true',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = DeliveryOrdersResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -387,7 +414,7 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<RegistrationResponse> deliveryAssignOrderDelivery(
+  Future<RegistrationResponse> clientAssignOrderDelivery(
     String orderId,
     String deliveryId,
   ) async {

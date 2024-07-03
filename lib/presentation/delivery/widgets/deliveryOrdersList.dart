@@ -9,7 +9,7 @@ import 'package:smart_shipment_system/presentation/widgets/emptyListWidget.dart'
 
 Widget deliveryOrdersList({
   required BuildContext context,
-  required DeliveryHomeViewModel viewModel,
+  required dynamic viewModel,
   required ScrollController scrollController,
 }) {
   return StreamBuilder<List<DeliveryOrderEntity>?>(
