@@ -98,9 +98,9 @@ Widget shipmentList(
                                 ? activeShipmentCard(
                                     context, snapshot.data![index])
                                 : detailedShipmentCard(
-                                    context, snapshot.data![index])
+                                    context, snapshot.data![index],viewModel.deleteShipment)
                             : detailedShipmentCard(
-                                context, snapshot.data![index]);
+                                context, snapshot.data![index],viewModel.deleteShipment);
                       })
                   : isActiveShipmentList
                       ? emptyListWidget(context,

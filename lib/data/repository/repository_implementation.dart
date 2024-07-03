@@ -26,10 +26,9 @@ class RepositoryImplementation implements Repository {
   final ChatBotAppServiceClient _chatBotAppServiceClient;
   final NetworkInfo _networkInfo;
 
-  final AppPreferences _appPreferences;
 
   RepositoryImplementation(this._localDataSource, this._remoteDataSource,
-      this._chatBotAppServiceClient, this._appPreferences, this._networkInfo);
+      this._chatBotAppServiceClient,this._networkInfo);
 
   @override
   Future<Either<Failure, String>> getSplashNextNavigationRoute(
@@ -373,6 +372,14 @@ class RepositoryImplementation implements Repository {
       }
     });
   }
+  @override
+  Future<Either<Failure, bool>> deleteOrderById(String id)async {
+    return await (await _remoteDataSource.deleteOrderById(id)).fold((error) {
+    return Left(error);
+    }, (response) {
+      return const Right(true);
+    });
+  }
 
   @override
   Future<Either<Failure, Message>> chatBot(String message) async {
@@ -544,6 +551,7 @@ class RepositoryImplementation implements Repository {
   void logout() {
     _localDataSource.logout();
   }
+
 
 
 }

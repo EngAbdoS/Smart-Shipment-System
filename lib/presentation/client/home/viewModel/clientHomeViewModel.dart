@@ -145,6 +145,27 @@ class ClientHomeViewModel extends MainClientViewModel {
       ? inputShipmentList.add(activeShipmentList.getRange(0, 3).toList())
       : inputShipmentList.add(activeShipmentList);
 
+  deleteShipment(dynamic context, String id) async {
+    loadingState(context: context);
+    (await _repository.deleteOrderById(id)).fold((failure) async {
+      await getDataShipmentAfterDelete(context,id);
+      hideState(context: context);
+    }, (data) async {
+      await getDataShipmentAfterDelete(context,id);
+      hideState(context: context);
+    });
+  }
+getDataShipmentAfterDelete(dynamic context, String id)async
+{
+ // await getAllShipments(context);
+ // changeShipmentListStatusBar(true);
+  activeShipmentList.removeWhere((element)=>element.id==id);
+  inputShipmentList.add(activeShipmentList);
+  isActiveShipment = true;
+
+
+
+}
   void dispose() {
     _activeShipmentListStreamController.close();
     _deliveredShipmentListStreamController.close();

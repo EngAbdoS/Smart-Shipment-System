@@ -43,6 +43,7 @@ abstract class Repository {
       String id, String status);
 
   Future<Either<Failure, bool>> clientAssignOrderToDelivery(String orderId,List<String> deliveryId);
+  Future<Either<Failure, bool>> deleteOrderById(String id);
 
   Future<Either<Failure, List<DeliveryOrderEntity>>> deliveryGetOrders(int pageIndex);
 

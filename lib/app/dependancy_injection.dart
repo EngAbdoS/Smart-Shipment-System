@@ -68,7 +68,7 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<LocalDataSource>(
       () => LocalDataSourceImplementation(instance(), instance(), instance(), instance()));
   instance.registerLazySingleton<Repository>(() =>
-      RepositoryImplementation(instance(), instance(), instance(), instance(), instance()));
+      RepositoryImplementation(instance(), instance(), instance(), instance()));
   instance.registerLazySingleton<SplashNavigationUseCase>(
       () => SplashNavigationUseCase(instance()));
 }

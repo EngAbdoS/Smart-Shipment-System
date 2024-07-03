@@ -1,6 +1,5 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,9 +11,8 @@ import 'package:smart_shipment_system/presentation/resources/assets_manager.dart
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 
-import '../../../app/app_constants.dart';
-
-Widget detailedShipmentCard(BuildContext context, ShipmentModel shipment) {
+Widget detailedShipmentCard(
+    BuildContext context, ShipmentModel shipment, Function deleteShipment) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
     child: Container(
@@ -52,27 +50,27 @@ Widget detailedShipmentCard(BuildContext context, ShipmentModel shipment) {
               const SizedBox(
                 width: 8,
               ),
-              Flexible(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Flexible(
-                    //   child: Text(
-                    //     '#${shipment.id}',
-                    //     style: Theme.of(context)
-                    //         .textTheme
-                    //         .titleSmall!
-                    //         .copyWith(fontSize: 14),
-                    //     overflow: TextOverflow.ellipsis,
-                    //     softWrap: true,
-                    //   ),
-                    // ),
-                    Text(shipment.date,
-                        style: Theme.of(context).textTheme.titleSmall),
-                  ],
-                ),
-              ),
+              // Flexible(
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     mainAxisSize: MainAxisSize.min,
+              //     children: [
+              //       // Flexible(
+              //       //   child: Text(
+              //       //     '#${shipment.id}',
+              //       //     style: Theme.of(context)
+              //       //         .textTheme
+              //       //         .titleSmall!
+              //       //         .copyWith(fontSize: 14),
+              //       //     overflow: TextOverflow.ellipsis,
+              //       //     softWrap: true,
+              //       //   ),
+              //       // ),
+              //       Text(shipment.date,
+              //           style: Theme.of(context).textTheme.titleSmall),
+              //     ],
+              //   ),
+              // ),
               shipmentStatusWidget(context, shipment.status),
             ],
           ),
@@ -162,7 +160,7 @@ Widget detailedShipmentCard(BuildContext context, ShipmentModel shipment) {
                     height: 6,
                   ),
                   Text(
-                    "\$\$\$",
+                    shipment.price,
                     style: Theme.of(context)
                         .textTheme
                         .titleSmall!
@@ -192,7 +190,16 @@ Widget detailedShipmentCard(BuildContext context, ShipmentModel shipment) {
             AppStrings.scan_to_accept,
             style:
                 Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 10),
-          ).tr()
+          ).tr(),
+          TextButton(
+              onPressed: () => deleteShipment(context, shipment.id),
+              child: Text(
+                AppStrings.cancel_order,
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      fontSize: 10,
+                      decoration: TextDecoration.underline,
+                    ),
+              ).tr())
         ],
       ),
     ),
