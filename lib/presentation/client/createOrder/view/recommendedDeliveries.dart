@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/widgets/registrationSlider.dart';
 import 'package:smart_shipment_system/presentation/client/createOrder/viewModel/clientCreateOrderViewModel.dart';
+import 'package:smart_shipment_system/presentation/client/createOrder/widgets/driversButtonsSection.dart';
 import 'package:smart_shipment_system/presentation/client/createOrder/widgets/priceWidget.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/createOrder/widgets/recommendedDeliveryList.dart';
@@ -43,47 +44,14 @@ class ClientCreateOrderRecommendedDeliveriesMainView extends StatelessWidget {
                     curve: Curves.fastEaseInToSlowEaseOut),
                 const RegistrationSlider(pageIndex: 2),
                 SizedBox(height: 25.h),
-                priceWidget(context,_viewModel.recommendedDeliveryList.isNotEmpty? _viewModel.createdShipment?.price:"_"),
+                priceWidget(context, _viewModel),
                 Column(
                   children: <Widget>[
                     recommendedDeliveryList(
                         context, _viewModel.outputRecommendedDeliveryList),
-                   // SizedBox(height: 25.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _viewModel.recommendedDeliveryList.isNotEmpty
-                            ? Expanded(
-                                child: RegularButton(
-                                    buttonAction: () =>
-                                        _viewModel.confirmShipmentToDeliveries(
-                                            context,
-                                            () => _mainClientViewMode
-                                                .changeWidget(context, 7)),
-                                    buttonWidget: Text(
-                                      AppStrings.confirm_shipment,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium,
-                                    ).tr()),
-                              )
-                            : Container(),
-                        _viewModel.recommendedDeliveryList.isNotEmpty
-                            ? SizedBox(width: 10.w)
-                            : Container(),
-                        Expanded(
-                          child: RegularButton(
-                              buttonAction: () => _viewModel.cancelShipment(
-                                  context,
-                                  () => _mainClientViewMode.changeWidget(
-                                      context, 0)),
-                              buttonWidget: Text(
-                                AppStrings.cancel_order,
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ).tr()),
-                        ),
-                      ],
-                    ),
+                    // SizedBox(height: 25.h),
+                    driversButtonsSection(
+                        context, _viewModel, _mainClientViewMode),
                     SizedBox(height: 40.h),
                   ],
                 ),

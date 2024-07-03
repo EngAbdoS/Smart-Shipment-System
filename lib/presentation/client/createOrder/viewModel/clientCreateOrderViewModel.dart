@@ -36,7 +36,9 @@ class ClientCreateOrderViewModel {
       StreamController<bool>.broadcast();
 
   final StreamController _recommendedDeliveryListStreamController =
-      StreamController<List<RecommendedDeliveryEntity>>.broadcast();
+  StreamController<List<RecommendedDeliveryEntity>>.broadcast();
+  final StreamController _hasDeliveryListStreamController =
+  StreamController<bool>.broadcast();
 
   List<RecommendedDeliveryEntity> recommendedDeliveryList = [];
   ShipmentEntity shipment = ShipmentEntity(
@@ -78,6 +80,8 @@ class ClientCreateOrderViewModel {
 
   Stream<List<RecommendedDeliveryEntity>> get outputRecommendedDeliveryList =>
       _recommendedDeliveryListStreamController.stream.map((list) => list);
+  Stream<bool> get outputIsHasDelivery =>
+      _hasDeliveryListStreamController.stream.map((value) => value);
 
   Sink get inputShipmentTypeValidation => _shipmentTypeValidationStream.sink;
 
@@ -96,6 +100,8 @@ class ClientCreateOrderViewModel {
 
   Sink get inputRecommendedDeliveryList =>
       _recommendedDeliveryListStreamController.sink;
+  Sink get inputIsHasDelivery =>
+      _hasDeliveryListStreamController.sink;
 
   addShipment(dynamic context, GestureTapCallback navigate) async {
     loadingState(context: context);
@@ -155,7 +161,7 @@ class ClientCreateOrderViewModel {
                 }, (data) async {
       setRecommendedDeliveryList(data);
       //delivery in start govState
-      loadingState(context: context);
+      //loadingState(context: context);
       (await _repository.getAllNearestUnOrganizedDelivery(
         shipment.startLoc.latitude,
         shipment.startLoc.longitude,
@@ -170,7 +176,7 @@ class ClientCreateOrderViewModel {
       });
 
       //delivery in end govState
-      loadingState(context: context);
+      // loadingState(context: context);
       (await _repository.getAllNearestUnOrganizedDelivery(
         shipment.endLoc.latitude,
         shipment.endLoc.longitude,
@@ -265,19 +271,23 @@ class ClientCreateOrderViewModel {
   setRecommendedDeliveryList(
       List<RecommendedDeliveryEntity> recommendedDeliveryList) {
     this.recommendedDeliveryList = recommendedDeliveryList;
-
+    inputIsHasDelivery.add(true);
     inputRecommendedDeliveryList.add(recommendedDeliveryList);
   }
 
   insertToRecommendedDeliveryList(RecommendedDeliveryEntity recommendedDelivery,
       {bool inZeroIndex = false}) {
+    inputIsHasDelivery.add(true);
+
     inZeroIndex
         ? {
             recommendedDelivery.currentGovState = shipment.startLocation,
+          //  recommendedDelivery.day = shipment.date,
             recommendedDeliveryList.insert(0, recommendedDelivery)
           }
         : {
             recommendedDelivery.currentGovState = shipment.endLocation,
+           // recommendedDelivery.day = shipment.date,
             recommendedDeliveryList.add(recommendedDelivery)
           };
     inputRecommendedDeliveryList.add(recommendedDeliveryList);

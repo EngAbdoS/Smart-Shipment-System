@@ -2,10 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_shipment_system/presentation/client/createOrder/viewModel/clientCreateOrderViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 
-Widget priceWidget(BuildContext context, String? price) {
+Widget priceWidget(BuildContext context, ClientCreateOrderViewModel viewModel) {
   return Container(
     height: 60.h,
     width: double.maxFinite,
@@ -27,7 +28,12 @@ Widget priceWidget(BuildContext context, String? price) {
         Text("${AppStrings.cost.tr()} :   ",
                 style: Theme.of(context).textTheme.bodyLarge)
             ,
-        Text(price ?? "!!!", style: Theme.of(context).textTheme.titleSmall)
+        StreamBuilder<bool>(
+          stream: viewModel.outputIsHasDelivery,
+          builder: (context, snapshot) {
+            return Text((snapshot.hasData&&snapshot.data!)?(viewModel.createdShipment?.price??"_"):"_", style: Theme.of(context).textTheme.titleSmall);
+          }
+        )
             ,
       ],
     ),
