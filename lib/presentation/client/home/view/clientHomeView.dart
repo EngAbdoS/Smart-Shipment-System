@@ -16,6 +16,7 @@ class _ClientHomeViewState extends State<ClientHomeView> {
   final ClientHomeViewModel _viewModel = instance<ClientHomeViewModel>();
   final MainClientViewModel mainClientViewModel =
       instance<MainClientViewModel>();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -42,7 +43,9 @@ class _ClientHomeViewState extends State<ClientHomeView> {
                 child: shipmentList(
                     context: context,
                     viewModel: _viewModel,
-                    isActiveShipmentList: true),
+                    mainClientViewModel: mainClientViewModel,
+                    isActiveShipmentList: true,
+                scrollController: _scrollController),
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
@@ -6,7 +7,7 @@ import 'package:smart_shipment_system/presentation/client/widgets/clientAppBar.d
 import 'package:smart_shipment_system/presentation/client/widgets/shipmentList.dart';
 
 class ShipmentView extends StatefulWidget {
-  ShipmentView({super.key});
+  const ShipmentView({super.key});
 
   @override
   State<ShipmentView> createState() => _ShipmentViewState();
@@ -17,9 +18,22 @@ class _ShipmentViewState extends State<ShipmentView> {
 
   final MainClientViewModel mainClientViewModel =
       instance<MainClientViewModel>();
+  final ScrollController _scrollController = ScrollController();
+
+  _binding() {
+    _viewModel.outputShipmentScrollPositionStream.listen((positionIndex) {
+      double offset = ((positionIndex ?? 0) + 1) * 400.h;
+      offset = offset >= _scrollController.position.maxScrollExtent
+          ? _scrollController.position.maxScrollExtent
+          : offset;
+      _scrollController.animateTo(offset,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeInBack);
+    });
+  }
 
   @override
   void initState() {
+    _binding();
     _viewModel.getActiveShipmentList(context);
     super.initState();
   }
@@ -48,14 +62,18 @@ class _ShipmentViewState extends State<ShipmentView> {
                           ? shipmentList(
                               context: context,
                               viewModel: _viewModel,
+                              mainClientViewModel: mainClientViewModel,
                               isActiveShipmentList: true,
                               isDetailedCard: true,
+                              scrollController: _scrollController,
                             )
                           : shipmentList(
                               context: context,
                               viewModel: _viewModel,
+                              mainClientViewModel: mainClientViewModel,
                               isActiveShipmentList: false,
                               isDetailedCard: true,
+                              scrollController: _scrollController,
                             );
                     }),
               ),

@@ -2,17 +2,21 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
+import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/activeShipmentCard.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/detailedShipmentCard.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/emptyListWidget.dart';
+import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
+import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
 
 Widget shipmentList(
     {required BuildContext context,
     required ClientHomeViewModel viewModel,
+    required MainClientViewModel mainClientViewModel,
     bool isDetailedCard = false,
-    required bool isActiveShipmentList}) {
+    required bool isActiveShipmentList,required ScrollController scrollController}) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     mainAxisAlignment: MainAxisAlignment.start,
@@ -95,12 +99,28 @@ Widget shipmentList(
                       itemBuilder: (context, index) {
                         return isActiveShipmentList
                             ? (!isDetailedCard)
-                                ? activeShipmentCard(
-                                    context, snapshot.data![index])
+                                ? GestureDetector(
+                                    onTap: !isDetailedCard
+                                        ? () {
+                                            loadingState(context: context);
+                                            mainClientViewModel.changeWidget(
+                                                context, 1);
+                                            viewModel.setShipmentScrollPosition(
+                                                index);
+                                            hideState(context: context);
+                                          }
+                                        : () {},
+                                    child: activeShipmentCard(
+                                        context, snapshot.data![index]),
+                                  )
                                 : detailedShipmentCard(
-                                    context, snapshot.data![index],viewModel.deleteShipment)
+                                    context,
+                                    snapshot.data![index],
+                                    viewModel.deleteShipment)
                             : detailedShipmentCard(
-                                context, snapshot.data![index],viewModel.deleteShipment);
+                                context,
+                                snapshot.data![index],
+                                viewModel.deleteShipment);
                       })
                   : isActiveShipmentList
                       ? emptyListWidget(context,

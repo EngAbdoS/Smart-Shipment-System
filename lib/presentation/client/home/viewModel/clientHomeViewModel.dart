@@ -29,7 +29,9 @@ class ClientHomeViewModel extends MainClientViewModel {
   final StreamController _shipmentListStreamController =
       BehaviorSubject<List<ShipmentModel>?>();
   final StreamController _isHomeActiveShipmentOrSearchStream =
-      BehaviorSubject<bool?>();
+  BehaviorSubject<bool?>();
+  final StreamController _shipmentScrollPositionStream =
+  BehaviorSubject<int?>();
 
   Stream<List<ShipmentModel>?> get outputShipmentList =>
       _shipmentListStreamController.stream.map((shipmentList) => shipmentList);
@@ -47,6 +49,8 @@ class ClientHomeViewModel extends MainClientViewModel {
 
   Stream<bool?> get outputIsHomeActiveShipmentOrSearchStream =>
       _isHomeActiveShipmentOrSearchStream.stream.map((widget) => widget);
+  Stream<int?> get outputShipmentScrollPositionStream =>
+      _shipmentScrollPositionStream.stream.map((widget) => widget);
 
   Sink get inputShipmentList => _shipmentListStreamController.sink;
 
@@ -60,6 +64,8 @@ class ClientHomeViewModel extends MainClientViewModel {
 
   Sink get inputIsHomeActiveShipmentOrSearchStream =>
       _isHomeActiveShipmentOrSearchStream.sink;
+  Sink get inputShipmentScrollPosition =>
+      _shipmentScrollPositionStream.sink;
 
   changeHomeActiveShipmentOrSearchState(bool state) =>
       inputIsHomeActiveShipmentOrSearchStream.add(state);
@@ -74,7 +80,12 @@ class ClientHomeViewModel extends MainClientViewModel {
           }
         : {};
   }
+  setShipmentScrollPosition(int index)
+  {
 
+inputShipmentScrollPosition.add(index) ;
+
+  }
   startHomeView(dynamic context) async {
     changeHomeActiveShipmentOrSearchState(true);
     await getHomeActiveShipmentList(context);
@@ -157,13 +168,10 @@ class ClientHomeViewModel extends MainClientViewModel {
   }
 getDataShipmentAfterDelete(dynamic context, String id)async
 {
- // await getAllShipments(context);
- // changeShipmentListStatusBar(true);
+
   activeShipmentList.removeWhere((element)=>element.id==id);
   inputShipmentList.add(activeShipmentList);
   isActiveShipment = true;
-
-
 
 }
   void dispose() {
