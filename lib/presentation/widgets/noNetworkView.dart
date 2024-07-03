@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
+import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
@@ -18,7 +19,9 @@ class NoNetworkView extends StatelessWidget {
       body: errorState(
           context: context,
           message: AppStrings.noInternetError,
-          buttonAction: () => reRouteNetwork(context)),
+          buttonAction: () => reRouteNetwork(context),
+        lottieAssetPath:JsonAssets.error,
+      ),
     );
   }
 

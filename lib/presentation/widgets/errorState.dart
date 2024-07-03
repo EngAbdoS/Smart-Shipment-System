@@ -9,7 +9,7 @@ import 'package:smart_shipment_system/presentation/resources/color_manager.dart'
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 errorState(
     {required BuildContext context,
-    String lottieAssetPass = JsonAssets.error,
+    String lottieAssetPath = JsonAssets.error404,
     String message = "",GestureTapCallback buttonAction=noFun}) {
   context.loaderOverlay.visible ? context.loaderOverlay.hide() : null;
   context.loaderOverlay.show(widgetBuilder: (p) {
@@ -26,7 +26,7 @@ errorState(
             mainAxisSize: MainAxisSize.min,
             children: [
               Animate(
-                child: Lottie.asset(lottieAssetPass,
+                child: Lottie.asset(lottieAssetPath,
                     fit: BoxFit.cover,
                     alignment: Alignment.center,
                     height: 300),

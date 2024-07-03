@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/authView/auth_view.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/authView/client_auth_view.dart';
@@ -14,7 +13,6 @@ import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegis
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/view/forgetPasswordView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/view/loginView.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/verification/view/verificationView.dart';
-import 'package:smart_shipment_system/presentation/client/home/view/clientHomeView.dart';
 import 'package:smart_shipment_system/presentation/client/main/view/mainClientView.dart';
 import 'package:smart_shipment_system/presentation/delivery/main/view/mainDeliveryView.dart';
 import 'package:smart_shipment_system/presentation/onboarding/view/onBoardingView.dart';
@@ -53,74 +51,103 @@ class Routes {
 Route<dynamic> getRoute(RouteSettings settings) {
   switch (settings.name) {
     case Routes.splashRoute:
-      return customPageRoute(SplashScreenView(), settings, fadeTransition);
+      return customPageRoute(
+          const SplashScreenView(), settings, fadeTransition);
+      break;
     case Routes.mainClientViewRoute:
       initMainClientModule();
-      return customPageRoute(MainClientView(), settings, fadeTransition);
+      return customPageRoute(const MainClientView(), settings, fadeTransition);
+      break;
     case Routes.mainDeliveryViewRoute:
       initMainDeliveryModule();
-      return customPageRoute(MainDeliveryView(), settings, fadeTransition);
+      return customPageRoute(
+          const MainDeliveryView(), settings, fadeTransition);
+      break;
     case Routes.onBoardingViewRoute:
       return customPageRoute(OnBoardingView(), settings, fadeTransition);
+      break;
     case Routes.authViewRoute:
-      return customPageRoute(AuthenticationView(), settings, fadeTransition);
+      return customPageRoute(
+          const AuthenticationView(), settings, fadeTransition);
+      break;
     case Routes.deliveryAuthViewRoute:
-      return customPageRoute(DeliveryAuthView(), settings, fadeTransition);
+      return customPageRoute(
+          const DeliveryAuthView(), settings, fadeTransition);
+      break;
     case Routes.clientAuthViewRoute:
-      return customPageRoute(ClientAuthView(), settings, fadeTransition);
+      return customPageRoute(const ClientAuthView(), settings, fadeTransition);
+      break;
     case Routes.loginViewRoute:
       initLoginModule();
       return customPageRoute(LoginView(), settings, fadeTransition);
+      break;
     case Routes.clientRegistrationViewRoute:
       initClientRegistrationModule();
-      return customPageRoute(ClientRegistrationView(), settings, slideTransitionFromLeft);
+      return customPageRoute(
+          ClientRegistrationView(), settings, slideTransitionFromLeft);
+      break;
     case Routes.deliveryRegistrationView1Route:
       initDeliveryRegistrationModule();
-      return customPageRoute(DeliveryRegistrationView1(), settings, slideTransitionFromRight);
+      return customPageRoute(
+          DeliveryRegistrationView1(), settings, slideTransitionFromRight);
+      break;
     case Routes.deliveryRegistrationView2Route:
       initDeliveryRegistrationModule();
-      return customPageRoute(DeliveryRegistrationView2(), settings, slideTransitionFromRight);
+      return customPageRoute(
+          DeliveryRegistrationView2(), settings, slideTransitionFromRight);
+      break;
     case Routes.deliveryRegistrationRoleViewRoute:
       initDeliveryRegistrationModule();
-      return customPageRoute(DeliveryRegistrationRoleView(), settings, slideTransitionFromRight);
+      return customPageRoute(
+          DeliveryRegistrationRoleView(), settings, slideTransitionFromRight);
+      break;
     case Routes.deliveryInteriorRegistrationViewRoute:
       initDeliveryRegistrationModule();
-      return customPageRoute(DeliveryInteriorRegistrationView(), settings, slideTransitionFromRight);
+      return customPageRoute(DeliveryInteriorRegistrationView(), settings,
+          slideTransitionFromRight);
+      break;
     case Routes.deliveryExternalRegistrationViewRoute:
       initDeliveryRegistrationModule();
-      return customPageRoute(DeliveryExternalRegistrationView(), settings, slideTransitionFromRight);
+      return customPageRoute(DeliveryExternalRegistrationView(), settings,
+          slideTransitionFromRight);
+      break;
     case Routes.forgotPasswordViewRoute:
       initForgotPasswordModule();
       return customPageRoute(ForgotPasswordView(), settings, fadeTransition);
+      break;
     case Routes.changePasswordViewRoute:
       return customPageRoute(ChangePasswordView(), settings, fadeTransition);
+      break;
     case Routes.emilVerificationViewRoute:
       return customPageRoute(EmailVerificationView(), settings, fadeTransition);
+      break;
     case Routes.noNetworkView:
       return customPageRoute(NoNetworkView(), settings, fadeTransition);
+      break;
     case Routes.noRoute:
+      print("no route");
       return customPageRoute(
         Scaffold(
-          appBar: AppBar(title: Text(AppStrings.noRouteFound)),
-          body: Center(child: Text(AppStrings.noRouteFound)),
+          appBar: AppBar(title: const Text(AppStrings.noRouteFound)),
+          body: const Center(child: Text(AppStrings.noRouteFound)),
         ),
         settings,
         fadeTransition,
       );
+      break;
     default:
+      print("no route default");
+
       return customPageRoute(
         Scaffold(
-          appBar: AppBar(title: Text(AppStrings.noRouteFound)),
-          body: Center(child: Text(AppStrings.noRouteFound)),
+          //appBar: AppBar(title: const Text(AppStrings.noRouteFound)),
+          body:Container(),
         ),
         settings,
         fadeTransition,
       );
   }
 }
-
-
-
 
 // abstract class AppRouter {
 //   static final router = GoRouter(

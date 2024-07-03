@@ -47,4 +47,7 @@ class JsonAssets {
   static const String robot = "$JSON_PATH/robot.json";
   static const String mapCard = "$JSON_PATH/mapCard.json";
   static const String notification = "$JSON_PATH/notification.json";
+  static const String error404 = "$JSON_PATH/error404.json";
+
+
 }
