@@ -45,6 +45,13 @@ abstract class AppServiceClient {
       @Path("orderEndState") String orderEndState);
 
   @GET(
+      "client/order/nearestUnOrganizedDelivery?currentLocation={currentLocationLat},{currentLocationLng}&maxDis={maxDis}")
+  Future<NearestDeliveryResponse> getAllNearestUnOrganizedDelivery(
+      @Path("currentLocationLat") double currentLocationLat,
+      @Path("currentLocationLng") double currentLocationLng,
+      @Path("maxDis") int maxDis);
+
+  @GET(
       "client/order/nearestDelivery?startLocation={startLocationLat},{startLocationLng}&endLocation={endLocation}&maxDis={maxDis}")
   Future<NearestDeliveryResponse> getAllNearestDelivery(
       @Path("startLocationLat") double startLocationLat,

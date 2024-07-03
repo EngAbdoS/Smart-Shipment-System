@@ -43,12 +43,12 @@ class ClientCreateOrderRecommendedDeliveriesMainView extends StatelessWidget {
                     curve: Curves.fastEaseInToSlowEaseOut),
                 const RegistrationSlider(pageIndex: 2),
                 SizedBox(height: 25.h),
-                priceWidget(context, _viewModel.createdShipment?.price),
+                priceWidget(context,_viewModel.recommendedDeliveryList.isNotEmpty? _viewModel.createdShipment?.price:"_"),
                 Column(
                   children: <Widget>[
                     recommendedDeliveryList(
-                        context, _viewModel.recommendedDeliveryList),
-                    SizedBox(height: 25.h),
+                        context, _viewModel.outputRecommendedDeliveryList),
+                   // SizedBox(height: 25.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -84,6 +84,7 @@ class ClientCreateOrderRecommendedDeliveriesMainView extends StatelessWidget {
                         ),
                       ],
                     ),
+                    SizedBox(height: 40.h),
                   ],
                 ),
               ],

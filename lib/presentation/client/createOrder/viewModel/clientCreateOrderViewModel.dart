@@ -34,6 +34,10 @@ class ClientCreateOrderViewModel {
       BehaviorSubject<int>();
   final StreamController _currentIsShipmentValidStreamController =
       StreamController<bool>.broadcast();
+
+  final StreamController _recommendedDeliveryListStreamController =
+      StreamController<List<RecommendedDeliveryEntity>>.broadcast();
+
   List<RecommendedDeliveryEntity> recommendedDeliveryList = [];
   ShipmentEntity shipment = ShipmentEntity(
     date: DateTime.now().toString(),
@@ -72,6 +76,9 @@ class ClientCreateOrderViewModel {
       _recipientPhoneValidationStream.stream
           .map((phoneNumber) => isPhoneNumberValid(phoneNumber));
 
+  Stream<List<RecommendedDeliveryEntity>> get outputRecommendedDeliveryList =>
+      _recommendedDeliveryListStreamController.stream.map((list) => list);
+
   Sink get inputShipmentTypeValidation => _shipmentTypeValidationStream.sink;
 
   Sink get inputRecipientPhoneNumber => _recipientPhoneValidationStream.sink;
@@ -86,6 +93,9 @@ class ClientCreateOrderViewModel {
 
   Sink get inputIsCurrentShipmentValid =>
       _currentIsShipmentValidStreamController.sink;
+
+  Sink get inputRecommendedDeliveryList =>
+      _recommendedDeliveryListStreamController.sink;
 
   addShipment(dynamic context, GestureTapCallback navigate) async {
     loadingState(context: context);
@@ -126,35 +136,56 @@ class ClientCreateOrderViewModel {
                   errorState(context: context, message: failure.message),
                 }, (data) async {
       createdShipment = data;
-      print(createdShipment?.id ?? "noid");
-      await getRecommendedDelivery(context);
+      // print(createdShipment?.id ?? "noid");
       navigate();
+
+      await getRecommendedDelivery(context);
+
       hideState(context: context);
     });
   }
 
   getRecommendedDelivery(dynamic context) async {
     loadingState(context: context);
-    (await _repository.getRecommendedDeliveries(GetShippingPathRequest(
-            endLoc: CurrentStateRequest(
-                type: AppConstants.currentStateTypePoint,
-                coordinates: [
-                  shipment.endLoc.longitude,
-                  shipment.endLoc.latitude
-                ]),
-            startLoc: CurrentStateRequest(
-                type: AppConstants.currentStateTypePoint,
-                coordinates: [
-                  shipment.startLoc.longitude,
-                  shipment.startLoc.latitude
-                ]),
-            startState: shipment.startLocation,
-            endState: shipment.endLocation)))
+    (await _repository.getRecommendedDeliveries(
+            shipment.startLocation, shipment.endLocation))
         .fold(
             (failure) => {
                   errorState(context: context, message: failure.message),
-                }, (data) {
-      recommendedDeliveryList = data;
+                }, (data) async {
+      setRecommendedDeliveryList(data);
+      //delivery in start govState
+      loadingState(context: context);
+      (await _repository.getAllNearestUnOrganizedDelivery(
+        shipment.startLoc.latitude,
+        shipment.startLoc.longitude,
+      ))
+          .fold(
+              (failure) => {
+                    errorState(context: context, message: failure.message),
+                  }, (data) {
+        data.isNotEmpty
+            ? insertToRecommendedDeliveryList(data[0], inZeroIndex: true)
+            : null;
+      });
+
+      //delivery in end govState
+      loadingState(context: context);
+      (await _repository.getAllNearestUnOrganizedDelivery(
+        shipment.endLoc.latitude,
+        shipment.endLoc.longitude,
+      ))
+          .fold(
+              (failure) => {
+                    errorState(context: context, message: failure.message),
+                  }, (data) {
+        data.isNotEmpty && data[0] != recommendedDeliveryList[0]
+            ? insertToRecommendedDeliveryList(data[0])
+            : data.length > 1
+                ? insertToRecommendedDeliveryList(data[1])
+                : null;
+      });
+
       hideState(context: context);
     });
   }
@@ -228,8 +259,28 @@ class ClientCreateOrderViewModel {
   setShipmentQuantity(String quantity) {
     int quantityInt = int.tryParse(quantity) ?? 0;
     inputQuantity.add(quantityInt);
-    print(quantityInt);
     shipment.quantity = quantityInt;
+  }
+
+  setRecommendedDeliveryList(
+      List<RecommendedDeliveryEntity> recommendedDeliveryList) {
+    this.recommendedDeliveryList = recommendedDeliveryList;
+
+    inputRecommendedDeliveryList.add(recommendedDeliveryList);
+  }
+
+  insertToRecommendedDeliveryList(RecommendedDeliveryEntity recommendedDelivery,
+      {bool inZeroIndex = false}) {
+    inZeroIndex
+        ? {
+            recommendedDelivery.currentGovState = shipment.startLocation,
+            recommendedDeliveryList.insert(0, recommendedDelivery)
+          }
+        : {
+            recommendedDelivery.currentGovState = shipment.endLocation,
+            recommendedDeliveryList.add(recommendedDelivery)
+          };
+    inputRecommendedDeliveryList.add(recommendedDeliveryList);
   }
 
   bool isPhoneNumberValid(String phoneNumber) =>
@@ -238,7 +289,7 @@ class ClientCreateOrderViewModel {
   bool isAllShipmentDataValid() {
     return shipment.type != '' &&
         shipment.recipentName != '' &&
-        shipment.reciepentPhone != '' &&
+        isPhoneNumberValid(shipment.reciepentPhone) &&
         shipment.weight != '0 kg' &&
         shipment.weight != '' &&
         shipment.endLocation != '' &&

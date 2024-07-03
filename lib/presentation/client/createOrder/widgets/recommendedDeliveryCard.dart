@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
@@ -5,6 +6,7 @@ import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
+import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/profilePicture.dart';
 
 Widget recommendedDeliveryCard(
@@ -91,57 +93,64 @@ Widget recommendedDeliveryCard(
                       height: 60, fit: BoxFit.fitHeight))),
 
           //  SizedBox(height: 10.h,),
-        delivery.role!=AppConstants.deliveryRoleInternal?  Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  const Icon(Icons.share_location_outlined,
-                      color: ColorManager.primary),
-                  SizedBox(
-                    height: 5.h,
+          delivery.role != AppConstants.deliveryRoleInternal
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                      children: [
+                        const Icon(Icons.share_location_outlined,
+                            color: ColorManager.primary),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Text(delivery.startState,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(fontSize: 10)),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        const Icon(Icons.my_location_outlined,
+                            color: ColorManager.primary),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Text(delivery.endState,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(fontSize: 10)),
+                      ],
+                    ),
+                  ],
+                )
+              : Padding(
+                padding:  EdgeInsets.only(top: 10.h),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.edit_location_alt_outlined,
+                          color: ColorManager.primary),
+                      Text(" ${AppStrings.govState.tr()} : ",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(fontSize: 12, color: ColorManager.primary)),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Text(delivery.currentGovState,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(fontSize: 10)),
+                    ],
                   ),
-                  Text(delivery.startState,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(fontSize: 10)),
-                ],
-              ),
-              Column(
-                children: [
-                  const Icon(Icons.my_location_outlined,
-                      color: ColorManager.primary),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Text(delivery.endState,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(fontSize: 10)),
-                ],
-              ),
-            ],
-          ):Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-children: [
-
-  const Icon(Icons.edit_location_alt_outlined,
-      color: ColorManager.primary),
-  SizedBox(width: 10.w,),
-  Text(delivery.currentGovState,
-      style: Theme.of(context)
-          .textTheme
-          .titleSmall!
-          .copyWith(fontSize: 10)),
-
-],
-
-
-
-        )
+              )
         ],
       ),
     ),

@@ -327,9 +327,9 @@ class RepositoryImplementation implements Repository {
   @override
   Future<Either<Failure, List<RecommendedDeliveryEntity>>>
       getRecommendedDeliveries(
-          GetShippingPathRequest getShippingPathRequest) async {
+      String startState,String  endState) async {
     return await (await _remoteDataSource.getRecommendedDeliveries(
-            getShippingPathRequest.startState, getShippingPathRequest.endState))
+            startState, endState))
         .fold((error) {
       return Left(error);
     }, (response) async {
@@ -337,67 +337,29 @@ class RepositoryImplementation implements Repository {
         var deliveriesList = response.data?.deliveries
             ?.map((delivery) => delivery.toDomain())
             .toList();
-        // delivery in start location
-        (await _remoteDataSource.getNearestDeliveries(
-                getShippingPathRequest.startLoc.coordinates[0],
-                getShippingPathRequest.startLoc.coordinates[1],
-                getShippingPathRequest.startState,
-                AppConstants.maxDis))
-            .fold((error) {
-          return Left(error);
-        }, (response) {
-          if (response.status == ResponseMessage.SUCCESS) {
-            if ((response.resultsNumber ?? 0) > 0) {
-              List<RecommendedDeliveryEntity>? resList = response
-                  .data?.deliveries
-                  ?.map((delivery) => delivery.toDomain())
-                  .toList();
-              RecommendedDeliveryEntity? startDelivery = resList?.firstWhere(
-                  (delivery) =>
-                      delivery.role == AppConstants.deliveryRoleInternal);
-              startDelivery?.currentGovState =
-                  getShippingPathRequest.startState;
-              startDelivery != null
-                  ? deliveriesList?.insert(0, startDelivery)
-                  : null;
-            }
-          } else {
-            return Left(ErrorHandler.handle(response).failure);
-          }
-        });
-
-        // delivery in end location
-        (await _remoteDataSource.getNearestDeliveries(
-                getShippingPathRequest.endLoc.coordinates[0],
-                getShippingPathRequest.endLoc.coordinates[1],
-                getShippingPathRequest.endState,
-                AppConstants.maxDis))
-            .fold((error) {
-          return Left(error);
-        }, (response) {
-          if (response.status == ResponseMessage.SUCCESS) {
-            if ((response.resultsNumber ?? 0) > 0) {
-              List<RecommendedDeliveryEntity>? resList = response
-                  .data?.deliveries
-                  ?.map((delivery) => delivery.toDomain())
-                  .toList();
-              RecommendedDeliveryEntity? endDelivery = resList?.firstWhere(
-                  (delivery) =>
-                      delivery.role == AppConstants.deliveryRoleInternal);
-              endDelivery?.currentGovState = getShippingPathRequest.endState;
-              endDelivery != null ? deliveriesList?.add(endDelivery) : null;
-            }
-          } else {
-            return Left(ErrorHandler.handle(response).failure);
-          }
-        });
-
         return Right(deliveriesList ?? []);
       } else {
         return Left(ErrorHandler.handle(response).failure);
       }
     });
   }
+  @override
+  Future<Either<Failure, List<RecommendedDeliveryEntity>>> getAllNearestUnOrganizedDelivery(double stateLat,double stateLng)async {
+    return await (await _remoteDataSource.getAllNearestUnOrganizedDelivery(
+       stateLat,stateLng,AppConstants.maxDis))
+        .fold((error) {
+    return Left(error);
+    }, (response) async {
+    if (response.status == ResponseMessage.SUCCESS) {
+    var deliveriesList = response.data?.deliveries
+        ?.map((delivery) => delivery.toDomain())
+        .toList();
+    return Right(deliveriesList ?? []);
+    } else {
+    return Left(ErrorHandler.handle(response).failure);
+    }});
+  }
+
 
   @override
   Future<Either<Failure, ShipmentModel>> getShipmentById(String id) async {
@@ -414,8 +376,6 @@ class RepositoryImplementation implements Repository {
 
   @override
   Future<Either<Failure, Message>> chatBot(String message) async {
-    // String userToken = _appPreferences.getUserToken();
-
     String userToken = await _localDataSource.getUserToken();
     String answer = '';
     try {
@@ -584,4 +544,6 @@ class RepositoryImplementation implements Repository {
   void logout() {
     _localDataSource.logout();
   }
+
+
 }

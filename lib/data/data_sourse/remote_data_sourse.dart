@@ -21,10 +21,15 @@ abstract class RemoteDataSource {
       CreateShipmentRequest createShipmentRequest);
 
   Future<Either<Failure, DeliveryOrdersResponse>> getAllComingOrders();
+
   Future<Either<Failure, DeliveryOrdersResponse>> getAllDeliveredOrders();
 
   Future<Either<Failure, RecommendedDeliveriesResponse>>
       getRecommendedDeliveries(String orderStartState, String orderEndState);
+
+  Future<Either<Failure, NearestDeliveryResponse>>
+      getAllNearestUnOrganizedDelivery(
+          double currentLocationLat, double currentLocationLng, int maxDis);
 
   Future<Either<Failure, NearestDeliveryResponse>> getNearestDeliveries(
       double startLocationLat,
@@ -163,7 +168,25 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, NearestDeliveryResponse>> getNearestDeliveries(double startLocationLat, double startLocationLng, String endLocation, int maxDis)async {
+  Future<Either<Failure, NearestDeliveryResponse>>
+      getAllNearestUnOrganizedDelivery(double currentLocationLat,
+          double currentLocationLng, int maxDis) async {
+    try {
+      var result = await _appServiceClient.getAllNearestUnOrganizedDelivery(
+          currentLocationLat, currentLocationLng, maxDis);
+
+      return Right(result);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, NearestDeliveryResponse>> getNearestDeliveries(
+      double startLocationLat,
+      double startLocationLng,
+      String endLocation,
+      int maxDis) async {
     try {
       var result = await _appServiceClient.getAllNearestDelivery(
           startLocationLat, startLocationLng, endLocation, maxDis);
@@ -173,6 +196,7 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
+
   @override
   Future<Either<Failure, RegistrationResponse>> cancelOrderById(
       String id) async {
@@ -208,7 +232,8 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, DeliveryOrdersResponse>> getAllDeliveredOrders()async{
+  Future<Either<Failure, DeliveryOrdersResponse>>
+      getAllDeliveredOrders() async {
     try {
       var result = await _appServiceClient.getAllDeliveredOrders();
       return Right(result);
@@ -392,6 +417,4 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
-
-
 }
