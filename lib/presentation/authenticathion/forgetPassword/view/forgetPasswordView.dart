@@ -4,7 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/forgetPassword/viewModel/forgetPasswordViewModel.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/widgets/authWidgets.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/emailInputWidget.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/regular_button.dart';
@@ -52,7 +52,6 @@ class ForgotPasswordView extends StatelessWidget {
               SizedBox(
                 height: 24.h,
               ),
-
               emailInputWidget(
                       _viewModel.outputIsEmailValid, _viewModel.setEmail)
                   .animate()

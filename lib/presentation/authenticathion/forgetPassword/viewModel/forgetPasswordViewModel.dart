@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/app/functions.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
@@ -34,9 +32,11 @@ class ForgotPasswordViewModel
       (data) => data
           ? {
               hideState(context: context),
-        //TODO do not excute
               getEmailVerification(
-                context:   context,email:  email!,nextActionRoute:  Routes.changePasswordViewRoute,executeOrRouteOnly: false),
+                  context: context,
+                  email: email!,
+                  nextActionRoute: Routes.changePasswordViewRoute,
+                  executeOrRouteOnly: false),
             }
           : {
               errorState(
@@ -45,8 +45,6 @@ class ForgotPasswordViewModel
             },
     );
   }
-
-  // Navigator.of(context).pushNamed(Routes.changePasswordViewRoute);
 
   @override
   Sink get inputEmail => _emailStreamController.sink;

@@ -7,7 +7,6 @@ import 'package:smart_shipment_system/presentation/chat/viewModel/ChatBotViewMod
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
-import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 
 Widget messageWidget(
     BuildContext context, Message message, ChatBotViewModel viewModel) {

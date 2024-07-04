@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/domain/use_cases/login_usecase.dart';
@@ -23,18 +22,14 @@ class LoginViewModel extends BaseLoginViewModel {
       },
       (data) async => data
           ? {
-              await (await _repository.getLoginNextNavigationRoute(context)).fold(
-                  (error) =>
-                      errorState(context: context, message: error.message),
-                  (route) => {
-                        hideState(context: context),
-                        Navigator.of(context).pushReplacementNamed(route),
-                      }),
-
-              //TODO call me for getting data
-              //TODO navigate based on role
-              print(" logind"),
-              //TODO navigate
+              await (await _repository.getLoginNextNavigationRoute(context))
+                  .fold(
+                      (error) =>
+                          errorState(context: context, message: error.message),
+                      (route) => {
+                            hideState(context: context),
+                            Navigator.of(context).pushReplacementNamed(route),
+                          }),
             }
           : {
               errorState(

@@ -1,12 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/clientRegistration/viewModel/clientRegistrationViewModel.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/widgets/authWidgets.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/emailInputWidget.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/nameInputWidget.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/passwordWidgets.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/phoneNumberInputWidget.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/signInWidget.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/values_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/auth_logo_widget.dart';
@@ -74,9 +76,9 @@ class ClientRegistrationView extends StatelessWidget {
                 height: 30.sp,
               ),
               RegularButton(
-                buttonAction: ()=>( _viewModel
+                buttonAction: () => (_viewModel
                         .areAllClientRegistrationInputsValid())
-                    ?  _viewModel.register(context)
+                    ? _viewModel.register(context)
                     : toastWidget(AppStrings.validateDeliveryTripInputToast),
                 buttonWidget: Text(
                   AppStrings.createAcc,

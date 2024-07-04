@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/domain/models/message.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';

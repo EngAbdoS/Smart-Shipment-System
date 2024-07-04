@@ -63,7 +63,6 @@ class DeliveryExternalRegistrationView extends StatelessWidget {
               ).animate(delay: 600.milliseconds).fade(
                   duration: 300.milliseconds,
                   curve: Curves.fastEaseInToSlowEaseOut),
-              //nextRegistrationPage(context, _viewModel.navigateToNextPage, 2),
 
               SizedBox(
                 height: 15.sp,

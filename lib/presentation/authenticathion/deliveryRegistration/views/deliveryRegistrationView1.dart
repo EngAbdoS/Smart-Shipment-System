@@ -4,11 +4,17 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/viewModel/deliveryRegisterationViewModel.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/widgets/authWidgets.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/widgets/registrationSlider.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/addressInputWidget.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/dateOfBirthInputWidget.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/genderWidget.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/nameInputWidget.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/nationalIdInputWidget.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/nextRegistrationPage.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/phoneNumberInputWidget.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/signInWidget.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/auth_logo_widget.dart';
-
 import '../../../resources/values_manager.dart';
 
 class DeliveryRegistrationView1 extends StatelessWidget {
@@ -84,7 +90,9 @@ class DeliveryRegistrationView1 extends StatelessWidget {
                   ),
                   nextRegistrationPage(
                       context, _viewModel.navigateToNextPage, 1),
-                ].animate(delay:500.ms,interval: 300.ms).fade(duration: 200.ms),
+                ]
+                    .animate(delay: 500.ms, interval: 300.ms)
+                    .fade(duration: 200.ms),
               ),
               SizedBox(
                 height: 15.sp,

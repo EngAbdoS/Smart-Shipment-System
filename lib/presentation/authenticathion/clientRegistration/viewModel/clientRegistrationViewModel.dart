@@ -30,9 +30,11 @@ class ClientRegistrationViewModel extends BaseRegistrationViewModel {
       (data) => data
           ? {
               hideState(context: context),
-              getEmailVerification(context: context, email:email!,nextActionRoute:  Routes.loginViewRoute),
+              getEmailVerification(
+                  context: context,
+                  email: email!,
+                  nextActionRoute: Routes.loginViewRoute),
               toastWidgetC(context, AppStrings.successRegistration),
-              print("registered"),
             }
           : {
               errorState(

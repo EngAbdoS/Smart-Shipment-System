@@ -4,14 +4,15 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/viewModel/deliveryRegisterationViewModel.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/widgets/authWidgets.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/widgets/registrationSlider.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/deliveryVehicleLicensePictureInputWidget.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/auth_logo_widget.dart';
 import 'package:smart_shipment_system/presentation/widgets/inputLocationWidget.dart';
 import 'package:smart_shipment_system/presentation/widgets/regular_button.dart';
 import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 import '../../../resources/values_manager.dart';
+import '../../widgets/userInpuWidgets/vehicleInputWidget.dart';
 
 class DeliveryInteriorRegistrationView extends StatelessWidget {
   DeliveryInteriorRegistrationView({super.key});

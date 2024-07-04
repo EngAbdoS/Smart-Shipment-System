@@ -2,20 +2,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/deliveryRegistration/viewModel/deliveryRegisterationViewModel.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/widgets/authWidgets.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/widgets/registrationSlider.dart';
-import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
-import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
-import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/deliveryConfirmationPictureInputWidget.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/emailInputWidget.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/nextRegistrationPage.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/passwordWidgets.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/auth_logo_widget.dart';
-import 'package:smart_shipment_system/presentation/widgets/cirular_button.dart';
-import 'package:smart_shipment_system/presentation/widgets/toast.dart';
-
 import '../../../resources/values_manager.dart';
 
 class DeliveryRegistrationView2 extends StatelessWidget {
@@ -23,11 +18,6 @@ class DeliveryRegistrationView2 extends StatelessWidget {
 
   final DeliveryRegistrationViewModel _viewModel =
       instance<DeliveryRegistrationViewModel>();
-
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 

@@ -11,11 +11,6 @@ class BaseLoginViewModel
   final StreamController _isPasswordHiddenStreamController =
       BehaviorSubject<void>();
 
-
-  // StreamController isUserLoggedInSuccessfullyStreamController =
-  // StreamController<bool>();
-  // var loginObject = LoginObject("", "");
-
   bool? _isHidden;
   String? email;
   String? password;
@@ -27,8 +22,8 @@ class BaseLoginViewModel
       .map((password) => isPasswordValid(password));
 
   @override
-  Stream<bool> get outputIsEmailValid => _userEmailStreamController.stream
-      .map((email) => isEmailValid(email));
+  Stream<bool> get outputIsEmailValid =>
+      _userEmailStreamController.stream.map((email) => isEmailValid(email));
 
   @override
   Stream<bool> get outputAreAllLoginDataValid =>
@@ -58,14 +53,14 @@ class BaseLoginViewModel
   setPassword(String password) {
     inputPassword.add(password);
 
-    this.password=password;
+    this.password = password;
     //  loginObject = loginObject.copyWith(password: password);
     inputLoginValidation.add(null);
   }
 
   setEmail(String email) {
     inputEmail.add(email);
-    this.email=email;
+    this.email = email;
     //loginObject = loginObject.copyWith(userName: userName);
     inputLoginValidation.add(null); //
   }
@@ -83,8 +78,7 @@ class BaseLoginViewModel
   //////////////////////////validation functions//////////////////////////
 
   bool areAllInputsValid() {
-
-    return isPasswordValid(password??"")&&isEmailValid(email??"");
+    return isPasswordValid(password ?? "") && isEmailValid(email ?? "");
 
     //return false;
     // return _isUserNameValid(loginObject.userName) &&
@@ -93,7 +87,6 @@ class BaseLoginViewModel
 
   bool isPasswordValid(String password) {
     return isPasswordValidGlobal(password);
-    return true;
   }
 
   bool isEmailValid(String email) {

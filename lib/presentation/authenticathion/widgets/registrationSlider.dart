@@ -34,8 +34,7 @@ class RegistrationSlider extends StatelessWidget {
           pageNumber(context, 3),
         ],
       ),
-    ) .animate()
-        .slideX(begin:1, end: 0.0, curve: Curves.easeOut);
+    ).animate().slideX(begin: 1, end: 0.0, curve: Curves.easeOut);
   }
 
   Widget buildDivider(int stateIndex) => Expanded(

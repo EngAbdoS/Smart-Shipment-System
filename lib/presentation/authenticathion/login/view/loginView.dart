@@ -2,11 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/data/network/app_api.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/login/ViewModel/loginViewModel.dart';
-import 'package:smart_shipment_system/presentation/authenticathion/widgets/authWidgets.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/emailInputWidget.dart';
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/userInpuWidgets/passwordInputWidget.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -51,7 +51,6 @@ class LoginView extends StatelessWidget {
               SizedBox(
                 height: 40.sp,
               ),
-
               emailInputWidget(
                       _viewModel.outputIsEmailValid, _viewModel.setEmail)
                   .animate()
@@ -67,7 +66,6 @@ class LoginView extends StatelessWidget {
                       _viewModel.outputIsPasswordValid)
                   .animate()
                   .slideX(begin: -0.25, end: 0.0, curve: Curves.easeOut),
-
               Align(
                 alignment: Alignment.topLeft,
                 child: Row(
@@ -81,7 +79,8 @@ class LoginView extends StatelessWidget {
                           .copyWith(color: ColorManager.black),
                     ).tr(),
                     TextButton(
-                      onPressed: () => Navigator.of(context).pushReplacementNamed(Routes.forgotPasswordViewRoute),
+                      onPressed: () => Navigator.of(context)
+                          .pushReplacementNamed(Routes.forgotPasswordViewRoute),
                       child: Text(
                         AppStrings.reset,
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -98,7 +97,6 @@ class LoginView extends StatelessWidget {
               SizedBox(
                 height: 28.sp,
               ),
-
               StreamBuilder<bool>(
                   stream: _viewModel.outputAreAllLoginDataValid,
                   builder: (context, snapshot) {
@@ -146,8 +144,6 @@ class LoginView extends StatelessWidget {
               ).animate(delay: 300.milliseconds).fade(
                   duration: 300.milliseconds,
                   curve: Curves.fastEaseInToSlowEaseOut),
-
-              // TextButton(onPressed: _viewModel.loading(), child: Text("a7a"))
             ],
           ),
         ),

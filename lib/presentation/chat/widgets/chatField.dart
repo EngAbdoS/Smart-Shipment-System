@@ -61,8 +61,8 @@ Widget chatField(BuildContext context, ChatBotViewModel viewModel) {
       ),
     ),
   ).animate().slide(
-      end: Offset(0, 0),
-      begin: Offset(0, 1),
+      end: const Offset(0, 0),
+      begin: const Offset(0, 1),
       duration: 100.milliseconds,
       curve: Curves.fastEaseInToSlowEaseOut);
 }

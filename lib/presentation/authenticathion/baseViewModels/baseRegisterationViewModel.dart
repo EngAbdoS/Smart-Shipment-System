@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/app/functions.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/baseViewModels/baseLoginViewModel.dart';
@@ -28,7 +27,7 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
 //////////////////////////declarations//////////////////////////
 
   String? address;
-  DateTime? birthDate ;//= DateTime.utc(0, 0, 0);
+  DateTime? birthDate;
   String? confirmPassword;
   String? firstName;
   String? lastName;
@@ -40,8 +39,8 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
 //////////////////////////output//////////////////////////
 
   @override
-  Stream<bool> get outputIsAddressValid => _addressStreamController.stream
-      .map((address) => isAddressValid(address));
+  Stream<bool> get outputIsAddressValid =>
+      _addressStreamController.stream.map((address) => isAddressValid(address));
 
   @override
   Stream<bool> get outputIsBirthDayValid => _birthDayStreamController.stream
@@ -116,27 +115,6 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
     inputLoginValidation.add(null);
   }
 
-  // @override
-  // setBirthDay(int day) {
-  //   birthDate = birthDate.copyWith(day: day);
-  //   inputBirthDay.add(birthDate);
-  //   inputValidation.add(null);
-  // }
-  //
-  // @override
-  // setBirthMonth(int month) {
-  //   birthDate = birthDate.copyWith(month: month);
-  //   inputBirthDay.add(birthDate);
-  //   inputValidation.add(null);
-  // }
-  //
-  // @override
-  // setBirthYear(int year) {
-  //   birthDate = birthDate.copyWith(year: year);
-  //   inputBirthDay.add(birthDate);
-  //   inputValidation.add(null);
-  // }
-
   @override
   setConfirmPassword(String confirmPassword) {
     inputConfirmPassword.add(confirmPassword);
@@ -183,13 +161,14 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
     this.phoneNumber = phoneNumber;
     inputLoginValidation.add(null);
   }
+
   @override
   setBirthDate(DateTime birthDate) {
-   inputBirthDay.add(birthDate);
-   this.birthDate=birthDate;
-   inputLoginValidation.add(null);
-
+    inputBirthDay.add(birthDate);
+    this.birthDate = birthDate;
+    inputLoginValidation.add(null);
   }
+
   changeConfirmPasswordState() {
     if (_isConfirmHidden == true || _isConfirmHidden == null) {
       _isConfirmHidden = false;
@@ -203,14 +182,14 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
   @override
   bool areAllInputsValid() {
     return super.areAllInputsValid() &&
-        isBirthDateValid(birthDate??DateTime(0)) &&
+        isBirthDateValid(birthDate ?? DateTime(0)) &&
         isConfirmPasswordValid(confirmPassword ?? "") &&
         isPhoneNumberValid(phoneNumber ?? "") &&
         isNationalIdValid(nationalId ?? "") &&
         isFirstNameValid(firstName ?? "") &&
         isLastNameValid(lastName ?? "") &&
         isAddressValid(address ?? "") &&
-        isGenderMan != null ;
+        isGenderMan != null;
   }
 
   //////////////////////////validation functions//////////////////////////
@@ -250,8 +229,6 @@ class BaseRegistrationViewModel extends BaseLoginViewModel
     _isConfirmPasswordHiddenStreamController.close();
     super.dispose();
   }
-
-
 }
 
 abstract mixin class BaseRegistrationViewModelInputs {
@@ -285,7 +262,8 @@ abstract mixin class BaseRegistrationViewModelInputs {
 
   setNationalId(String nationalId);
 
-setBirthDate(DateTime birthDate);
+  setBirthDate(DateTime birthDate);
+
   // setBirthDay(int day);
   //
   // setBirthYear(int year);

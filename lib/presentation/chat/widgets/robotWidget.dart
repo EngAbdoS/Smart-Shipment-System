@@ -29,12 +29,13 @@ Widget robotWidget(BuildContext context) {
       child: Padding(
         padding: const EdgeInsets.only(top: 20),
         child: Animate(
-          //delay: 100.microseconds,
+            //delay: 100.microseconds,
 
             effects: [
-              ShakeEffect(duration:900.milliseconds, curve: Curves.fastEaseInToSlowEaseOut)
+              ShakeEffect(
+                  duration: 900.milliseconds,
+                  curve: Curves.fastEaseInToSlowEaseOut)
             ],
-
             child: Lottie.asset(JsonAssets.robot)),
       ),
     ),
