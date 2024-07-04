@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
+import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
@@ -29,9 +30,9 @@ class ClientHomeViewModel extends MainClientViewModel {
   final StreamController _shipmentListStreamController =
       BehaviorSubject<List<ShipmentModel>?>();
   final StreamController _isHomeActiveShipmentOrSearchStream =
-  BehaviorSubject<bool?>();
+      BehaviorSubject<bool?>();
   final StreamController _shipmentScrollPositionStream =
-  BehaviorSubject<int?>();
+      BehaviorSubject<int?>();
 
   Stream<List<ShipmentModel>?> get outputShipmentList =>
       _shipmentListStreamController.stream.map((shipmentList) => shipmentList);
@@ -49,6 +50,7 @@ class ClientHomeViewModel extends MainClientViewModel {
 
   Stream<bool?> get outputIsHomeActiveShipmentOrSearchStream =>
       _isHomeActiveShipmentOrSearchStream.stream.map((widget) => widget);
+
   Stream<int?> get outputShipmentScrollPositionStream =>
       _shipmentScrollPositionStream.stream.map((widget) => widget);
 
@@ -64,8 +66,8 @@ class ClientHomeViewModel extends MainClientViewModel {
 
   Sink get inputIsHomeActiveShipmentOrSearchStream =>
       _isHomeActiveShipmentOrSearchStream.sink;
-  Sink get inputShipmentScrollPosition =>
-      _shipmentScrollPositionStream.sink;
+
+  Sink get inputShipmentScrollPosition => _shipmentScrollPositionStream.sink;
 
   changeHomeActiveShipmentOrSearchState(bool state) =>
       inputIsHomeActiveShipmentOrSearchStream.add(state);
@@ -80,12 +82,11 @@ class ClientHomeViewModel extends MainClientViewModel {
           }
         : {};
   }
-  setShipmentScrollPosition(int index)
-  {
 
-inputShipmentScrollPosition.add(index) ;
-
+  setShipmentScrollPosition(int index) {
+    inputShipmentScrollPosition.add(index);
   }
+
   startHomeView(dynamic context) async {
     changeHomeActiveShipmentOrSearchState(true);
     await getHomeActiveShipmentList(context);
@@ -146,7 +147,8 @@ inputShipmentScrollPosition.add(index) ;
     deliveredShipmentList = [];
     activeShipmentList = [];
     for (var shipment in shipmentList) {
-      shipment.delivered
+      (shipment.delivered ||
+              shipment.status == AppConstants.activeShipmentStatusDelivered)
           ? deliveredShipmentList.add(shipment)
           : activeShipmentList.add(shipment);
     }
@@ -159,21 +161,20 @@ inputShipmentScrollPosition.add(index) ;
   deleteShipment(dynamic context, String id) async {
     loadingState(context: context);
     (await _repository.deleteOrderById(id)).fold((failure) async {
-      await getDataShipmentAfterDelete(context,id);
+      await getDataShipmentAfterDelete(context, id);
       hideState(context: context);
     }, (data) async {
-      await getDataShipmentAfterDelete(context,id);
+      await getDataShipmentAfterDelete(context, id);
       hideState(context: context);
     });
   }
-getDataShipmentAfterDelete(dynamic context, String id)async
-{
 
-  activeShipmentList.removeWhere((element)=>element.id==id);
-  inputShipmentList.add(activeShipmentList);
-  isActiveShipment = true;
+  getDataShipmentAfterDelete(dynamic context, String id) async {
+    activeShipmentList.removeWhere((element) => element.id == id);
+    inputShipmentList.add(activeShipmentList);
+    isActiveShipment = true;
+  }
 
-}
   void dispose() {
     _activeShipmentListStreamController.close();
     _deliveredShipmentListStreamController.close();
