@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/presentation/client/createOrder/viewModel/clientCreateOrderViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
@@ -19,15 +20,18 @@ Widget driversButtonsSection(
             (snapshot.hasData && snapshot.data!)
                 ? Expanded(
                     child: RegularButton(
-                        buttonAction: () =>
-                            viewModel.confirmShipmentToDeliveries(
-                                context,
-                                () => mainClientViewMode.changeWidget(
-                                    context, 7,id: viewModel.paymentId??"")),
-                        buttonWidget: Text(
-                          AppStrings.confirm_shipment,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ).tr()),
+                            buttonAction: () =>
+                                viewModel.confirmShipmentToDeliveries(
+                                    context,
+                                    () => mainClientViewMode.changeWidget(
+                                        context, 7,
+                                        id: viewModel.paymentId ?? "")),
+                            buttonWidget: Text(
+                              AppStrings.confirm_shipment,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ).tr())
+                        .animate()
+                        .slideX(begin: 0.25, end: 0.0, curve: Curves.easeOut),
                   )
                 : Container(),
             (snapshot.hasData && snapshot.data!)
@@ -35,12 +39,14 @@ Widget driversButtonsSection(
                 : Container(),
             Expanded(
               child: RegularButton(
-                  buttonAction: () => viewModel.cancelShipment(context,
-                      () => mainClientViewMode.changeWidget(context, 0)),
-                  buttonWidget: Text(
-                    AppStrings.cancel_order,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ).tr()),
+                      buttonAction: () => viewModel.cancelShipment(context,
+                          () => mainClientViewMode.changeWidget(context, 0)),
+                      buttonWidget: Text(
+                        AppStrings.cancel_order,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ).tr())
+                  .animate()
+                  .slideX(begin: -0.25, end: 0.0, curve: Curves.easeOut),
             ),
           ],
         );

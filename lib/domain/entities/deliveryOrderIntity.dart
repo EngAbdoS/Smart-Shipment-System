@@ -1,5 +1,6 @@
 class DeliveryOrderEntity {
-  String client;
+  String clientName;
+  String clientPhone;
   String type;
   String weight;
   int quantity;
@@ -8,7 +9,8 @@ class DeliveryOrderEntity {
   String orderId;
 
   DeliveryOrderEntity({
-    required this.client,
+    required this.clientName,
+    required this.clientPhone,
     required this.type,
     required this.status,
     required this.weight,

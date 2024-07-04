@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/activeShipmentStatusBar.dart';
@@ -29,8 +30,8 @@ Widget activeShipmentCard(BuildContext context, ShipmentModel shipment) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Text(shipment.date,
-              //     style: Theme.of(context).textTheme.titleSmall),
+              Text(DateFormat('yyyy-MM-dd').format(DateTime.parse(shipment.date)),
+                  style: Theme.of(context).textTheme.titleSmall),
               shipmentStatusWidget(context, shipment.status),
 
             ],

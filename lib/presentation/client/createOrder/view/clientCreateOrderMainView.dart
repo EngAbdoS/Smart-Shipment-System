@@ -49,7 +49,9 @@ class ClientCreateOrderMainView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      locationWidget(),
+                      locationWidget()
+                          .animate()
+                          .slideX(begin: 0.25, end: 0.0, curve: Curves.easeOut),
                       SizedBox(
                         width: 6.w,
                       ),
@@ -72,39 +74,49 @@ class ClientCreateOrderMainView extends StatelessWidget {
                           ],
                         ),
                       )
+                          .animate()
+                          .slideX(begin: -0.25, end: 0.0, curve: Curves.easeOut)
                     ],
                   ),
                 ]),
                 SizedBox(height: 25.h),
-                Row(
+                Column(
                   children: [
-                    Expanded(
-                      child: shipmentWeightInputWidget(
-                          _viewModel.outputIsWeightValid,
-                          _viewModel.setShipmentWeight),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: shipmentWeightInputWidget(
+                              _viewModel.outputIsWeightValid,
+                              _viewModel.setShipmentWeight),
+                        ),
+                        SizedBox(width: 20.w),
+                        Expanded(
+                          child: shipmentQuantityInputWidget(
+                              _viewModel.outputIsQuantityValid,
+                              _viewModel.setShipmentQuantity),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 20.w),
-                    Expanded(
-                      child: shipmentQuantityInputWidget(
-                          _viewModel.outputIsQuantityValid,
-                          _viewModel.setShipmentQuantity),
-                    ),
-                  ],
+                    SizedBox(height: 25.h),
+                    shipmentTypeInputWidget(
+                        _viewModel.outputIsShipmentTypeValid,
+                        _viewModel.setShipmentType),
+                    SizedBox(height: 25.h),
+                    descriptionInputWidget(_viewModel.outputIsDescriptionValid,
+                        _viewModel.setShipmentDescription),
+                    SizedBox(height: 25.h),
+                    recipientNameInputWidget(
+                        _viewModel.outputIsRecipientNameValid,
+                        _viewModel.setRecipientName),
+                    SizedBox(height: 25.h),
+                    recipientPhoneNumberInputWidget(
+                        _viewModel.outputRecipientPhoneValid,
+                        _viewModel.setRecipientPhone),
+                    SizedBox(height: 40.h),
+                  ]
+                      .animate(delay: 500.ms, interval: 300.ms)
+                      .fade(duration: 200.ms),
                 ),
-                SizedBox(height: 25.h),
-                shipmentTypeInputWidget(_viewModel.outputIsShipmentTypeValid,
-                    _viewModel.setShipmentType),
-                SizedBox(height: 25.h),
-                descriptionInputWidget(_viewModel.outputIsDescriptionValid,
-                    _viewModel.setShipmentDescription),
-                SizedBox(height: 25.h),
-                recipientNameInputWidget(_viewModel.outputIsRecipientNameValid,
-                    _viewModel.setRecipientName),
-                SizedBox(height: 25.h),
-                recipientPhoneNumberInputWidget(
-                    _viewModel.outputRecipientPhoneValid,
-                    _viewModel.setRecipientPhone),
-                SizedBox(height: 40.h),
                 RegularButton(
                   buttonAction: () => (_viewModel.isAllShipmentDataValid())
                       ? _viewModel.addShipment(context,

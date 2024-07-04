@@ -295,8 +295,9 @@ class OrderResponse {
   UserResponse? client;
 
   @JsonKey(name: "price")
-  int? price;
-
+  String? price;
+  @JsonKey(name: "createdAt")
+  String? createdAt;
   OrderResponse(
       this.type,
       this.id,
@@ -321,7 +322,8 @@ class OrderResponse {
       this.paidStatus,
       this.delivery,
       this.client,
-      this.price);
+      this.price,
+      this.createdAt);
 
   factory OrderResponse.fromJson(Map<String, dynamic> json) =>
       _$OrderResponseFromJson(json);
@@ -461,7 +463,7 @@ class DeliveryOrdersDateResponse {
 @JsonSerializable()
 class DeliveryOrderResponse {
   @JsonKey(name: "client")
-  String? client;
+  DeliveryOrderClientResponse? client;
   @JsonKey(name: "type")
   String? type;
   @JsonKey(name: "description")
@@ -481,6 +483,20 @@ class DeliveryOrderResponse {
   factory DeliveryOrderResponse.fromJson(Map<String, dynamic> json) =>
       _$DeliveryOrderResponseFromJson(json); //why factory
   Map<String, dynamic> toJson() => _$DeliveryOrderResponseToJson(this);
+}
+@JsonSerializable()
+class DeliveryOrderClientResponse {
+  @JsonKey(name: "name")
+  String? name;
+  @JsonKey(name: "phone")
+  String? phone;
+
+
+  DeliveryOrderClientResponse(this.name, this.phone );
+
+  factory DeliveryOrderClientResponse.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryOrderClientResponseFromJson(json); //why factory
+  Map<String, dynamic> toJson() => _$DeliveryOrderClientResponseToJson(this);
 }
 
 @JsonSerializable()

@@ -28,7 +28,7 @@ extension OrdersResponseMapper on OrderResponse? {
   ShipmentModel toDomain() {
     return ShipmentModel(
       id: this?.id ?? "noId",
-      date: this?.date ?? "noDate",
+      date: this?.createdAt ?? "noDate",
       type: this?.type ?? "noType",
       recipentName: this?.recipentName ?? "",
       reciepentPhone: this?.reciepentPhone ?? "",
@@ -51,7 +51,7 @@ extension OrdersResponseMapper on OrderResponse? {
       delivered: this?.delivered ?? false,
       coming: this?.coming ?? false,
       paidStatus: this?.paidStatus ?? '',
-      price: this?.price.toString() ?? '',
+      price: this?.price ?? '',
       delivery:
           this?.delivery?.map((delivery) => delivery.toDomain()).toList() ?? [],
       client: this?.client?.toDomain() ??
@@ -154,7 +154,8 @@ extension DeliveryOrdersResponseMapper on DeliveryOrderResponse? {
       quantity: this?.quantity ?? 0,
       description: this?.description ?? "",
       status: this?.status ?? "noStatus",
-      client: this?.client ?? "noClient",
+      clientName: this?.client?.name??"noName",
+      clientPhone: this?.client?.phone??"noPhone",
       orderId: this?.orderId ?? "noOrderId",
     );
   }

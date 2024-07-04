@@ -281,7 +281,8 @@ OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) =>
       json['client'] == null
           ? null
           : UserResponse.fromJson(json['client'] as Map<String, dynamic>),
-      (json['price'] as num?)?.toInt(),
+      json['price'] as String?,
+      json['createdAt'] as String?,
     );
 
 Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
@@ -310,6 +311,7 @@ Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
       'delivery': instance.delivery,
       'client': instance.client,
       'price': instance.price,
+      'createdAt': instance.createdAt,
     };
 
 NearestDeliveryResponse _$NearestDeliveryResponseFromJson(
@@ -447,7 +449,10 @@ Map<String, dynamic> _$DeliveryOrdersDateResponseToJson(
 DeliveryOrderResponse _$DeliveryOrderResponseFromJson(
         Map<String, dynamic> json) =>
     DeliveryOrderResponse(
-      json['client'] as String?,
+      json['client'] == null
+          ? null
+          : DeliveryOrderClientResponse.fromJson(
+              json['client'] as Map<String, dynamic>),
       json['type'] as String?,
       json['description'] as String?,
       json['status'] as String?,
@@ -466,6 +471,20 @@ Map<String, dynamic> _$DeliveryOrderResponseToJson(
       'weight': instance.weight,
       'quantity': instance.quantity,
       '_id': instance.orderId,
+    };
+
+DeliveryOrderClientResponse _$DeliveryOrderClientResponseFromJson(
+        Map<String, dynamic> json) =>
+    DeliveryOrderClientResponse(
+      json['name'] as String?,
+      json['phone'] as String?,
+    );
+
+Map<String, dynamic> _$DeliveryOrderClientResponseToJson(
+        DeliveryOrderClientResponse instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'phone': instance.phone,
     };
 
 RecommendedDeliveriesResponse _$RecommendedDeliveriesResponseFromJson(

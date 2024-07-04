@@ -56,7 +56,8 @@ Widget deliveryOrderCard(
                           .titleSmall!
                           .copyWith(color: ColorManager.primary))
                   .tr(),
-              shipmentCardId(context, order.client),
+              shipmentCardId(context, order.clientName),
+              shipmentCardId(context, order.clientPhone),
             ],
           ),
           const SizedBox(

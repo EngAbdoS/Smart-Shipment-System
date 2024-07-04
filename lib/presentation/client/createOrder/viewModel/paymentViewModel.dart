@@ -4,6 +4,7 @@ import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 
 class PaymentViewModel {
+
   final String paymentIntentClientSecret;
   final Repository _repository;
 

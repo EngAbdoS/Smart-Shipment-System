@@ -44,7 +44,8 @@ class ClientCreateOrderRecommendedDeliveriesMainView extends StatelessWidget {
                     curve: Curves.fastEaseInToSlowEaseOut),
                 const RegistrationSlider(pageIndex: 2),
                 SizedBox(height: 25.h),
-                priceWidget(context, _viewModel),
+                priceWidget(context, _viewModel) .animate()
+                    .slideX(begin: 0.25, end: 0.0, curve: Curves.easeOut),
                 Column(
                   children: <Widget>[
                     recommendedDeliveryList(

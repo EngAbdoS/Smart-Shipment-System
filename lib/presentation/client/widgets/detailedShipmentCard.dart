@@ -2,12 +2,10 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/activeShipmentStatusBar.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/shipmentCardId.dart';
 import 'package:smart_shipment_system/presentation/client/widgets/shipmentStatusWidget.dart';
-import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 
@@ -50,27 +48,11 @@ Widget detailedShipmentCard(
               const SizedBox(
                 width: 8,
               ),
-              // Flexible(
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     mainAxisSize: MainAxisSize.min,
-              //     children: [
-              //       // Flexible(
-              //       //   child: Text(
-              //       //     '#${shipment.id}',
-              //       //     style: Theme.of(context)
-              //       //         .textTheme
-              //       //         .titleSmall!
-              //       //         .copyWith(fontSize: 14),
-              //       //     overflow: TextOverflow.ellipsis,
-              //       //     softWrap: true,
-              //       //   ),
-              //       // ),
-              //       Text(shipment.date,
-              //           style: Theme.of(context).textTheme.titleSmall),
-              //     ],
-              //   ),
-              // ),
+              Text(
+                  DateFormat('yyyy-MM-dd')
+                      .format(DateTime.parse(shipment.date)),
+                  style: Theme.of(context).textTheme.titleSmall),
+              Spacer(),
               shipmentStatusWidget(context, shipment.status),
             ],
           ),
@@ -182,15 +164,18 @@ Widget detailedShipmentCard(
           const SizedBox(
             height: 15,
           ),
-          SvgPicture.asset(SVGAssets.qr),
+          Text("${AppStrings.shipment_description.tr()}\n ",
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: ColorManager.primary)),
+          Flexible(
+            child: Text(shipment.description,
+                style: Theme.of(context).textTheme.titleSmall),
+          ),
           const SizedBox(
             height: 15,
           ),
-          Text(
-            AppStrings.scan_to_accept,
-            style:
-                Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 10),
-          ).tr(),
           TextButton(
               onPressed: () => deleteShipment(context, shipment.id),
               child: Text(
