@@ -141,7 +141,7 @@ Route<dynamic> getRoute(RouteSettings settings) {
       return customPageRoute(
         Scaffold(
           //appBar: AppBar(title: const Text(AppStrings.noRouteFound)),
-          body:Container(),
+          body: Container(),
         ),
         settings,
         fadeTransition,

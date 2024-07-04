@@ -9,9 +9,6 @@ ThemeData getAppTheme() {
   return ThemeData(
     scaffoldBackgroundColor: ColorManager.offWhite,
     primaryColor: ColorManager.primary,
-
-    //primaryColorLight: ColorManager.lightPrimary,
-    // primaryColorDark: ColorManager.darkPrimary,
     disabledColor: ColorManager.gray,
     splashColor: ColorManager.offWhite,
     cardTheme: const CardTheme(
@@ -22,9 +19,6 @@ ThemeData getAppTheme() {
     appBarTheme: AppBarTheme(
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        //statusBarBrightness: Brightness.light,
-        // systemStatusBarContrastEnforced: true,
-        //statusBarIconBrightness: Brightness.dark
       ),
       centerTitle: true,
       color: ColorManager.primary,
@@ -47,7 +41,6 @@ ThemeData getAppTheme() {
             color: ColorManager.white,
             fontSize: FontSize.s17,
             fontFamily: FontConstants.fontFamilyInter),
-        // primary: ColorManager.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSize.s12),
         ),
@@ -142,9 +135,6 @@ ThemeData getArabicAppTheme() {
   return ThemeData(
     scaffoldBackgroundColor: ColorManager.offWhite,
     primaryColor: ColorManager.primary,
-
-    //primaryColorLight: ColorManager.lightPrimary,
-    // primaryColorDark: ColorManager.darkPrimary,
     disabledColor: ColorManager.gray,
     splashColor: ColorManager.offWhite,
     cardTheme: const CardTheme(
@@ -155,9 +145,6 @@ ThemeData getArabicAppTheme() {
     appBarTheme: AppBarTheme(
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        //statusBarBrightness: Brightness.light,
-        // systemStatusBarContrastEnforced: true,
-        //statusBarIconBrightness: Brightness.dark
       ),
       centerTitle: true,
       color: ColorManager.primary,
@@ -180,7 +167,6 @@ ThemeData getArabicAppTheme() {
             color: ColorManager.white,
             fontSize: FontSize.s17,
             fontFamily: FontConstants.fontFamilyRubik),
-        // primary: ColorManager.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSize.s12),
         ),

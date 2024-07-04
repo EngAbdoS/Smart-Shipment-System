@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 
-PageRouteBuilder<dynamic> customPageRoute(
-    Widget page, RouteSettings settings, RouteTransitionsBuilder transitionsBuilder) {
+PageRouteBuilder<dynamic> customPageRoute(Widget page, RouteSettings settings,
+    RouteTransitionsBuilder transitionsBuilder) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => page,
     settings: settings,
     transitionsBuilder: transitionsBuilder,
-    transitionDuration: const Duration(milliseconds: 300), // Adjust duration as needed
+    transitionDuration:
+        const Duration(milliseconds: 300), // Adjust duration as needed
   );
 }
 
-Widget fadeTransition(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+Widget fadeTransition(BuildContext context, Animation<double> animation,
+    Animation<double> secondaryAnimation, Widget child) {
   return FadeTransition(opacity: animation, child: child);
 }
 
-Widget slideTransitionFromLeft(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+Widget slideTransitionFromLeft(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child) {
   return SlideTransition(
     position: animation.drive(
       Tween<Offset>(
@@ -26,7 +32,11 @@ Widget slideTransitionFromLeft(BuildContext context, Animation<double> animation
   );
 }
 
-Widget slideTransitionFromRight(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+Widget slideTransitionFromRight(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child) {
   return SlideTransition(
     position: animation.drive(
       Tween<Offset>(
@@ -38,13 +48,8 @@ Widget slideTransitionFromRight(BuildContext context, Animation<double> animatio
   );
 }
 
-
-
-
-
-
 // import 'package:flutter/material.dart';
-// 
+//
 // import 'package:smart_shipment_system/app/app_constants.dart';
 //
 // CustomTransitionPage customPageTransition(

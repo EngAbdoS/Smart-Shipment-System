@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class FontConstants {
   static const String fontFamilyInter = "Inter";
   static const String fontFamilyRubik = "Rubik";
-  //addd second font
 }
 
 class FontWeightManager {

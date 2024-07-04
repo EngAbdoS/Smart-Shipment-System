@@ -163,38 +163,38 @@ class AppStrings {
   static const things_count = "things_count";
   static const delivery_cost = "delivery_cost";
   static const scan_to_accept = "scan_to_accept";
-  static const confirm_shipment="confirm_shipment";
+  static const confirm_shipment = "confirm_shipment";
 
-static const  recipient_name= "recipient_name";
-static const  recipient_phone= "recipient_phone";
-static const  recipient_name_hint= "recipient_name_hint";
-static const  recipient_phone_hint= "recipient_phone_hint";
+  static const recipient_name = "recipient_name";
+  static const recipient_phone = "recipient_phone";
+  static const recipient_name_hint = "recipient_name_hint";
+  static const recipient_phone_hint = "recipient_phone_hint";
 
-  static const   input_valid_details="input_valid_details";
-  static const   input_valid_weight ="input_valid_weight";
+  static const input_valid_details = "input_valid_details";
+  static const input_valid_weight = "input_valid_weight";
 
- static const shipment_description= "shipment_description";
- static const shipment_description_hint= "shipment_description_hint";
- static const shipment_quantity= "shipment_quantity";
- static const shipment_quantity_hint= "shipment_quantity_hint";
+  static const shipment_description = "shipment_description";
+  static const shipment_description_hint = "shipment_description_hint";
+  static const shipment_quantity = "shipment_quantity";
+  static const shipment_quantity_hint = "shipment_quantity_hint";
 
- static const active_history= "active_history";
- static const active_history_hint= "active_history_hint";
- static const my_rating= "my_rating";
- static const my_rating_hint= "my_rating_hint";
- static const  trips= "trips";
- static const  edit_trip_list= "edit_trip_list";
-  static const  message_hint= "message_hint";
-  static const  cancel_order= "cancel_order";
-  static const  on_data= "on_data";
-  static const  no_recommended_delivery= "no_recommended_delivery";
-  static const  cost= "cost";
-  static const  no_notifications= "no_notifications";
-  static const  order_id= "order_id";
-  static const  pay_now= "pay_now";
- static const my_wallet= "my_wallet";
- static const wallet_balance= "wallet_balance";
-  // static const forgetPassword = "forgot_password_text";
+  static const active_history = "active_history";
+  static const active_history_hint = "active_history_hint";
+  static const my_rating = "my_rating";
+  static const my_rating_hint = "my_rating_hint";
+  static const trips = "trips";
+  static const edit_trip_list = "edit_trip_list";
+  static const message_hint = "message_hint";
+  static const cancel_order = "cancel_order";
+  static const on_data = "on_data";
+  static const no_recommended_delivery = "no_recommended_delivery";
+  static const cost = "cost";
+  static const no_notifications = "no_notifications";
+  static const order_id = "order_id";
+  static const pay_now = "pay_now";
+  static const my_wallet = "my_wallet";
+  static const wallet_balance = "wallet_balance";
+
   static const registerText = "register_text";
   static const loading = "loading";
   static const retryAgain = "retry_again";
