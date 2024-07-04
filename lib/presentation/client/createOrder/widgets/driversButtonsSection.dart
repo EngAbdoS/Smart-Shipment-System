@@ -23,7 +23,7 @@ Widget driversButtonsSection(
                             viewModel.confirmShipmentToDeliveries(
                                 context,
                                 () => mainClientViewMode.changeWidget(
-                                    context, 7)),
+                                    context, 7,id: viewModel.paymentId??"")),
                         buttonWidget: Text(
                           AppStrings.confirm_shipment,
                           style: Theme.of(context).textTheme.titleMedium,

@@ -51,8 +51,12 @@ class MainClientViewModel {
       hideState(context: context);
     });
   }
-
-  changeWidget(dynamic context, int widget) async {
+// changeWidgetPayment(dynamic context,String id) async {
+//
+//   changeWidget(
+//       context, 7);
+// }
+  changeWidget(dynamic context, int widget,{String id=''}) async {
     if (pageViewIndex != widget || widget == 0) {
       switch (widget) {
         case 0:
@@ -124,6 +128,7 @@ class MainClientViewModel {
         case 7:
           {
             pageViewIndex = widget;
+            initClientAddShipmentPaymentModule(id);
             inputMainStream.add(OrderPaymentView());
             inputMainIndexStream.add(widget);
             break;

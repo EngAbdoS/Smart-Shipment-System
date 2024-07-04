@@ -56,6 +56,7 @@ class ClientCreateOrderViewModel {
     quantity: 0,
     description: '',
   );
+  String? paymentId;
   ShipmentModel? createdShipment;
 
   Stream<bool> get outputIsShipmentTypeValid =>
@@ -206,11 +207,33 @@ class ClientCreateOrderViewModel {
         .fold(
             (failure) => {
                   errorState(context: context, message: failure.message),
-                }, (data) {
+                }, (data)async {
       data
-          ? {navigate(), hideState(context: context)}
+          ? {
+      (await _repository.checkOutShipmentById(
+      createdShipment?.id ?? "noid"))
+          .fold(
+      (failure) => {
+      errorState(context: context, message: failure.message),
+      }, (data) {
+
+paymentId=data.data?.id;
+print(paymentId);
+        navigate();
+        hideState(context: context);
+
+
+
+      }),
+
+        }
           : errorState(context: context, message: AppStrings.unknownError);
     });
+
+
+    //TODO checke out
+
+
   }
 
   cancelShipment(dynamic context, GestureTapCallback navigate) async {

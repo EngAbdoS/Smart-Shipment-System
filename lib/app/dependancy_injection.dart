@@ -31,6 +31,7 @@ import 'package:smart_shipment_system/presentation/authenticathion/login/ViewMod
 import 'package:smart_shipment_system/presentation/authenticathion/verification/viewModel/verificationViewModel.dart';
 import 'package:smart_shipment_system/presentation/chat/viewModel/ChatBotViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/createOrder/viewModel/clientCreateOrderViewModel.dart';
+import 'package:smart_shipment_system/presentation/client/createOrder/viewModel/paymentViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
 import 'package:smart_shipment_system/presentation/delivery/activiesHistory/viewModel/activiesHistoryViewModel.dart';
@@ -104,7 +105,12 @@ initClientAddShipmentModule(UserModel userModel) {
         () => ClientCreateOrderViewModel(instance(), userModel));
   }
 }
-
+initClientAddShipmentPaymentModule(String paymentId) {
+  if (!GetIt.I.isRegistered<PaymentViewModel>()) {
+    instance.registerLazySingleton<PaymentViewModel>(
+            () => PaymentViewModel(instance(), paymentId));
+  }
+}
 initClientProfileModule(UserModel userModel) {
   if (!GetIt.I.isRegistered<UserProfileViewModel>()) {
     instance.registerLazySingleton<UserProfileViewModel>(

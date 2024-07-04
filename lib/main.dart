@@ -13,7 +13,7 @@ import 'app/dependancy_injection.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey = StripePublishableKey;
-  //await Stripe.instance.applySettings();
+  await Stripe.instance.applySettings();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

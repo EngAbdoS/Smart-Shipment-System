@@ -191,6 +191,7 @@ static const  recipient_phone_hint= "recipient_phone_hint";
   static const  cost= "cost";
   static const  no_notifications= "no_notifications";
   static const  order_id= "order_id";
+  static const  pay_now= "pay_now";
 
   // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";
