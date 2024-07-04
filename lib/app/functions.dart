@@ -5,16 +5,9 @@ bool isEmailValidGlobal(String email) {
 }
 
 bool isPasswordValidGlobal(String password) {
-  //return true;
   return RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
       .hasMatch(password);
 }
-
-// bool isNationalIdValid(String email) {
-//   return RegExp(r'^([1-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})[0-9]{3}([0-9]{1})[0-9]{1}$'
-//   )
-//       .hasMatch(email);
-// }
 
 bool isEgyptionNationalIdValid(String nationalId) {
   return RegExp(
@@ -25,4 +18,5 @@ bool isEgyptionNationalIdValid(String nationalId) {
 bool isEgyptionPhoneNumberValid(String phoneNumber) {
   return RegExp(r'^01[0125][0-9]{8}$').hasMatch(phoneNumber);
 }
-void noFun(){}
+
+void noFun() {}

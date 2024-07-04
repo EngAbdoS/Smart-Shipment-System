@@ -7,8 +7,8 @@ import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/verification/getEmailVerification.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
-import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
-import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/hideState.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/loadingState.dart';
 
 class ForgotPasswordViewModel
     with ForgotPasswordViewModelInputs, ForgotPasswordViewModelOutputs {

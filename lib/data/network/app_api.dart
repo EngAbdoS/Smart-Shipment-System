@@ -10,8 +10,18 @@ part 'app_api.g.dart';
 abstract class AppServiceClient {
   factory AppServiceClient(Dio dio, {String baseUrl}) = _AppServiceClient;
 
+  ///////////////////////////*User endpoints*////////////////////////
   @GET("users/me")
   Future<MeDataResponse> getUserData();
+
+  @PATCH('users/updateMe')
+  Future<MeDataResponse> updateUserData(@Body() Map<String, dynamic> data);
+
+  @PATCH('users/updateImg')
+  Future<RegistrationResponse> updateUserProfileImage(
+      @Field("profileImage") String profileImage);
+
+  ///////////////////////////*client endpoints*////////////////////////
 
   @GET("client/order/getAllOrders")
   Future<OrdersResponse> getAllOrders();
@@ -31,12 +41,6 @@ abstract class AppServiceClient {
 
   @POST("client/order/{id}/checkout")
   Future<CheckoutResponse> checkoutOrderById(@Path("id") String id);
-
-  @GET("delivery/order/summary?coming=true")
-  Future<DeliveryOrdersResponse> getAllComingOrders();
-
-  @GET("delivery/order/summary?delivered=true")
-  Future<DeliveryOrdersResponse> getAllDeliveredOrders();
 
   @GET(
       "client/order/findPath?orderStartState={orderStartState}&orderEndState={orderEndState}")
@@ -59,12 +63,13 @@ abstract class AppServiceClient {
       @Path("endLocation") String endLocation,
       @Path("maxDis") int maxDis);
 
-  @PATCH('users/updateMe')
-  Future<MeDataResponse> updateUserData(@Body() Map<String, dynamic> data);
+  ///////////////////////////*delivery endpoints*////////////////////////
 
-  @PATCH('users/updateImg')
-  Future<RegistrationResponse> updateUserProfileImage(
-      @Field("profileImage") String profileImage);
+  @GET("delivery/order/summary?coming=true")
+  Future<DeliveryOrdersResponse> getAllComingOrders();
+
+  @GET("delivery/order/summary?delivered=true")
+  Future<DeliveryOrdersResponse> getAllDeliveredOrders();
 
   @PATCH('delivery/order/{id}?status={status}')
   Future<RegistrationResponse> deliveryChangeOrderState(
@@ -84,6 +89,8 @@ abstract class AppServiceClient {
 
   @DELETE('delivery/deleteTrip/{index}')
   Future<RegistrationResponse> deleteDeliveryTripList(@Path("index") int index);
+
+  ///////////////////////////*Registration endpoints*////////////////////////
 
   @POST("users/login")
   Future<AuthenticationResponse> login(

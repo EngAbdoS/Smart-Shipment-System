@@ -4,9 +4,10 @@ const String SECURE_KEY_USER_TOKEN = "SECURE_KEY_USER_TOKEN";
 
 class SecureStorage {
   final secureStorage = const FlutterSecureStorage(
-      aOptions: AndroidOptions(
-    encryptedSharedPreferences: true,
-  ));
+    aOptions: AndroidOptions(
+      encryptedSharedPreferences: true,
+    ),
+  );
 
   setUserTokenEncrypted(String token) async {
     await secureStorage.write(key: SECURE_KEY_USER_TOKEN, value: token);

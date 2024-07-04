@@ -37,11 +37,7 @@ abstract class RemoteDataSource {
       String endLocation,
       int maxDis);
 
-
   Future<Either<Failure, RegistrationResponse>> deleteOrderById(String id);
-
-
-
 
   Future<Either<Failure, RegistrationResponse>> updateDeliveryTripList(
       UpdateDeliveryTripListRequest updateDeliveryTripListRequest);
@@ -247,8 +243,10 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
+
   @override
-  Future<Either<Failure, RegistrationResponse>> deleteOrderById(String id)async {
+  Future<Either<Failure, RegistrationResponse>> deleteOrderById(
+      String id) async {
     try {
       var result = await _appServiceClient.deleteOrderById(id);
       return Right(result);
@@ -256,6 +254,7 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
+
   @override
   Future<Either<Failure, SearchOrderResponse>> getShipmentById(
       String id) async {
@@ -431,6 +430,4 @@ class RemoteDataSourceImplementation implements RemoteDataSource {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
-
-
 }

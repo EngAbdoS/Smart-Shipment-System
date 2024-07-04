@@ -2,8 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:smart_shipment_system/app/app_preferances.dart';
 import 'package:smart_shipment_system/app/secure_storage.dart';
 import 'package:smart_shipment_system/data/data_sourse/cache_data_sourse.dart';
-import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
-import 'package:smart_shipment_system/data/network/failure.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 
@@ -33,19 +31,18 @@ abstract class LocalDataSource {
   Future<Either<bool, UserModel>> getUserData();
 
   Future<Either<bool, List<ShipmentModel>>> getShipmentList();
-//TODO get user data
-// checks is cache data valid if not call remote data source
 }
 
 class LocalDataSourceImplementation implements LocalDataSource {
   final AppPreferences _appPreferences;
-
   final CacheDataSource _cacheDataSource;
-  final RemoteDataSource _remoteDataSource;
   final SecureStorage _secureStorage;
 
-  LocalDataSourceImplementation(this._appPreferences, this._cacheDataSource,
-      this._remoteDataSource, this._secureStorage);
+  LocalDataSourceImplementation(
+    this._appPreferences,
+    this._cacheDataSource,
+    this._secureStorage,
+  );
 
   @override
   bool isOnBoardingViewed() {
@@ -70,8 +67,6 @@ class LocalDataSourceImplementation implements LocalDataSource {
   @override
   void setUserLogin(String token) {
     setUserToken(token);
-    // setUserRole(userRole);
-    //saveUserDataToCache(userData);
     _appPreferences.setLoggedIn();
   }
 
@@ -83,8 +78,6 @@ class LocalDataSourceImplementation implements LocalDataSource {
   @override
   void setUserToken(String token) {
     _secureStorage.setUserTokenEncrypted(token);
-
-    //_appPreferences.setUserToken(token);
   }
 
   @override
@@ -95,7 +88,6 @@ class LocalDataSourceImplementation implements LocalDataSource {
   @override
   Future<String> getUserToken() async {
     return await _secureStorage.getUserToken();
-    //  return _appPreferences.getUserToken();
   }
 
   @override

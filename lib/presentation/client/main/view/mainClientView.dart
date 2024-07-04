@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
-import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
-import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/hideState.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/loadingState.dart';
 
 class MainClientView extends StatefulWidget {
   const MainClientView({super.key});

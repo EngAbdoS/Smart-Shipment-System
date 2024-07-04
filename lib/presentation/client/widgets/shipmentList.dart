@@ -8,8 +8,8 @@ import 'package:smart_shipment_system/presentation/client/widgets/detailedShipme
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/emptyListWidget.dart';
-import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
-import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/hideState.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/loadingState.dart';
 
 Widget shipmentList(
     {required BuildContext context,

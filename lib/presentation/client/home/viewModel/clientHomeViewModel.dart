@@ -6,8 +6,8 @@ import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
-import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
-import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/hideState.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/loadingState.dart';
 
 class ClientHomeViewModel extends MainClientViewModel {
   ClientHomeViewModel(this._repository, this.userHomeData) : super(_repository);

@@ -6,7 +6,7 @@ import 'package:smart_shipment_system/presentation/resources/router_manager.dart
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
 
-import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/loadingState.dart';
 
 class NoNetworkView extends StatelessWidget {
   NoNetworkView({super.key});

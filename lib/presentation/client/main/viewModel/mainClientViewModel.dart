@@ -13,9 +13,9 @@ import 'package:smart_shipment_system/presentation/notifications/notificationsSc
 import 'package:smart_shipment_system/presentation/userProfile/editProfileData/view/editProfileDataView.dart';
 import 'package:smart_shipment_system/presentation/userProfile/view/clientUserProfile.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
-import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/hideState.dart';
 import '../../../chat/view/chatBotView.dart';
-import '../../../widgets/loadingState.dart';
+import '../../../widgets/status/loadingState.dart';
 
 class MainClientViewModel {
   MainClientViewModel(this._repository);

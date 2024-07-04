@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:smart_shipment_system/app/app_constants.dart';
-import 'package:smart_shipment_system/app/app_preferances.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/data/data_sourse/local_data_sourse.dart';
 import 'package:smart_shipment_system/data/data_sourse/remote_data_sourse.dart';
@@ -26,17 +25,12 @@ class RepositoryImplementation implements Repository {
   final ChatBotAppServiceClient _chatBotAppServiceClient;
   final NetworkInfo _networkInfo;
 
-
   RepositoryImplementation(this._localDataSource, this._remoteDataSource,
-      this._chatBotAppServiceClient,this._networkInfo);
+      this._chatBotAppServiceClient, this._networkInfo);
 
   @override
   Future<Either<Failure, String>> getSplashNextNavigationRoute(
       dynamic context) async {
-    //return const Right(Routes.onBoardingViewRoute);
-
-    //   return const Right(Routes.loginViewRoute);
-
     if (!_localDataSource.isOnBoardingViewed()) {
       return const Right(Routes.onBoardingViewRoute);
     } else {
@@ -228,7 +222,6 @@ class RepositoryImplementation implements Repository {
     });
   }
 
-
   @override
   Future<Either<Failure, ShipmentModel>> createShipment(
       CreateShipmentRequest createShipmentRequest) async {
@@ -272,16 +265,17 @@ class RepositoryImplementation implements Repository {
       }
     });
   }
+
   @override
   Future<Either<Failure, List<DeliveryOrderEntity>>> deliveryGetOrders(
       int pageIndex) async {
     return await (await _remoteDataSource.deliveryGetOrders(pageIndex)).fold(
-            (error) {
-          return Left(error);
-        }, (response) {
+        (error) {
+      return Left(error);
+    }, (response) {
       if (response.status == ResponseMessage.SUCCESS) {
         var ordersList =
-        response.data?.orders?.map((order) => order.toDomain()).toList();
+            response.data?.orders?.map((order) => order.toDomain()).toList();
         return Right(ordersList ?? []);
       } else {
         return Left(ErrorHandler.handle(response).failure);
@@ -290,7 +284,8 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
-  Future<Either<Failure, List<DeliveryOrderEntity>>> getAllComingOrders() async {
+  Future<Either<Failure, List<DeliveryOrderEntity>>>
+      getAllComingOrders() async {
     return await (await _remoteDataSource.getAllComingOrders()).fold((error) {
       return Left(error);
     }, (response) {
@@ -306,7 +301,8 @@ class RepositoryImplementation implements Repository {
   }
 
   @override
-  Future<Either<Failure, List<DeliveryOrderEntity>>> getAllDeliveredOrders() async {
+  Future<Either<Failure, List<DeliveryOrderEntity>>>
+      getAllDeliveredOrders() async {
     return await (await _remoteDataSource.getAllDeliveredOrders()).fold(
         (error) {
       return Left(error);
@@ -321,12 +317,9 @@ class RepositoryImplementation implements Repository {
     });
   }
 
-
-
   @override
   Future<Either<Failure, List<RecommendedDeliveryEntity>>>
-      getRecommendedDeliveries(
-      String startState,String  endState) async {
+      getRecommendedDeliveries(String startState, String endState) async {
     return await (await _remoteDataSource.getRecommendedDeliveries(
             startState, endState))
         .fold((error) {
@@ -342,23 +335,25 @@ class RepositoryImplementation implements Repository {
       }
     });
   }
-  @override
-  Future<Either<Failure, List<RecommendedDeliveryEntity>>> getAllNearestUnOrganizedDelivery(double stateLat,double stateLng)async {
-    return await (await _remoteDataSource.getAllNearestUnOrganizedDelivery(
-       stateLat,stateLng,AppConstants.maxDis))
-        .fold((error) {
-    return Left(error);
-    }, (response) async {
-    if (response.status == ResponseMessage.SUCCESS) {
-    var deliveriesList = response.data?.deliveries
-        ?.map((delivery) => delivery.toDomain())
-        .toList();
-    return Right(deliveriesList ?? []);
-    } else {
-    return Left(ErrorHandler.handle(response).failure);
-    }});
-  }
 
+  @override
+  Future<Either<Failure, List<RecommendedDeliveryEntity>>>
+      getAllNearestUnOrganizedDelivery(double stateLat, double stateLng) async {
+    return await (await _remoteDataSource.getAllNearestUnOrganizedDelivery(
+            stateLat, stateLng, AppConstants.maxDis))
+        .fold((error) {
+      return Left(error);
+    }, (response) async {
+      if (response.status == ResponseMessage.SUCCESS) {
+        var deliveriesList = response.data?.deliveries
+            ?.map((delivery) => delivery.toDomain())
+            .toList();
+        return Right(deliveriesList ?? []);
+      } else {
+        return Left(ErrorHandler.handle(response).failure);
+      }
+    });
+  }
 
   @override
   Future<Either<Failure, ShipmentModel>> getShipmentById(String id) async {
@@ -372,10 +367,11 @@ class RepositoryImplementation implements Repository {
       }
     });
   }
+
   @override
-  Future<Either<Failure, bool>> deleteOrderById(String id)async {
+  Future<Either<Failure, bool>> deleteOrderById(String id) async {
     return await (await _remoteDataSource.deleteOrderById(id)).fold((error) {
-    return Left(error);
+      return Left(error);
     }, (response) {
       return const Right(true);
     });
@@ -551,7 +547,4 @@ class RepositoryImplementation implements Repository {
   void logout() {
     _localDataSource.logout();
   }
-
-
-
 }

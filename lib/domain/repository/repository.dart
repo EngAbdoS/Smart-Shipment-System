@@ -15,12 +15,12 @@ abstract class Repository {
 
   Future<Either<Failure, UserModel>> getUserData();
 
-  Future<Either<Failure, Message>> chatBot(String message);
-
   Future<Either<Failure, bool>> updateUserProfileImage(
       String profileImage, String email);
 
   Future<Either<Failure, UserModel>> updateUserData(Map<String, dynamic> data);
+
+  Future<Either<Failure, Message>> chatBot(String message);
 
   Future<Either<Failure, List<ShipmentModel>>> getAllShipment();
 
@@ -34,18 +34,21 @@ abstract class Repository {
   Future<Either<Failure, RegistrationResponse>> cancelOrderById(String id);
 
   Future<Either<Failure, List<RecommendedDeliveryEntity>>>
-      getRecommendedDeliveries( String startState,String  endState);
+      getRecommendedDeliveries(String startState, String endState);
 
   Future<Either<Failure, List<RecommendedDeliveryEntity>>>
-  getAllNearestUnOrganizedDelivery(double stateLat,double stateLng);
+      getAllNearestUnOrganizedDelivery(double stateLat, double stateLng);
 
   Future<Either<Failure, bool>> deliveryChangeOrderState(
       String id, String status);
 
-  Future<Either<Failure, bool>> clientAssignOrderToDelivery(String orderId,List<String> deliveryId);
+  Future<Either<Failure, bool>> clientAssignOrderToDelivery(
+      String orderId, List<String> deliveryId);
+
   Future<Either<Failure, bool>> deleteOrderById(String id);
 
-  Future<Either<Failure, List<DeliveryOrderEntity>>> deliveryGetOrders(int pageIndex);
+  Future<Either<Failure, List<DeliveryOrderEntity>>> deliveryGetOrders(
+      int pageIndex);
 
   Future<Either<Failure, bool>> updateDeliveryTripList(
       UpdateDeliveryTripListRequest updateDeliveryTripListRequest);

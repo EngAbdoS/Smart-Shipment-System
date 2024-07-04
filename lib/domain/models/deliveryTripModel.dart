@@ -17,14 +17,14 @@ class DeliveryTripModel {
   DeliveryTripModel(
       {required this.fromLocation,
       required this.toGovernment,
-        required this.fromAddressName,
-        required this.toAddressName,
+      required this.fromAddressName,
+      required this.toAddressName,
       required this.toLocation,
       required this.fromGovernment,
       required this.expectedDurationByMin,
       required this.isOneTime,
       required this.tripDetails,
       required this.tripTime,
-        required this.tripDay,
+      required this.tripDay,
       required this.tripWeekDays});
 }

@@ -51,8 +51,7 @@ class ShipmentModel {
       required this.delivered,
       required this.delivery,
       this.client,
-    this.clientId,
-    required this.price,
-    required this.paidStatus
-      });
+      this.clientId,
+      required this.price,
+      required this.paidStatus});
 }

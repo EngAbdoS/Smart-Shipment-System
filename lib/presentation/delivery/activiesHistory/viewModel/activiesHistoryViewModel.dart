@@ -6,8 +6,8 @@ import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/delivery/main/viewModel/mainDeliveryViewModel.dart';
 import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
-import 'package:smart_shipment_system/presentation/widgets/hideState.dart';
-import 'package:smart_shipment_system/presentation/widgets/loadingState.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/hideState.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/loadingState.dart';
 
 class ActivitiesHistoryViewModel extends MainDeliveryViewModel {
   ActivitiesHistoryViewModel(this._repository, this.userHomeData)

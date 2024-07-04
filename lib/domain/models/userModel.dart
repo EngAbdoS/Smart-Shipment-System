@@ -1,5 +1,4 @@
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
-import 'package:smart_shipment_system/domain/models/deliveryTripModel.dart';
 
 class UserModel {
   bool isDeliveryApproved;

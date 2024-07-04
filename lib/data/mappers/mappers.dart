@@ -154,8 +154,8 @@ extension DeliveryOrdersResponseMapper on DeliveryOrderResponse? {
       quantity: this?.quantity ?? 0,
       description: this?.description ?? "",
       status: this?.status ?? "noStatus",
-      clientName: this?.client?.name??"noName",
-      clientPhone: this?.client?.phone??"noPhone",
+      clientName: this?.client?.name ?? "noName",
+      clientPhone: this?.client?.phone ?? "noPhone",
       orderId: this?.orderId ?? "noOrderId",
     );
   }

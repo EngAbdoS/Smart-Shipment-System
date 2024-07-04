@@ -35,18 +35,18 @@ class FixedDeliveryRegistrationUseCaseInput {
   String email;
   String password;
   String confirmPassword;
-List<DeliveryTripRequest>trip;
+  List<DeliveryTripRequest> trip;
 
   String deliveryApprovalImg;
   String role;
 
   FixedDeliveryRegistrationUseCaseInput(
       {required this.name,
-        required this.phone,
-        required this.email,
-        required this.password,
-        required this.confirmPassword,
-        required this.trip,
-        required this.deliveryApprovalImg,
-        required this.role});
+      required this.phone,
+      required this.email,
+      required this.password,
+      required this.confirmPassword,
+      required this.trip,
+      required this.deliveryApprovalImg,
+      required this.role});
 }

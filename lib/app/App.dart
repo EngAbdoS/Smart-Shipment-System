@@ -7,7 +7,6 @@ import 'package:smart_shipment_system/app/app_preferances.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
-
 import '../presentation/resources/theme_manager.dart';
 
 class MyApp extends StatefulWidget {
@@ -40,7 +39,6 @@ class _MyAppState extends State<MyApp> {
           locale: context.locale,
           onGenerateRoute: getRoute,
           initialRoute: Routes.splashRoute,
-        //  routerConfig: AppRouter.router,
           theme: context.locale == ARABIC_LOCAL
               ? getArabicAppTheme()
               : getAppTheme(),
