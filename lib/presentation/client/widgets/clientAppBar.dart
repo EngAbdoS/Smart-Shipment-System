@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
@@ -69,7 +70,11 @@ SliverAppBar buildSliverAppBar(
           ),
           notificationIcon(() => mainClientViewModel.changeWidget(context, 8)),
         ],
-      ),
+      ).animate().slideX(
+          duration: 300.milliseconds,
+          begin: 1,
+          end: 0,
+          curve: Curves.easeInOutQuad),
     ),
     toolbarHeight: 110.h,
     flexibleSpace: FlexibleSpaceBar(
@@ -84,23 +89,31 @@ SliverAppBar buildSliverAppBar(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              isHome
-                  ? Text(
-                      AppStrings.track_your_shipment,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(fontSize: 20),
-                    ).tr()
-                  : Container(),
-              isHome
-                  ? Text(
-                      AppStrings.track_your_shipment_hint,
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ).tr()
-                  : Container(),
-              shipmentSearch(context, clientViewModel.setSearchId,
-                  () => clientViewModel.searchShipmentById(context)),
+              Column(
+                children: [
+                  isHome
+                      ? Text(
+                          AppStrings.track_your_shipment,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(fontSize: 20),
+                        ).tr()
+                      : Container(),
+                  isHome
+                      ? Text(
+                          AppStrings.track_your_shipment_hint,
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ).tr()
+                      : Container(),
+                  shipmentSearch(context, clientViewModel.setSearchId,
+                      () => clientViewModel.searchShipmentById(context)),
+                ].animate().slideY(
+                    begin: -1,
+                    end: 0,
+                    curve: Curves.easeInOutQuad,
+                    duration: 300.milliseconds),
+              ),
               isHome
                   ? Align(
                       alignment: Alignment.bottomCenter,
@@ -114,11 +127,21 @@ SliverAppBar buildSliverAppBar(
                           fit: BoxFit.fill,
                         ),
                       ),
-                    )
+                    ).animate().slideX(
+                      begin: -1,
+                      end: 0,
+                      curve: Curves.easeInOutQuad,
+                      duration: 300.milliseconds)
                   : shipmentListStatusBar(
-                      context,
-                      clientViewModel.changeShipmentListStatusBar,
-                      clientViewModel.outputIsShipmentListStatusBarActive),
+                          context,
+                          clientViewModel.changeShipmentListStatusBar,
+                          clientViewModel.outputIsShipmentListStatusBarActive)
+                      .animate()
+                      .slideX(
+                          begin: 1,
+                          end: 0,
+                          curve: Curves.easeInOutQuad,
+                          duration: 300.milliseconds),
             ],
           ),
         ),

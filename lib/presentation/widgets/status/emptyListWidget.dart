@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_shipment_system/app/functions.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
@@ -59,5 +60,5 @@ Widget emptyListWidget(BuildContext context,
       const SizedBox(height: 20),
 
     ],
-  );
+  ).animate().fade(duration: 300.milliseconds,curve: Curves.easeInOutQuad);
 }

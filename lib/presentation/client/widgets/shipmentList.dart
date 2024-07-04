@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/presentation/client/home/viewModel/clientHomeViewModel.dart';
 import 'package:smart_shipment_system/presentation/client/main/viewModel/mainClientViewModel.dart';
@@ -7,7 +8,7 @@ import 'package:smart_shipment_system/presentation/client/widgets/activeShipment
 import 'package:smart_shipment_system/presentation/client/widgets/detailedShipmentCard.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
-import 'package:smart_shipment_system/presentation/widgets/emptyListWidget.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/emptyListWidget.dart';
 import 'package:smart_shipment_system/presentation/widgets/status/hideState.dart';
 import 'package:smart_shipment_system/presentation/widgets/status/loadingState.dart';
 
@@ -16,7 +17,8 @@ Widget shipmentList(
     required ClientHomeViewModel viewModel,
     required MainClientViewModel mainClientViewModel,
     bool isDetailedCard = false,
-    required bool isActiveShipmentList,required ScrollController scrollController}) {
+    required bool isActiveShipmentList,
+    required ScrollController scrollController}) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     mainAxisAlignment: MainAxisAlignment.start,
@@ -64,7 +66,9 @@ Widget shipmentList(
                                         : Container();
                                   })
                             ],
-                          )
+                          ).animate().fade(
+                            duration: 300.milliseconds,
+                            curve: Curves.fastEaseInToSlowEaseOut)
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -84,7 +88,8 @@ Widget shipmentList(
                                 )
                               ]);
                   }),
-            )
+            ).animate().fade(
+              duration: 300.milliseconds, curve: Curves.fastEaseInToSlowEaseOut)
           : Container(),
       Container(
         color: ColorManager.offWhite,
@@ -121,7 +126,7 @@ Widget shipmentList(
                                 context,
                                 snapshot.data![index],
                                 viewModel.deleteShipment);
-                      })
+                      }).animate().shake(curve: Curves.bounceInOut)
                   : isActiveShipmentList
                       ? emptyListWidget(context,
                           message: AppStrings.on_data,

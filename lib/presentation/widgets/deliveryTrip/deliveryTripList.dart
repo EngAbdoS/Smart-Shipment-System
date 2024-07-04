@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/deliveryTrip/deliveryTripEntityWidget.dart';
-import 'package:smart_shipment_system/presentation/widgets/emptyListWidget.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/emptyListWidget.dart';
 
 Widget deliveryTripList(
     BuildContext context,

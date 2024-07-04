@@ -11,7 +11,7 @@ import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
-import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/status/hideState.dart';
 import 'package:smart_shipment_system/presentation/widgets/status/loadingState.dart';
 

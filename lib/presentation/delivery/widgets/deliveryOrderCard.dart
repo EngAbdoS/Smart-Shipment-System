@@ -100,6 +100,7 @@ Widget deliveryOrderCard(
               Flexible(
                 flex: 1,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       AppStrings.shipment_type,

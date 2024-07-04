@@ -12,7 +12,7 @@ import 'package:smart_shipment_system/presentation/delivery/wallet/wallet.dart';
 import 'package:smart_shipment_system/presentation/notifications/notificationsScreen.dart';
 import 'package:smart_shipment_system/presentation/userProfile/editProfileData/view/editProfileDataView.dart';
 import 'package:smart_shipment_system/presentation/userProfile/view/deliveryUserProfile.dart';
-import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/status/hideState.dart';
 import '../../../widgets/status/loadingState.dart';
 

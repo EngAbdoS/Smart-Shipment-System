@@ -56,6 +56,6 @@ class _DeliveryUserProfileViewState extends State<DeliveryUserProfileView> {
           ),
         ),
       ),
-    );
+    ).animate().fade(duration: 100.milliseconds).scaleY(duration: 200.milliseconds).slideY(begin:1,end:0,duration: 400.milliseconds, curve: Curves.easeInOutQuad);
   }
 }

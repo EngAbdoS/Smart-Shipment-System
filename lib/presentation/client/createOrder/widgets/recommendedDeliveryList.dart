@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/presentation/client/createOrder/widgets/recommendedDeliveryCard.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
-import 'package:smart_shipment_system/presentation/widgets/emptyListWidget.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/emptyListWidget.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 Widget recommendedDeliveryList(BuildContext context,
@@ -16,11 +16,15 @@ Widget recommendedDeliveryList(BuildContext context,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  return recommendedDeliveryCard(
-                      context, snapshot.data![index]) .animate()
-                      .slideY(duration: 300.milliseconds, curve: Curves.bounceInOut);
+                  return recommendedDeliveryCard(context, snapshot.data![index])
+                      .animate()
+                      .slideY(
+                          duration: 300.milliseconds,
+                          curve: Curves.bounceInOut);
                 }).animate().shake(curve: Curves.bounceInOut)
             : emptyListWidget(context,
-                message: AppStrings.no_recommended_delivery).animate().shake(curve: Curves.bounceInOut);
+                    message: AppStrings.no_recommended_delivery)
+                .animate()
+                .shake(curve: Curves.bounceInOut);
       });
 }

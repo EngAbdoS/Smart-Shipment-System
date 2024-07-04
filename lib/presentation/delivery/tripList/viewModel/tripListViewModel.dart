@@ -7,7 +7,7 @@ import 'package:smart_shipment_system/data/network/requests.dart';
 import 'package:smart_shipment_system/domain/entities/recomendedDeliveryEntity.dart';
 import 'package:smart_shipment_system/domain/models/deliveryTripModel.dart';
 import 'package:smart_shipment_system/domain/repository/repository.dart';
-import 'package:smart_shipment_system/presentation/widgets/errorState.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/errorState.dart';
 import 'package:smart_shipment_system/presentation/widgets/status/hideState.dart';
 import 'package:smart_shipment_system/presentation/widgets/status/loadingState.dart';
 

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/presentation/delivery/main/viewModel/mainDeliveryViewModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
@@ -66,7 +67,7 @@ Widget buildDeliverySliverAppBar(
               () => mainDeliveryViewModel.changeWidget(context, 8)),
         ],
       ),
-    ),
+    ).animate().slideY(duration: 300.milliseconds,curve: Curves.bounceInOut),
     toolbarHeight: 90.h,
     flexibleSpace: FlexibleSpaceBar(
       background: !isHomeOrHistory
@@ -80,7 +81,7 @@ Widget buildDeliverySliverAppBar(
                     .bodyLarge!
                     .copyWith(fontSize: 16),
               ).tr(),
-            )
+            ).animate().fade(duration: 300.milliseconds,curve: Curves.bounceInOut)
           : Container(),
       stretchModes: const <StretchMode>[
         StretchMode.zoomBackground,

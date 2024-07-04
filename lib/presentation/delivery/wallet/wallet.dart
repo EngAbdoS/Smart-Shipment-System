@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/presentation/widgets/customSliverAppBar.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
-import 'package:smart_shipment_system/presentation/widgets/emptyListWidget.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/emptyListWidget.dart';
 
 class WalletView extends StatelessWidget {
   const WalletView(

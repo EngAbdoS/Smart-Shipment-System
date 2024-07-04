@@ -47,15 +47,25 @@ class _ClientUserProfileViewState extends State<ClientUserProfileView> {
               ).tr().animate(delay: 300.milliseconds).fade(
                   duration: 300.milliseconds,
                   curve: Curves.fastEaseInToSlowEaseOut),
-                 settingSection(mainSettingSection(context, _viewModel.userProfileData)),
+              settingSection(
+                  mainSettingSection(context, _viewModel.userProfileData)),
               settingSection(generalSettingSection(
                   context, isClientOrDelivery, _viewModel, mainViewModel)),
-               settingSection(
-                   faverSettingSection(context, isClientOrDelivery, _viewModel)),
+              settingSection(
+                  faverSettingSection(context, isClientOrDelivery, _viewModel)),
             ],
           ),
         ),
       ),
-    );
+    )
+        .animate()
+        .fade(duration: 100.milliseconds)
+        .scaleY(duration: 200.milliseconds)
+        .slideY(
+            begin: 1,
+            end: 0,
+            duration: 400.milliseconds,
+            curve: Curves.easeInOutQuad);
+    ;
   }
 }

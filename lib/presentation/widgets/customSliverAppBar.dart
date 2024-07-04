@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
@@ -67,7 +68,7 @@ Widget customSliverAppBar({
           notificationIcon(() {}),
         ],
       ),
-    ),
+    ).animate().slideY(duration: 300.milliseconds,curve: Curves.bounceInOut),
     toolbarHeight: 90.h,
     flexibleSpace: FlexibleSpaceBar(
       background: Container(
@@ -77,7 +78,7 @@ Widget customSliverAppBar({
           title,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 16),
         ).tr(),
-      ),
+      ).animate().fade(duration: 300.milliseconds,curve: Curves.bounceInOut),
       stretchModes: const <StretchMode>[
         StretchMode.zoomBackground,
         StretchMode.blurBackground,

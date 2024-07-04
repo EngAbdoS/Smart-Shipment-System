@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/domain/entities/deliveryOrderIntity.dart';
-import 'package:smart_shipment_system/presentation/delivery/home/viewModel/deliveryViewModel.dart';
 import 'package:smart_shipment_system/presentation/delivery/widgets/deliveryOrderCard.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
-import 'package:smart_shipment_system/presentation/widgets/emptyListWidget.dart';
+import 'package:smart_shipment_system/presentation/widgets/status/emptyListWidget.dart';
 
 Widget deliveryOrdersList({
   required BuildContext context,
@@ -23,8 +22,10 @@ Widget deliveryOrdersList({
                 controller: scrollController,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemBuilder: (context, index) =>
-                    deliveryOrderCard(context,snapshot.data![index],viewModel.changeOrderStatus).animate().slideY(
+                itemBuilder: (context, index) => deliveryOrderCard(context,
+                        snapshot.data![index], viewModel.changeOrderStatus)
+                    .animate()
+                    .slideY(
                         duration: 300.milliseconds, curve: Curves.bounceInOut),
                 itemCount: snapshot.data?.length ?? 0,
               ).animate().shake(curve: Curves.bounceInOut)

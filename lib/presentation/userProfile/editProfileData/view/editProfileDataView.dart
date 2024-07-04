@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/userProfile/editProfileData/viewModel/editProfileDataViewModel.dart';
 import 'package:smart_shipment_system/presentation/userProfile/editProfileData/widgets.dart';
-import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/regular_button.dart';
 import 'package:smart_shipment_system/presentation/widgets/toast.dart';
@@ -70,10 +69,11 @@ class _EditProfileViewState extends State<EditProfileView> {
                   AppStrings.confirm_shipment,
                   style: Theme.of(context).textTheme.titleMedium,
                 ).tr(),
-              ).animate(delay: 600.milliseconds).fade(
+              ).animate(delay: 700.milliseconds).fade(
                   duration: 300.milliseconds,
                   curve: Curves.fastEaseInToSlowEaseOut),
-            ],
+            ].animate(delay: 500.ms, interval: 300.ms)
+                .fade(duration: 200.ms),
           ),
         ),
       ),
