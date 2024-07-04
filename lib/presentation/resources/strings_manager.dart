@@ -192,7 +192,8 @@ static const  recipient_phone_hint= "recipient_phone_hint";
   static const  no_notifications= "no_notifications";
   static const  order_id= "order_id";
   static const  pay_now= "pay_now";
-
+ static const my_wallet= "my_wallet";
+ static const wallet_balance= "wallet_balance";
   // static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";
   static const loading = "loading";

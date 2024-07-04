@@ -1,11 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/domain/models/userModel.dart';
 import 'package:smart_shipment_system/presentation/widgets/customSliverAppBar.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
 import 'package:smart_shipment_system/presentation/widgets/emptyListWidget.dart';
 
-class NotificationsView extends StatelessWidget {
-  const NotificationsView(
+class WalletView extends StatelessWidget {
+  const WalletView(
       {super.key, required this.user, required this.profileNavigate});
 
   final UserModel user;
@@ -21,11 +22,14 @@ class NotificationsView extends StatelessWidget {
         customSliverAppBar(
             context: context,
             user: user,
-            title: AppStrings.notifications,
+            title: AppStrings.my_wallet,
             profileNavigate: profileNavigate),
         SliverList(
           delegate: SliverChildListDelegate(
-            [emptyListWidget(context, message: AppStrings.no_notifications)],
+            [
+              emptyListWidget(context,
+                  message: "${AppStrings.wallet_balance.tr()}  _ "),
+            ],
           ),
         ),
       ],

@@ -20,7 +20,7 @@ Widget emptyListWidget(BuildContext context,
         ),
       ),
       const SizedBox(height: 10),
-      Container(
+      message!=''?  Container(
         padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 20),
         decoration: BoxDecoration(
             color: ColorManager.white,
@@ -41,7 +41,7 @@ Widget emptyListWidget(BuildContext context,
           overflow: TextOverflow.ellipsis,
           softWrap: true,
         ).tr(),
-      ),
+      ):Container(),
       if (actionButton != noFun)
         Padding(
           padding: const EdgeInsets.all(25),

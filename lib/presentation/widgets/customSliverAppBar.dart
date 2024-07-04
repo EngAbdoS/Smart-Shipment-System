@@ -8,14 +8,15 @@ import 'package:smart_shipment_system/presentation/resources/strings_manager.dar
 import 'package:smart_shipment_system/presentation/widgets/notificationIcon.dart';
 import 'package:smart_shipment_system/presentation/widgets/profilePicture.dart';
 
-Widget notificationsSliverAppBar({
+Widget customSliverAppBar({
   required BuildContext context,
   required UserModel user,
+  required String title,
   required GestureTapCallback profileNavigate,
 }) {
   return SliverAppBar(
     pinned: true,
-    expandedHeight: 90.w,
+    expandedHeight: 120.w,
     collapsedHeight: 90.h,
     stretch: true,
     snap: true,
@@ -68,8 +69,16 @@ Widget notificationsSliverAppBar({
       ),
     ),
     toolbarHeight: 90.h,
-    flexibleSpace: const FlexibleSpaceBar(
-      stretchModes: <StretchMode>[
+    flexibleSpace: FlexibleSpaceBar(
+      background: Container(
+        padding: EdgeInsets.only(bottom: 20.h),
+        alignment: Alignment.bottomCenter,
+        child: Text(
+          title,
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 16),
+        ).tr(),
+      ),
+      stretchModes: const <StretchMode>[
         StretchMode.zoomBackground,
         StretchMode.blurBackground,
         StretchMode.fadeTitle,
