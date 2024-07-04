@@ -56,7 +56,7 @@ Widget deliveryOrderCard(
                           .titleSmall!
                           .copyWith(color: ColorManager.primary))
                   .tr(),
-              shipmentCardId(context, order.clientName),
+              shipmentCardId(context, order.reciptiontName),
             ],
           ),
           Row(
@@ -67,7 +67,7 @@ Widget deliveryOrderCard(
                           .titleSmall!
                           .copyWith(color: ColorManager.primary))
                   .tr(),
-              shipmentCardId(context, order.clientPhone),
+              shipmentCardId(context, order.reciptiontPhone),
             ],
           ),
           Row(

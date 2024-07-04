@@ -449,10 +449,8 @@ Map<String, dynamic> _$DeliveryOrdersDateResponseToJson(
 DeliveryOrderResponse _$DeliveryOrderResponseFromJson(
         Map<String, dynamic> json) =>
     DeliveryOrderResponse(
-      json['client'] == null
-          ? null
-          : DeliveryOrderClientResponse.fromJson(
-              json['client'] as Map<String, dynamic>),
+      json['recipentName'] as String?,
+      json['reciepentPhone'] as String?,
       json['type'] as String?,
       json['description'] as String?,
       json['status'] as String?,
@@ -464,7 +462,8 @@ DeliveryOrderResponse _$DeliveryOrderResponseFromJson(
 Map<String, dynamic> _$DeliveryOrderResponseToJson(
         DeliveryOrderResponse instance) =>
     <String, dynamic>{
-      'client': instance.client,
+      'recipentName': instance.recipentName,
+      'reciepentPhone': instance.reciepentPhone,
       'type': instance.type,
       'description': instance.description,
       'status': instance.status,

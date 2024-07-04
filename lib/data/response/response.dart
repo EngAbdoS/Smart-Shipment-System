@@ -298,6 +298,7 @@ class OrderResponse {
   String? price;
   @JsonKey(name: "createdAt")
   String? createdAt;
+
   OrderResponse(
       this.type,
       this.id,
@@ -377,7 +378,6 @@ class NearestRecommendedDeliveryResponse {
   String? duration;
   @JsonKey(name: "day")
   String? day;
-
   @JsonKey(name: "name")
   String? userName;
   @JsonKey(name: "email")
@@ -462,8 +462,10 @@ class DeliveryOrdersDateResponse {
 
 @JsonSerializable()
 class DeliveryOrderResponse {
-  @JsonKey(name: "client")
-  DeliveryOrderClientResponse? client;
+  @JsonKey(name: "recipentName")
+  String? recipentName;
+  @JsonKey(name: "reciepentPhone")
+  String? reciepentPhone;
   @JsonKey(name: "type")
   String? type;
   @JsonKey(name: "description")
@@ -477,13 +479,22 @@ class DeliveryOrderResponse {
   @JsonKey(name: "_id")
   String? orderId;
 
-  DeliveryOrderResponse(this.client, this.type, this.description, this.status,
-      this.weight, this.quantity, this.orderId);
+  DeliveryOrderResponse(
+    this.recipentName,
+    this.reciepentPhone,
+    this.type,
+    this.description,
+    this.status,
+    this.weight,
+    this.quantity,
+    this.orderId,
+  );
 
   factory DeliveryOrderResponse.fromJson(Map<String, dynamic> json) =>
       _$DeliveryOrderResponseFromJson(json); //why factory
   Map<String, dynamic> toJson() => _$DeliveryOrderResponseToJson(this);
 }
+
 @JsonSerializable()
 class DeliveryOrderClientResponse {
   @JsonKey(name: "name")
@@ -491,8 +502,7 @@ class DeliveryOrderClientResponse {
   @JsonKey(name: "phone")
   String? phone;
 
-
-  DeliveryOrderClientResponse(this.name, this.phone );
+  DeliveryOrderClientResponse(this.name, this.phone);
 
   factory DeliveryOrderClientResponse.fromJson(Map<String, dynamic> json) =>
       _$DeliveryOrderClientResponseFromJson(json); //why factory
@@ -547,56 +557,20 @@ class RecommendedDeliveryResponse {
   String? duration;
   @JsonKey(name: "day")
   String? day;
-
-  // @JsonKey(name: "name")
-  // String? userName;
-  // @JsonKey(name: "email")
-  // String? email;
-  // @JsonKey(name: "phone")
-  // String? phoneNumber;
-  // @JsonKey(name: "role")
-  // String? role;
-  // @JsonKey(name: "vehicleType")
-  // String? vehicleType;
-  // @JsonKey(name: "vehicleLicenseImg")
-  // String? vehicleLicenseImg;
-  // @JsonKey(name: "deliveryApprovalImg")
-  // String? deliveryApprovalImg;
-  // @JsonKey(name: "deliveryApproved")
-  // bool? deliveryApproved;
-  // @JsonKey(name: "profileImage")
-  // String? profileImage;
-  // @JsonKey(name: "trip")
-  // List<DeliveryTripResponse>? trips;
-  // @JsonKey(name: "confirmedEmail")
-  // bool? confirmedEmail;
-  // @JsonKey(name: "otpResetExpires")
-  // String? otpResetExpires;
   @JsonKey(name: "deliveryPerson")
   DeliveryPersonResponse? deliveryPerson;
 
   RecommendedDeliveryResponse(
-      this.orderId,
-      this.startLoc,
-      this.endLoc,
-      this.startState,
-      this.endState,
-      this.time,
-      this.duration,
-      this.day,
-      // this.userName,
-      // this.email,
-      // this.phoneNumber,
-      // this.role,
-      // this.vehicleType,
-      // this.vehicleLicenseImg,
-      // this.deliveryApprovalImg,
-      // this.deliveryApproved,
-      // this.profileImage,
-      // this.trips,
-      // this.confirmedEmail,
-      // this.otpResetExpires
-      this.deliveryPerson);
+    this.orderId,
+    this.startLoc,
+    this.endLoc,
+    this.startState,
+    this.endState,
+    this.time,
+    this.duration,
+    this.day,
+    this.deliveryPerson,
+  );
 
   factory RecommendedDeliveryResponse.fromJson(Map<String, dynamic> json) =>
       _$RecommendedDeliveryResponseFromJson(json); //why factory
@@ -616,8 +590,13 @@ class DeliveryPersonResponse extends BaseResponse {
   @JsonKey(name: "_id")
   String? userId;
 
-  DeliveryPersonResponse(this.userName, this.phoneNumber, this.vehicleType,
-      this.profileImage, this.userId);
+  DeliveryPersonResponse(
+    this.userName,
+    this.phoneNumber,
+    this.vehicleType,
+    this.profileImage,
+    this.userId,
+  );
 
   factory DeliveryPersonResponse.fromJson(Map<String, dynamic> json) =>
       _$DeliveryPersonResponseFromJson(json);
@@ -649,7 +628,12 @@ class CheckoutDataResponse extends BaseResponse {
   @JsonKey(name: "cancel_url")
   String? cancel_url;
 
-  CheckoutDataResponse(this.id, this.url, this.success_url, this.cancel_url);
+  CheckoutDataResponse(
+    this.id,
+    this.url,
+    this.success_url,
+    this.cancel_url,
+  );
 
   factory CheckoutDataResponse.fromJson(Map<String, dynamic> json) =>
       _$CheckoutDataResponseFromJson(json);
@@ -676,8 +660,16 @@ class DeliveryTripResponse {
   @JsonKey(name: "_id")
   String? id;
 
-  DeliveryTripResponse(this.startLoc, this.endLoc, this.startState,
-      this.endState, this.time, this.duration, this.day, this.id);
+  DeliveryTripResponse(
+    this.startLoc,
+    this.endLoc,
+    this.startState,
+    this.endState,
+    this.time,
+    this.duration,
+    this.day,
+    this.id,
+  );
 
   factory DeliveryTripResponse.fromJson(Map<String, dynamic> json) =>
       _$DeliveryTripResponseFromJson(json);
@@ -694,7 +686,11 @@ class LatLonResponse {
   @JsonKey(name: "_id")
   String? id;
 
-  LatLonResponse(this.type, this.coordinates, this.id);
+  LatLonResponse(
+    this.type,
+    this.coordinates,
+    this.id,
+  );
 
   factory LatLonResponse.fromJson(Map<String, dynamic> json) =>
       _$LatLonResponseFromJson(json);

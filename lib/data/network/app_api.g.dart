@@ -48,6 +48,62 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
+  Future<MeDataResponse> updateUserData(Map<String, dynamic> data) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(data);
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<MeDataResponse>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'users/updateMe',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = MeDataResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<RegistrationResponse> updateUserProfileImage(
+      String profileImage) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {'profileImage': profileImage};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<RegistrationResponse>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'users/updateImg',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = RegistrationResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<OrdersResponse> getAllOrders() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -212,60 +268,6 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<DeliveryOrdersResponse> getAllComingOrders() async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<DeliveryOrdersResponse>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              'delivery/order/summary?coming=true',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = DeliveryOrdersResponse.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<DeliveryOrdersResponse> getAllDeliveredOrders() async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<DeliveryOrdersResponse>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              'delivery/order/summary?delivered=true',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = DeliveryOrdersResponse.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<RecommendedDeliveriesResponse> getDeliveryPath(
     String orderStartState,
     String orderEndState,
@@ -359,40 +361,14 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<MeDataResponse> updateUserData(Map<String, dynamic> data) async {
+  Future<RegistrationResponse> clientAssignOrderDelivery(
+    String orderId,
+    String deliveryId,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(data);
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<MeDataResponse>(Options(
-      method: 'PATCH',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              'users/updateMe',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = MeDataResponse.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<RegistrationResponse> updateUserProfileImage(
-      String profileImage) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = {'profileImage': profileImage};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RegistrationResponse>(Options(
       method: 'PATCH',
@@ -401,7 +377,7 @@ class _AppServiceClient implements AppServiceClient {
     )
             .compose(
               _dio.options,
-              'users/updateImg',
+              'delivery/order/${orderId}/assignToMe?delivery=${deliveryId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -411,6 +387,60 @@ class _AppServiceClient implements AppServiceClient {
               baseUrl,
             ))));
     final value = RegistrationResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<DeliveryOrdersResponse> getAllComingOrders() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<DeliveryOrdersResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'delivery/order/summary?coming=true',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = DeliveryOrdersResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<DeliveryOrdersResponse> getAllDeliveredOrders() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<DeliveryOrdersResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'delivery/order/summary?delivered=true',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = DeliveryOrdersResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -432,36 +462,6 @@ class _AppServiceClient implements AppServiceClient {
             .compose(
               _dio.options,
               'delivery/order/${id}?status=${status}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = RegistrationResponse.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<RegistrationResponse> clientAssignOrderDelivery(
-    String orderId,
-    String deliveryId,
-  ) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<RegistrationResponse>(Options(
-      method: 'PATCH',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              'delivery/order/${orderId}/assignToMe?delivery=${deliveryId}',
               queryParameters: queryParameters,
               data: _data,
             )
