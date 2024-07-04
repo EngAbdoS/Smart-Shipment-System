@@ -50,22 +50,29 @@ Widget deliveryOrderCard(
           ),
           Row(
             children: [
-              Text("${AppStrings.client} ",
+              Text("${AppStrings.recipient_name.tr()} ",
                       style: Theme.of(context)
                           .textTheme
                           .titleSmall!
                           .copyWith(color: ColorManager.primary))
                   .tr(),
               shipmentCardId(context, order.clientName),
-              shipmentCardId(context, order.clientPhone),
             ],
-          ),
-          const SizedBox(
-            height: 10,
           ),
           Row(
             children: [
-              Text("${AppStrings.order_id} ",
+              Text("${AppStrings.recipient_phone.tr()} ",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(color: ColorManager.primary))
+                  .tr(),
+              shipmentCardId(context, order.clientPhone),
+            ],
+          ),
+          Row(
+            children: [
+              Text("${AppStrings.order_id.tr()} ",
                       style: Theme.of(context)
                           .textTheme
                           .titleSmall!
@@ -88,69 +95,79 @@ Widget deliveryOrderCard(
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                children: [
-                  Text(
-                    AppStrings.shipment_type,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(fontSize: 12, color: ColorManager.primary),
-                  ).tr(),
-                  const SizedBox(
-                    height: 6,
-                  ),
-                  Text(
-                    order.type,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(fontSize: 10),
-                  )
-                ],
+              Flexible(
+                flex: 1,
+                child: Column(
+                  children: [
+                    Text(
+                      AppStrings.shipment_type,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(fontSize: 12, color: ColorManager.primary),
+                    ).tr(),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    Text(
+                      order.type,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(fontSize: 10),
+                    )
+                  ],
+                ),
               ),
-              Column(
-                children: [
-                  Text(
-                    AppStrings.weight,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(fontSize: 12, color: ColorManager.primary),
-                  ).tr(),
-                  const SizedBox(
-                    height: 6,
-                  ),
-                  Text(
-                    order.weight,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(fontSize: 10),
-                  )
-                ],
+              Flexible(
+                flex: 1,
+                child: Column(
+                  children: [
+                    Text(
+                      AppStrings.weight,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(fontSize: 12, color: ColorManager.primary),
+                    ).tr(),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    Text(
+                      order.weight,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(fontSize: 10),
+                    )
+                  ],
+                ),
               ),
-              Column(
-                children: [
-                  Text(
-                    AppStrings.things_count,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(fontSize: 12, color: ColorManager.primary),
-                  ).tr(),
-                  const SizedBox(
-                    height: 6,
-                  ),
-                  Text(
-                    order.quantity.toString(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(fontSize: 10),
-                  )
-                ],
+              Flexible(
+                flex: 1,
+                child: Column(
+                  children: [
+                    Text(
+                      AppStrings.things_count,
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            fontSize: 12,
+                            color: ColorManager.primary,
+                          ),
+                    ).tr(),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    Text(
+                      order.quantity.toString(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(fontSize: 10),
+                    )
+                  ],
+                ),
               ),
             ],
           ),

@@ -63,6 +63,10 @@ abstract class AppServiceClient {
       @Path("endLocation") String endLocation,
       @Path("maxDis") int maxDis);
 
+  @PATCH('delivery/order/{order_id}/assignToMe?delivery={delivery_id}')
+  Future<RegistrationResponse> clientAssignOrderDelivery(
+      @Path("order_id") String orderId, @Path("delivery_id") String deliveryId);
+
   ///////////////////////////*delivery endpoints*////////////////////////
 
   @GET("delivery/order/summary?coming=true")
@@ -74,10 +78,6 @@ abstract class AppServiceClient {
   @PATCH('delivery/order/{id}?status={status}')
   Future<RegistrationResponse> deliveryChangeOrderState(
       @Path("id") String id, @Path("status") String status);
-
-  @PATCH('delivery/order/{order_id}/assignToMe?delivery={delivery_id}')
-  Future<RegistrationResponse> clientAssignOrderDelivery(
-      @Path("order_id") String orderId, @Path("delivery_id") String deliveryId);
 
   @GET('delivery/order/summary?limit=10&page={pageIndex}')
   Future<DeliveryOrdersResponse> deliveryGetOrders(

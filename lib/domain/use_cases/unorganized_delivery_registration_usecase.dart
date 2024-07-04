@@ -21,7 +21,9 @@ class UnorganizedDeliveryRegistrationUseCase
           password: input.password,
           confirmPassword: input.confirmPassword,
           currentState: CurrentStateRequest(
-              type: input.type, coordinates: input.coordinates),
+            type: input.type,
+            coordinates: input.coordinates,
+          ),
           vehicleType: input.vehicleType,
           vehicleLicenseImg: input.vehicleLicenseImg,
           deliveryApprovalImg: input.deliveryApprovalImg,

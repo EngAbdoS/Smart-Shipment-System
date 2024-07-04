@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:smart_shipment_system/presentation/authenticathion/widgets/roleButton.dart';
 import 'package:smart_shipment_system/presentation/resources/assets_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/router_manager.dart';
@@ -23,7 +22,10 @@ class AuthenticationView extends StatelessWidget {
           Text(
             AppStrings.whoAreYou,
             style: Theme.of(context).textTheme.titleMedium,
-          ).tr().animate(delay: 100.milliseconds).slideY(begin: -1.5, end: 0.0, curve: Curves.bounceInOut),
+          )
+              .tr()
+              .animate(delay: 100.milliseconds)
+              .slideY(begin: -1.5, end: 0.0, curve: Curves.bounceInOut),
           const SizedBox(
             height: AppSize.s20 * 4,
           ),
@@ -31,55 +33,23 @@ class AuthenticationView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               roleButton(
-                  ImageAssets.delivery,
-                  () => Navigator.of(context).pushReplacementNamed(Routes.deliveryRegistrationView1Route),
-                      //Navigator.of(context).pushNamed(Routes.deliveryAuthViewRoute),
-                  context,
-                  AppStrings.delivery).animate()
+                      ImageAssets.delivery,
+                      () => Navigator.of(context).pushReplacementNamed(
+                          Routes.deliveryRegistrationView1Route),
+                      context,
+                      AppStrings.delivery)
+                  .animate()
                   .slideX(begin: 0.5, end: 0.0, curve: Curves.easeInOutBack),
               roleButton(
-                  ImageAssets.client,
-                  () =>  Navigator.of(context).pushReplacementNamed(Routes.clientRegistrationViewRoute),
-                      //Navigator.of(context).pushNamed(Routes.clientAuthViewRoute),
-                  context,
-                  AppStrings.client).animate()
-                  .slideX(begin:- 0.5, end: 0.0, curve: Curves.easeInOutBack),
+                      ImageAssets.client,
+                      () => Navigator.of(context).pushReplacementNamed(
+                          Routes.clientRegistrationViewRoute),
+                      context,
+                      AppStrings.client)
+                  .animate()
+                  .slideX(begin: -0.5, end: 0.0, curve: Curves.easeInOutBack),
             ],
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget roleButton(String asset, GestureTapCallback roleRoute,
-      BuildContext context, String role) {
-    return GestureDetector(
-      onTap: roleRoute,
-      child: Column(
-        children: [
-          Container(
-              width: AppSize.s100 * 1.25,
-              height: AppSize.s100 * 1.25,
-              decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: ColorManager.offWhite),
-              child: CircleAvatar(
-                  child: Image.asset(
-                asset,
-                fit: BoxFit.cover,
-              ))
-              // SvgPicture.asset(
-              //   asset,
-              //   fit: BoxFit.fill,
-              //   excludeFromSemantics: true,
-              // ),
-              ),
-          const SizedBox(
-            height: AppSize.s12 * 2,
-          ),
-          Text(
-            role,
-            style: Theme.of(context).textTheme.titleMedium,
-          ).tr(),
         ],
       ),
     );
