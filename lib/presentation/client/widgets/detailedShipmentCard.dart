@@ -53,7 +53,7 @@ Widget detailedShipmentCard(
                   DateFormat('yyyy-MM-dd')
                       .format(DateTime.parse(shipment.date)),
                   style: Theme.of(context).textTheme.titleSmall),
-              Spacer(),
+              const Spacer(),
               shipmentStatusWidget(context, shipment.status),
             ],
           ),

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_shipment_system/app/app_constants.dart';
 import 'package:smart_shipment_system/domain/models/shipmentModel.dart';
 import 'package:smart_shipment_system/presentation/resources/color_manager.dart';
 import 'package:smart_shipment_system/presentation/resources/strings_manager.dart';
@@ -9,6 +10,18 @@ Widget activeShipmentStatusBar(
     {required BuildContext context,
     required ShipmentModel shipment,
     bool withDetails = false}) {
+  shipment.status == AppConstants.activeShipmentStatusDelivered
+      ? {
+          shipment.pickedUp = true,
+          shipment.coming = true,
+          shipment.unPicked = true
+        }
+      : shipment.status == AppConstants.activeShipmentStatusComing
+          ? {shipment.pickedUp = true, shipment.unPicked = true}
+          : shipment.status == AppConstants.activeShipmentStatusPickedUp
+              ? {shipment.unPicked = true}
+              : null;
+
   return SizedBox(
     width: double.maxFinite,
     child: Column(
