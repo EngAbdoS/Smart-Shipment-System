@@ -12,26 +12,38 @@ import 'package:smart_shipment_system/presentation/widgets/inputLocationWidget.d
 import 'package:smart_shipment_system/presentation/widgets/select_week_days.dart';
 import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 
-class DeliveryTripInputWidget extends StatelessWidget {
+class DeliveryTripInputWidget extends StatefulWidget {
   final dynamic viewModel;
 
-  DeliveryTripInputWidget({
+  const DeliveryTripInputWidget({
     super.key,
     required this.viewModel,
   });
 
+  @override
+  State<DeliveryTripInputWidget> createState() =>
+      _DeliveryTripInputWidgetState();
+}
+
+class _DeliveryTripInputWidgetState extends State<DeliveryTripInputWidget> {
   final TextEditingController fromLocationTextEditingController =
       TextEditingController();
+
   final TextEditingController toLocationTextEditingController =
       TextEditingController();
+
   final TextEditingController startTimeLocationTextEditingController =
       TextEditingController();
+
   final TextEditingController expectedDurationTextEditingController =
       TextEditingController();
+
   final TextEditingController tripDetailsTextEditingController =
       TextEditingController();
+
   final TextEditingController tripDaysTextEditingController =
       TextEditingController();
+
   TimeOfDay? tripTime;
 
   DateTime? pickedDate;
@@ -57,7 +69,7 @@ class DeliveryTripInputWidget extends StatelessWidget {
             ),
             inputLocationWidget(
                 context,
-                viewModel.setCurrentFromLocationAndGov,
+                widget.viewModel.setCurrentFromLocationAndGov,
                 AppStrings.fromLocation,
                 AppStrings.locationMassage,
                 AppStrings.fromLocationHint),
@@ -66,7 +78,7 @@ class DeliveryTripInputWidget extends StatelessWidget {
             ),
             inputLocationWidget(
                 context,
-                viewModel.setCurrentToLocationAndGov,
+                widget.viewModel.setCurrentToLocationAndGov,
                 AppStrings.toLocation,
                 AppStrings.locationMassage,
                 AppStrings.toLocationHint),
@@ -74,11 +86,11 @@ class DeliveryTripInputWidget extends StatelessWidget {
               height: 15.sp,
             ),
             StreamBuilder<bool>(
-                stream: viewModel.outputIsCurrentTripDetails,
+                stream: widget.viewModel.outputIsCurrentTripDetails,
                 builder: (context, snapshot) {
                   return TextFormField(
                     onChanged: (tripDetails) =>
-                        viewModel.setCurrentTripDetails(tripDetails),
+                        widget.viewModel.setCurrentTripDetails(tripDetails),
                     keyboardType: TextInputType.text,
                     controller: tripDetailsTextEditingController,
                     decoration: InputDecoration(
@@ -98,11 +110,12 @@ class DeliveryTripInputWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: StreamBuilder<bool>(
-                      stream: viewModel.outputCurrentTripExpectedDuration,
+                      stream:
+                          widget.viewModel.outputCurrentTripExpectedDuration,
                       builder: (context, snapshot) {
                         return TextFormField(
-                          onChanged: (duration) =>
-                              viewModel.setCurrentTripExpectedDuration(
+                          onChanged: (duration) => widget.viewModel
+                              .setCurrentTripExpectedDuration(
                                   duration != "" ? int.parse(duration) : 0),
                           keyboardType: TextInputType.number,
                           controller: expectedDurationTextEditingController,
@@ -125,7 +138,6 @@ class DeliveryTripInputWidget extends StatelessWidget {
                     readOnly: true,
                     onTap: () async => {
                       tripTime = await showTimePicker(
-                          // barrierColor: ColorManager.primary,
                           context: context,
                           initialTime: TimeOfDay.now(),
                           builder: (context, child) {
@@ -137,13 +149,14 @@ class DeliveryTripInputWidget extends StatelessWidget {
                                 timePickerTheme:
                                     TimePickerTheme.of(context).copyWith(
                                   dialHandColor: ColorManager.primary,
-                                  // dialTextColor:  ColorManager.primary,
+                                  dayPeriodColor: ColorManager.primary,
+                                  entryModeIconColor: ColorManager.primary,
                                 ),
                               ),
                               child: child!,
                             );
                           }),
-                      viewModel.setCurrentTripStartTime(
+                      widget.viewModel.setCurrentTripStartTime(
                           "${tripTime?.hour ?? 0}:${tripTime?.minute ?? 0}"),
                       startTimeLocationTextEditingController.text =
                           "${tripTime?.hour ?? 0}:${tripTime?.minute ?? 0}",
@@ -153,9 +166,6 @@ class DeliveryTripInputWidget extends StatelessWidget {
                     decoration: InputDecoration(
                       labelText: AppStrings.tripTime.tr(),
                       hintText: AppStrings.tripTimeHint.tr(),
-                      // errorText: (() ?? true) || true
-                      //     ? null
-                      //     : AppStrings.fromLocationHint.tr(),
                     ),
                   ),
                 ),
@@ -175,7 +185,7 @@ class DeliveryTripInputWidget extends StatelessWidget {
                       .copyWith(color: ColorManager.black),
                 ).tr(),
                 StreamBuilder<bool>(
-                    stream: viewModel.outputCurrentDeliveryIsTripOneTime,
+                    stream: widget.viewModel.outputCurrentDeliveryIsTripOneTime,
                     builder: (context, snapshot) {
                       return Switch(
                           activeColor: ColorManager.primary,
@@ -184,7 +194,7 @@ class DeliveryTripInputWidget extends StatelessWidget {
                           inactiveThumbColor: ColorManager.gray,
                           value: snapshot.data ?? true,
                           onChanged: (value) => {
-                                viewModel
+                                widget.viewModel
                                     .setCurrentDeliveryIsTripOneTime(value),
                                 tripDaysTextEditingController.text = "",
                               });
@@ -195,7 +205,7 @@ class DeliveryTripInputWidget extends StatelessWidget {
               height: 15.sp,
             ),
             StreamBuilder<bool>(
-                stream: viewModel.outputCurrentDeliveryIsTripOneTime,
+                stream: widget.viewModel.outputCurrentDeliveryIsTripOneTime,
                 builder: (context, snapshot) {
                   return ((snapshot.data ?? true)
                       ? dateOfTripInputWidget().animate().slideY(
@@ -209,7 +219,7 @@ class DeliveryTripInputWidget extends StatelessWidget {
             ),
             Center(
               child: StreamBuilder<bool>(
-                  stream: viewModel.outputIsDeliveryTripValid,
+                  stream: widget.viewModel.outputIsDeliveryTripValid,
                   builder: (context, snapshot) {
                     return CircularButton(
                       buttonColor: (snapshot.data ?? false)
@@ -237,7 +247,7 @@ class DeliveryTripInputWidget extends StatelessWidget {
   }
 
   void setDeliveryTrip(BuildContext context) {
-    viewModel.setNewDeliveryTrip(context);
+    widget.viewModel.setNewDeliveryTrip(context);
     fromLocationTextEditingController.text = "";
     toLocationTextEditingController.text = "";
     startTimeLocationTextEditingController.text = "";
@@ -248,21 +258,19 @@ class DeliveryTripInputWidget extends StatelessWidget {
 
   Widget dateOfTripInputWidget() {
     return StreamBuilder<List<String>>(
-        stream: viewModel.outputCurrentTripDays,
+        stream: widget.viewModel.outputCurrentTripDays,
         builder: (context, snapshot) {
           return TextFormField(
-            //  enabled: false,
             readOnly: true,
             onTap: () async {
               pickedDate = await showDatePicker(
-                  initialEntryMode: DatePickerEntryMode.calendarOnly,
-                  // initialEntryMode=DatePickerEntryMode.input,
-                  // barrierColor: ColorManager.primary,
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime.now(),
-                  lastDate: DateTime.now().add(const Duration(days: 30)));
-              viewModel.setCurrentTripDay((pickedDate != null
+                initialEntryMode: DatePickerEntryMode.calendarOnly,
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now(),
+                lastDate: DateTime.now().add(const Duration(days: 30)),
+              );
+              widget.viewModel.setCurrentTripDay((pickedDate != null
                       ? (DateFormat.yMd().format(pickedDate!))
                       : "")
                   .toString());
@@ -271,15 +279,10 @@ class DeliveryTripInputWidget extends StatelessWidget {
                   ? "${pickedDate!.year}-${pickedDate!.month}-${pickedDate!.day}"
                   : "";
             },
-
             controller: tripDaysTextEditingController,
             decoration: InputDecoration(
               hintText: AppStrings.tripDaysHint.tr(),
               labelText: AppStrings.tripDays.tr(),
-              // errorText:
-              //     ((snapshot.data?[0] != "" || snapshot.data != []) ?? true)
-              //         ? null
-              //         : AppStrings.tripDaysHint.tr(),
             ),
           );
         });
@@ -298,7 +301,7 @@ class DeliveryTripInputWidget extends StatelessWidget {
           border: Border.all(width: 2, color: ColorManager.gray)),
       fontSize: 6.3.sp,
       onSelect: (selectedDays) => {
-        viewModel.setCurrentTripNewDay(selectedDays),
+        widget.viewModel.setCurrentTripNewDay(selectedDays),
         print(selectedDays),
       },
       days: [
