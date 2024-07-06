@@ -23,24 +23,29 @@ Widget shipmentStatusWidget(BuildContext context,String status)
       ],
     ),
     alignment: Alignment.center,
-    child: Text(
-      status == AppConstants.activeShipmentStatusUnPicked
-          ? AppStrings.unPicked
-          : status ==
-          AppConstants.activeShipmentStatusPickedUp
-          ? AppStrings.pickedUp
-          : status ==
-          AppConstants.activeShipmentStatusComing
-          ? AppStrings.coming
-          : status ==
-          AppConstants.activeShipmentStatusDelivered
-          ? AppStrings.delivered
-          : "",
-      style: Theme.of(context)
-          .textTheme
-          .titleSmall!
-          .copyWith(fontSize: 12),
-    ).tr(),
+    child: Center(
+      child: Text(
+        status == AppConstants.activeShipmentStatusUnPicked
+            ? AppStrings.unPicked
+            : status ==
+            AppConstants.activeShipmentStatusPickedUp
+            ? AppStrings.pickedUp
+            : status ==
+            AppConstants.activeShipmentStatusComing
+            ? AppStrings.coming
+            : status ==
+            AppConstants.activeShipmentStatusDelivered
+            ? AppStrings.delivered
+            : "",
+        style: Theme.of(context)
+            .textTheme
+            .titleSmall!
+            .copyWith(fontSize: 12),
+        textAlign: TextAlign.center,
+        overflow: TextOverflow.fade,
+        softWrap: true,
+      ).tr(),
+    ),
   );
 
 

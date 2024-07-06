@@ -79,7 +79,7 @@ abstract class AppServiceClient {
   Future<RegistrationResponse> deliveryChangeOrderState(
       @Path("id") String id, @Path("status") String status);
 
-  @GET('delivery/order/summary?limit=10&page={pageIndex}')
+  @GET('delivery/order/summary')
   Future<DeliveryOrdersResponse> deliveryGetOrders(
       @Path("pageIndex") int pageIndex);
 

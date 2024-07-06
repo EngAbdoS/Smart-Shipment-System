@@ -16,7 +16,7 @@ Widget orderCardStatusButton(BuildContext context, String status,
               : "noState";
 
   return RegularButton(
-    buttonAction: () => changeStatus(context, orderId, nextStatus),
+    buttonAction: nextStatus!= "noState"?() => changeStatus(context, orderId, nextStatus):(){},
     buttonWidget: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
@@ -27,7 +27,9 @@ Widget orderCardStatusButton(BuildContext context, String status,
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge!
-                      .copyWith(color: ColorManager.black),
+                      .copyWith(color: ColorManager.black), textAlign: TextAlign.center,
+            overflow: TextOverflow.fade,
+            softWrap: true,
                 ).tr()
               : Container(),
           nextStatus != "noState"

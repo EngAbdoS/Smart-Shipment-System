@@ -44,6 +44,7 @@ class DeliveryHomeViewModel extends MainDeliveryViewModel {
         (failure) => {
               errorState(context: context, message: failure.message),
             }, (data) async {
+          data=data.reversed.toList();
       ordersList.addAll(data);
       data.isNotEmpty ? fetchPageIndex++ : null;
       ordersList.removeWhere((order) =>

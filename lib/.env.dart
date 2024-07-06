@@ -1,0 +1,3 @@
+String chatBotToken='app-KJy7kth77oBZutepy0S4UFiw';
+//String StripePublishableKey='pk_test_51PWPUfIU987VMZVl5My4qe5rPIMxh3bdpZgUTtKjDU68V6g7WomWqiFVzgBK33bAOusSWciczVCDVb8JjYj3eCmo00ANqAdFak';
+String StripePublishableKey='pk_test_51PZDNQ2MAaS48jAs57y5IYH1tgsLJz5svmcS5ArTpyGNdx62AsYcdLi5Z2YaAk51FY9RI7x5PJGWRsa6H9Tguyac005RCdCc5a';

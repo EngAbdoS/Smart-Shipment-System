@@ -488,7 +488,7 @@ class _AppServiceClient implements AppServiceClient {
     )
             .compose(
               _dio.options,
-              'delivery/order/summary?limit=10&page=${pageIndex}',
+              'delivery/order/summary',
               queryParameters: queryParameters,
               data: _data,
             )
