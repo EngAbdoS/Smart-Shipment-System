@@ -36,15 +36,6 @@ Widget generalSettingSection(BuildContext context, bool isClientOrDelivery,
               Icons.transfer_within_a_station_outlined,
             )
           : Container(),
-      // !isClientOrDelivery
-      //     ? generalSetting(
-      //         context,
-      //         () {},
-      //         AppStrings.add_card,
-      //         AppStrings.add_card_method,
-      //         Icons.credit_card_rounded,
-      //       )
-      //     : Container(),
       !isClientOrDelivery
           ? generalSetting(
               context,
@@ -77,15 +68,7 @@ Widget generalSettingSection(BuildContext context, bool isClientOrDelivery,
               Icons.location_on,
             )
           : Container(),
-      // isClientOrDelivery
-      //     ? generalSetting(
-      //         context,
-      //         () {},
-      //         AppStrings.add_card,
-      //         AppStrings.add_card_method,
-      //         Icons.credit_card_rounded,
-      //       )
-      //     : Container(),
+
     ],
   );
 }
