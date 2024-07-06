@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_shipment_system/app/app_preferances.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
@@ -15,10 +13,8 @@ import 'package:smart_shipment_system/presentation/widgets/status/hideState.dart
 import 'package:smart_shipment_system/presentation/widgets/status/loadingState.dart';
 import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 
-class UserProfileViewModel //extends MainClientViewModel
-{
-  UserProfileViewModel(
-      this._repository, this.userProfileData); //: super(_repository) ;
+class UserProfileViewModel {
+  UserProfileViewModel(this._repository, this.userProfileData);
 
   final Repository _repository;
   final AppPreferences _appPreferences = instance<AppPreferences>();
@@ -42,7 +38,7 @@ class UserProfileViewModel //extends MainClientViewModel
 
   void logout(dynamic context) {
     _repository.logout();
-    Navigator.of(context).pushReplacementNamed(Routes.loginViewRoute);
+    Phoenix.rebirth(context);
   }
 
   Future<void> forgotPassword(dynamic context) async {

@@ -14,12 +14,17 @@ Widget activeShipmentStatusBar(
       ? {
           shipment.pickedUp = true,
           shipment.coming = true,
-          shipment.unPicked = true
+          shipment.unPicked = true,
         }
       : shipment.status == AppConstants.activeShipmentStatusComing
-          ? {shipment.pickedUp = true, shipment.unPicked = true}
+          ? {
+              shipment.pickedUp = true,
+              shipment.unPicked = true,
+            }
           : shipment.status == AppConstants.activeShipmentStatusPickedUp
-              ? {shipment.unPicked = true}
+              ? {
+                  shipment.unPicked = true,
+                }
               : null;
 
   return SizedBox(
@@ -129,8 +134,8 @@ Widget activeShipmentStatusBarSection(
           child: Container(
             height: 15.h,
             width: 15.h,
-            decoration: BoxDecoration(
-                color: isActive ? ColorManager.black : ColorManager.darkGray,
+            decoration: const BoxDecoration(
+                color: ColorManager.black,
                 shape: BoxShape.circle),
           ),
         );

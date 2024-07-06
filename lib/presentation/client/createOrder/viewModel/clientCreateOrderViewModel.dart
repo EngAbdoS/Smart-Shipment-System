@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rxdart/rxdart.dart';
@@ -36,9 +37,9 @@ class ClientCreateOrderViewModel {
       StreamController<bool>.broadcast();
 
   final StreamController _recommendedDeliveryListStreamController =
-  StreamController<List<RecommendedDeliveryEntity>>.broadcast();
+      StreamController<List<RecommendedDeliveryEntity>>.broadcast();
   final StreamController _hasDeliveryListStreamController =
-  StreamController<bool>.broadcast();
+      StreamController<bool>.broadcast();
 
   List<RecommendedDeliveryEntity> recommendedDeliveryList = [];
   ShipmentEntity shipment = ShipmentEntity(
@@ -81,6 +82,7 @@ class ClientCreateOrderViewModel {
 
   Stream<List<RecommendedDeliveryEntity>> get outputRecommendedDeliveryList =>
       _recommendedDeliveryListStreamController.stream.map((list) => list);
+
   Stream<bool> get outputIsHasDelivery =>
       _hasDeliveryListStreamController.stream.map((value) => value);
 
@@ -101,8 +103,8 @@ class ClientCreateOrderViewModel {
 
   Sink get inputRecommendedDeliveryList =>
       _recommendedDeliveryListStreamController.sink;
-  Sink get inputIsHasDelivery =>
-      _hasDeliveryListStreamController.sink;
+
+  Sink get inputIsHasDelivery => _hasDeliveryListStreamController.sink;
 
   addShipment(dynamic context, GestureTapCallback navigate) async {
     loadingState(context: context);
@@ -143,7 +145,6 @@ class ClientCreateOrderViewModel {
                   errorState(context: context, message: failure.message),
                 }, (data) async {
       createdShipment = data;
-      // print(createdShipment?.id ?? "noid");
       navigate();
 
       await getRecommendedDelivery(context);
@@ -154,15 +155,10 @@ class ClientCreateOrderViewModel {
 
   getRecommendedDelivery(dynamic context) async {
     loadingState(context: context);
-    (await _repository.getRecommendedDeliveries(
-            shipment.startLocation, shipment.endLocation))
-        .fold(
-            (failure) => {
-                  errorState(context: context, message: failure.message),
-                }, (data) async {
-      setRecommendedDeliveryList(data);
+    recommendedDeliveryList = [];
+    if (shipment.startLocation == shipment.endLocation) {
       //delivery in start govState
-      //loadingState(context: context);
+
       (await _repository.getAllNearestUnOrganizedDelivery(
         shipment.startLoc.latitude,
         shipment.startLoc.longitude,
@@ -175,26 +171,47 @@ class ClientCreateOrderViewModel {
             ? insertToRecommendedDeliveryList(data[0], inZeroIndex: true)
             : null;
       });
-
-      //delivery in end govState
-      // loadingState(context: context);
-      (await _repository.getAllNearestUnOrganizedDelivery(
-        shipment.endLoc.latitude,
-        shipment.endLoc.longitude,
-      ))
+    } else {
+      (await _repository.getRecommendedDeliveries(
+              shipment.startLocation, shipment.endLocation))
           .fold(
               (failure) => {
                     errorState(context: context, message: failure.message),
-                  }, (data) {
-        data.isNotEmpty && data[0] != recommendedDeliveryList[0]
-            ? insertToRecommendedDeliveryList(data[0])
-            : data.length > 1
-                ? insertToRecommendedDeliveryList(data[1])
-                : null;
-      });
+                  }, (data) async {
+        setRecommendedDeliveryList(data);
+        //delivery in start govState
 
-      hideState(context: context);
-    });
+        (await _repository.getAllNearestUnOrganizedDelivery(
+          shipment.startLoc.latitude,
+          shipment.startLoc.longitude,
+        ))
+            .fold(
+                (failure) => {
+                      errorState(context: context, message: failure.message),
+                    }, (data) {
+          data.isNotEmpty
+              ? insertToRecommendedDeliveryList(data[0], inZeroIndex: true)
+              : null;
+        });
+
+        //delivery in end govState
+        (await _repository.getAllNearestUnOrganizedDelivery(
+          shipment.endLoc.latitude,
+          shipment.endLoc.longitude,
+        ))
+            .fold(
+                (failure) => {
+                      errorState(context: context, message: failure.message),
+                    }, (data) {
+          data.isNotEmpty && data[0] != recommendedDeliveryList[0]
+              ? insertToRecommendedDeliveryList(data[0])
+              : data.length > 1
+                  ? insertToRecommendedDeliveryList(data[1])
+                  : null;
+        });
+      });
+    }
+    hideState(context: context);
   }
 
   confirmShipmentToDeliveries(
@@ -207,33 +224,29 @@ class ClientCreateOrderViewModel {
         .fold(
             (failure) => {
                   errorState(context: context, message: failure.message),
-                }, (data)async {
+                }, (data) async {
       data
           ? {
-      (await _repository.checkOutShipmentById(
-      createdShipment?.id ?? "noid"))
-          .fold(
-      (failure) => {
-      errorState(context: context, message: failure.message),
-      }, (data) {
-
-paymentId=data.data?.id;
-print(paymentId);
-        navigate();
-        hideState(context: context);
-
-
-
-      }),
-
-        }
+              (await _repository
+                      .checkOutShipmentById(createdShipment?.id ?? "noid"))
+                  .fold(
+                      (failure) => {
+                            paymentId = '',
+                            print(paymentId),
+                            navigate(),
+                            hideState(context: context),
+                            //errorState(context: context, message: failure.message),
+                          }, (data) {
+                paymentId = data.data?.id;
+                print(paymentId);
+                navigate();
+                hideState(context: context);
+              }),
+            }
           : errorState(context: context, message: AppStrings.unknownError);
     });
 
-
     //TODO checke out
-
-
   }
 
   cancelShipment(dynamic context, GestureTapCallback navigate) async {
@@ -301,16 +314,17 @@ print(paymentId);
   insertToRecommendedDeliveryList(RecommendedDeliveryEntity recommendedDelivery,
       {bool inZeroIndex = false}) {
     inputIsHasDelivery.add(true);
-
     inZeroIndex
         ? {
             recommendedDelivery.currentGovState = shipment.startLocation,
-          //  recommendedDelivery.day = shipment.date,
+            // recommendedDelivery.day =
+            //     DateFormat('yyyy-MM-dd').format(DateTime.parse(shipment.date)),
             recommendedDeliveryList.insert(0, recommendedDelivery)
           }
         : {
             recommendedDelivery.currentGovState = shipment.endLocation,
-           // recommendedDelivery.day = shipment.date,
+            // recommendedDelivery.day =
+            //     DateFormat('yyyy-MM-dd').format(DateTime.parse(shipment.date)),
             recommendedDeliveryList.add(recommendedDelivery)
           };
     inputRecommendedDeliveryList.add(recommendedDeliveryList);

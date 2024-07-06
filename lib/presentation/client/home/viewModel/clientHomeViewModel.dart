@@ -138,7 +138,7 @@ class ClientHomeViewModel extends MainClientViewModel {
         (failure) => {
               errorState(context: context, message: failure.message),
             }, (data) async {
-      await dataFiltration(data);
+      await dataFiltration(data.reversed.toList());
       hideState(context: context);
     });
   }

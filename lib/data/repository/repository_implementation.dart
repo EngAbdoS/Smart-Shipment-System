@@ -44,7 +44,6 @@ class RepositoryImplementation implements Repository {
         return const Right(Routes.loginViewRoute);
       }
     }
-    return const Right(Routes.noRoute);
   }
 
   @override
