@@ -13,8 +13,11 @@ Widget deliveryTripList(
   return StreamBuilder<List<DeliveryTripEntity>>(
       stream: outputDeliveryTripList,
       builder: (context, snapshot) {
+        print(snapshot.data?.length ?? 0);
+        print(snapshot.data?[0].startState ?? 0);
 
         return Container(
+          // height: 200,
           padding: EdgeInsets.only(bottom: 25.sp),
           child: (snapshot.hasData && snapshot.data!.isNotEmpty)
               ? ListView.builder(

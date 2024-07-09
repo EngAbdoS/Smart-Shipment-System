@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rxdart/rxdart.dart';
@@ -231,16 +232,21 @@ class ClientCreateOrderViewModel {
                   .fold(
                       (failure) => {
                             paymentId = '',
+                            print(paymentId),
                             navigate(),
                             hideState(context: context),
+                            //errorState(context: context, message: failure.message),
                           }, (data) {
                 paymentId = data.data?.id;
+                print(paymentId);
                 navigate();
                 hideState(context: context);
               }),
             }
           : errorState(context: context, message: AppStrings.unknownError);
     });
+
+    //TODO checke out
   }
 
   cancelShipment(dynamic context, GestureTapCallback navigate) async {
@@ -248,12 +254,10 @@ class ClientCreateOrderViewModel {
     (await _repository.cancelOrderById(createdShipment?.id ?? "noid")).fold(
         (failure) => {
               errorState(context: context, message: failure.message),
-            },
-        (data) {});
-    (await _repository.deleteOrderById(createdShipment?.id ?? "noid"))
-        .fold((failure) async {}, (data) async {});
-    navigate();
-    hideState(context: context);
+            }, (data) {
+      navigate();
+      hideState(context: context);
+    });
   }
 
   setCurrentFromLocationAndGov(LatLng currentFromLocation,
@@ -313,10 +317,14 @@ class ClientCreateOrderViewModel {
     inZeroIndex
         ? {
             recommendedDelivery.currentGovState = shipment.startLocation,
+            // recommendedDelivery.day =
+            //     DateFormat('yyyy-MM-dd').format(DateTime.parse(shipment.date)),
             recommendedDeliveryList.insert(0, recommendedDelivery)
           }
         : {
             recommendedDelivery.currentGovState = shipment.endLocation,
+            // recommendedDelivery.day =
+            //     DateFormat('yyyy-MM-dd').format(DateTime.parse(shipment.date)),
             recommendedDeliveryList.add(recommendedDelivery)
           };
     inputRecommendedDeliveryList.add(recommendedDeliveryList);
