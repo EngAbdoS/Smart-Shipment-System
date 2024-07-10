@@ -12,7 +12,7 @@
 </p>
 <h2>Application Run</h2>
 
-https://github.com/EngAbdoS/Smart-Shipment-System/blob/master/Mobile%20App.mp4
+https://github.com/EngAbdoS/Smart-Shipment-System/assets/86132875/5ed83109-ec93-4eb1-acf7-4d05f83c686a
 
 <h2>Project Architecture</h2>
 <p>The project follows a clean architecture approach and is divided into four layers:</p>
