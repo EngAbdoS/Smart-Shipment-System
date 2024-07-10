@@ -10,6 +10,9 @@
 <p>
   <strong>Triple S Project</strong> is a mobile application platform that facilitates and manages the processes of shipping and delivering light products in a sustainable and smart way. The project aims to ensure the greatest possible resource saving by utilizing wasted resources in transporting individuals to transport goods in a way that does not conflict with the transportation of individuals.
 </p>
+<h2>Application Run</h2>
+
+https://github.com/EngAbdoS/Smart-Shipment-System/blob/master/Mobile%20App.mp4
 
 <h2>Project Architecture</h2>
 <p>The project follows a clean architecture approach and is divided into four layers:</p>
