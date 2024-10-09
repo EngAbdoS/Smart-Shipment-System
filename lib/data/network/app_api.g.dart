@@ -13,7 +13,7 @@ class _AppServiceClient implements AppServiceClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://smart-shipment-system.vercel.app/api/v1/';
+    baseUrl ??= 'http://10.0.2.2:5648/api/v1/';
   }
 
   final Dio _dio;

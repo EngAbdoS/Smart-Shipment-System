@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 
 class AppConstants
 {
-  static const String baseUrl="https://smart-shipment-system.vercel.app/api/v1/";
+  ///*for production*
+  //static const String baseUrl="https://smart-shipment-system.vercel.app/api/v1/";
+  //after change url run "flutter pub run build_runner build --delete-conflicting-outputs"
+  static const String baseUrl="http://10.0.2.2:5648/api/v1/";
+
   static const String chatBotBaseUrl="https://api.dify.ai/v1";
 
   static const String empty="";
