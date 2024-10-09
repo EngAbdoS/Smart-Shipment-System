@@ -8,10 +8,19 @@ import 'package:smart_shipment_system/.env.dart';
 import 'package:smart_shipment_system/app/App.dart';
 import 'package:smart_shipment_system/firebase_options.dart';
 import 'package:smart_shipment_system/presentation/resources/language_manager.dart';
+import 'package:smart_shipment_system/presentation/widgets/toast.dart';
 import 'app/dependancy_injection.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+  if (!androidInfo.isPhysicalDevice) {
+    print("not a physical device");
+    toastWidget("not a physical device");
+    return;
+  }
   Stripe.publishableKey = StripePublishableKey;
   await Stripe.instance.applySettings();
   await EasyLocalization.ensureInitialized();

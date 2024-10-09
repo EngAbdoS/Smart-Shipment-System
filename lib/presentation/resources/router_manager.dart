@@ -1,3 +1,4 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_shipment_system/app/dependancy_injection.dart';
 import 'package:smart_shipment_system/presentation/authenticathion/authView/auth_view.dart';
@@ -49,104 +50,119 @@ class Routes {
 }
 
 Route<dynamic> getRoute(RouteSettings settings) {
-  switch (settings.name) {
-    case Routes.splashRoute:
-      return customPageRoute(
-          const SplashScreenView(), settings, fadeTransition);
-      break;
-    case Routes.mainClientViewRoute:
-      initMainClientModule();
-      return customPageRoute(const MainClientView(), settings, fadeTransition);
-      break;
-    case Routes.mainDeliveryViewRoute:
-      initMainDeliveryModule();
-      return customPageRoute(
-          const MainDeliveryView(), settings, fadeTransition);
-      break;
-    case Routes.onBoardingViewRoute:
-      return customPageRoute(OnBoardingView(), settings, fadeTransition);
-      break;
-    case Routes.authViewRoute:
-      return customPageRoute(
-          const AuthenticationView(), settings, fadeTransition);
-      break;
-    case Routes.deliveryAuthViewRoute:
-      return customPageRoute(
-          const DeliveryAuthView(), settings, fadeTransition);
-      break;
-    case Routes.clientAuthViewRoute:
-      return customPageRoute(const ClientAuthView(), settings, fadeTransition);
-      break;
-    case Routes.loginViewRoute:
-      initLoginModule();
-      return customPageRoute(LoginView(), settings, fadeTransition);
-      break;
-    case Routes.clientRegistrationViewRoute:
-      initClientRegistrationModule();
-      return customPageRoute(
-          ClientRegistrationView(), settings, slideTransitionFromLeft);
-      break;
-    case Routes.deliveryRegistrationView1Route:
-      initDeliveryRegistrationModule();
-      return customPageRoute(
-          DeliveryRegistrationView1(), settings, slideTransitionFromRight);
-      break;
-    case Routes.deliveryRegistrationView2Route:
-      initDeliveryRegistrationModule();
-      return customPageRoute(
-          DeliveryRegistrationView2(), settings, slideTransitionFromRight);
-      break;
-    case Routes.deliveryRegistrationRoleViewRoute:
-      initDeliveryRegistrationModule();
-      return customPageRoute(
-          DeliveryRegistrationRoleView(), settings, slideTransitionFromRight);
-      break;
-    case Routes.deliveryInteriorRegistrationViewRoute:
-      initDeliveryRegistrationModule();
-      return customPageRoute(DeliveryInteriorRegistrationView(), settings,
-          slideTransitionFromRight);
-      break;
-    case Routes.deliveryExternalRegistrationViewRoute:
-      initDeliveryRegistrationModule();
-      return customPageRoute(DeliveryExternalRegistrationView(), settings,
-          slideTransitionFromRight);
-      break;
-    case Routes.forgotPasswordViewRoute:
-      initForgotPasswordModule();
-      return customPageRoute(ForgotPasswordView(), settings, fadeTransition);
-      break;
-    case Routes.changePasswordViewRoute:
-      return customPageRoute(ChangePasswordView(), settings, fadeTransition);
-      break;
-    case Routes.emilVerificationViewRoute:
-      return customPageRoute(EmailVerificationView(), settings, fadeTransition);
-      break;
-    case Routes.noNetworkView:
-      return customPageRoute(NoNetworkView(), settings, fadeTransition);
-      break;
-    case Routes.noRoute:
-      print("no route");
-      return customPageRoute(
-        Scaffold(
-          appBar: AppBar(title: const Text(AppStrings.noRouteFound)),
-          body: const Center(child: Text(AppStrings.noRouteFound)),
-        ),
-        settings,
-        fadeTransition,
-      );
-      break;
-    default:
-      print("no route default");
+  final AndroidDeviceInfo androidInfo = instance<AndroidDeviceInfo>();
 
-      return customPageRoute(
-        Scaffold(
-          //appBar: AppBar(title: const Text(AppStrings.noRouteFound)),
-          body: Container(),
-        ),
-        settings,
-        fadeTransition,
-      );
+  if(androidInfo.isPhysicalDevice){
+    switch (settings.name) {
+      case Routes.splashRoute:
+        return customPageRoute(
+            const SplashScreenView(), settings, fadeTransition);
+        break;
+      case Routes.mainClientViewRoute:
+        initMainClientModule();
+        return customPageRoute(const MainClientView(), settings, fadeTransition);
+        break;
+      case Routes.mainDeliveryViewRoute:
+        initMainDeliveryModule();
+        return customPageRoute(
+            const MainDeliveryView(), settings, fadeTransition);
+        break;
+      case Routes.onBoardingViewRoute:
+        return customPageRoute(OnBoardingView(), settings, fadeTransition);
+        break;
+      case Routes.authViewRoute:
+        return customPageRoute(
+            const AuthenticationView(), settings, fadeTransition);
+        break;
+      case Routes.deliveryAuthViewRoute:
+        return customPageRoute(
+            const DeliveryAuthView(), settings, fadeTransition);
+        break;
+      case Routes.clientAuthViewRoute:
+        return customPageRoute(const ClientAuthView(), settings, fadeTransition);
+        break;
+      case Routes.loginViewRoute:
+        initLoginModule();
+        return customPageRoute(LoginView(), settings, fadeTransition);
+        break;
+      case Routes.clientRegistrationViewRoute:
+        initClientRegistrationModule();
+        return customPageRoute(
+            ClientRegistrationView(), settings, slideTransitionFromLeft);
+        break;
+      case Routes.deliveryRegistrationView1Route:
+        initDeliveryRegistrationModule();
+        return customPageRoute(
+            DeliveryRegistrationView1(), settings, slideTransitionFromRight);
+        break;
+      case Routes.deliveryRegistrationView2Route:
+        initDeliveryRegistrationModule();
+        return customPageRoute(
+            DeliveryRegistrationView2(), settings, slideTransitionFromRight);
+        break;
+      case Routes.deliveryRegistrationRoleViewRoute:
+        initDeliveryRegistrationModule();
+        return customPageRoute(
+            DeliveryRegistrationRoleView(), settings, slideTransitionFromRight);
+        break;
+      case Routes.deliveryInteriorRegistrationViewRoute:
+        initDeliveryRegistrationModule();
+        return customPageRoute(DeliveryInteriorRegistrationView(), settings,
+            slideTransitionFromRight);
+        break;
+      case Routes.deliveryExternalRegistrationViewRoute:
+        initDeliveryRegistrationModule();
+        return customPageRoute(DeliveryExternalRegistrationView(), settings,
+            slideTransitionFromRight);
+        break;
+      case Routes.forgotPasswordViewRoute:
+        initForgotPasswordModule();
+        return customPageRoute(ForgotPasswordView(), settings, fadeTransition);
+        break;
+      case Routes.changePasswordViewRoute:
+        return customPageRoute(ChangePasswordView(), settings, fadeTransition);
+        break;
+      case Routes.emilVerificationViewRoute:
+        return customPageRoute(EmailVerificationView(), settings, fadeTransition);
+        break;
+      case Routes.noNetworkView:
+        return customPageRoute(NoNetworkView(), settings, fadeTransition);
+        break;
+      case Routes.noRoute:
+        print("no route");
+        return customPageRoute(
+          Scaffold(
+            appBar: AppBar(title: const Text(AppStrings.noRouteFound)),
+            body: const Center(child: Text(AppStrings.noRouteFound)),
+          ),
+          settings,
+          fadeTransition,
+        );
+        break;
+      default:
+        print("no route default");
+
+        return customPageRoute(
+          Scaffold(
+            //appBar: AppBar(title: const Text(AppStrings.noRouteFound)),
+            body: Container(),
+          ),
+          settings,
+          fadeTransition,
+        );
+    }
+  }else {
+
+    return customPageRoute(
+      Scaffold(
+        appBar: AppBar(title: const Text("not a physical device")),
+        body: const Center(child: Text("not a physical device X_X")),
+      ),
+      settings,
+      fadeTransition,
+    );
   }
+
 }
 
 // abstract class AppRouter {

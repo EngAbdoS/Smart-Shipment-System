@@ -1,3 +1,4 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
@@ -44,6 +45,9 @@ import 'package:smart_shipment_system/presentation/userProfile/viewModel/userPro
 final instance = GetIt.instance;
 
 Future<void> initAppModule() async {
+  final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+  instance.registerFactory<AndroidDeviceInfo>(()=>androidInfo);
   final sharedPrefs = await SharedPreferences.getInstance();
   instance.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
   instance.registerLazySingleton<InternetConnectionChecker>(
