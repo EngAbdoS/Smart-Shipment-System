@@ -1,6 +1,8 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_jailbreak_detection/flutter_jailbreak_detection.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,9 +47,10 @@ import 'package:smart_shipment_system/presentation/userProfile/viewModel/userPro
 final instance = GetIt.instance;
 
 Future<void> initAppModule() async {
-  final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+  final AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
+  final FlutterJailbreakDetection flutterJailbreakDetection = FlutterJailbreakDetection();
   instance.registerFactory<AndroidDeviceInfo>(()=>androidInfo);
+  instance.registerFactory<FlutterJailbreakDetection>(()=>flutterJailbreakDetection);
   final sharedPrefs = await SharedPreferences.getInstance();
   instance.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
   instance.registerLazySingleton<InternetConnectionChecker>(

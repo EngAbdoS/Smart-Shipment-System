@@ -46,7 +46,8 @@ dependencies:
   flutter_stripe: ^10.2.0
   flutter_secure_storage: ^9.2.2
   internet_connection_checker: ^1.0.0+1
-  device_info_plus: ^10.1.2
+  device_info_plus: ^9.1.0
+  flutter_jailbreak_detection: ^1.10.0
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_jailbreak_detection/flutter_jailbreak_detection.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:smart_shipment_system/.env.dart';
@@ -14,11 +15,20 @@ import 'package:device_info_plus/device_info_plus.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+  final AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
   if (!androidInfo.isPhysicalDevice) {
     print("not a physical device");
     toastWidget("not a physical device");
+    return;
+  }
+  if (await FlutterJailbreakDetection.jailbroken) {
+    print(" jailbroken");
+    toastWidget(" jailbroken");
+    return;
+  }
+  if (await FlutterJailbreakDetection.developerMode) {
+    print("developerMode");
+    toastWidget("developerMode");
     return;
   }
   Stripe.publishableKey = StripePublishableKey;
